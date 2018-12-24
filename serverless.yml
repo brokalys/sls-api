@@ -50,10 +50,15 @@ custom:
           - protocol: email
             endpoint: matiss@brokalys.com
     definitions:
+      functionThrottles:
+        treatMissingData: notBreaching
       functionErrors:
+        treatMissingData: notBreaching
+      functionInvocations:
         treatMissingData: notBreaching
       functionDuration:
         threshold: 1500
+        treatMissingData: notBreaching
     alarms:
       - functionThrottles
       - functionErrors
