@@ -1,0 +1,16 @@
+{
+  "name": "sls-map-api",
+  "version": "1.0.0",
+  "repository": "git@github.com:brokalys/sls-map-api.git",
+  "author": "Matiss Janis Aboltins <matiss@mja.lv>",
+  "license": "MIT",
+  "devDependencies": {
+    "serverless": "^1.35.1"
+  },
+  "dependencies": {
+    "moment": "^2.23.0",
+    "numbers": "^0.7.0",
+    "point-in-polygon": "^1.0.1",
+    "serverless-mysql": "^1.2.0"
+  }
+}
