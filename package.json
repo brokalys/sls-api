@@ -4,8 +4,10 @@
   "repository": "git@github.com:brokalys/sls-map-api.git",
   "author": "Matiss Janis Aboltins <matiss@mja.lv>",
   "license": "MIT",
-  "devDependencies": {
-    "serverless": "^1.35.1"
+  "scripts": {
+    "start": "serverless invoke local",
+    "deploy": "serverless deploy",
+    "deploy:ci": "yarn deploy --conceal"
   },
   "dependencies": {
     "joi": "^14.3.0",
@@ -15,5 +17,8 @@
     "serverless-domain-manager": "^2.6.10",
     "serverless-mysql": "^1.2.0",
     "serverless-plugin-aws-alerts": "^1.2.4"
+  },
+  "devDependencies": {
+    "serverless": "^1.35.1"
   }
 }
