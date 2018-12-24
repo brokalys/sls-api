@@ -12,20 +12,48 @@ provider:
     DB_DATABASE: ${file(serverless.env.yml):DB_DATABASE, env:DB_DATABASE}
     DB_USERNAME: ${file(serverless.env.yml):DB_USERNAME, env:DB_USERNAME}
     DB_PASSWORD: ${file(serverless.env.yml):DB_PASSWORD, env:DB_PASSWORD}
-  usagePlan:
-    quota:
-      limit: 5000
-      offset: 2
-      period: MONTH
-    throttle:
-      burstLimit: 200
-      rateLimit: 100
 
 functions:
-  api:
-    handler: src/api.handler
+  stats_regional_riga:
+    name: ApiStatsRegionalRiga
+    description: Stats for Riga region.
+    handler: src/stats_regional.handler
     events:
       - http:
-          path: api
+          path: stats/regional/riga/{category}/{type}
           method: get
-          cors: true
+          request:
+            parameters:
+              paths:
+                category: true
+                type: true
+          response:
+            headers:
+              Content-Type: "'application/json'"
+
+plugins:
+  - serverless-domain-manager
+  - serverless-plugin-aws-alerts
+
+custom:
+  customDomain:
+    domainName: api.brokalys.com
+    certificateName: '*.brokalys.com'
+    createRoute53Record: true
+    endpointType: edge
+
+  alerts:
+    topics:
+      alarm:
+        topic: ${self:service}-alerts-alarm
+        notifications:
+          - protocol: email
+            endpoint: matiss@brokalys.com
+    definitions:
+      functionErrors:
+        treatMissingData: notBreaching
+    alarms:
+      - functionThrottles
+      - functionErrors
+      - functionInvocations
+      - functionDuration

@@ -8,9 +8,12 @@
     "serverless": "^1.35.1"
   },
   "dependencies": {
+    "joi": "^14.3.0",
     "moment": "^2.23.0",
     "numbers": "^0.7.0",
     "point-in-polygon": "^1.0.1",
-    "serverless-mysql": "^1.2.0"
+    "serverless-domain-manager": "^2.6.10",
+    "serverless-mysql": "^1.2.0",
+    "serverless-plugin-aws-alerts": "^1.2.4"
   }
 }

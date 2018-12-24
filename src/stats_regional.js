@@ -6,18 +6,31 @@ const mysql = require('serverless-mysql')({
     password : process.env.DB_PASSWORD,
   },
 });
-const moment  = require('moment');
+const Joi = require('joi');
+const moment = require('moment');
 const numbers = require('numbers');
 const inside = require('point-in-polygon');
 
 const geojson = require('../data/riga-geojson.json');
 
-// @todo: should have server-side caching so that DB does not get loads of read requests
 exports.handler = async (event, context) => {
   context.callbackWaitsForEmptyEventLoop = false;
 
-  const type = 'sell'; // @todo: dynamic
-  const category = 'apartment';
+  const schema = Joi.object().keys({
+    category: Joi.string().valid('house', 'apartment', 'land').required(),
+    type: Joi.string().valid('sell', 'rent').required(),
+  });
+
+  const { error, value } = Joi.validate(event.pathParameters, schema);
+
+  if (error) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify(error),
+    };
+  }
+
+  const { type, category } = value;
   const start = moment.utc().startOf('month').toISOString();
   const end = moment.utc().endOf('month').toISOString();
 
@@ -53,9 +66,6 @@ exports.handler = async (event, context) => {
 
   return {
     statusCode: 200,
-    headers: {
-      'Content-Type': 'application/json',
-    },
     body: JSON.stringify(mappedRegions),
   };
 }
