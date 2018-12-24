@@ -52,6 +52,8 @@ custom:
     definitions:
       functionErrors:
         treatMissingData: notBreaching
+      functionDuration:
+        threshold: 1500
     alarms:
       - functionThrottles
       - functionErrors
