@@ -1,4 +1,4 @@
-service: sls-map-api
+service: sls-api
 
 provider:
   name: aws

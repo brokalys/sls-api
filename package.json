@@ -1,7 +1,7 @@
 {
-  "name": "sls-map-api",
+  "name": "sls-api",
   "version": "1.0.0",
-  "repository": "git@github.com:brokalys/sls-map-api.git",
+  "repository": "git@github.com:brokalys/sls-api.git",
   "author": "Matiss Janis Aboltins <matiss@mja.lv>",
   "license": "MIT",
   "scripts": {
