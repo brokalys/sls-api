@@ -11,9 +11,10 @@
 yarn install
 ```
 
-## Usage
+## Development
+Start a local development server.
 ```sh
-yarn start -- -f base-data-sell
+yarn start
 ```
 
 ## Deployment

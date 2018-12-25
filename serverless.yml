@@ -14,26 +14,24 @@ provider:
     DB_PASSWORD: ${file(serverless.env.yml):DB_PASSWORD, env:DB_PASSWORD}
 
 functions:
-  stats_regional_riga:
-    name: ApiStatsRegionalRiga
-    description: Stats for Riga region.
-    handler: src/stats_regional.handler
+  graphql:
+    name: GraphQLApi
+    description: GraphQL API of Brokalys.
+    handler: src/handler.graphqlHandler
     events:
-      - http:
-          path: stats/regional/riga/{category}/{type}
-          method: get
-          request:
-            parameters:
-              paths:
-                category: true
-                type: true
-          response:
-            headers:
-              Content-Type: "'application/json'"
+    # - http:
+    #     path: graphql
+    #     method: post
+    #     cors: true
+    - http:
+        path: graphql
+        method: get
+
 
 plugins:
   - serverless-domain-manager
   - serverless-plugin-aws-alerts
+  - serverless-offline
 
 custom:
   customDomain:

@@ -5,20 +5,23 @@
   "author": "Matiss Janis Aboltins <matiss@mja.lv>",
   "license": "MIT",
   "scripts": {
-    "start": "serverless invoke local",
+    "start": "serverless offline start",
     "deploy": "serverless deploy",
     "deploy:ci": "yarn deploy --conceal"
   },
   "dependencies": {
-    "joi": "^14.3.0",
+    "apollo-server-lambda": "^2.3.1",
+    "graphql": "^14.0.2",
+    "graphql-iso-date": "^3.6.1",
     "moment": "^2.23.0",
     "numbers": "^0.7.0",
-    "point-in-polygon": "^1.0.1",
-    "serverless-domain-manager": "^2.6.10",
-    "serverless-mysql": "^1.2.0",
-    "serverless-plugin-aws-alerts": "^1.2.4"
+    "point-in-polygon": "^1.0.1"
   },
   "devDependencies": {
-    "serverless": "^1.35.1"
+    "serverless": "^1.35.1",
+    "serverless-domain-manager": "^2.6.10",
+    "serverless-mysql": "^1.2.0",
+    "serverless-offline": "^3.31.3",
+    "serverless-plugin-aws-alerts": "^1.2.4"
   }
 }
