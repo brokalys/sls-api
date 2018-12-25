@@ -25,6 +25,10 @@ async function getRegionalStats(root, args) {
     throw new UserInputError('End date must come after start date');
   }
 
+  if (end.isAfter(moment.utc())) {
+    throw new UserInputError('End date must not be after today');
+  }
+
   if (start.isBefore('2018-01-01')) {
     throw new UserInputError('Start date must be after `2018-01-01`');
   }
