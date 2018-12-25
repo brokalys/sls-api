@@ -32,6 +32,7 @@
     "serverless-plugin-aws-alerts": "^1.2.4",
     "serverless-webpack": "^5.2.0",
     "webpack": "^4.28.2",
+    "webpack-graphql-loader": "^1.0.0",
     "webpack-node-externals": "^1.7.2"
   }
 }

@@ -11,14 +11,15 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        use: [
-          {
-            loader: 'babel-loader',
-            options: {
-              presets: [['env', { targets: { node: '8.10' } }]],
-            },
-          },
-        ],
+        loader: 'babel-loader',
+        options: {
+          presets: [['env', { targets: { node: '8.10' } }]],
+        },
+      },
+
+      {
+        test: /\.graphql?$/,
+        loader: 'webpack-graphql-loader',
       },
     ],
   },

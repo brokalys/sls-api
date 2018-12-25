@@ -1,12 +1,11 @@
-exports.schema = `
 scalar Date
 
 type Query {
   getRegionalStats(
-    category: Category!,
-    type: Type!,
-    start_date: Date!,
-    end_date: Date!,
+    category: Category!
+    type: Type!
+    start_date: Date!
+    end_date: Date!
   ): [RegionStats!]
 }
 
@@ -30,7 +29,3 @@ type RegionStats {
   mode: Float
   standardDev: Float
 }
-
-schema {
-  query: Query
-}`;

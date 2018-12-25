@@ -1,7 +1,13 @@
-const { GraphQLDate } = require('graphql-iso-date');
-const { UserInputError } = require('apollo-server-lambda');
+import { GraphQLDate } from 'graphql-iso-date';
+import { UserInputError } from 'apollo-server-lambda';
+import serverlessMysql from 'serverless-mysql';
+import moment from 'moment';
+import numbers from 'numbers';
+import inside from 'point-in-polygon';
 
-const mysql = require('serverless-mysql')({
+import geojson from '../data/riga-geojson.json';
+
+const mysql = serverlessMysql({
   config: {
     host: process.env.DB_HOST,
     database: process.env.DB_DATABASE,
@@ -9,11 +15,6 @@ const mysql = require('serverless-mysql')({
     password: process.env.DB_PASSWORD,
   },
 });
-const moment = require('moment');
-const numbers = require('numbers');
-const inside = require('point-in-polygon');
-
-const geojson = require('../data/riga-geojson.json');
 
 async function getRegionalStats(root, args) {
   const category = args.category.toLowerCase();
