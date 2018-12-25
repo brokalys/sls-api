@@ -19,10 +19,10 @@ functions:
     description: GraphQL API of Brokalys.
     handler: src/handler.graphqlHandler
     events:
-      # - http:
-      #     path: graphql
-      #     method: post
-      #     cors: true
+      - http:
+          path: /
+          method: post
+          cors: true
       - http:
           path: /
           method: get
