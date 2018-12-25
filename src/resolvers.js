@@ -21,6 +21,14 @@ async function getRegionalStats(root, args) {
   const start = moment.utc(args.start_date);
   const end = moment.utc(args.end_date);
 
+  if (end.isBefore(start)) {
+    throw new UserInputError('End date must come after start date');
+  }
+
+  if (start.isBefore('2018-01-01')) {
+    throw new UserInputError('Start date must be after `2018-01-01`');
+  }
+
   if (end.diff(start, 'months', true) > 1) {
     throw new UserInputError(
       'Difference between start and end date must not be bigger than 1 month',
