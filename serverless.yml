@@ -29,6 +29,7 @@ functions:
 
 
 plugins:
+  - serverless-webpack
   - serverless-domain-manager
   - serverless-plugin-aws-alerts
   - serverless-offline
@@ -62,3 +63,6 @@ custom:
       - functionErrors
       - functionInvocations
       - functionDuration
+  webpack:
+    includeModules: true
+    packager: yarn
