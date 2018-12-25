@@ -32,6 +32,8 @@ async function getRegionalStats(root, args) {
     polygons: feature.geometry.coordinates,
   }));
 
+  await mysql.connect();
+
   const connection = mysql.getClient();
 
   const data = await mysql.query({
