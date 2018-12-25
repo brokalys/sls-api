@@ -3,10 +3,10 @@ const { UserInputError } = require('apollo-server-lambda');
 
 const mysql = require('serverless-mysql')({
   config: {
-    host     : process.env.DB_HOST,
-    database : process.env.DB_DATABASE,
-    user     : process.env.DB_USERNAME,
-    password : process.env.DB_PASSWORD,
+    host: process.env.DB_HOST,
+    database: process.env.DB_DATABASE,
+    user: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
   },
 });
 const moment = require('moment');
@@ -22,7 +22,9 @@ async function getRegionalStats(root, args) {
   const end = moment.utc(args.end_date);
 
   if (end.diff(start, 'months', true) > 1) {
-    throw new UserInputError('Difference between start and end date must not be bigger than 1 month');
+    throw new UserInputError(
+      'Difference between start and end date must not be bigger than 1 month',
+    );
   }
 
   const regions = geojson.features.map((feature) => ({
@@ -43,7 +45,12 @@ async function getRegionalStats(root, args) {
       AND price > 1
     `,
 
-    values: [start.toISOString(), end.endOf('day').toISOString(), category, type],
+    values: [
+      start.toISOString(),
+      end.endOf('day').toISOString(),
+      category,
+      type,
+    ],
   });
 
   await mysql.end();
@@ -51,9 +58,11 @@ async function getRegionalStats(root, args) {
   return regions
     .map((region) => ({
       ...region,
-      prices: data.filter(({ lat, lng }) =>
-        region.polygons.find((polygon) => inside([lng, lat], polygon))
-      ).map(({ price }) => price),
+      prices: data
+        .filter(({ lat, lng }) =>
+          region.polygons.find((polygon) => inside([lng, lat], polygon)),
+        )
+        .map(({ price }) => price),
     }))
     .map((region) => ({
       name: region.name,

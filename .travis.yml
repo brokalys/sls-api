@@ -8,8 +8,10 @@ cache:
     - node_modules
 
 script:
-  - yarn deploy:ci
+  - yarn lint
 
-branches:
-  only:
-    - master
+deploy:
+  provider: script
+  script: yarn deploy:ci
+  on:
+    branch: master

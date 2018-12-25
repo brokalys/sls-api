@@ -6,6 +6,7 @@
   "license": "MIT",
   "scripts": {
     "start": "serverless offline start",
+    "lint": "eslint src",
     "deploy": "serverless deploy",
     "deploy:ci": "yarn deploy --conceal"
   },
@@ -18,6 +19,9 @@
     "point-in-polygon": "^1.0.1"
   },
   "devDependencies": {
+    "eslint": "^5.11.0",
+    "eslint-plugin-prettier": "^3.0.0",
+    "prettier": "^1.15.3",
     "serverless": "^1.35.1",
     "serverless-domain-manager": "^2.6.10",
     "serverless-mysql": "^1.2.0",
