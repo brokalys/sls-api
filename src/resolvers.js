@@ -40,17 +40,18 @@ async function getRegionalStats(root, args) {
       FROM properties
       WHERE published_at BETWEEN ? AND ?
       ${type ? `AND type = ${connection.escape(type.toLowerCase())}` : ''}
-      ${category ? `AND category = ${connection.escape(category.toLowerCase())}` : ''}
+      ${
+        category
+          ? `AND category = ${connection.escape(category.toLowerCase())}`
+          : ''
+      }
       AND lat IS NOT NULL
       AND lng IS NOT NULL
       AND location_country = "Latvia"
       AND price > 1
     `,
 
-    values: [
-      start.toISOString(),
-      end.endOf('day').toISOString(),
-    ],
+    values: [start.toISOString(), end.endOf('day').toISOString()],
   });
 
   await mysql.end();
