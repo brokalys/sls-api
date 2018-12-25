@@ -26,6 +26,6 @@ type RegionStats {
   max: Int
   mean: Float
   median: Float
-  mode: Float
+  mode: Int
   standardDev: Float
 }

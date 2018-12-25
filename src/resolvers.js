@@ -68,8 +68,8 @@ async function getRegionalStats(root, args) {
     .map((region) => ({
       name: region.name,
       count: region.prices.length,
-      min: numbers.basic.min(region.prices),
-      max: numbers.basic.max(region.prices),
+      min: region.prices.length ? numbers.basic.min(region.prices) : null,
+      max: region.prices.length ? numbers.basic.max(region.prices) : null,
       mean: numbers.statistic.mean(region.prices),
       median: numbers.statistic.median(region.prices),
       mode: numbers.statistic.mode(region.prices),

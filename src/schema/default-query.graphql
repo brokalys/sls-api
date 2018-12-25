@@ -1,0 +1,17 @@
+{
+  getRegionalStats(
+    category: APARTMENT,
+    type: SELL,
+    start_date: "2018-01-01",
+    end_date: "2018-02-01"
+  ) {
+    name
+    count
+    min
+    max
+    mean
+    median
+    mode
+    standardDev
+  }
+}
