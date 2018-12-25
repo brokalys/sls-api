@@ -17,8 +17,7 @@ const mysql = serverlessMysql({
 });
 
 async function getRegionalStats(root, args) {
-  const category = args.category.toLowerCase();
-  const type = args.type.toLowerCase();
+  const { category, type } = args;
   const start = moment.utc(args.start_date);
   const end = moment.utc(args.end_date);
 
@@ -33,13 +32,15 @@ async function getRegionalStats(root, args) {
     polygons: feature.geometry.coordinates,
   }));
 
+  const connection = mysql.getClient();
+
   const data = await mysql.query({
     sql: `
       SELECT price, lat, lng
       FROM properties
       WHERE published_at BETWEEN ? AND ?
-      AND category = ?
-      AND type = ?
+      ${type ? `AND type = ${connection.escape(type.toLowerCase())}` : ''}
+      ${category ? `AND category = ${connection.escape(category.toLowerCase())}` : ''}
       AND lat IS NOT NULL
       AND lng IS NOT NULL
       AND location_country = "Latvia"
@@ -49,8 +50,6 @@ async function getRegionalStats(root, args) {
     values: [
       start.toISOString(),
       end.endOf('day').toISOString(),
-      category,
-      type,
     ],
   });
 

@@ -2,8 +2,8 @@ scalar Date
 
 type Query {
   getRegionalStats(
-    category: Category!
-    type: Type!
+    category: Category
+    type: Type
     start_date: Date!
     end_date: Date!
   ): [RegionStats!]
@@ -22,10 +22,10 @@ enum Type {
 type RegionStats {
   name: String!
   count: Int!
-  min: Int
-  max: Int
+  min: Float
+  max: Float
   mean: Float
   median: Float
-  mode: Int
+  mode: Float
   standardDev: Float
 }
