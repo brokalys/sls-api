@@ -3,15 +3,12 @@ language: node_js
 node_js:
   - node
 
-cache:
-  directories:
-    - node_modules
+branches:
+  only:
+    - master
+
+cache: yarn
 
 script:
   - yarn lint
-
-deploy:
-  provider: script
-  script: yarn deploy:ci
-  on:
-    branch: master
+  - yarn deploy:ci
