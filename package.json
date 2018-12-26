@@ -18,6 +18,7 @@
     "moment": "^2.23.0",
     "numbers": "^0.7.0",
     "point-in-polygon": "^1.0.1",
+    "rollbar": "^2.5.1",
     "serverless-mysql": "^1.2.0"
   },
   "devDependencies": {

@@ -1,7 +1,11 @@
 import { ApolloServer } from 'apollo-server-lambda';
+import Rollbar from 'rollbar';
+
 import defaultQuery from './schema/default-query.graphql';
 import schema from './schema/schema.graphql';
 import { resolvers } from './resolvers';
+
+const rollbar = new Rollbar({ accessToken: process.env.ROLLBAR_API_KEY });
 
 export const server = new ApolloServer({
   typeDefs: schema,
@@ -18,9 +22,8 @@ export const server = new ApolloServer({
   formatError: (error) => {
     if (process.env.NODE_ENV !== 'test') {
       console.log(error);
+      rollbar.error(error);
     }
-
-    // @todo: bugsnag
 
     delete error.extensions.exception;
     return error;
