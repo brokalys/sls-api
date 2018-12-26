@@ -1,9 +1,114 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Query getRegionalStats fails validation if start date is past end date 1`] = `
+exports[`Query region fails validation if name is not defined 1`] = `
+Object {
+  "data": undefined,
+  "errors": Array [
+    [ValidationError: Field "region" argument "name" of type "String!" is required but not provided.],
+  ],
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
+exports[`Query region fails validation if start date is past end date 1`] = `
+Object {
+  "data": null,
+  "errors": Array [
+    [GraphQLError: End date must come after start date],
+  ],
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
+exports[`Query region fetches stats for a single region with a defined category and type 1`] = `
 Object {
   "data": Object {
-    "getRegionalStats": null,
+    "region": Object {
+      "name": "Āgenskalns",
+      "price": Object {
+        "count": 2,
+        "max": 170000,
+        "mean": 140000,
+        "median": 140000,
+        "min": 110000,
+        "mode": 110000,
+        "standardDev": 30000,
+      },
+      "price_per_sqm": Object {
+        "count": 1,
+        "max": 100,
+        "mean": 100,
+        "median": 100,
+        "min": 100,
+        "mode": 100,
+        "standardDev": null,
+      },
+    },
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
+exports[`Query region fetches stats for a single region with all categories and types 1`] = `
+Object {
+  "data": Object {
+    "region": Object {
+      "name": "Āgenskalns",
+      "price": Object {
+        "count": 3,
+      },
+    },
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
+exports[`Query region fetches stats for a single region with uppercased region name 1`] = `
+Object {
+  "data": Object {
+    "region": Object {
+      "name": "Āgenskalns",
+      "price": Object {
+        "count": 3,
+      },
+    },
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
+exports[`Query regions fails validation if start date is past end date 1`] = `
+Object {
+  "data": Object {
+    "regions": null,
   },
   "errors": Array [
     [GraphQLError: End date must come after start date],
@@ -17,18 +122,1231 @@ Object {
 }
 `;
 
-exports[`Query getRegionalStats fetches stats for each region with a defined category and type 1`] = `
+exports[`Query regions fetches stats for each region with a defined category and type 1`] = `
 Object {
-  "data": undefined,
-  "errors": Array [
-    [ValidationError: Cannot query field "count" on type "RegionStats".],
-    [ValidationError: Cannot query field "min" on type "RegionStats".],
-    [ValidationError: Cannot query field "max" on type "RegionStats".],
-    [ValidationError: Cannot query field "mean" on type "RegionStats".],
-    [ValidationError: Cannot query field "median" on type "RegionStats".],
-    [ValidationError: Cannot query field "mode" on type "RegionStats".],
-    [ValidationError: Cannot query field "standardDev" on type "RegionStats".],
-  ],
+  "data": Object {
+    "regions": Array [
+      Object {
+        "name": "Āgenskalns",
+        "price": Object {
+          "count": 2,
+          "max": 170000,
+          "mean": 140000,
+          "median": 140000,
+          "min": 110000,
+          "mode": 110000,
+          "standardDev": 30000,
+        },
+        "price_per_sqm": Object {
+          "count": 1,
+          "max": 100,
+          "mean": 100,
+          "median": 100,
+          "min": 100,
+          "mode": 100,
+          "standardDev": null,
+        },
+      },
+      Object {
+        "name": "Atgāzene",
+        "price": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+        "price_per_sqm": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+      },
+      Object {
+        "name": "Avoti",
+        "price": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+        "price_per_sqm": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+      },
+      Object {
+        "name": "Beberbeķi",
+        "price": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+        "price_per_sqm": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+      },
+      Object {
+        "name": "Berģi",
+        "price": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+        "price_per_sqm": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+      },
+      Object {
+        "name": "Bieriņi",
+        "price": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+        "price_per_sqm": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+      },
+      Object {
+        "name": "Bišumuiža",
+        "price": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+        "price_per_sqm": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+      },
+      Object {
+        "name": "Bolderāja",
+        "price": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+        "price_per_sqm": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+      },
+      Object {
+        "name": "Brasa",
+        "price": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+        "price_per_sqm": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+      },
+      Object {
+        "name": "Brekši",
+        "price": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+        "price_per_sqm": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+      },
+      Object {
+        "name": "Bukulti",
+        "price": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+        "price_per_sqm": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+      },
+      Object {
+        "name": "Buļļi",
+        "price": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+        "price_per_sqm": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+      },
+      Object {
+        "name": "Centrs",
+        "price": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+        "price_per_sqm": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+      },
+      Object {
+        "name": "Čiekurkalns",
+        "price": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+        "price_per_sqm": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+      },
+      Object {
+        "name": "Daugavgrīva",
+        "price": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+        "price_per_sqm": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+      },
+      Object {
+        "name": "Dreiliņi",
+        "price": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+        "price_per_sqm": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+      },
+      Object {
+        "name": "Dzirciems",
+        "price": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+        "price_per_sqm": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+      },
+      Object {
+        "name": "Dārzciems",
+        "price": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+        "price_per_sqm": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+      },
+      Object {
+        "name": "Dārziņi",
+        "price": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+        "price_per_sqm": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+      },
+      Object {
+        "name": "Grīziņkalns",
+        "price": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+        "price_per_sqm": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+      },
+      Object {
+        "name": "Imanta",
+        "price": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+        "price_per_sqm": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+      },
+      Object {
+        "name": "Iļģuciems",
+        "price": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+        "price_per_sqm": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+      },
+      Object {
+        "name": "Jaunciems",
+        "price": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+        "price_per_sqm": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+      },
+      Object {
+        "name": "Jugla",
+        "price": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+        "price_per_sqm": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+      },
+      Object {
+        "name": "Katlakalns",
+        "price": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+        "price_per_sqm": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+      },
+      Object {
+        "name": "Kleisti",
+        "price": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+        "price_per_sqm": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+      },
+      Object {
+        "name": "Kundziņsala",
+        "price": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+        "price_per_sqm": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+      },
+      Object {
+        "name": "Ķengarags",
+        "price": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+        "price_per_sqm": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+      },
+      Object {
+        "name": "Ķīpsala",
+        "price": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+        "price_per_sqm": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+      },
+      Object {
+        "name": "Mangaļsala",
+        "price": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+        "price_per_sqm": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+      },
+      Object {
+        "name": "Maskavas forstate",
+        "price": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+        "price_per_sqm": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+      },
+      Object {
+        "name": "Mežaparks",
+        "price": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+        "price_per_sqm": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+      },
+      Object {
+        "name": "Mežciems",
+        "price": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+        "price_per_sqm": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+      },
+      Object {
+        "name": "Mīlgrāvis",
+        "price": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+        "price_per_sqm": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+      },
+      Object {
+        "name": "Mūkupurvs",
+        "price": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+        "price_per_sqm": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+      },
+      Object {
+        "name": "Pleskodāle",
+        "price": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+        "price_per_sqm": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+      },
+      Object {
+        "name": "Purvciems",
+        "price": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+        "price_per_sqm": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+      },
+      Object {
+        "name": "Pētersala-Andrejsala",
+        "price": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+        "price_per_sqm": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+      },
+      Object {
+        "name": "Pļavnieki",
+        "price": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+        "price_per_sqm": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+      },
+      Object {
+        "name": "Rumbula",
+        "price": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+        "price_per_sqm": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+      },
+      Object {
+        "name": "Salas",
+        "price": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+        "price_per_sqm": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+      },
+      Object {
+        "name": "Sarkandaugava",
+        "price": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+        "price_per_sqm": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+      },
+      Object {
+        "name": "Skanste",
+        "price": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+        "price_per_sqm": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+      },
+      Object {
+        "name": "Šķirotava",
+        "price": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+        "price_per_sqm": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+      },
+      Object {
+        "name": "Spilve",
+        "price": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+        "price_per_sqm": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+      },
+      Object {
+        "name": "Suži",
+        "price": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+        "price_per_sqm": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+      },
+      Object {
+        "name": "Šampēteris",
+        "price": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+        "price_per_sqm": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+      },
+      Object {
+        "name": "Teika",
+        "price": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+        "price_per_sqm": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+      },
+      Object {
+        "name": "Torņakalns",
+        "price": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+        "price_per_sqm": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+      },
+      Object {
+        "name": "Trīsciems",
+        "price": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+        "price_per_sqm": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+      },
+      Object {
+        "name": "Vecdaugava",
+        "price": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+        "price_per_sqm": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+      },
+      Object {
+        "name": "Vecmilgrāvis",
+        "price": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+        "price_per_sqm": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+      },
+      Object {
+        "name": "Vecpilsēta",
+        "price": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+        "price_per_sqm": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+      },
+      Object {
+        "name": "Vecāķi",
+        "price": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+        "price_per_sqm": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+      },
+      Object {
+        "name": "Voleri",
+        "price": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+        "price_per_sqm": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+      },
+      Object {
+        "name": "Zasulauks",
+        "price": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+        "price_per_sqm": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+      },
+      Object {
+        "name": "Ziepniekkalns",
+        "price": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+        "price_per_sqm": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+      },
+      Object {
+        "name": "Zolitūde",
+        "price": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+        "price_per_sqm": Object {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "mode": null,
+          "standardDev": null,
+        },
+      },
+    ],
+  },
+  "errors": undefined,
   "extensions": undefined,
   "http": Object {
     "headers": Headers {
@@ -38,18 +1356,361 @@ Object {
 }
 `;
 
-exports[`Query getRegionalStats fetches stats for each region with all categories and types 1`] = `
+exports[`Query regions fetches stats for each region with all categories and types 1`] = `
 Object {
-  "data": undefined,
-  "errors": Array [
-    [ValidationError: Cannot query field "count" on type "RegionStats".],
-    [ValidationError: Cannot query field "min" on type "RegionStats".],
-    [ValidationError: Cannot query field "max" on type "RegionStats".],
-    [ValidationError: Cannot query field "mean" on type "RegionStats".],
-    [ValidationError: Cannot query field "median" on type "RegionStats".],
-    [ValidationError: Cannot query field "mode" on type "RegionStats".],
-    [ValidationError: Cannot query field "standardDev" on type "RegionStats".],
-  ],
+  "data": Object {
+    "regions": Array [
+      Object {
+        "name": "Āgenskalns",
+        "price": Object {
+          "count": 3,
+        },
+      },
+      Object {
+        "name": "Atgāzene",
+        "price": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "name": "Avoti",
+        "price": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "name": "Beberbeķi",
+        "price": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "name": "Berģi",
+        "price": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "name": "Bieriņi",
+        "price": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "name": "Bišumuiža",
+        "price": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "name": "Bolderāja",
+        "price": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "name": "Brasa",
+        "price": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "name": "Brekši",
+        "price": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "name": "Bukulti",
+        "price": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "name": "Buļļi",
+        "price": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "name": "Centrs",
+        "price": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "name": "Čiekurkalns",
+        "price": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "name": "Daugavgrīva",
+        "price": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "name": "Dreiliņi",
+        "price": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "name": "Dzirciems",
+        "price": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "name": "Dārzciems",
+        "price": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "name": "Dārziņi",
+        "price": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "name": "Grīziņkalns",
+        "price": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "name": "Imanta",
+        "price": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "name": "Iļģuciems",
+        "price": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "name": "Jaunciems",
+        "price": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "name": "Jugla",
+        "price": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "name": "Katlakalns",
+        "price": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "name": "Kleisti",
+        "price": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "name": "Kundziņsala",
+        "price": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "name": "Ķengarags",
+        "price": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "name": "Ķīpsala",
+        "price": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "name": "Mangaļsala",
+        "price": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "name": "Maskavas forstate",
+        "price": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "name": "Mežaparks",
+        "price": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "name": "Mežciems",
+        "price": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "name": "Mīlgrāvis",
+        "price": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "name": "Mūkupurvs",
+        "price": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "name": "Pleskodāle",
+        "price": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "name": "Purvciems",
+        "price": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "name": "Pētersala-Andrejsala",
+        "price": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "name": "Pļavnieki",
+        "price": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "name": "Rumbula",
+        "price": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "name": "Salas",
+        "price": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "name": "Sarkandaugava",
+        "price": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "name": "Skanste",
+        "price": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "name": "Šķirotava",
+        "price": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "name": "Spilve",
+        "price": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "name": "Suži",
+        "price": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "name": "Šampēteris",
+        "price": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "name": "Teika",
+        "price": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "name": "Torņakalns",
+        "price": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "name": "Trīsciems",
+        "price": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "name": "Vecdaugava",
+        "price": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "name": "Vecmilgrāvis",
+        "price": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "name": "Vecpilsēta",
+        "price": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "name": "Vecāķi",
+        "price": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "name": "Voleri",
+        "price": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "name": "Zasulauks",
+        "price": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "name": "Ziepniekkalns",
+        "price": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "name": "Zolitūde",
+        "price": Object {
+          "count": 0,
+        },
+      },
+    ],
+  },
+  "errors": undefined,
   "extensions": undefined,
   "http": Object {
     "headers": Headers {

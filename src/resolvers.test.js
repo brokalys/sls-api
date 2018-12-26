@@ -4,11 +4,11 @@ import { resolvers } from './resolvers';
 
 jest.mock('serverless-mysql');
 
-describe('getRegionalStats', () => {
+describe('regions', () => {
   describe('validation', () => {
     test('end date must come after start date', async () => {
       try {
-        await resolvers.Query.getRegionalStats(
+        await resolvers.Query.regions(
           {},
           {
             start_date: '2018-01-01',
@@ -24,7 +24,7 @@ describe('getRegionalStats', () => {
 
     test('end date must not be greater than today', async () => {
       try {
-        await resolvers.Query.getRegionalStats(
+        await resolvers.Query.regions(
           {},
           {
             start_date: '2018-01-01',
@@ -40,7 +40,7 @@ describe('getRegionalStats', () => {
 
     test('start date cannot be prior to 2018-01-01', async () => {
       try {
-        await resolvers.Query.getRegionalStats(
+        await resolvers.Query.regions(
           {},
           {
             start_date: '2017-12-01',
@@ -56,7 +56,7 @@ describe('getRegionalStats', () => {
 
     describe('difference between start and end date cannot be greater than a month', async () => {
       test('valid', async () => {
-        const output = await resolvers.Query.getRegionalStats(
+        const output = await resolvers.Query.regions(
           {},
           {
             start_date: '2018-01-01',
@@ -69,7 +69,7 @@ describe('getRegionalStats', () => {
 
       test('invalid', async () => {
         try {
-          await resolvers.Query.getRegionalStats(
+          await resolvers.Query.regions(
             {},
             {
               start_date: '2018-01-01',
@@ -89,7 +89,7 @@ describe('getRegionalStats', () => {
 
   describe('response', () => {
     test('returns Āgenskalns region with statistical data', async () => {
-      const output = await resolvers.Query.getRegionalStats(
+      const output = await resolvers.Query.regions(
         {},
         {
           start_date: '2018-01-01',
@@ -121,7 +121,7 @@ describe('getRegionalStats', () => {
     });
 
     test('returns the proper datatypes for regions without data', async () => {
-      const output = await resolvers.Query.getRegionalStats(
+      const output = await resolvers.Query.regions(
         {},
         {
           start_date: '2018-01-01',
@@ -148,6 +148,43 @@ describe('getRegionalStats', () => {
           median: null,
           mode: null,
           standardDev: null,
+        },
+      });
+    });
+  });
+});
+
+describe('region', () => {
+  describe('response', () => {
+    test('returns Āgenskalns region with statistical data', async () => {
+      const output = await resolvers.Query.region(
+        {},
+        {
+          name: 'Āgenskalns',
+          start_date: '2018-01-01',
+          end_date: '2018-02-01',
+        },
+      );
+
+      expect(output).toEqual({
+        name: 'Āgenskalns',
+        price: {
+          count: 3,
+          min: jasmine.any(Number),
+          max: jasmine.any(Number),
+          mean: jasmine.any(Number),
+          median: jasmine.any(Number),
+          mode: jasmine.any(Number),
+          standardDev: jasmine.any(Number),
+        },
+        price_per_sqm: {
+          count: 2,
+          min: jasmine.any(Number),
+          max: jasmine.any(Number),
+          mean: jasmine.any(Number),
+          median: jasmine.any(Number),
+          mode: jasmine.any(Number),
+          standardDev: jasmine.any(Number),
         },
       });
     });

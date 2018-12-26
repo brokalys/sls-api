@@ -16,7 +16,7 @@ const mysql = serverlessMysql({
   },
 });
 
-async function getRegionalStats(root, args) {
+async function regions(root, args) {
   const { category, type } = args;
   const start = moment.utc(args.start_date);
   const end = moment.utc(args.end_date);
@@ -116,9 +116,17 @@ async function getRegionalStats(root, args) {
     }));
 }
 
+async function region(root, args) {
+  const name = args.name.toLowerCase();
+  const data = await regions(root, args);
+
+  return data.find((row) => row.name.toLowerCase() === name);
+}
+
 exports.resolvers = {
   Date: GraphQLDate,
   Query: {
-    getRegionalStats,
+    regions,
+    region,
   },
 };

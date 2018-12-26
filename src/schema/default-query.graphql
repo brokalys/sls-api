@@ -1,5 +1,5 @@
 {
-  getRegionalStats(
+  regions(
     category: APARTMENT
     type: SELL
     start_date: "2018-01-01"

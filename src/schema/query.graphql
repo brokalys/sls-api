@@ -1,12 +1,20 @@
 scalar Date
 
 type Query {
-  getRegionalStats(
+  regions(
     category: Category
     type: Type
     start_date: Date!
     end_date: Date!
   ): [RegionStats!]
+
+  region(
+    name: String!
+    category: Category
+    type: Type
+    start_date: Date!
+    end_date: Date!
+  ): RegionStats!
 }
 
 enum Category {
