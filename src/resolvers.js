@@ -42,9 +42,9 @@ async function getRegionalStats(root, args) {
   await mysql.connect();
   const connection = mysql.getClient();
 
-  const data = await mysql.query({
+  const data = (await mysql.query({
     sql: `
-      SELECT price, lat, lng
+      SELECT price, lat, lng, area, area_measurement, price_per_sqm
       FROM properties
       WHERE published_at BETWEEN ? AND ?
       ${type ? `AND type = ${connection.escape(type.toLowerCase())}` : ''}
@@ -60,6 +60,12 @@ async function getRegionalStats(root, args) {
     `,
 
     values: [start.toISOString(), end.endOf('day').toISOString()],
+  })).map((row) => {
+    if (!row.price_per_sqm && row.area_measurement === 'm2' && row.area) {
+      row.price_per_sqm = row.price / row.area;
+    }
+
+    return row;
   });
 
   await mysql.end();
@@ -69,23 +75,44 @@ async function getRegionalStats(root, args) {
       name: feature.properties.apkaime,
       polygons: feature.geometry.coordinates,
     }))
-    .map((region) => ({
-      ...region,
-      prices: data
-        .filter(({ lat, lng }) =>
-          region.polygons.find((polygon) => inside([lng, lat], polygon)),
-        )
-        .map(({ price }) => price),
-    }))
+    .map((region) => {
+      const filteredData = data.filter(
+        ({ lat, lng }) =>
+          region.polygons.find((polygon) => inside([lng, lat], polygon)), // @todo: optimize
+      );
+
+      region.prices = filteredData.map(({ price }) => price);
+
+      region.pricesPerSqm = filteredData
+        .filter(({ price_per_sqm }) => !!price_per_sqm)
+        .map(({ price_per_sqm }) => price_per_sqm);
+
+      return region;
+    })
     .map((region) => ({
       name: region.name,
-      count: region.prices.length,
-      min: region.prices.length ? numbers.basic.min(region.prices) : null,
-      max: region.prices.length ? numbers.basic.max(region.prices) : null,
-      mean: numbers.statistic.mean(region.prices) || null,
-      median: numbers.statistic.median(region.prices) || null,
-      mode: numbers.statistic.mode(region.prices) || null,
-      standardDev: numbers.statistic.standardDev(region.prices) || null,
+      price: {
+        count: region.prices.length,
+        min: region.prices.length ? numbers.basic.min(region.prices) : null,
+        max: region.prices.length ? numbers.basic.max(region.prices) : null,
+        mean: numbers.statistic.mean(region.prices) || null,
+        median: numbers.statistic.median(region.prices) || null,
+        mode: numbers.statistic.mode(region.prices) || null,
+        standardDev: numbers.statistic.standardDev(region.prices) || null,
+      },
+      price_per_sqm: {
+        count: region.pricesPerSqm.length,
+        min: region.pricesPerSqm.length
+          ? numbers.basic.min(region.pricesPerSqm)
+          : null,
+        max: region.pricesPerSqm.length
+          ? numbers.basic.max(region.pricesPerSqm)
+          : null,
+        mean: numbers.statistic.mean(region.pricesPerSqm) || null,
+        median: numbers.statistic.median(region.pricesPerSqm) || null,
+        mode: numbers.statistic.mode(region.pricesPerSqm) || null,
+        standardDev: numbers.statistic.standardDev(region.pricesPerSqm) || null,
+      },
     }));
 }
 

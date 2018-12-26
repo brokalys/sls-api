@@ -6,12 +6,23 @@
     end_date: "2018-02-01"
   ) {
     name
-    count
-    min
-    max
-    mean
-    median
-    mode
-    standardDev
+    price {
+      count
+      min
+      max
+      mean
+      median
+      mode
+      standardDev
+    }
+    price_per_sqm {
+      count
+      min
+      max
+      mean
+      median
+      mode
+      standardDev
+    }
   }
 }

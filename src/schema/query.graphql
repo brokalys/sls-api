@@ -21,6 +21,11 @@ enum Type {
 
 type RegionStats {
   name: String!
+  price: RegionPriceStats
+  price_per_sqm: RegionPriceStats
+}
+
+type RegionPriceStats {
   count: Int!
   min: Float
   max: Float

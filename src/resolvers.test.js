@@ -99,13 +99,24 @@ describe('getRegionalStats', () => {
 
       expect(output).toContainEqual({
         name: 'Āgenskalns',
-        count: 3,
-        min: jasmine.any(Number),
-        max: jasmine.any(Number),
-        mean: jasmine.any(Number),
-        median: jasmine.any(Number),
-        mode: jasmine.any(Number),
-        standardDev: jasmine.any(Number),
+        price: {
+          count: 3,
+          min: jasmine.any(Number),
+          max: jasmine.any(Number),
+          mean: jasmine.any(Number),
+          median: jasmine.any(Number),
+          mode: jasmine.any(Number),
+          standardDev: jasmine.any(Number),
+        },
+        price_per_sqm: {
+          count: 2,
+          min: jasmine.any(Number),
+          max: jasmine.any(Number),
+          mean: jasmine.any(Number),
+          median: jasmine.any(Number),
+          mode: jasmine.any(Number),
+          standardDev: jasmine.any(Number),
+        },
       });
     });
 
@@ -120,13 +131,24 @@ describe('getRegionalStats', () => {
 
       expect(output).toContainEqual({
         name: 'Voleri',
-        count: 0,
-        min: null,
-        max: null,
-        mean: null,
-        median: null,
-        mode: null,
-        standardDev: null,
+        price: {
+          count: 0,
+          min: null,
+          max: null,
+          mean: null,
+          median: null,
+          mode: null,
+          standardDev: null,
+        },
+        price_per_sqm: {
+          count: 0,
+          min: null,
+          max: null,
+          mean: null,
+          median: null,
+          mode: null,
+          standardDev: null,
+        },
       });
     });
   });

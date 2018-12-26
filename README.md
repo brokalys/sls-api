@@ -28,6 +28,5 @@ yarn start
 Deployment is taken care by travis. If, for some odd reason, it's required to deploy manually, it can be achieved by running the following command.
 
 ```sh
-# In order to deploy all functions
 yarn deploy
 ```
