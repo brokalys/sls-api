@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Query region fails validation if name is not defined 1`] = `
+exports[`Query getRegion fails validation if name is not defined 1`] = `
 Object {
   "data": undefined,
   "errors": Array [
-    [ValidationError: Field "region" argument "name" of type "String!" is required but not provided.],
+    [ValidationError: Field "getRegion" argument "name" of type "String!" is required but not provided.],
   ],
   "extensions": undefined,
   "http": Object {
@@ -15,7 +15,7 @@ Object {
 }
 `;
 
-exports[`Query region fails validation if start date is past end date 1`] = `
+exports[`Query getRegion fails validation if start date is past end date 1`] = `
 Object {
   "data": null,
   "errors": Array [
@@ -30,10 +30,10 @@ Object {
 }
 `;
 
-exports[`Query region fetches stats for a single region with a defined category and type 1`] = `
+exports[`Query getRegion fetches stats for a single region with a defined category and type 1`] = `
 Object {
   "data": Object {
-    "region": Object {
+    "getRegion": Object {
       "name": "Āgenskalns",
       "price": Object {
         "count": 2,
@@ -65,10 +65,10 @@ Object {
 }
 `;
 
-exports[`Query region fetches stats for a single region with all categories and types 1`] = `
+exports[`Query getRegion fetches stats for a single region with all categories and types 1`] = `
 Object {
   "data": Object {
-    "region": Object {
+    "getRegion": Object {
       "name": "Āgenskalns",
       "price": Object {
         "count": 3,
@@ -85,10 +85,10 @@ Object {
 }
 `;
 
-exports[`Query region fetches stats for a single region with uppercased region name 1`] = `
+exports[`Query getRegion fetches stats for a single region with uppercased region name 1`] = `
 Object {
   "data": Object {
-    "region": Object {
+    "getRegion": Object {
       "name": "Āgenskalns",
       "price": Object {
         "count": 3,
@@ -105,10 +105,10 @@ Object {
 }
 `;
 
-exports[`Query regions fails validation if start date is past end date 1`] = `
+exports[`Query getRegions fails validation if start date is past end date 1`] = `
 Object {
   "data": Object {
-    "regions": null,
+    "getRegions": null,
   },
   "errors": Array [
     [GraphQLError: End date must come after start date],
@@ -122,10 +122,10 @@ Object {
 }
 `;
 
-exports[`Query regions fetches stats for each region with a defined category and type 1`] = `
+exports[`Query getRegions fetches stats for each region with a defined category and type 1`] = `
 Object {
   "data": Object {
-    "regions": Array [
+    "getRegions": Array [
       Object {
         "name": "Āgenskalns",
         "price": Object {
@@ -1356,10 +1356,10 @@ Object {
 }
 `;
 
-exports[`Query regions fetches stats for each region with all categories and types 1`] = `
+exports[`Query getRegions fetches stats for each region with all categories and types 1`] = `
 Object {
   "data": Object {
-    "regions": Array [
+    "getRegions": Array [
       Object {
         "name": "Āgenskalns",
         "price": Object {

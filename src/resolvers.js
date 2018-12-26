@@ -16,7 +16,7 @@ const mysql = serverlessMysql({
   },
 });
 
-async function regions(parent, args) {
+async function getRegions(parent, args) {
   const { category, type } = args;
   const start = moment.utc(args.start_date);
   const end = moment.utc(args.end_date);
@@ -115,9 +115,9 @@ async function regions(parent, args) {
     }));
 }
 
-async function region(parent, args) {
+async function getRegion(parent, args) {
   const name = args.name.toLowerCase();
-  const data = await regions(parent, args);
+  const data = await getRegions(parent, args);
 
   return data.find((row) => row.name.toLowerCase() === name);
 }
@@ -125,7 +125,7 @@ async function region(parent, args) {
 exports.resolvers = {
   Date: GraphQLDate,
   Query: {
-    regions,
-    region,
+    getRegions,
+    getRegion,
   },
 };

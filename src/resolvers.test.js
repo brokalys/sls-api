@@ -4,11 +4,11 @@ import { resolvers } from './resolvers';
 
 jest.mock('serverless-mysql');
 
-describe('regions', () => {
+describe('getRegions', () => {
   describe('validation', () => {
     test('end date must come after start date', async () => {
       try {
-        await resolvers.Query.regions(
+        await resolvers.Query.getRegions(
           {},
           {
             start_date: '2018-01-01',
@@ -24,7 +24,7 @@ describe('regions', () => {
 
     test('end date must not be greater than today', async () => {
       try {
-        await resolvers.Query.regions(
+        await resolvers.Query.getRegions(
           {},
           {
             start_date: '2018-01-01',
@@ -40,7 +40,7 @@ describe('regions', () => {
 
     test('start date cannot be prior to 2018-01-01', async () => {
       try {
-        await resolvers.Query.regions(
+        await resolvers.Query.getRegions(
           {},
           {
             start_date: '2017-12-01',
@@ -56,7 +56,7 @@ describe('regions', () => {
 
     describe('difference between start and end date cannot be greater than a month', async () => {
       test('valid', async () => {
-        const output = await resolvers.Query.regions(
+        const output = await resolvers.Query.getRegions(
           {},
           {
             start_date: '2018-01-01',
@@ -69,7 +69,7 @@ describe('regions', () => {
 
       test('invalid', async () => {
         try {
-          await resolvers.Query.regions(
+          await resolvers.Query.getRegions(
             {},
             {
               start_date: '2018-01-01',
@@ -89,7 +89,7 @@ describe('regions', () => {
 
   describe('response', () => {
     test('returns Āgenskalns region with statistical data', async () => {
-      const output = await resolvers.Query.regions(
+      const output = await resolvers.Query.getRegions(
         {},
         {
           start_date: '2018-01-01',
@@ -121,7 +121,7 @@ describe('regions', () => {
     });
 
     test('returns the proper datatypes for regions without data', async () => {
-      const output = await resolvers.Query.regions(
+      const output = await resolvers.Query.getRegions(
         {},
         {
           start_date: '2018-01-01',
@@ -157,7 +157,7 @@ describe('regions', () => {
 describe('region', () => {
   describe('response', () => {
     test('returns Āgenskalns region with statistical data', async () => {
-      const output = await resolvers.Query.region(
+      const output = await resolvers.Query.getRegion(
         {},
         {
           name: 'Āgenskalns',

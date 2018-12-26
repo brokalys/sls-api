@@ -1,14 +1,14 @@
 scalar Date
 
 type Query {
-  regions(
+  getRegions(
     category: Category
     type: Type
     start_date: Date!
     end_date: Date!
   ): [RegionStats!]
 
-  region(
+  getRegion(
     name: String!
     category: Category
     type: Type

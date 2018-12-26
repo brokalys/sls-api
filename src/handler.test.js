@@ -10,12 +10,12 @@ describe('Query', () => {
     query = utils.query;
   });
 
-  describe('regions', () => {
+  describe('getRegions', () => {
     test('fails validation if start date is past end date', async () => {
       const res = await query({
         query: `
         {
-          regions(
+          getRegions(
             start_date: "2018-03-01"
             end_date: "2018-02-01"
           ) {
@@ -32,7 +32,7 @@ describe('Query', () => {
       const res = await query({
         query: `
         {
-          regions(
+          getRegions(
             category: APARTMENT
             type: SELL
             start_date: "2018-01-01"
@@ -69,7 +69,7 @@ describe('Query', () => {
       const res = await query({
         query: `
         {
-          regions(
+          getRegions(
             start_date: "2018-01-01"
             end_date: "2018-02-01"
           ) {
@@ -86,12 +86,12 @@ describe('Query', () => {
     });
   });
 
-  describe('region', () => {
+  describe('getRegion', () => {
     test('fails validation if start date is past end date', async () => {
       const res = await query({
         query: `
         {
-          region(
+          getRegion(
             name: "Āgenskalns"
             start_date: "2018-03-01"
             end_date: "2018-02-01"
@@ -109,7 +109,7 @@ describe('Query', () => {
       const res = await query({
         query: `
         {
-          region(
+          getRegion(
             start_date: "2018-03-01"
             end_date: "2018-02-01"
           ) {
@@ -126,7 +126,7 @@ describe('Query', () => {
       const res = await query({
         query: `
         {
-          region(
+          getRegion(
             name: "Āgenskalns"
             category: APARTMENT
             type: SELL
@@ -164,7 +164,7 @@ describe('Query', () => {
       const res = await query({
         query: `
         {
-          region(
+          getRegion(
             name: "Āgenskalns"
             start_date: "2018-01-01"
             end_date: "2018-02-01"
@@ -185,7 +185,7 @@ describe('Query', () => {
       const res = await query({
         query: `
         {
-          region(
+          getRegion(
             name: "ĀGENSKALNS"
             start_date: "2018-01-01"
             end_date: "2018-02-01"
