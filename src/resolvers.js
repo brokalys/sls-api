@@ -16,7 +16,7 @@ const mysql = serverlessMysql({
   },
 });
 
-async function regions(root, args) {
+async function regions(parent, args) {
   const { category, type } = args;
   const start = moment.utc(args.start_date);
   const end = moment.utc(args.end_date);
@@ -76,9 +76,8 @@ async function regions(root, args) {
       polygons: feature.geometry.coordinates,
     }))
     .map((region) => {
-      const filteredData = data.filter(
-        ({ lat, lng }) =>
-          region.polygons.find((polygon) => inside([lng, lat], polygon)), // @todo: optimize
+      const filteredData = data.filter(({ lat, lng }) =>
+        region.polygons.find((polygon) => inside([lng, lat], polygon)),
       );
 
       region.prices = filteredData.map(({ price }) => price);
@@ -116,9 +115,9 @@ async function regions(root, args) {
     }));
 }
 
-async function region(root, args) {
+async function region(parent, args) {
   const name = args.name.toLowerCase();
-  const data = await regions(root, args);
+  const data = await regions(parent, args);
 
   return data.find((row) => row.name.toLowerCase() === name);
 }
