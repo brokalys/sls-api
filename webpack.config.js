@@ -18,8 +18,9 @@ module.exports = {
       },
 
       {
-        test: /\.graphql?$/,
-        loader: 'webpack-graphql-loader',
+        test: /\.(graphql|gql)$/,
+        exclude: /node_modules/,
+        loader: 'graphql-tag/loader',
       },
     ],
   },

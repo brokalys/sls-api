@@ -39,13 +39,7 @@ async function getRegionalStats(root, args) {
     );
   }
 
-  const regions = geojson.features.map((feature) => ({
-    name: feature.properties.apkaime,
-    polygons: feature.geometry.coordinates,
-  }));
-
   await mysql.connect();
-
   const connection = mysql.getClient();
 
   const data = await mysql.query({
@@ -70,7 +64,11 @@ async function getRegionalStats(root, args) {
 
   await mysql.end();
 
-  return regions
+  return geojson.features
+    .map((feature) => ({
+      name: feature.properties.apkaime,
+      polygons: feature.geometry.coordinates,
+    }))
     .map((region) => ({
       ...region,
       prices: data
@@ -84,10 +82,10 @@ async function getRegionalStats(root, args) {
       count: region.prices.length,
       min: region.prices.length ? numbers.basic.min(region.prices) : null,
       max: region.prices.length ? numbers.basic.max(region.prices) : null,
-      mean: numbers.statistic.mean(region.prices),
-      median: numbers.statistic.median(region.prices),
-      mode: numbers.statistic.mode(region.prices),
-      standardDev: numbers.statistic.standardDev(region.prices),
+      mean: numbers.statistic.mean(region.prices) || null,
+      median: numbers.statistic.median(region.prices) || null,
+      mode: numbers.statistic.mode(region.prices) || null,
+      standardDev: numbers.statistic.standardDev(region.prices) || null,
     }));
 }
 

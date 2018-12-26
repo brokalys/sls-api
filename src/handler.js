@@ -3,7 +3,7 @@ import defaultQuery from './schema/default-query.graphql';
 import schema from './schema/schema.graphql';
 import { resolvers } from './resolvers';
 
-const server = new ApolloServer({
+export const server = new ApolloServer({
   typeDefs: schema,
   resolvers,
   playground: {
@@ -11,12 +11,16 @@ const server = new ApolloServer({
       {
         name: 'Get Regional Stats',
         endpoint: '/',
-        query: defaultQuery,
+        query: defaultQuery.loc.source.body,
       },
     ],
   },
   formatError: (error) => {
-    console.log(error);
+    if (process.env.NODE_ENV !== 'test') {
+      console.log(error);
+    }
+
+    // @todo: bugsnag
 
     delete error.extensions.exception;
     return error;
