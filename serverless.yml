@@ -56,7 +56,7 @@ custom:
       functionInvocations:
         treatMissingData: notBreaching
       functionDuration:
-        threshold: 1500
+        threshold: 4000
         treatMissingData: notBreaching
     alarms:
       - functionThrottles
