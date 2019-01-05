@@ -33,7 +33,7 @@ function getChartData(parent, { category }) {
 
       return {
         date: date.format('YYYY-MM-DD'),
-        price_per_sqm: data.price,
+        price_per_sqm: data.price.toFixed(2),
         count: data.count,
       };
     }),
