@@ -3,12 +3,15 @@ import defaultQuery from './schema/default-query.graphql';
 import { server } from './handler';
 import cache from './lib/cache';
 
+jest.mock('serverless-mysql');
 jest.mock('./lib/cache');
 
 describe('Query', () => {
   let query;
 
   beforeEach(() => {
+    cache.get.mockReturnValue(undefined);
+
     const utils = createTestClient(server);
     query = utils.query;
   });
@@ -265,6 +268,26 @@ describe('Query', () => {
                 coordinates
               }
             }
+          }
+        }
+      `,
+      });
+
+      expect(res).toMatchSnapshot();
+    });
+  });
+
+  describe('getChartData', () => {
+    test('fetches chart data with category = APARTMENT', async () => {
+      const res = await query({
+        query: `
+        {
+          getChartData(
+            category: APARTMENT
+          ) {
+            date
+            count
+            price_per_sqm
           }
         }
       `,

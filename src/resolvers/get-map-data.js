@@ -17,11 +17,14 @@ async function getMapData(parent, args) {
     ),
   ];
 
-  const colors = colormap({
-    colormap: 'autumn',
-    nshades: uniquePrices.length,
-    format: 'hex',
-  }).reverse();
+  const colors =
+    uniquePrices.length >= 3
+      ? colormap({
+          colormap: 'autumn',
+          nshades: uniquePrices.length,
+          format: 'hex',
+        }).reverse()
+      : [null, null];
 
   const priceColorMap = uniquePrices.reduce(
     (full, price, index) => ({

@@ -21,6 +21,10 @@ type Query {
     start_date: Date!
     end_date: Date!
   ): MapData!
+
+  getChartData(
+    category: Category!
+  ): [ChartData!]
 }
 
 enum Category {
@@ -68,4 +72,10 @@ type MapDataFeatureProperties {
 type MapDataFeatureGeometry {
   type: String!
   coordinates: [[[Float!]]]
+}
+
+type ChartData {
+  date: Date!
+  count: Int!
+  price_per_sqm: Float!
 }
