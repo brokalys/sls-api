@@ -80,7 +80,7 @@ async function getRegionsData(parent, args) {
 
   return geojson.features
     .map((feature) => ({
-      name: feature.properties.apkaime,
+      name: feature.properties.name,
       polygons: feature.geometry.coordinates,
     }))
     .map((region) => {

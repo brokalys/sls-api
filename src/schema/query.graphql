@@ -15,6 +15,12 @@ type Query {
     start_date: Date!
     end_date: Date!
   ): RegionStats!
+
+  getMapData(
+    category: Category!
+    start_date: Date!
+    end_date: Date!
+  ): MapData!
 }
 
 enum Category {
@@ -41,4 +47,25 @@ type RegionPriceStats {
   median: Float
   mode: Float
   standardDev: Float
+}
+
+type MapData {
+  type: String!
+  features: [MapDataFeatures!]
+}
+
+type MapDataFeatures {
+  type: String!
+  properties: MapDataFeatureProperties!
+  geometry: MapDataFeatureGeometry!
+}
+
+type MapDataFeatureProperties {
+  name: String!
+  color: String
+}
+
+type MapDataFeatureGeometry {
+  type: String!
+  coordinates: [[[Float!]]]
 }

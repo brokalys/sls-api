@@ -1,5 +1,35 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Query getMapData fails validation if start date is past end date 1`] = `
+Object {
+  "data": null,
+  "errors": Array [
+    [GraphQLError: End date must come after start date],
+  ],
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
+exports[`Query getMapData fetches map stats with all arguments 1`] = `
+Object {
+  "data": null,
+  "errors": Array [
+    [GraphQLError: Cannot read property 'median' of undefined],
+  ],
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
 exports[`Query getRegion fails validation if name is not defined 1`] = `
 Object {
   "data": undefined,

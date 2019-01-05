@@ -1,0 +1,49 @@
+import colormap from 'colormap';
+
+import geojson from '../../data/riga-geojson.json';
+import getRegions from './get-regions';
+
+async function getMapData(parent, args) {
+  const data = await getRegions(parent, args);
+
+  const getPrice = (region) => parseInt(region.price_per_sqm.median, 10);
+
+  const uniquePrices = [
+    ...new Set(
+      data
+        .map(getPrice)
+        .filter((a) => !isNaN(a))
+        .sort((a, b) => a - b),
+    ),
+  ];
+
+  const colors = colormap({
+    colormap: 'autumn',
+    nshades: uniquePrices.length,
+    format: 'hex',
+  }).reverse();
+
+  const priceColorMap = uniquePrices.reduce(
+    (full, price, index) => ({
+      ...full,
+      [price]: colors[index],
+    }),
+    {},
+  );
+
+  return {
+    type: 'FeatureCollection',
+    features: data.map((region) => ({
+      type: 'Feature',
+      properties: {
+        name: region.name,
+        color: priceColorMap[getPrice(region)],
+      },
+      geometry: geojson.features.find(
+        ({ properties: { name } }) => name === region.name,
+      ).geometry,
+    })),
+  };
+}
+
+export default getMapData;

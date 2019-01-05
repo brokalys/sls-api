@@ -224,4 +224,53 @@ describe('Query', () => {
       expect(res).toMatchSnapshot();
     });
   });
+
+  describe('getMapData', () => {
+    test('fails validation if start date is past end date', async () => {
+      const res = await query({
+        query: `
+        {
+          getMapData(
+            category: APARTMENT
+            start_date: "2018-03-01"
+            end_date: "2018-02-01"
+          ) {
+            type
+          }
+        }
+      `,
+      });
+
+      expect(res).toMatchSnapshot();
+    });
+
+    test('fetches map stats with all arguments', async () => {
+      const res = await query({
+        query: `
+        {
+          getMapData(
+            category: APARTMENT
+            start_date: "2018-01-01"
+            end_date: "2018-02-01"
+          ) {
+            type
+            features {
+              type
+              properties {
+                name
+                color
+              }
+              geometry {
+                type
+                coordinates
+              }
+            }
+          }
+        }
+      `,
+      });
+
+      expect(res).toMatchSnapshot();
+    });
+  });
 });
