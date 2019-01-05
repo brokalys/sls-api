@@ -1,6 +1,9 @@
 import { createTestClient } from 'apollo-server-testing';
 import defaultQuery from './schema/default-query.graphql';
 import { server } from './handler';
+import cache from './lib/cache';
+
+jest.mock('./lib/cache');
 
 describe('Query', () => {
   let query;
@@ -194,6 +197,25 @@ describe('Query', () => {
             price {
               count
             }
+          }
+        }
+      `,
+      });
+
+      expect(res).toMatchSnapshot();
+    });
+
+    test('fetches stats from the cache', async () => {
+      cache.get.mockReturnValue([{ name: 'Test' }]);
+
+      const res = await query({
+        query: `
+        {
+          getRegions(
+            start_date: "2018-01-01"
+            end_date: "2018-02-01"
+          ) {
+            name
           }
         }
       `,

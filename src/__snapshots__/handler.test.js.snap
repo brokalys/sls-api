@@ -105,6 +105,25 @@ Object {
 }
 `;
 
+exports[`Query getRegion fetches stats from the cache 1`] = `
+Object {
+  "data": Object {
+    "getRegions": Array [
+      Object {
+        "name": "Test",
+      },
+    ],
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
 exports[`Query getRegions fails validation if start date is past end date 1`] = `
 Object {
   "data": Object {
