@@ -13,14 +13,16 @@ const range = moment.range(start, end);
 function getChartData(parent, { category }) {
   return Promise.all(
     Array.from(range.by('month')).map(async (date) => {
-      const data = (await getRegions(parent, {
+      const data = await getRegions(parent, {
         category,
         start_date: date.format('YYYY-MM-DD'),
         end_date: date
           .clone()
           .add(1, 'month')
           .format('YYYY-MM-DD'),
-      })).reduce(
+      });
+
+      const calculations = data.reduce(
         (full, row) => ({
           count: row.price_per_sqm.count + full.count,
           price: row.price_per_sqm.median + full.price,
@@ -33,8 +35,8 @@ function getChartData(parent, { category }) {
 
       return {
         date: date.format('YYYY-MM-DD'),
-        price_per_sqm: data.price.toFixed(2),
-        count: data.count,
+        price_per_sqm: (calculations.price / data.length).toFixed(2),
+        count: calculations.count,
       };
     }),
   );
