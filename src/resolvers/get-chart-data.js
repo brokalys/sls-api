@@ -1,4 +1,3 @@
-import colormap from 'colormap';
 import Moment from 'moment';
 import { extendMoment } from 'moment-range';
 

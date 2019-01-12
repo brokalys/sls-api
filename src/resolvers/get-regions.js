@@ -30,14 +30,14 @@ async function getRegions(parent, args) {
     );
   }
 
-  const cached = await cache.get(args);
+  const cached = await cache.get('getRegions', args);
 
   if (cached) {
     return cached;
   }
 
   const data = await getRegionsData(parent, args);
-  await cache.set(args, data);
+  await cache.set('getRegions', args, data);
 
   return data;
 }

@@ -25,6 +25,10 @@ type Query {
   getChartData(
     category: Category!
   ): [ChartData!]
+
+  getTableData(
+    category: Category!
+  ): [TableData!]
 }
 
 enum Category {
@@ -78,4 +82,17 @@ type ChartData {
   date: Date!
   count: Int!
   price_per_sqm: Float!
+}
+
+type TableData {
+  name: String!
+  price_per_sqm: SellRent
+  price_per_sqm_change: SellRent
+  btl_ratio: Float
+  btl_ratio_change: Float
+}
+
+type SellRent {
+  sell: Float
+  rent: Float
 }

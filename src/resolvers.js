@@ -4,6 +4,7 @@ import getChartData from './resolvers/get-chart-data';
 import getMapData from './resolvers/get-map-data';
 import getRegion from './resolvers/get-region';
 import getRegions from './resolvers/get-regions';
+import getTableData from './resolvers/get-table-data';
 
 exports.resolvers = {
   Date: GraphQLDate,
@@ -12,5 +13,6 @@ exports.resolvers = {
     getMapData,
     getRegion,
     getRegions,
+    getTableData,
   },
 };

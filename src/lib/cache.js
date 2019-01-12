@@ -10,12 +10,23 @@ function hash(key) {
 }
 
 const Cache = {
-  async get(key) {
+  async run(key, params, callback) {
+    const cached = await Cache.get(key, params);
+
+    if (cached) {
+      return cached;
+    }
+
+    const newData = await callback(params);
+    await Cache.set(key, params, newData);
+
+    return newData;
+  },
+
+  async get(key, params) {
     const response = await mysql.query({
-      sql: 'SELECT value FROM cache WHERE ?',
-      values: {
-        shortkey: hash(key),
-      },
+      sql: 'SELECT value FROM cache WHERE `key` = ? and `params_hash` = ?',
+      values: [key, hash(params)],
     });
     await mysql.end();
 
@@ -24,12 +35,13 @@ const Cache = {
     }
   },
 
-  set(key, value) {
+  set(key, params, value) {
     return mysql.query({
       sql: 'INSERT INTO cache SET ?',
       values: {
-        key: JSON.stringify(key),
-        shortkey: hash(key),
+        key,
+        params: JSON.stringify(params),
+        params_hash: hash(params),
         value: JSON.stringify(value),
       },
     });
