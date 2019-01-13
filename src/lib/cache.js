@@ -9,7 +9,7 @@ function hash(key) {
     .digest('hex');
 }
 
-const Cache = {
+export default {
   async run(key, params, callback) {
     const cached = await Cache.get(key, params);
 
@@ -47,5 +47,3 @@ const Cache = {
     });
   },
 };
-
-export default Cache;

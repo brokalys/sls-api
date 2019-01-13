@@ -1,7 +1,9 @@
 import Moment from 'moment';
 import { extendMoment } from 'moment-range';
 
-import getRegions from './get-regions';
+import { getRegionsData } from './get-regions';
+
+import cache from '../lib/cache';
 
 const moment = extendMoment(Moment);
 
@@ -10,16 +12,24 @@ const end = moment().subtract(1, 'month');
 const range = moment.range(start, end);
 
 function getChartData(parent, { category }) {
+  return cache.run('getChartData.dataRetrieval', { category }, dataRetrieval);
+}
+
+async function dataRetrieval({ category }) {
   return Promise.all(
     Array.from(range.by('month')).map(async (date) => {
-      const data = await getRegions(parent, {
-        category,
-        start_date: date.format('YYYY-MM-DD'),
-        end_date: date
-          .clone()
-          .add(1, 'month')
-          .format('YYYY-MM-DD'),
-      });
+      const data = await cache.run(
+        'getChartData.getRegionsData',
+        {
+          category,
+          start_date: date.format('YYYY-MM-DD'),
+          end_date: date
+            .clone()
+            .add(1, 'month')
+            .format('YYYY-MM-DD'),
+        },
+        getRegionsData,
+      );
 
       const calculations = data.reduce(
         (full, row) => ({

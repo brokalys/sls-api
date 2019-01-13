@@ -10,7 +10,7 @@ describe('Query', () => {
   let query;
 
   beforeEach(() => {
-    cache.get.mockReturnValue(undefined);
+    cache.get.mockReset();
 
     const utils = createTestClient(server);
     query = utils.query;

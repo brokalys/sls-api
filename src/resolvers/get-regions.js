@@ -36,13 +36,13 @@ async function getRegions(parent, args) {
     return cached;
   }
 
-  const data = await getRegionsData(parent, args);
+  const data = await getRegionsData(args);
   await cache.set('getRegions', args, data);
 
   return data;
 }
 
-async function getRegionsData(parent, args) {
+export async function getRegionsData(args) {
   const { category, type } = args;
   const start = moment.utc(args.start_date);
   const end = moment.utc(args.end_date);
