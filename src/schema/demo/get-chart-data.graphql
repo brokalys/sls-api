@@ -1,0 +1,9 @@
+{
+  getChartData(
+    category: APARTMENT
+  ) {
+    date
+    count
+    price_per_sqm
+  }
+}

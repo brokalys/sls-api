@@ -1,7 +1,10 @@
 import { ApolloServer } from 'apollo-server-lambda';
 import Rollbar from 'rollbar';
 
-import defaultQuery from './schema/default-query.graphql';
+import getChartDataQuery from './schema/demo/get-chart-data.graphql';
+import getMapDataQuery from './schema/demo/get-map-data.graphql';
+import getRegionsQuery from './schema/demo/get-regions.graphql';
+import getTableDataQuery from './schema/demo/get-table-data.graphql';
 import schema from './schema/schema.graphql';
 import { resolvers } from './resolvers';
 
@@ -15,7 +18,22 @@ export const server = new ApolloServer({
       {
         name: 'Get Regional Stats',
         endpoint: '/',
-        query: defaultQuery.loc.source.body,
+        query: getRegionsQuery.loc.source.body,
+      },
+      {
+        name: 'Get Chart Data',
+        endpoint: '/',
+        query: getChartDataQuery.loc.source.body,
+      },
+      {
+        name: 'Get Map Data',
+        endpoint: '/',
+        query: getMapDataQuery.loc.source.body,
+      },
+      {
+        name: 'Get Table Data',
+        endpoint: '/',
+        query: getTableDataQuery.loc.source.body,
       },
     ],
   },
