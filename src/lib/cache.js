@@ -11,14 +11,14 @@ function hash(key) {
 
 export default {
   async run(key, params, callback) {
-    const cached = await Cache.get(key, params);
+    const cached = await this.get(key, params);
 
     if (cached) {
       return cached;
     }
 
     const newData = await callback(params);
-    await Cache.set(key, params, newData);
+    await this.set(key, params, newData);
 
     return newData;
   },
