@@ -1,5 +1,4 @@
 import { createTestClient } from 'apollo-server-testing';
-import defaultQuery from './schema/default-query.graphql';
 import { server } from './handler';
 import cache from './lib/cache';
 
