@@ -18565,7 +18565,7 @@ Object {
     "getRegion": Object {
       "name": "Āgenskalns",
       "price": Object {
-        "count": 3,
+        "count": 2,
       },
     },
   },
@@ -18585,7 +18585,7 @@ Object {
     "getRegion": Object {
       "name": "Āgenskalns",
       "price": Object {
-        "count": 3,
+        "count": 2,
       },
     },
   },
@@ -19876,7 +19876,7 @@ Object {
       Object {
         "name": "Āgenskalns",
         "price": Object {
-          "count": 3,
+          "count": 2,
         },
       },
       Object {

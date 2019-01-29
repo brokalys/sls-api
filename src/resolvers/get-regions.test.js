@@ -1,9 +1,37 @@
 import { UserInputError } from 'apollo-server-lambda';
 
+import db from '../lib/db';
 import getRegions from './get-regions';
 
-jest.mock('serverless-mysql');
 jest.mock('../lib/cache');
+jest.mock('../lib/db');
+
+db.query.mockImplementation(() => [
+  {
+    price: 110000.0,
+    lat: 56.9366684,
+    lng: 24.0794235,
+    price_per_sqm: 100,
+    area: 120,
+    area_measurement: 'm2',
+  },
+  {
+    price: 170000.0,
+    lat: 56.9366684,
+    lng: 24.0794235,
+    price_per_sqm: 0,
+    area: 1,
+    area_measurement: 'ha',
+  },
+  {
+    price: 70000.0,
+    lat: 56.9366684,
+    lng: 24.0794235,
+    price_per_sqm: 0,
+    area: 120,
+    area_measurement: 'm2',
+  },
+]);
 
 describe('getRegions', () => {
   describe('validation', () => {
