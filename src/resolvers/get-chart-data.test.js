@@ -12,6 +12,7 @@ db.query.mockImplementation(() => [
     price_per_sqm: 100,
     area: 120,
     area_measurement: 'm2',
+    published_at: '2018-12-01',
   },
   {
     price: 170000.0,
@@ -20,6 +21,7 @@ db.query.mockImplementation(() => [
     price_per_sqm: 0,
     area: 1,
     area_measurement: 'ha',
+    published_at: '2018-12-01',
   },
   {
     price: 70000.0,
@@ -28,6 +30,7 @@ db.query.mockImplementation(() => [
     price_per_sqm: 0,
     area: 120,
     area_measurement: 'm2',
+    published_at: '2018-11-01',
   },
 ]);
 
