@@ -51,7 +51,7 @@ async function dataRetrieval({ category, start, end }) {
       row.price_per_sqm = row.price / row.area;
     }
 
-    row.month = moment(row.published_at).format('YYYY-MM-DD');
+    row.month = `${moment(row.published_at).format('YYYY-MM')}-01`;
 
     return row;
   });
