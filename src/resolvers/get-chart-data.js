@@ -9,10 +9,6 @@ import mysql from '../lib/db';
 
 const moment = extendMoment(Moment);
 
-const start = new Date(2018, 0, 1);
-const end = moment().subtract(1, 'month');
-const range = moment.range(start, end);
-
 function getChartData(parent, { category }) {
   return cache.run('getChartData.dataRetrieval', { category }, dataRetrieval);
 }
@@ -20,6 +16,10 @@ function getChartData(parent, { category }) {
 async function dataRetrieval({ category }) {
   await mysql.connect();
   const connection = mysql.getClient();
+
+  const start = new Date(2018, 0, 1);
+  const end = moment().subtract(1, 'month');
+  const range = moment.range(start, end);
 
   const data = (await mysql.query({
     sql: `
