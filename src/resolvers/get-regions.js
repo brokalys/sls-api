@@ -95,19 +95,9 @@ export async function getRegionsData(args) {
         .filter(({ price_per_sqm }) => !!price_per_sqm)
         .map(({ price_per_sqm }) => price_per_sqm);
 
-      // 99th percentile
-      const pricePerSqmPercentile = stats.percentile(region.pricesPerSqm, 0.99);
-      const pricePercentile = stats.percentile(region.pricesPerSqm, 0.99);
-
       region.histogram = {
-        prices: stats.histogram(
-          region.prices.filter((p) => p <= pricePercentile),
-          10,
-        ),
-        pricesPerSqm: stats.histogram(
-          region.pricesPerSqm.filter((p) => p <= pricePerSqmPercentile),
-          10,
-        ),
+        prices: stats.histogram(region.prices, 10),
+        pricesPerSqm: stats.histogram(region.pricesPerSqm, 10),
       };
 
       return region;
