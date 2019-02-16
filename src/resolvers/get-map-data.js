@@ -41,6 +41,7 @@ async function getMapData(parent, args) {
       properties: {
         name: region.name,
         color: priceColorMap[getPrice(region)],
+        histogram: region.price_per_sqm.histogram,
       },
       geometry: geojson.features.find(
         ({ properties: { name } }) => name === region.name,

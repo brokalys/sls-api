@@ -53,6 +53,7 @@ describe('getRegion', () => {
           median: jasmine.any(Number),
           mode: jasmine.any(Number),
           standardDev: jasmine.any(Number),
+          histogram: null,
         },
         price_per_sqm: {
           count: 2,
@@ -62,6 +63,23 @@ describe('getRegion', () => {
           median: jasmine.any(Number),
           mode: jasmine.any(Number),
           standardDev: jasmine.any(Number),
+          histogram: {
+            values: [
+              jasmine.any(Number),
+              jasmine.any(Number),
+              jasmine.any(Number),
+              jasmine.any(Number),
+              jasmine.any(Number),
+              jasmine.any(Number),
+              jasmine.any(Number),
+              jasmine.any(Number),
+              jasmine.any(Number),
+              jasmine.any(Number),
+            ],
+            bins: jasmine.any(Number),
+            bin_width: jasmine.any(Number),
+            bin_limits: [jasmine.any(Number), jasmine.any(Number)],
+          },
         },
       });
     });

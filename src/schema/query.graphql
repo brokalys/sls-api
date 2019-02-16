@@ -71,6 +71,14 @@ type MapDataFeatures {
 type MapDataFeatureProperties {
   name: String!
   color: String
+  histogram: MapHistogram
+}
+
+type MapHistogram {
+  values: [Int]!
+  bins: Int!
+  bin_width: Float!
+  bin_limits: [Float]!
 }
 
 type MapDataFeatureGeometry {

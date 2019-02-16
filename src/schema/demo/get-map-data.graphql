@@ -10,6 +10,12 @@
       properties {
         name
         color
+        histogram {
+          values
+          bins
+          bin_width
+          bin_limits
+        }
       }
       geometry {
         type

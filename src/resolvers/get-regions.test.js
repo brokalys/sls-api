@@ -136,6 +136,7 @@ describe('getRegions', () => {
           median: jasmine.any(Number),
           mode: jasmine.any(Number),
           standardDev: jasmine.any(Number),
+          histogram: null,
         },
         price_per_sqm: {
           count: 2,
@@ -145,6 +146,23 @@ describe('getRegions', () => {
           median: jasmine.any(Number),
           mode: jasmine.any(Number),
           standardDev: jasmine.any(Number),
+          histogram: {
+            values: [
+              jasmine.any(Number),
+              jasmine.any(Number),
+              jasmine.any(Number),
+              jasmine.any(Number),
+              jasmine.any(Number),
+              jasmine.any(Number),
+              jasmine.any(Number),
+              jasmine.any(Number),
+              jasmine.any(Number),
+              jasmine.any(Number),
+            ],
+            bins: jasmine.any(Number),
+            bin_width: jasmine.any(Number),
+            bin_limits: [jasmine.any(Number), jasmine.any(Number)],
+          },
         },
       });
     });
@@ -168,6 +186,7 @@ describe('getRegions', () => {
           median: null,
           mode: null,
           standardDev: null,
+          histogram: null,
         },
         price_per_sqm: {
           count: 0,
@@ -177,6 +196,7 @@ describe('getRegions', () => {
           median: null,
           mode: null,
           standardDev: null,
+          histogram: null,
         },
       });
     });

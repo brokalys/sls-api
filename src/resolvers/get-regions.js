@@ -2,6 +2,7 @@ import { UserInputError } from 'apollo-server-lambda';
 import moment from 'moment';
 import numbers from 'numbers';
 import inside from 'point-in-polygon';
+import stats from 'stats-lite';
 
 import cache from '../lib/cache';
 import mysql from '../lib/db';
@@ -94,6 +95,21 @@ export async function getRegionsData(args) {
         .filter(({ price_per_sqm }) => !!price_per_sqm)
         .map(({ price_per_sqm }) => price_per_sqm);
 
+      // 99th percentile
+      const pricePerSqmPercentile = stats.percentile(region.pricesPerSqm, 0.99);
+      const pricePercentile = stats.percentile(region.pricesPerSqm, 0.99);
+
+      region.histogram = {
+        prices: stats.histogram(
+          region.prices.filter((p) => p <= pricePercentile),
+          10,
+        ),
+        pricesPerSqm: stats.histogram(
+          region.pricesPerSqm.filter((p) => p <= pricePerSqmPercentile),
+          10,
+        ),
+      };
+
       return region;
     })
     .map((region) => ({
@@ -106,6 +122,14 @@ export async function getRegionsData(args) {
         median: numbers.statistic.median(region.prices) || null,
         mode: numbers.statistic.mode(region.prices) || null,
         standardDev: numbers.statistic.standardDev(region.prices) || null,
+        histogram: region.histogram.prices
+          ? {
+              values: region.histogram.prices.values,
+              bins: region.histogram.prices.bins,
+              bin_width: region.histogram.prices.binWidth,
+              bin_limits: region.histogram.prices.binLimits,
+            }
+          : null,
       },
       price_per_sqm: {
         count: region.pricesPerSqm.length,
@@ -119,6 +143,14 @@ export async function getRegionsData(args) {
         median: numbers.statistic.median(region.pricesPerSqm) || null,
         mode: numbers.statistic.mode(region.pricesPerSqm) || null,
         standardDev: numbers.statistic.standardDev(region.pricesPerSqm) || null,
+        histogram: region.histogram.pricesPerSqm
+          ? {
+              values: region.histogram.pricesPerSqm.values,
+              bins: region.histogram.pricesPerSqm.bins,
+              bin_width: region.histogram.pricesPerSqm.binWidth,
+              bin_limits: region.histogram.pricesPerSqm.binLimits,
+            }
+          : null,
       },
     }));
 }

@@ -217,6 +217,21 @@ Object {
       },
       "properties": Object {
         "color": "#ff0000",
+        "histogram": Object {
+          "bin_limits": Array [
+            1,
+            5,
+          ],
+          "bin_width": 1,
+          "bins": 5,
+          "values": Array [
+            1,
+            2,
+            3,
+            4,
+            5,
+          ],
+        },
         "name": "Āgenskalns",
       },
       "type": "Feature",
@@ -523,6 +538,7 @@ Object {
       },
       "properties": Object {
         "color": undefined,
+        "histogram": null,
         "name": "Mežaparks",
       },
       "type": "Feature",
@@ -1001,6 +1017,7 @@ Object {
       },
       "properties": Object {
         "color": "#ff8000",
+        "histogram": undefined,
         "name": "Imanta",
       },
       "type": "Feature",
@@ -1443,6 +1460,7 @@ Object {
       },
       "properties": Object {
         "color": "#ff8000",
+        "histogram": undefined,
         "name": "Jugla",
       },
       "type": "Feature",
@@ -1605,6 +1623,7 @@ Object {
       },
       "properties": Object {
         "color": "#ffff00",
+        "histogram": undefined,
         "name": "Torņakalns",
       },
       "type": "Feature",
