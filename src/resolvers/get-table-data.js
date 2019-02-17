@@ -15,19 +15,26 @@ function calculatePercentageDifference(a, b) {
 }
 
 async function getTableData(parent, { category }) {
-  return await cache.run(
-    'getTableData',
-    { category: category.toLowerCase() },
-    getTableDataNow,
-  );
-}
-
-async function getTableDataNow({ category }) {
   const start = moment()
     .subtract(1, 'month')
     .utc()
     .startOf('month');
   const end = start.clone().endOf('month');
+
+  return await cache.run(
+    'getTableData',
+    {
+      category: category.toLowerCase(),
+      start: start.format('DD-MM-YYYY'),
+      end: end.format('DD-MM-YYYY'),
+    },
+    getTableDataNow,
+  );
+}
+
+async function getTableDataNow({ category, start, end }) {
+  start = moment(start, 'DD-MM-YYYY');
+  end = moment(end, 'DD-MM-YYYY');
 
   const lastMonth = await cache.run(
     'getTableDataQuery',
