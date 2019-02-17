@@ -25,6 +25,7 @@ type Query {
 
   getChartData(
     category: Category!
+    type: Type
   ): [ChartData!]
 
   getTableData(

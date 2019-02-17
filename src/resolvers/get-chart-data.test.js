@@ -36,8 +36,20 @@ db.query.mockImplementation(() => [
 
 describe('getChartData', () => {
   describe('response', () => {
-    test('returns all chart data', async () => {
+    test('returns all chart data with only category', async () => {
       const output = await getChartData({}, { category: 'APARTMENT' });
+
+      expect(output).toMatchSnapshot();
+    });
+
+    test('returns all chart data with category + type', async () => {
+      const output = await getChartData(
+        {},
+        {
+          category: 'APARTMENT',
+          type: 'SELL',
+        },
+      );
 
       expect(output).toMatchSnapshot();
     });

@@ -9,7 +9,7 @@ import mysql from '../lib/db';
 
 const moment = extendMoment(Moment);
 
-function getChartData(parent, { category }) {
+function getChartData(parent, { category, type }) {
   const start = '01-01-2018';
   const end = moment()
     .subtract(1, 'month')
@@ -17,12 +17,12 @@ function getChartData(parent, { category }) {
 
   return cache.run(
     'getChartData.dataRetrieval',
-    { category, start, end },
+    { category, type, start, end },
     dataRetrieval,
   );
 }
 
-async function dataRetrieval({ category, start, end }) {
+async function dataRetrieval({ category, type, start, end }) {
   await mysql.connect();
   const connection = mysql.getClient();
 
@@ -36,6 +36,7 @@ async function dataRetrieval({ category, start, end }) {
       SELECT price, area, area_measurement, price_per_sqm, published_at
       FROM properties
       WHERE published_at BETWEEN ? AND ?
+      ${type ? `AND type = ${connection.escape(type.toLowerCase())}` : ''}
       ${
         category
           ? `AND category = ${connection.escape(category.toLowerCase())}`

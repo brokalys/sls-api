@@ -316,5 +316,24 @@ describe('Query', () => {
 
       expect(res).toMatchSnapshot();
     });
+
+    test('fetches chart data with category = APARTMENT, type = SELL', async () => {
+      const res = await query({
+        query: `
+        {
+          getChartData(
+            category: APARTMENT
+            type: SELL
+          ) {
+            date
+            count
+            price_per_sqm
+          }
+        }
+      `,
+      });
+
+      expect(res).toMatchSnapshot();
+    });
   });
 });

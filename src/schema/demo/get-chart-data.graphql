@@ -1,6 +1,7 @@
 {
   getChartData(
     category: APARTMENT
+    type: SELL
   ) {
     date
     count
