@@ -18,6 +18,7 @@ type Query {
 
   getMapData(
     category: Category!
+    type: Type!
     start_date: Date!
     end_date: Date!
   ): MapData!

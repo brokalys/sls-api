@@ -254,6 +254,7 @@ describe('Query', () => {
         {
           getMapData(
             category: APARTMENT
+            type: SELL
             start_date: "2018-03-01"
             end_date: "2018-02-01"
           ) {
@@ -272,6 +273,7 @@ describe('Query', () => {
         {
           getMapData(
             category: APARTMENT
+            type: SELL
             start_date: "2018-01-01"
             end_date: "2018-02-01"
           ) {
