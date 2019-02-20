@@ -13,6 +13,7 @@ function getChartData(parent, { category, type }) {
   const start = '01-01-2018';
   const end = moment()
     .subtract(1, 'month')
+    .endOf('month')
     .format('DD-MM-YYYY');
 
   return cache.run(
