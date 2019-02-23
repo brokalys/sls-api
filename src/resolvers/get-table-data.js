@@ -130,8 +130,8 @@ async function getData({ category, start, end }) {
     return {
       name: properties.name,
       price_per_sqm: {
-        sell: numbers.statistic.median(sellPrices) || null,
-        rent: numbers.statistic.median(rentPrices) || null,
+        sell: Math.ceil(numbers.statistic.median(sellPrices)) || null,
+        rent: Math.ceil(numbers.statistic.median(rentPrices)) || null,
       },
       btl_ratio:
         (numbers.statistic.median(rentPrices) * 12) /
