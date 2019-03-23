@@ -6,6 +6,7 @@ import { getRegionsData } from './get-regions';
 
 import cache from '../lib/cache';
 import mysql from '../lib/db';
+import Repository from '../lib/repository';
 
 const moment = extendMoment(Moment);
 
@@ -24,45 +25,15 @@ function getChartData(parent, { category, type }) {
 }
 
 async function dataRetrieval({ category, type, start, end }) {
-  await mysql.connect();
-  const connection = mysql.getClient();
-
   start = moment(start, 'DD-MM-YYYY');
   end = moment(end, 'DD-MM-YYYY');
 
+  const data = await Repository.getRawChartData(category, type, start, end);
   const range = moment.range(start, end);
-
-  const data = (await mysql.query({
-    sql: `
-      SELECT price, area, area_measurement, price_per_sqm, published_at
-      FROM properties
-      WHERE published_at BETWEEN ? AND ?
-      ${type ? `AND type = ${connection.escape(type.toLowerCase())}` : ''}
-      ${
-        category
-          ? `AND category = ${connection.escape(category.toLowerCase())}`
-          : ''
-      }
-      AND location_country = "Latvia"
-      AND price > 1
-    `,
-
-    values: [start.toISOString(), end.endOf('day').toISOString()],
-  })).map((row) => {
-    if (!row.price_per_sqm && row.area_measurement === 'm2' && row.area) {
-      row.price_per_sqm = row.price / row.area;
-    }
-
-    row.month = `${moment(row.published_at).format('YYYY-MM')}-01`;
-
-    return row;
-  });
-
-  await mysql.end();
 
   const mapped = Array.from(range.by('month')).map((date) => {
     const month = date.format('YYYY-MM-DD');
-    const dataTwo = data.filter((row) => month === row.month);
+    const dataTwo = data.filter(({ published_at }) => month === published_at);
 
     const medianPrice =
       numbers.statistic.median(
