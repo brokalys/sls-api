@@ -11,8 +11,8 @@ import Repository from '../lib/repository';
 const moment = extendMoment(Moment);
 
 function getChartData(parent, { category, type }) {
-  const start = '01-01-2018';
-  const end = moment()
+  let start = '01-01-2018';
+  let end = moment()
     .subtract(1, 'month')
     .endOf('month')
     .format('DD-MM-YYYY');
@@ -28,26 +28,31 @@ async function dataRetrieval({ category, type, start, end }) {
   start = moment(start, 'DD-MM-YYYY');
   end = moment(end, 'DD-MM-YYYY');
 
-  const data = await Repository.getRawChartData(category, type, start, end);
   const range = moment.range(start, end);
+  const months = Array.from(range.by('month')).map((date) =>
+    date.format('YYYY-MM-DD'),
+  );
 
-  const mapped = Array.from(range.by('month')).map((date) => {
-    const month = date.format('YYYY-MM-DD');
-    const dataTwo = data.filter(({ published_at }) => month === published_at);
+  const monthlyResults = await Promise.all(
+    months.map((month) =>
+      cache.run('getChartData.dataRetrieval', { category, type, month }, () =>
+        Repository.getRawChartData(category, type, month),
+      ),
+    ),
+  );
 
+  return monthlyResults.map((data) => {
     const medianPrice =
       numbers.statistic.median(
-        dataTwo.map(({ price_per_sqm }) => price_per_sqm),
+        data.map(({ price_per_sqm }) => price_per_sqm),
       ) || null;
 
     return {
-      date: month,
+      date: '2018-02-01',
       price_per_sqm: (medianPrice || 0).toFixed(2),
-      count: dataTwo.length,
+      count: data.length,
     };
   });
-
-  return mapped;
 }
 
 export default getChartData;
