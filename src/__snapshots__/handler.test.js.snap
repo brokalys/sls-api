@@ -3,68 +3,10 @@
 exports[`Query getChartData fetches chart data with category = APARTMENT 1`] = `
 Object {
   "data": Object {
-    "getChartData": Array [
-      Object {
-        "count": 0,
-        "date": "2018-01-01",
-        "price_per_sqm": 0,
-      },
-      Object {
-        "count": 0,
-        "date": "2018-02-01",
-        "price_per_sqm": 0,
-      },
-      Object {
-        "count": 0,
-        "date": "2018-03-01",
-        "price_per_sqm": 0,
-      },
-      Object {
-        "count": 0,
-        "date": "2018-04-01",
-        "price_per_sqm": 0,
-      },
-      Object {
-        "count": 0,
-        "date": "2018-05-01",
-        "price_per_sqm": 0,
-      },
-      Object {
-        "count": 0,
-        "date": "2018-06-01",
-        "price_per_sqm": 0,
-      },
-      Object {
-        "count": 0,
-        "date": "2018-07-01",
-        "price_per_sqm": 0,
-      },
-      Object {
-        "count": 0,
-        "date": "2018-08-01",
-        "price_per_sqm": 0,
-      },
-      Object {
-        "count": 0,
-        "date": "2018-09-01",
-        "price_per_sqm": 0,
-      },
-      Object {
-        "count": 0,
-        "date": "2018-10-01",
-        "price_per_sqm": 0,
-      },
-      Object {
-        "count": 0,
-        "date": "2018-11-01",
-        "price_per_sqm": 0,
-      },
-      Object {
-        "count": 0,
-        "date": "2018-12-01",
-        "price_per_sqm": 0,
-      },
-    ],
+    "getChartData": Object {
+      "count": 2,
+      "price_per_sqm": 50,
+    },
   },
   "errors": undefined,
   "extensions": undefined,
@@ -79,68 +21,10 @@ Object {
 exports[`Query getChartData fetches chart data with category = APARTMENT, type = SELL 1`] = `
 Object {
   "data": Object {
-    "getChartData": Array [
-      Object {
-        "count": 0,
-        "date": "2018-01-01",
-        "price_per_sqm": 0,
-      },
-      Object {
-        "count": 0,
-        "date": "2018-02-01",
-        "price_per_sqm": 0,
-      },
-      Object {
-        "count": 0,
-        "date": "2018-03-01",
-        "price_per_sqm": 0,
-      },
-      Object {
-        "count": 0,
-        "date": "2018-04-01",
-        "price_per_sqm": 0,
-      },
-      Object {
-        "count": 0,
-        "date": "2018-05-01",
-        "price_per_sqm": 0,
-      },
-      Object {
-        "count": 0,
-        "date": "2018-06-01",
-        "price_per_sqm": 0,
-      },
-      Object {
-        "count": 0,
-        "date": "2018-07-01",
-        "price_per_sqm": 0,
-      },
-      Object {
-        "count": 0,
-        "date": "2018-08-01",
-        "price_per_sqm": 0,
-      },
-      Object {
-        "count": 0,
-        "date": "2018-09-01",
-        "price_per_sqm": 0,
-      },
-      Object {
-        "count": 0,
-        "date": "2018-10-01",
-        "price_per_sqm": 0,
-      },
-      Object {
-        "count": 0,
-        "date": "2018-11-01",
-        "price_per_sqm": 0,
-      },
-      Object {
-        "count": 0,
-        "date": "2018-12-01",
-        "price_per_sqm": 0,
-      },
-    ],
+    "getChartData": Object {
+      "count": 2,
+      "price_per_sqm": 50,
+    },
   },
   "errors": undefined,
   "extensions": undefined,

@@ -26,7 +26,8 @@ type Query {
   getChartData(
     category: Category!
     type: Type
-  ): [ChartData!]
+    date: Date!
+  ): ChartData!
 
   getTableData(
     category: Category!
@@ -89,7 +90,6 @@ type MapDataFeatureGeometry {
 }
 
 type ChartData {
-  date: Date!
   count: Int!
   price_per_sqm: Float!
 }

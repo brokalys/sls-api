@@ -1,6 +1,6 @@
+import { UserInputError } from 'apollo-server-lambda';
 import Moment from 'moment';
 import numbers from 'numbers';
-import { extendMoment } from 'moment-range';
 
 import { getRegionsData } from './get-regions';
 
@@ -8,51 +8,43 @@ import cache from '../lib/cache';
 import mysql from '../lib/db';
 import Repository from '../lib/repository';
 
-const moment = extendMoment(Moment);
+async function getChartData(parent, { category, type, date }) {
+  const month = Moment(date, 'YYYY-MM-DD');
 
-function getChartData(parent, { category, type }) {
-  let start = '01-01-2018';
-  let end = moment()
-    .subtract(1, 'month')
+  // Validate
+  if (month.isBefore('2018-01-01')) {
+    throw new UserInputError('Date must be after 2018-01-01');
+  }
+
+  if (month.isAfter(Moment().startOf('month'))) {
+    throw new UserInputError(
+      'Date must not be bigger than start of current month',
+    );
+  }
+
+  const start = month
+    .clone()
+    .startOf('month')
+    .toISOString();
+  const end = month
+    .clone()
     .endOf('month')
-    .format('DD-MM-YYYY');
+    .toISOString();
 
-  return cache.run(
+  const data = await cache.run(
     'getChartData.dataRetrieval',
     { category, type, start, end },
-    dataRetrieval,
-  );
-}
-
-async function dataRetrieval({ category, type, start, end }) {
-  start = moment(start, 'DD-MM-YYYY');
-  end = moment(end, 'DD-MM-YYYY');
-
-  const range = moment.range(start, end);
-  const months = Array.from(range.by('month')).map((date) =>
-    date.format('YYYY-MM-DD'),
+    Repository.getRawChartData,
   );
 
-  const monthlyResults = await Promise.all(
-    months.map((month) =>
-      cache.run('getChartData.dataRetrieval', { category, type, month }, () =>
-        Repository.getRawChartData(category, type, month),
-      ),
-    ),
+  const medianPrice = numbers.statistic.median(
+    data.map(({ price_per_sqm }) => price_per_sqm),
   );
 
-  return monthlyResults.map((data) => {
-    const medianPrice =
-      numbers.statistic.median(
-        data.map(({ price_per_sqm }) => price_per_sqm),
-      ) || null;
-
-    return {
-      date: '2018-02-01',
-      price_per_sqm: (medianPrice || 0).toFixed(2),
-      count: data.length,
-    };
-  });
+  return {
+    price_per_sqm: (medianPrice || 0).toFixed(2),
+    count: data.length,
+  };
 }
 
 export default getChartData;

@@ -37,7 +37,10 @@ db.query.mockImplementation(() => [
 describe('getChartData', () => {
   describe('response', () => {
     test('returns all chart data with only category', async () => {
-      const output = await getChartData({}, { category: 'APARTMENT' });
+      const output = await getChartData(
+        {},
+        { category: 'APARTMENT', date: '2018-01-01' },
+      );
 
       expect(output).toMatchSnapshot();
     });
@@ -48,6 +51,7 @@ describe('getChartData', () => {
         {
           category: 'APARTMENT',
           type: 'SELL',
+          date: '2018-01-01',
         },
       );
 

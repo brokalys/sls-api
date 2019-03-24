@@ -305,8 +305,8 @@ describe('Query', () => {
         {
           getChartData(
             category: APARTMENT
+            date: "2018-01-01"
           ) {
-            date
             count
             price_per_sqm
           }
@@ -324,8 +324,8 @@ describe('Query', () => {
           getChartData(
             category: APARTMENT
             type: SELL
+            date: "2018-01-01"
           ) {
-            date
             count
             price_per_sqm
           }
