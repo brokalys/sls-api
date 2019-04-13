@@ -1,5 +1,6 @@
 import { GraphQLDate } from 'graphql-iso-date';
 
+import createPinger from './mutations/create-pinger';
 import getChartData from './resolvers/get-chart-data';
 import getMapData from './resolvers/get-map-data';
 import getRegion from './resolvers/get-region';
@@ -14,5 +15,8 @@ exports.resolvers = {
     getRegion,
     getRegions,
     getTableData,
+  },
+  Mutation: {
+    createPinger,
   },
 };

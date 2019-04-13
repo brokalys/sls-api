@@ -1,5 +1,50 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Mutation createPinger creates a pinger 1`] = `
+Object {
+  "data": Object {
+    "createPinger": true,
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
+exports[`Mutation createPinger fails creating a pinger if 5 already exist 1`] = `
+Object {
+  "data": null,
+  "errors": Array [
+    [GraphQLError: Max amount of 5 PINGERS per email exceeded.],
+  ],
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
+exports[`Mutation createPinger fails creating a pinger if input validation fails 1`] = `
+Object {
+  "data": null,
+  "errors": Array [
+    [GraphQLError: Input validation failed],
+  ],
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
 exports[`Query getChartData fetches chart data with category = APARTMENT 1`] = `
 Object {
   "data": Object {

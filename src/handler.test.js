@@ -337,3 +337,83 @@ describe('Query', () => {
     });
   });
 });
+
+describe('Mutation', () => {
+  let mutate;
+
+  beforeEach(() => {
+    cache.get.mockReset();
+
+    const utils = createTestClient(server);
+    mutate = utils.mutate;
+  });
+
+  describe('createPinger', () => {
+    it('creates a pinger', async () => {
+      const response = await mutate({
+        mutation: `
+          mutation {
+            createPinger(
+              email: "demo@email.com"
+              category: APARTMENT
+              type: SELL
+              price_min: 10000
+              price_max: 100000
+              region: "TEST"
+            )
+          }
+        `,
+      });
+
+      expect(response).toMatchSnapshot();
+    });
+
+    it('fails creating a pinger if 5 already exist', async () => {
+      db.query.mockImplementation(() => [
+        { email: 'demo@email.com' },
+        { email: 'demo@email.com' },
+        { email: 'demo@email.com' },
+        { email: 'demo@email.com' },
+        { email: 'demo@email.com' },
+      ]);
+
+      const response = await mutate({
+        mutation: `
+          mutation {
+            createPinger(
+              email: "demo@email.com"
+              category: APARTMENT
+              type: SELL
+              price_min: 10000
+              price_max: 100000
+              region: "TEST"
+            )
+          }
+        `,
+      });
+
+      expect(response).toMatchSnapshot();
+    });
+
+    it('fails creating a pinger if input validation fails', async () => {
+      const response = await mutate({
+        mutation: `
+          mutation {
+            createPinger(
+              email: "demo@email.com"
+              category: APARTMENT
+              type: SELL
+              price_min: 10000
+              price_max: 100000
+              region: "TEST"
+              rooms_min: 10
+              rooms_max: 5
+            )
+          }
+        `,
+      });
+
+      expect(response).toMatchSnapshot();
+    });
+  });
+});

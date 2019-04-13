@@ -12,4 +12,8 @@ describe('resolvers', () => {
   test('has getRegion query', () => {
     expect(resolvers.Query.getRegion).toBeDefined();
   });
+
+  test('has createPinger mutation', () => {
+    expect(resolvers.Mutation.createPinger).toBeDefined();
+  });
 });

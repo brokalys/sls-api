@@ -1,6 +1,7 @@
 import { ApolloServer } from 'apollo-server-lambda';
 import Rollbar from 'rollbar';
 
+import createPinger from './schema/demo/create-pinger.graphql';
 import getChartDataQuery from './schema/demo/get-chart-data.graphql';
 import getMapDataQuery from './schema/demo/get-map-data.graphql';
 import getRegionsQuery from './schema/demo/get-regions.graphql';
@@ -35,6 +36,11 @@ export const server = new ApolloServer({
         endpoint: '/',
         query: getTableDataQuery.loc.source.body,
       },
+      {
+        name: 'Create new PINGER',
+        endpoint: '/',
+        query: createPinger.loc.source.body,
+      },
     ],
   },
   formatError: (error) => {
@@ -43,7 +49,9 @@ export const server = new ApolloServer({
       rollbar.error(error);
     }
 
-    delete error.extensions.exception;
+    if (error.extensions.exception && error.extensions.exception.stacktrace) {
+      delete error.extensions.exception.stacktrace;
+    }
     return error;
   },
 });

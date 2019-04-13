@@ -35,6 +35,52 @@ class Repository {
       return row;
     });
   }
+
+  static async getPingers(email) {
+    return await mysql.query({
+      sql: `
+        SELECT *
+        FROM pinger_emails
+        WHERE email = ?
+      `,
+      values: [email],
+    });
+  }
+
+  static async createPinger(args) {
+    const { affectedRows } = await mysql.query({
+      sql: `
+        INSERT INTO pinger_emails
+        SET
+          email = ?,
+          category = ?,
+          type = ?,
+          price_min = ?,
+          price_max = ?,
+          location = ?,
+          rooms_min = ?,
+          rooms_max = ?,
+          area_m2_min = ?,
+          area_m2_max = ?,
+          comments = ?
+      `,
+      values: [
+        args.email,
+        args.category,
+        args.type,
+        args.price_min,
+        args.price_max,
+        args.location,
+        args.rooms_min,
+        args.rooms_max,
+        args.area_m2_min,
+        args.area_m2_max,
+        args.comments,
+      ],
+    });
+
+    return affectedRows === 1;
+  }
 }
 
 export default Repository;

@@ -1,0 +1,10 @@
+mutation {
+  createPinger(
+    email: "demo@email.com"
+    category: APARTMENT
+    type: SELL
+    price_min: 10000
+    price_max: 100000
+    region: "TEST"
+  )
+}
