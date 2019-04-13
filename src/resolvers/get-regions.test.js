@@ -83,7 +83,7 @@ describe('getRegions', () => {
       }
     });
 
-    describe('difference between start and end date cannot be greater than a month', async () => {
+    describe('difference between start and end date cannot be greater than a month', () => {
       test('valid', async () => {
         const output = await getRegions(
           {},

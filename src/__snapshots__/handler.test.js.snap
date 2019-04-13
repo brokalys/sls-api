@@ -64,7 +64,7 @@ exports[`Mutation unsubscribePinger fails unsubscribing with missing \`id\` 1`] 
 Object {
   "data": undefined,
   "errors": Array [
-    [ValidationError: Field "unsubscribePinger" argument "id" of type "Int!" is required but not provided.],
+    [ValidationError: Field "unsubscribePinger" argument "id" of type "Int!" is required, but it was not provided.],
   ],
   "extensions": undefined,
   "http": Object {
@@ -79,7 +79,7 @@ exports[`Mutation unsubscribePinger fails unsubscribing with missing \`unsubscri
 Object {
   "data": undefined,
   "errors": Array [
-    [ValidationError: Field "unsubscribePinger" argument "unsubscribe_key" of type "String!" is required but not provided.],
+    [ValidationError: Field "unsubscribePinger" argument "unsubscribe_key" of type "String!" is required, but it was not provided.],
   ],
   "extensions": undefined,
   "http": Object {
@@ -18563,7 +18563,7 @@ exports[`Query getRegion fails validation if name is not defined 1`] = `
 Object {
   "data": undefined,
   "errors": Array [
-    [ValidationError: Field "getRegion" argument "name" of type "String!" is required but not provided.],
+    [ValidationError: Field "getRegion" argument "name" of type "String!" is required, but it was not provided.],
   ],
   "extensions": undefined,
   "http": Object {
