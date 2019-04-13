@@ -349,7 +349,7 @@ describe('Mutation', () => {
   });
 
   describe('createPinger', () => {
-    it('creates a pinger', async () => {
+    test('creates a pinger', async () => {
       const response = await mutate({
         mutation: `
           mutation {
@@ -368,7 +368,7 @@ describe('Mutation', () => {
       expect(response).toMatchSnapshot();
     });
 
-    it('fails creating a pinger if 5 already exist', async () => {
+    test('fails creating a pinger if 5 already exist', async () => {
       db.query.mockImplementation(() => [
         { email: 'demo@email.com' },
         { email: 'demo@email.com' },
@@ -395,7 +395,7 @@ describe('Mutation', () => {
       expect(response).toMatchSnapshot();
     });
 
-    it('fails creating a pinger if input validation fails', async () => {
+    test('fails creating a pinger if input validation fails', async () => {
       const response = await mutate({
         mutation: `
           mutation {
@@ -418,7 +418,7 @@ describe('Mutation', () => {
   });
 
   describe('unsubscribePinger', () => {
-    it('unsubscribes an existing pinger', async () => {
+    test('unsubscribes an existing pinger', async () => {
       db.query.mockImplementation(() => ({
         affectedRows: 1,
       }));
@@ -437,7 +437,7 @@ describe('Mutation', () => {
       expect(response).toMatchSnapshot();
     });
 
-    it('fails unsubscribing a pinger with wrong credentials, but still responds with status = true', async () => {
+    test('fails unsubscribing a pinger with wrong credentials, but still responds with status = true', async () => {
       db.query.mockImplementation(() => ({
         affectedRows: 0,
       }));
@@ -456,7 +456,7 @@ describe('Mutation', () => {
       expect(response).toMatchSnapshot();
     });
 
-    it('fails unsubscribing with missing `id`', async () => {
+    test('fails unsubscribing with missing `id`', async () => {
       const response = await mutate({
         mutation: `
           mutation {
@@ -470,7 +470,7 @@ describe('Mutation', () => {
       expect(response).toMatchSnapshot();
     });
 
-    it('fails unsubscribing with missing `unsubscribe_key`', async () => {
+    test('fails unsubscribing with missing `unsubscribe_key`', async () => {
       const response = await mutate({
         mutation: `
           mutation {

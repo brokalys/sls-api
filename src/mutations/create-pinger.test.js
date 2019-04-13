@@ -10,7 +10,7 @@ jest.mock('../lib/repository', () => ({
 
 describe('createPinger', () => {
   describe('when created successfully', () => {
-    it('inserts a record in the DB', async () => {
+    test('inserts a record in the DB', async () => {
       await createPinger(
         {},
         {
@@ -26,7 +26,7 @@ describe('createPinger', () => {
       expect(Repository.createPinger).toHaveBeenCalledTimes(1);
     });
 
-    it('sends an email to admin', async () => {
+    test('sends an email to admin', async () => {
       await createPinger(
         {},
         {
@@ -44,7 +44,7 @@ describe('createPinger', () => {
   });
 
   describe('fails creating when', () => {
-    it('input validation fails', async () => {
+    test('input validation fails', async () => {
       expect.assertions(1);
       await expect(
         createPinger(
@@ -63,7 +63,7 @@ describe('createPinger', () => {
       ).rejects.toBeInstanceOf(Error);
     });
 
-    it('5 pingers with the same email already exist', async () => {
+    test('5 pingers with the same email already exist', async () => {
       Repository.getPingers.mockImplementation(() => [
         { email: 'demo@email.com' },
         { email: 'demo@email.com' },
@@ -88,7 +88,7 @@ describe('createPinger', () => {
       ).rejects.toBeInstanceOf(Error);
     });
 
-    it('inserting in DB fails', async () => {
+    test('inserting in DB fails', async () => {
       Repository.createPinger.mockImplementation(() => {
         throw new Error('Something bad happened');
       });
@@ -109,7 +109,7 @@ describe('createPinger', () => {
       ).rejects.toBeInstanceOf(Error);
     });
 
-    it('sending email fails', async () => {
+    test('sending email fails', async () => {
       send.mockImplementation(() => {
         throw new Error('Something bad happened');
       });

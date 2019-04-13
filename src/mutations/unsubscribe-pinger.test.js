@@ -6,7 +6,7 @@ jest.mock('../lib/repository', () => ({
 }));
 
 describe('unsubscribePinger', () => {
-  it('attempts to unsubscribe a pinger', async () => {
+  test('attempts to unsubscribe a pinger', async () => {
     await unsubscribePinger(
       {},
       {
