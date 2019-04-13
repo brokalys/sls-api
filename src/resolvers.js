@@ -8,7 +8,7 @@ import getRegion from './resolvers/get-region';
 import getRegions from './resolvers/get-regions';
 import getTableData from './resolvers/get-table-data';
 
-exports.resolvers = {
+export const resolvers = {
   Date: GraphQLDate,
   Query: {
     getChartData,
