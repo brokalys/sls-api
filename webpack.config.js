@@ -12,9 +12,6 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        options: {
-          presets: [['env', { targets: { node: '8.10' } }]],
-        },
       },
 
       {
