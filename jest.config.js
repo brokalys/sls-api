@@ -7,5 +7,10 @@ module.exports = {
   clearMocks: true,
   testEnvironment: 'node',
   collectCoverage: true,
-  collectCoverageFrom: ['src/**/*.js'],
+  collectCoverageFrom: [
+    'src/**/*.js',
+    '!src/**/*.test.js',
+    '!src/**/*.itest.js',
+  ],
+  testPathIgnorePatterns: ['\\.itest\\.js'],
 };

@@ -7,7 +7,9 @@
   "scripts": {
     "start": "serverless offline start",
     "lint": "eslint src",
-    "test": "jest",
+    "test": "yarn test:unit && yarn test:integration",
+    "test:unit": "jest",
+    "test:integration": "jest -c jest.config.integration.js",
     "deploy": "serverless deploy",
     "deploy:ci": "yarn deploy --conceal"
   },
