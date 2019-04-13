@@ -1,5 +1,4 @@
 import { ApolloServer } from 'apollo-server-lambda';
-import Rollbar from 'rollbar';
 
 import createPinger from './schema/demo/create-pinger.graphql';
 import getChartDataQuery from './schema/demo/get-chart-data.graphql';
@@ -8,8 +7,6 @@ import getRegionsQuery from './schema/demo/get-regions.graphql';
 import getTableDataQuery from './schema/demo/get-table-data.graphql';
 import schema from './schema/schema.graphql';
 import { resolvers } from './resolvers';
-
-const rollbar = new Rollbar({ accessToken: process.env.ROLLBAR_API_KEY });
 
 export const server = new ApolloServer({
   typeDefs: schema,
@@ -46,7 +43,6 @@ export const server = new ApolloServer({
   formatError: (error) => {
     if (process.env.NODE_ENV !== 'test') {
       console.log(error);
-      rollbar.error(error);
     }
 
     if (error.extensions.exception && error.extensions.exception.stacktrace) {
