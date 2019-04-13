@@ -1,3 +1,4 @@
+import crypto from 'crypto';
 import Moment from 'moment';
 
 import mysql from './db';
@@ -62,7 +63,9 @@ class Repository {
           rooms_max = ?,
           area_m2_min = ?,
           area_m2_max = ?,
-          comments = ?
+          comments = ?,
+          unsubscribe_key = ?,
+          confirmed = 0
       `,
       values: [
         args.email,
@@ -76,6 +79,7 @@ class Repository {
         args.area_m2_min,
         args.area_m2_max,
         args.comments,
+        crypto.randomBytes(20).toString('hex'),
       ],
     });
 
