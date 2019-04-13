@@ -12,4 +12,9 @@ type Mutation {
     area_m2_max: Int
     comments: String
   ): Boolean!
+
+  unsubscribePinger(
+    id: Int!
+    unsubscribe_key: String!
+  ): Boolean!
 }

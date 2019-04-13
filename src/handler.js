@@ -1,6 +1,7 @@
 import { ApolloServer } from 'apollo-server-lambda';
 
 import createPinger from './schema/demo/create-pinger.graphql';
+import unsubscribePinger from './schema/demo/unsubscribe-pinger.graphql';
 import getChartDataQuery from './schema/demo/get-chart-data.graphql';
 import getMapDataQuery from './schema/demo/get-map-data.graphql';
 import getRegionsQuery from './schema/demo/get-regions.graphql';
@@ -37,6 +38,11 @@ export const server = new ApolloServer({
         name: 'Create new PINGER',
         endpoint: '/',
         query: createPinger.loc.source.body,
+      },
+      {
+        name: 'Unsubscribe PINGER',
+        endpoint: '/',
+        query: unsubscribePinger.loc.source.body,
       },
     ],
   },

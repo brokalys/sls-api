@@ -43,6 +43,7 @@ class Repository {
         SELECT *
         FROM pinger_emails
         WHERE email = ?
+          AND unsubscribed_at IS NOT NULL
       `,
       values: [email],
     });
@@ -81,6 +82,21 @@ class Repository {
         args.comments,
         crypto.randomBytes(20).toString('hex'),
       ],
+    });
+
+    return affectedRows === 1;
+  }
+
+  static async unsubscribePinger(id, unsubscribeKey) {
+    const { affectedRows } = await mysql.query({
+      sql: `
+        UPDATE pinger_emails
+        SET unsubscribed_at = CURRENT_TIMESTAMP
+        WHERE id = ?
+          AND unsubscribe_key = ?
+          AND unsubscribed_at IS NULL
+      `,
+      values: [id, unsubscribeKey],
     });
 
     return affectedRows === 1;

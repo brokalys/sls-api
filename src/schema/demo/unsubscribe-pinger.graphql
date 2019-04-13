@@ -1,0 +1,6 @@
+mutation {
+  unsubscribePinger(
+    id: 1
+    unsubscribe_key: "test_123"
+  )
+}

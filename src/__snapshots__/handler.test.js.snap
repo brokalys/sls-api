@@ -45,6 +45,66 @@ Object {
 }
 `;
 
+exports[`Mutation unsubscribePinger fails unsubscribing a pinger with wrong credentials, but still responds with status = true 1`] = `
+Object {
+  "data": Object {
+    "unsubscribePinger": true,
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
+exports[`Mutation unsubscribePinger fails unsubscribing with missing \`id\` 1`] = `
+Object {
+  "data": undefined,
+  "errors": Array [
+    [ValidationError: Field "unsubscribePinger" argument "id" of type "Int!" is required but not provided.],
+  ],
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
+exports[`Mutation unsubscribePinger fails unsubscribing with missing \`unsubscribe_key\` 1`] = `
+Object {
+  "data": undefined,
+  "errors": Array [
+    [ValidationError: Field "unsubscribePinger" argument "unsubscribe_key" of type "String!" is required but not provided.],
+  ],
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
+exports[`Mutation unsubscribePinger unsubscribes an existing pinger 1`] = `
+Object {
+  "data": Object {
+    "unsubscribePinger": true,
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
 exports[`Query getChartData fetches chart data with category = APARTMENT 1`] = `
 Object {
   "data": Object {

@@ -16,4 +16,8 @@ describe('resolvers', () => {
   test('has createPinger mutation', () => {
     expect(resolvers.Mutation.createPinger).toBeDefined();
   });
+
+  test('has unsubscribePinger mutation', () => {
+    expect(resolvers.Mutation.unsubscribePinger).toBeDefined();
+  });
 });
