@@ -40,6 +40,7 @@ plugins:
 custom:
   customDomain:
     domainName: api.brokalys.com
+    stage: prod
     certificateName: '*.brokalys.com'
     createRoute53Record: true
     endpointType: edge

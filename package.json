@@ -11,7 +11,7 @@
     "test:unit": "jest",
     "test:integration": "jest -c jest.config.integration.js",
     "deploy": "serverless deploy",
-    "deploy:ci": "yarn deploy --conceal"
+    "deploy:ci": "yarn deploy --conceal --stage prod"
   },
   "dependencies": {
     "apollo-server-lambda": "^2.3.1",
