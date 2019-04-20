@@ -9,6 +9,8 @@ import getTableDataQuery from './schema/demo/get-table-data.graphql';
 import schema from './schema/schema.graphql';
 import { resolvers } from './resolvers';
 
+const endpoint = process.env.STAGE === 'dev' ? '/dev/' : '/';
+
 export const server = new ApolloServer({
   typeDefs: schema,
   resolvers,
@@ -16,32 +18,32 @@ export const server = new ApolloServer({
     tabs: [
       {
         name: 'Get Regional Stats',
-        endpoint: '/',
+        endpoint,
         query: getRegionsQuery.loc.source.body,
       },
       {
         name: 'Get Chart Data',
-        endpoint: '/',
+        endpoint,
         query: getChartDataQuery.loc.source.body,
       },
       {
         name: 'Get Map Data',
-        endpoint: '/',
+        endpoint,
         query: getMapDataQuery.loc.source.body,
       },
       {
         name: 'Get Table Data',
-        endpoint: '/',
+        endpoint,
         query: getTableDataQuery.loc.source.body,
       },
       {
         name: 'Create new PINGER',
-        endpoint: '/',
+        endpoint,
         query: createPinger.loc.source.body,
       },
       {
         name: 'Unsubscribe PINGER',
-        endpoint: '/',
+        endpoint,
         query: unsubscribePinger.loc.source.body,
       },
     ],
