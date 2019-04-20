@@ -25,7 +25,9 @@ export default {
 
   async get(key, params) {
     const response = await mysql.query({
-      sql: 'SELECT value FROM cache WHERE `key` = ? and `params_hash` = ?',
+      sql: `SELECT value FROM ${
+        process.env.DB_CACHE_DATABASE
+      }.cache WHERE \`key\` = ? and \`params_hash\` = ?`,
       values: [key, hash(params)],
     });
     await mysql.end();
@@ -37,7 +39,7 @@ export default {
 
   set(key, params, value) {
     return mysql.query({
-      sql: 'INSERT INTO cache SET ?',
+      sql: `INSERT INTO ${process.env.DB_CACHE_DATABASE}.cache SET ?`,
       values: {
         key,
         params: JSON.stringify(params),

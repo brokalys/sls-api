@@ -88,7 +88,7 @@ async function getData({ category, start, end }) {
   const data = (await mysql.query({
     sql: `
       SELECT type, price, lat, lng, area, area_measurement, price_per_sqm
-      FROM properties
+      FROM ${process.env.DB_DATABASE}.properties
       WHERE published_at BETWEEN ? AND ?
       AND (type = "rent" AND rent_type = "monthly" OR type = "sell")
       AND category = ?

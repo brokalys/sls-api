@@ -9,7 +9,8 @@ import getTableDataQuery from './schema/demo/get-table-data.graphql';
 import schema from './schema/schema.graphql';
 import { resolvers } from './resolvers';
 
-const endpoint = process.env.STAGE === 'dev' ? '/dev/' : '/';
+const endpoint =
+  process.env.STAGE === 'dev' && !process.env.IS_OFFLINE ? '/dev/' : '/';
 
 export const server = new ApolloServer({
   typeDefs: schema,

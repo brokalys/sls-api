@@ -5,14 +5,16 @@ provider:
   region: eu-west-1
   runtime: nodejs8.10
   stage: ${opt:stage, 'dev'}
-  # timeout: 1
   cfLogs: true
+  logRetentionInDays: 7
   versionFunctions: false
   environment:
     DB_HOST: ${file(serverless.env.yml):DB_HOST, env:DB_HOST}
     DB_DATABASE: ${file(serverless.env.yml):DB_DATABASE, env:DB_DATABASE}
     DB_USERNAME: ${file(serverless.env.yml):DB_USERNAME, env:DB_USERNAME}
     DB_PASSWORD: ${file(serverless.env.yml):DB_PASSWORD, env:DB_PASSWORD}
+    DB_PINGER_DATABASE: ${file(serverless.env.yml):DB_PINGER_DATABASE, env:DB_PINGER_DATABASE}
+    DB_CACHE_DATABASE: ${file(serverless.env.yml):DB_CACHE_DATABASE, env:DB_CACHE_DATABASE}
     MAILGUN_API_KEY: ${file(serverless.env.yml):MAILGUN_API_KEY, env:MAILGUN_API_KEY}
     MAILGUN_DOMAIN: ${file(serverless.env.yml):MAILGUN_DOMAIN, env:MAILGUN_DOMAIN}
     MAILGUN_TO_EMAIL: ${file(serverless.env.yml):MAILGUN_TO_EMAIL, env:MAILGUN_TO_EMAIL}
@@ -31,7 +33,6 @@ functions:
       - http:
           path: /
           method: get
-
 
 plugins:
   - serverless-webpack
@@ -71,6 +72,7 @@ custom:
       - functionErrors
       - functionInvocations
       - functionDuration
+
   webpack:
     includeModules: true
     packager: yarn

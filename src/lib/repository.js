@@ -10,7 +10,7 @@ class Repository {
         SELECT
           price, area, area_measurement,
           price_per_sqm, published_at
-        FROM properties
+        FROM ${process.env.DB_DATABASE}.properties
         WHERE published_at BETWEEN ? AND ?
         ${type ? `AND type = "${type.toLowerCase()}"` : ''} # @todo: sanitize
         ${category ? `AND category = "${category.toLowerCase()}"` : ''}
@@ -41,7 +41,7 @@ class Repository {
     return await mysql.query({
       sql: `
         SELECT *
-        FROM pinger_emails
+        FROM ${process.env.DB_PINGER_DATABASE}.pinger_emails
         WHERE email = ?
           AND unsubscribed_at IS NULL
       `,
@@ -52,7 +52,7 @@ class Repository {
   static async createPinger(args) {
     const { affectedRows } = await mysql.query({
       sql: `
-        INSERT INTO pinger_emails
+        INSERT INTO ${process.env.DB_PINGER_DATABASE}.pinger_emails
         SET
           email = ?,
           category = ?,
@@ -90,7 +90,7 @@ class Repository {
   static async unsubscribePinger(id, unsubscribeKey) {
     const { affectedRows } = await mysql.query({
       sql: `
-        UPDATE pinger_emails
+        UPDATE ${process.env.DB_PINGER_DATABASE}.pinger_emails
         SET unsubscribed_at = CURRENT_TIMESTAMP
         WHERE id = ?
           AND unsubscribe_key = ?

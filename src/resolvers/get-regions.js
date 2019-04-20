@@ -54,7 +54,7 @@ export async function getRegionsData(args) {
   const data = (await mysql.query({
     sql: `
       SELECT price, lat, lng, area, area_measurement, price_per_sqm
-      FROM properties
+      FROM ${process.env.DB_DATABASE}.properties
       WHERE published_at BETWEEN ? AND ?
       ${type ? `AND type = ${connection.escape(type.toLowerCase())}` : ''}
       ${
