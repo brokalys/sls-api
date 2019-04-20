@@ -48,6 +48,8 @@ custom:
     endpointType: edge
 
   alerts:
+    stages:
+      - prod
     topics:
       alarm:
         topic: ${self:provider.stage}-${self:service}-alerts-alarm
