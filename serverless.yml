@@ -4,6 +4,7 @@ provider:
   name: aws
   region: eu-west-1
   runtime: nodejs8.10
+  stage: ${opt:stage, 'dev'}
   # timeout: 1
   cfLogs: true
   versionFunctions: false
@@ -48,7 +49,7 @@ custom:
   alerts:
     topics:
       alarm:
-        topic: ${self:service}-alerts-alarm
+        topic: ${self:provider.stage}-${self:service}-alerts-alarm
         notifications:
           - protocol: email
             endpoint: matiss@brokalys.com
