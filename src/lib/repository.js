@@ -43,7 +43,7 @@ class Repository {
         SELECT *
         FROM pinger_emails
         WHERE email = ?
-          AND unsubscribed_at IS NOT NULL
+          AND unsubscribed_at IS NULL
       `,
       values: [email],
     });
