@@ -4,7 +4,7 @@ import inside from 'point-in-polygon';
 
 import geojson from '../../data/riga-geojson.json';
 import cache from '../lib/cache';
-import mysql from '../lib/db';
+import Repository from '../lib/repository';
 
 function calculatePercentageDifference(a, b) {
   if (!a || !b) {
@@ -84,29 +84,8 @@ async function getTableDataNow({ category, start, end }) {
   });
 }
 
-async function getData({ category, start, end }) {
-  const data = (await mysql.query({
-    sql: `
-      SELECT type, price, lat, lng, area, area_measurement, price_per_sqm
-      FROM ${process.env.DB_DATABASE}.properties
-      WHERE published_at BETWEEN ? AND ?
-      AND (type = "rent" AND rent_type = "monthly" OR type = "sell")
-      AND category = ?
-      AND lat IS NOT NULL
-      AND lng IS NOT NULL
-      AND location_country = "Latvia"
-      AND price > 1
-    `,
-
-    values: [start, end, category],
-  })).map((row) => {
-    if (!row.price_per_sqm && row.area_measurement === 'm2' && row.area) {
-      row.price_per_sqm = row.price / row.area;
-    }
-
-    return row;
-  });
-  await mysql.end();
+async function getData(input) {
+  const data = await Repository.getTableData(input);
 
   return geojson.features.map(({ properties, geometry: { coordinates } }) => {
     const filteredData = data.filter(({ lat, lng }) =>

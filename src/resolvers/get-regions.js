@@ -5,7 +5,7 @@ import inside from 'point-in-polygon';
 import stats from 'stats-lite';
 
 import cache from '../lib/cache';
-import mysql from '../lib/db';
+import Repository from '../lib/repository';
 import geojson from '../../data/riga-geojson.json';
 
 async function getRegions(parent, args) {
@@ -48,36 +48,7 @@ export async function getRegionsData(args) {
   const start = moment.utc(args.start_date);
   const end = moment.utc(args.end_date);
 
-  await mysql.connect();
-  const connection = mysql.getClient();
-
-  const data = (await mysql.query({
-    sql: `
-      SELECT price, lat, lng, area, area_measurement, price_per_sqm
-      FROM ${process.env.DB_DATABASE}.properties
-      WHERE published_at BETWEEN ? AND ?
-      ${type ? `AND type = ${connection.escape(type.toLowerCase())}` : ''}
-      ${
-        category
-          ? `AND category = ${connection.escape(category.toLowerCase())}`
-          : ''
-      }
-      AND lat IS NOT NULL
-      AND lng IS NOT NULL
-      AND location_country = "Latvia"
-      AND price > 1
-    `,
-
-    values: [start.toISOString(), end.endOf('day').toISOString()],
-  })).map((row) => {
-    if (!row.price_per_sqm && row.area_measurement === 'm2' && row.area) {
-      row.price_per_sqm = row.price / row.area;
-    }
-
-    return row;
-  });
-
-  await mysql.end();
+  const data = await Repository.getRegionData({ category, type, start, end });
 
   return geojson.features
     .map((feature) => ({
