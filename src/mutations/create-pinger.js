@@ -29,7 +29,7 @@ const customJoi = Joi.extend((joi) => ({
           ),
         ];
 
-        if (parts.length > 1 && geojsonValidation.isPolygonCoor(parts)) {
+        if (parts.length && geojsonValidation.isPolygonCoor(parts)) {
           return this.createError(
             'string.polygon',
             { v: value },
