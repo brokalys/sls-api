@@ -349,7 +349,47 @@ describe('Mutation', () => {
   });
 
   describe('createPinger', () => {
-    test('creates a pinger', async () => {
+    describe('creates a pinger', () => {
+      test('with region as a plain string', async () => {
+        const response = await mutate({
+          mutation: `
+            mutation {
+              createPinger(
+                email: "demo@email.com"
+                category: APARTMENT
+                type: SELL
+                price_min: 10000
+                price_max: 100000
+                region: "TEST"
+              )
+            }
+          `,
+        });
+
+        expect(response).toMatchSnapshot();
+      });
+
+      test('with region as a polygon', async () => {
+        const response = await mutate({
+          mutation: `
+            mutation {
+              createPinger(
+                email: "demo@email.com"
+                category: APARTMENT
+                type: SELL
+                price_min: 10000
+                price_max: 100000
+                region: "56.96715 24.09457, 56.97923 24.14125, 56.9825 24.17984, 56.95892 24.17559, 56.94571 24.14812, 56.93767 24.13181"
+              )
+            }
+          `,
+        });
+
+        expect(response).toMatchSnapshot();
+      });
+    });
+
+    test('fails creating with invalid polymer (mid coordinate is malformed)', async () => {
       const response = await mutate({
         mutation: `
           mutation {
@@ -359,7 +399,7 @@ describe('Mutation', () => {
               type: SELL
               price_min: 10000
               price_max: 100000
-              region: "TEST"
+              region: "56.96715 24.09457, 56.97923 24.14125, 56.9825 24.17984, 56.95892 2417559, 56.94571 24.14812, 56.93767 24.13181, 56.96715 24.09457"
             )
           }
         `,

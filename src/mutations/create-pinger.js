@@ -1,6 +1,7 @@
 import Joi from 'joi';
 import { ApolloError, UserInputError } from 'apollo-server-lambda';
 import mailgunJs from 'mailgun-js';
+import geojsonValidation from 'geojson-validation';
 
 import Repository from '../lib/repository';
 
@@ -8,6 +9,40 @@ const mailgun = mailgunJs({
   apiKey: process.env.MAILGUN_API_KEY,
   domain: process.env.MAILGUN_DOMAIN,
 });
+
+const customJoi = Joi.extend((joi) => ({
+  base: Joi.string(),
+  name: 'string',
+  language: {
+    polygon: 'needs to be a valid polygon',
+  },
+  rules: [
+    {
+      name: 'polygon',
+      validate(params, value, state, options) {
+        const parts = [
+          value.split(',').map((p) =>
+            p
+              .trim()
+              .split(' ')
+              .map((r) => parseFloat(r)),
+          ),
+        ];
+
+        if (parts.length > 1 && geojsonValidation.isPolygonCoor(parts)) {
+          return this.createError(
+            'string.polygon',
+            { v: value },
+            state,
+            options,
+          );
+        }
+
+        return value;
+      },
+    },
+  ],
+}));
 
 // Validation schema
 const validationSchema = Joi.object().keys({
@@ -27,7 +62,7 @@ const validationSchema = Joi.object().keys({
     .required()
     .min(Joi.ref('price_min'))
     .max(10000000),
-  region: Joi.string(),
+  region: customJoi.string().polygon(),
   rooms_min: Joi.number().min(0),
   rooms_max: Joi.number()
     .min(Joi.ref('rooms_min'))
