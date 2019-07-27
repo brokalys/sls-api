@@ -146,7 +146,7 @@ class Repository {
   static async unsubscribePinger(id, unsubscribeKey) {
     const { affectedRows } = await mysql.query({
       sql: `
-        UPDATE ${process.env.DB_PINGER_DATABASE}.pinger_emails
+        UPDATE \`${process.env.DB_PINGER_DATABASE}\`.pinger_emails
         SET unsubscribed_at = CURRENT_TIMESTAMP
         WHERE id = ?
           AND unsubscribe_key = ?
