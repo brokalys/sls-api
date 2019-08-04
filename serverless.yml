@@ -48,30 +48,30 @@ custom:
     createRoute53Record: true
     endpointType: edge
 
-  alerts:
-    stages:
-      - prod
-    topics:
-      alarm:
-        topic: ${self:provider.stage}-${self:service}-alerts-alarm
-        notifications:
-          - protocol: email
-            endpoint: matiss@brokalys.com
-    definitions:
-      functionThrottles:
-        treatMissingData: notBreaching
-      functionErrors:
-        treatMissingData: notBreaching
-      functionInvocations:
-        treatMissingData: notBreaching
-      functionDuration:
-        threshold: 4000
-        treatMissingData: notBreaching
-    alarms:
-      - functionThrottles
-      - functionErrors
-      - functionInvocations
-      - functionDuration
+  # alerts:
+  #   stages:
+  #     - prod
+  #   topics:
+  #     alarm:
+  #       topic: ${self:provider.stage}-${self:service}-alerts-alarm
+  #       notifications:
+  #         - protocol: email
+  #           endpoint: matiss@brokalys.com
+  #   definitions:
+  #     functionThrottles:
+  #       treatMissingData: notBreaching
+  #     functionErrors:
+  #       treatMissingData: notBreaching
+  #     functionInvocations:
+  #       treatMissingData: notBreaching
+  #     functionDuration:
+  #       threshold: 4000
+  #       treatMissingData: notBreaching
+  #   alarms:
+  #     - functionThrottles
+  #     - functionErrors
+  #     - functionInvocations
+  #     - functionDuration
 
   webpack:
     includeModules: true
