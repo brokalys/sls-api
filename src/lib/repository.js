@@ -111,8 +111,8 @@ class Repository {
         INSERT INTO \`${process.env.DB_PINGER_DATABASE}\`.pinger_emails
         SET
           email = ?,
-          category = ?,
-          type = ?,
+          categories = ?,
+          types = ?,
           price_min = ?,
           price_max = ?,
           location = ?,
@@ -120,14 +120,14 @@ class Repository {
           rooms_max = ?,
           area_m2_min = ?,
           area_m2_max = ?,
-          comments = ?,
+          description = ?,
           unsubscribe_key = ?,
           confirmed = 0
       `,
       values: [
         args.email,
-        args.category,
-        args.type,
+        [args.category],
+        [args.type],
         args.price_min,
         args.price_max,
         args.location,
