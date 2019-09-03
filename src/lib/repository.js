@@ -97,7 +97,7 @@ class Repository {
     return await mysql.query({
       sql: `
         SELECT *
-        FROM ${process.env.DB_PINGER_DATABASE}.pinger_emails
+        FROM \`${process.env.DB_PINGER_DATABASE}\`.pinger_emails
         WHERE email = ?
           AND unsubscribed_at IS NULL
       `,
@@ -108,7 +108,7 @@ class Repository {
   static async createPinger(args) {
     const { affectedRows } = await mysql.query({
       sql: `
-        INSERT INTO ${process.env.DB_PINGER_DATABASE}.pinger_emails
+        INSERT INTO \`${process.env.DB_PINGER_DATABASE}\`.pinger_emails
         SET
           email = ?,
           category = ?,
