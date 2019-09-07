@@ -18,6 +18,7 @@ provider:
     MAILGUN_API_KEY: ${file(serverless.env.yml):MAILGUN_API_KEY, env:MAILGUN_API_KEY}
     MAILGUN_DOMAIN: ${file(serverless.env.yml):MAILGUN_DOMAIN, env:MAILGUN_DOMAIN}
     MAILGUN_TO_EMAIL: ${file(serverless.env.yml):MAILGUN_TO_EMAIL, env:MAILGUN_TO_EMAIL}
+    GMAPS_KEY: ${file(serverless.env.yml):GMAPS_KEY, env:GMAPS_KEY}
     STAGE: ${opt:stage, 'dev'}
 
 functions:
