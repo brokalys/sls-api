@@ -477,6 +477,31 @@ describe('Mutation', () => {
       expect(response).toMatchSnapshot();
     });
 
+    test('unsubscribes all pingers of an email', async () => {
+      db.query.mockReturnValueOnce([
+        {
+          email: 'test@brokalys.com',
+        },
+      ]);
+      db.query.mockReturnValueOnce({
+        affectedRows: 1,
+      });
+
+      const response = await mutate({
+        mutation: `
+          mutation {
+            unsubscribePinger(
+              id: 1
+              unsubscribe_key: "test_123"
+              all: true
+            )
+          }
+        `,
+      });
+
+      expect(response).toMatchSnapshot();
+    });
+
     test('fails unsubscribing a pinger with wrong credentials, but still responds with status = true', async () => {
       db.query.mockImplementation(() => ({
         affectedRows: 0,

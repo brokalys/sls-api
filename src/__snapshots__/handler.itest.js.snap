@@ -220,6 +220,21 @@ Object {
 }
 `;
 
+exports[`Mutation unsubscribePinger unsubscribes all pingers of an email 1`] = `
+Object {
+  "data": Object {
+    "unsubscribePinger": true,
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
 exports[`Mutation unsubscribePinger unsubscribes an existing pinger 1`] = `
 Object {
   "data": Object {

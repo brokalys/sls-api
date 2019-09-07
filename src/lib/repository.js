@@ -157,6 +157,34 @@ class Repository {
 
     return affectedRows === 1;
   }
+
+  static async unsubscribeAllPingers(id, unsubscribeKey) {
+    const data = await mysql.query({
+      sql: `
+        SELECT email
+        FROM \`${process.env.DB_PINGER_DATABASE}\`.pinger_emails
+        WHERE id = ?
+          AND unsubscribe_key = ?
+      `,
+      values: [id, unsubscribeKey],
+    });
+
+    if (data.length === 0) {
+      return false;
+    }
+
+    const { affectedRows } = await mysql.query({
+      sql: `
+        UPDATE \`${process.env.DB_PINGER_DATABASE}\`.pinger_emails
+        SET unsubscribed_at = CURRENT_TIMESTAMP
+        WHERE email = ?
+          AND unsubscribed_at IS NULL
+      `,
+      values: [data[0].email],
+    });
+
+    return affectedRows === 1;
+  }
 }
 
 export default Repository;

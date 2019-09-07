@@ -16,5 +16,6 @@ type Mutation {
   unsubscribePinger(
     id: Int!
     unsubscribe_key: String!
+    all: Boolean
   ): Boolean!
 }
