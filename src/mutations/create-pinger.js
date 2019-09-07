@@ -111,12 +111,22 @@ async function createPinger(parent, input) {
     comments: input.comments,
   });
 
+  const imgRegion = input.region
+    .split(', ')
+    .map((r) => r.replace(' ', ','))
+    .join('|');
+
   // Send a notification to admin
   await mailgun.messages().send({
     from: 'Brokalys PINGER <noreply@brokalys.com>',
     to: process.env.MAILGUN_TO_EMAIL,
     subject: 'New Brokalys Pinger',
-    text: 'A new Brokalys Pinger has been added. Please confirm it.',
+    html: `
+      <p>A new Brokalys Pinger has been added. Please confirm it.</p>
+      <img src="https://maps.googleapis.com/maps/api/staticmap?size=600x300&path=color:0xff0000ff|weight:5|${imgRegion}|${
+      imgRegion.split('|')[0]
+    }&key=${process.env.GMAPS_KEY}" />
+    `,
   });
 
   return true;
