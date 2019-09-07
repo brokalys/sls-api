@@ -36,7 +36,10 @@ Object {
   "errors": Array [
     Object {
       "extensions": Object {
-        "code": 400,
+        "code": "BAD_USER_INPUT",
+        "exception": Object {
+          "maxPingers": 5,
+        },
       },
       "locations": Array [
         Object {

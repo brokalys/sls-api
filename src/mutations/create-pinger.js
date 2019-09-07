@@ -1,5 +1,5 @@
 import Joi from 'joi';
-import { ApolloError, UserInputError } from 'apollo-server-lambda';
+import { UserInputError } from 'apollo-server-lambda';
 import mailgunJs from 'mailgun-js';
 import geojsonValidation from 'geojson-validation';
 
@@ -90,9 +90,11 @@ async function createPinger(parent, input) {
 
   // Check against spam attempts
   if (currentPingers.length >= MAX_PINGERS) {
-    throw new ApolloError(
+    throw new UserInputError(
       `Max amount of ${MAX_PINGERS} PINGERS per email exceeded.`,
-      400,
+      {
+        maxPingers: MAX_PINGERS,
+      },
     );
   }
 
