@@ -2,7 +2,7 @@ module.exports = {
   setupFiles: ['./__setups__/date.js'],
   transform: {
     '\\.(gql|graphql)$': 'jest-transform-graphql',
-    '.*': 'babel-jest',
+    '^.+\\.[t|j]sx?$': 'babel-jest',
   },
   clearMocks: true,
   testEnvironment: 'node',

@@ -34,7 +34,21 @@ exports[`Mutation createPinger fails creating a pinger if 5 already exist 1`] = 
 Object {
   "data": null,
   "errors": Array [
-    [GraphQLError: Max amount of 5 PINGERS per email exceeded.],
+    Object {
+      "extensions": Object {
+        "code": 400,
+      },
+      "locations": Array [
+        Object {
+          "column": 13,
+          "line": 3,
+        },
+      ],
+      "message": "Max amount of 5 PINGERS per email exceeded.",
+      "path": Array [
+        "createPinger",
+      ],
+    },
   ],
   "extensions": undefined,
   "http": Object {
@@ -49,7 +63,38 @@ exports[`Mutation createPinger fails creating a pinger if input validation fails
 Object {
   "data": null,
   "errors": Array [
-    [GraphQLError: Input validation failed],
+    Object {
+      "extensions": Object {
+        "code": "BAD_USER_INPUT",
+        "exception": Object {
+          "details": Array [
+            Object {
+              "context": Object {
+                "key": "rooms_max",
+                "label": "rooms_max",
+                "limit": 10,
+                "value": 5,
+              },
+              "message": "\\"rooms_max\\" must be larger than or equal to 10",
+              "path": Array [
+                "rooms_max",
+              ],
+              "type": "number.min",
+            },
+          ],
+        },
+      },
+      "locations": Array [
+        Object {
+          "column": 13,
+          "line": 3,
+        },
+      ],
+      "message": "Input validation failed",
+      "path": Array [
+        "createPinger",
+      ],
+    },
   ],
   "extensions": undefined,
   "http": Object {
@@ -94,7 +139,18 @@ exports[`Mutation unsubscribePinger fails unsubscribing with missing \`id\` 1`] 
 Object {
   "data": undefined,
   "errors": Array [
-    [ValidationError: Field "unsubscribePinger" argument "id" of type "Int!" is required, but it was not provided.],
+    Object {
+      "extensions": Object {
+        "code": "GRAPHQL_VALIDATION_FAILED",
+      },
+      "locations": Array [
+        Object {
+          "column": 13,
+          "line": 3,
+        },
+      ],
+      "message": "Field \\"unsubscribePinger\\" argument \\"id\\" of type \\"Int!\\" is required, but it was not provided.",
+    },
   ],
   "extensions": undefined,
   "http": Object {
@@ -109,7 +165,18 @@ exports[`Mutation unsubscribePinger fails unsubscribing with missing \`unsubscri
 Object {
   "data": undefined,
   "errors": Array [
-    [ValidationError: Field "unsubscribePinger" argument "unsubscribe_key" of type "String!" is required, but it was not provided.],
+    Object {
+      "extensions": Object {
+        "code": "GRAPHQL_VALIDATION_FAILED",
+      },
+      "locations": Array [
+        Object {
+          "column": 13,
+          "line": 3,
+        },
+      ],
+      "message": "Field \\"unsubscribePinger\\" argument \\"unsubscribe_key\\" of type \\"String!\\" is required, but it was not provided.",
+    },
   ],
   "extensions": undefined,
   "http": Object {
@@ -175,7 +242,21 @@ exports[`Query getMapData fails validation if start date is past end date 1`] = 
 Object {
   "data": null,
   "errors": Array [
-    [GraphQLError: End date must come after start date],
+    Object {
+      "extensions": Object {
+        "code": "BAD_USER_INPUT",
+      },
+      "locations": Array [
+        Object {
+          "column": 11,
+          "line": 3,
+        },
+      ],
+      "message": "End date must come after start date",
+      "path": Array [
+        "getMapData",
+      ],
+    },
   ],
   "extensions": undefined,
   "http": Object {
@@ -18593,7 +18674,18 @@ exports[`Query getRegion fails validation if name is not defined 1`] = `
 Object {
   "data": undefined,
   "errors": Array [
-    [ValidationError: Field "getRegion" argument "name" of type "String!" is required, but it was not provided.],
+    Object {
+      "extensions": Object {
+        "code": "GRAPHQL_VALIDATION_FAILED",
+      },
+      "locations": Array [
+        Object {
+          "column": 11,
+          "line": 3,
+        },
+      ],
+      "message": "Field \\"getRegion\\" argument \\"name\\" of type \\"String!\\" is required, but it was not provided.",
+    },
   ],
   "extensions": undefined,
   "http": Object {
@@ -18608,7 +18700,21 @@ exports[`Query getRegion fails validation if start date is past end date 1`] = `
 Object {
   "data": null,
   "errors": Array [
-    [GraphQLError: End date must come after start date],
+    Object {
+      "extensions": Object {
+        "code": "BAD_USER_INPUT",
+      },
+      "locations": Array [
+        Object {
+          "column": 11,
+          "line": 3,
+        },
+      ],
+      "message": "End date must come after start date",
+      "path": Array [
+        "getRegion",
+      ],
+    },
   ],
   "extensions": undefined,
   "http": Object {
@@ -18719,7 +18825,21 @@ Object {
     "getRegions": null,
   },
   "errors": Array [
-    [GraphQLError: End date must come after start date],
+    Object {
+      "extensions": Object {
+        "code": "BAD_USER_INPUT",
+      },
+      "locations": Array [
+        Object {
+          "column": 11,
+          "line": 3,
+        },
+      ],
+      "message": "End date must come after start date",
+      "path": Array [
+        "getRegions",
+      ],
+    },
   ],
   "extensions": undefined,
   "http": Object {

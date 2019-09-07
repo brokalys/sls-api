@@ -25,9 +25,7 @@ export default {
 
   async get(key, params) {
     const response = await mysql.query({
-      sql: `SELECT value FROM ${
-        process.env.DB_CACHE_DATABASE
-      }.cache WHERE \`key\` = ? and \`params_hash\` = ?`,
+      sql: `SELECT value FROM ${process.env.DB_CACHE_DATABASE}.cache WHERE \`key\` = ? and \`params_hash\` = ?`,
       values: [key, hash(params)],
     });
     await mysql.end();
