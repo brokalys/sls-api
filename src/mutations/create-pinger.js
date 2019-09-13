@@ -105,7 +105,7 @@ async function createPinger(parent, input) {
     type: input.type.toLowerCase(),
     price_min: input.price_min,
     price_max: input.price_max,
-    location: input.region,
+    location: [input.region, input.region.split(', ')[0]].join(', '),
     rooms_min: input.rooms_min,
     rooms_max: input.rooms_max,
     area_m2_min: input.area_m2_min,
