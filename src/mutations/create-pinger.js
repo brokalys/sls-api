@@ -51,7 +51,7 @@ const validationSchema = Joi.object().keys({
     .email({ allowUnicode: false }),
   category: Joi.string()
     .required()
-    .allow(['APARTMENT', 'HOUSE']),
+    .allow(['APARTMENT', 'HOUSE', 'LAND']),
   type: Joi.string()
     .required()
     .allow(['SELL', 'RENT']),
