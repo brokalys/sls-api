@@ -40,6 +40,7 @@ Object {
         "exception": Object {
           "maxPingers": 5,
         },
+        "maxPingers": 5,
       },
       "locations": Array [
         Object {
@@ -69,6 +70,21 @@ Object {
     Object {
       "extensions": Object {
         "code": "BAD_USER_INPUT",
+        "details": Array [
+          Object {
+            "context": Object {
+              "key": "rooms_max",
+              "label": "rooms_max",
+              "limit": 10,
+              "value": 5,
+            },
+            "message": "\\"rooms_max\\" must be larger than or equal to 10",
+            "path": Array [
+              "rooms_max",
+            ],
+            "type": "number.min",
+          },
+        ],
         "exception": Object {
           "details": Array [
             Object {
@@ -115,6 +131,20 @@ Object {
     Object {
       "extensions": Object {
         "code": "BAD_USER_INPUT",
+        "details": Array [
+          Object {
+            "context": Object {
+              "key": "region",
+              "label": "region",
+              "v": "56.96715 24.09457, 56.97923 24.14125, 56.9825 24.17984, 56.95892 2417559, 56.94571 24.14812, 56.93767 24.13181, 56.96715 24.09457",
+            },
+            "message": "\\"region\\" needs to be a valid polygon",
+            "path": Array [
+              "region",
+            ],
+            "type": "string.polygon",
+          },
+        ],
         "exception": Object {
           "details": Array [
             Object {
