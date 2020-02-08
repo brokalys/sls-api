@@ -105,8 +105,21 @@ class Repository {
     });
   }
 
+  static async getPinger(id) {
+    const [data] = await mysql.query({
+      sql: `
+        SELECT *
+        FROM \`${process.env.DB_PINGER_DATABASE}\`.pinger_emails
+        WHERE id = ?
+      `,
+      values: [id],
+    });
+
+    return data;
+  }
+
   static async createPinger(args) {
-    const { affectedRows } = await mysql.query({
+    const { insertId } = await mysql.query({
       sql: `
         INSERT INTO \`${process.env.DB_PINGER_DATABASE}\`.pinger_emails
         SET
@@ -140,7 +153,7 @@ class Repository {
       ],
     });
 
-    return affectedRows === 1;
+    return insertId;
   }
 
   static async confirmPinger(id, confirmKey) {

@@ -5,7 +5,11 @@ import createPinger from './create-pinger';
 
 jest.mock('../lib/repository', () => ({
   getPingers: jest.fn(() => []),
-  createPinger: jest.fn(),
+  getPinger: jest.fn(() => ({
+    id: 1,
+    unsubscribe_key: 'key',
+  })),
+  createPinger: jest.fn(() => 1),
 }));
 
 describe('createPinger', () => {

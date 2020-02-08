@@ -99,7 +99,7 @@ async function createPinger(parent, input) {
   }
 
   // Create a new unconfirmed PINGER
-  await Repository.createPinger({
+  const id = await Repository.createPinger({
     email: input.email,
     category: input.category.toLowerCase(),
     type: input.type.toLowerCase(),
@@ -112,6 +112,9 @@ async function createPinger(parent, input) {
     area_m2_max: input.area_m2_max,
     comments: input.comments,
   });
+
+  // Retrieve the new PINGER
+  const data = await Repository.getPinger(id);
 
   const imgRegion = input.region
     .split(', ')
@@ -127,7 +130,12 @@ async function createPinger(parent, input) {
       <p>A new Brokalys Pinger has been added. Please confirm it.</p>
       <img src="https://maps.googleapis.com/maps/api/staticmap?size=600x300&path=color:0xff0000ff|weight:5|${imgRegion}|${
       imgRegion.split('|')[0]
-    }&key=${process.env.GMAPS_KEY}" />
+    }&key=${process.env.GMAPS_KEY}" height="300" />
+      <p>
+        <a href="https://confirm.brokalys.com?id=${data.id}&key=${
+      data.unsubscribe_key
+    }">Confirm this PINGER</a>
+      </p>
     `,
   });
 
