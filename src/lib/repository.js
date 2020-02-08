@@ -143,6 +143,21 @@ class Repository {
     return affectedRows === 1;
   }
 
+  static async confirmPinger(id, confirmKey) {
+    const { affectedRows } = await mysql.query({
+      sql: `
+        UPDATE \`${process.env.DB_PINGER_DATABASE}\`.pinger_emails
+        SET confirmed = 1
+        WHERE id = ?
+          AND unsubscribe_key = ?
+          AND confirmed = 0
+      `,
+      values: [id, confirmKey],
+    });
+
+    return affectedRows === 1;
+  }
+
   static async unsubscribePinger(id, unsubscribeKey) {
     const { affectedRows } = await mysql.query({
       sql: `

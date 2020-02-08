@@ -1,5 +1,6 @@
 import { ApolloServer } from 'apollo-server-lambda';
 
+import confirmPinger from './schema/demo/confirm-pinger.graphql';
 import createPinger from './schema/demo/create-pinger.graphql';
 import unsubscribePinger from './schema/demo/unsubscribe-pinger.graphql';
 import getChartDataQuery from './schema/demo/get-chart-data.graphql';
@@ -46,6 +47,11 @@ export const server = new ApolloServer({
         name: 'Unsubscribe PINGER',
         endpoint,
         query: unsubscribePinger.loc.source.body,
+      },
+      {
+        name: 'Confirm PINGER',
+        endpoint,
+        query: confirmPinger.loc.source.body,
       },
     ],
   },

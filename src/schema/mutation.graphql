@@ -18,4 +18,9 @@ type Mutation {
     unsubscribe_key: String!
     all: Boolean
   ): Boolean!
+
+  confirmPinger(
+    id: Int!
+    confirm_key: String!
+  ): Boolean!
 }

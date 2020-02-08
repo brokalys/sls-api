@@ -1,5 +1,6 @@
 import { GraphQLDate } from 'graphql-iso-date';
 
+import confirmPinger from './mutations/confirm-pinger';
 import createPinger from './mutations/create-pinger';
 import unsubscribePinger from './mutations/unsubscribe-pinger';
 import getChartData from './resolvers/get-chart-data';
@@ -18,6 +19,7 @@ export const resolvers = {
     getTableData,
   },
   Mutation: {
+    confirmPinger,
     createPinger,
     unsubscribePinger,
   },
