@@ -211,7 +211,7 @@ class Repository {
       values: [data[0].email],
     });
 
-    return affectedRows === 1;
+    return affectedRows >= 1;
   }
 }
 
