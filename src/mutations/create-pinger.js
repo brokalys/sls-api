@@ -1,4 +1,4 @@
-import Joi from 'joi';
+import Joi from '@hapi/joi';
 import { UserInputError } from 'apollo-server-lambda';
 import mailgunJs from 'mailgun-js';
 import geojsonValidation from 'geojson-validation';
@@ -11,15 +11,14 @@ const mailgun = mailgunJs({
 });
 
 const customJoi = Joi.extend((joi) => ({
+  type: 'string',
   base: Joi.string(),
-  name: 'string',
-  language: {
-    polygon: 'needs to be a valid polygon',
+  messages: {
+    'string.polygon': '{{#label}} needs to be a valid polygon',
   },
-  rules: [
-    {
-      name: 'polygon',
-      validate(params, value, state, options) {
+  rules: {
+    polygon: {
+      validate(value, helpers, args, options) {
         const parts = [
           value.split(',').map((p) =>
             p
@@ -30,18 +29,13 @@ const customJoi = Joi.extend((joi) => ({
         ];
 
         if (parts.length && geojsonValidation.isPolygonCoor(parts)) {
-          return this.createError(
-            'string.polygon',
-            { v: value },
-            state,
-            options,
-          );
+          return helpers.error('string.polygon');
         }
 
         return value;
       },
     },
-  ],
+  },
 }));
 
 // Validation schema
@@ -51,10 +45,10 @@ const validationSchema = Joi.object().keys({
     .email({ allowUnicode: false }),
   category: Joi.string()
     .required()
-    .allow(['APARTMENT', 'HOUSE', 'LAND']),
+    .allow('APARTMENT', 'HOUSE', 'LAND'),
   type: Joi.string()
     .required()
-    .allow(['SELL', 'RENT']),
+    .allow('SELL', 'RENT'),
   price_min: Joi.number()
     .required()
     .min(1),
@@ -77,7 +71,7 @@ const validationSchema = Joi.object().keys({
 const MAX_PINGERS = 5;
 
 async function createPinger(parent, input) {
-  const validator = Joi.validate(input, validationSchema);
+  const validator = validationSchema.validate(input);
 
   // Validate input
   if (validator.error) {

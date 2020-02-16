@@ -157,10 +157,25 @@ Object {
             "context": Object {
               "key": "rooms_max",
               "label": "rooms_max",
-              "limit": 10,
+              "limit": Object {
+                "adjust": null,
+                "ancestor": 1,
+                "depth": 1,
+                "display": "ref:rooms_min",
+                "in": false,
+                "iterables": null,
+                "key": "rooms_min",
+                "map": null,
+                "path": Array [
+                  "rooms_min",
+                ],
+                "root": "rooms_min",
+                "separator": ".",
+                "type": "value",
+              },
               "value": 5,
             },
-            "message": "\\"rooms_max\\" must be larger than or equal to 10",
+            "message": "\\"rooms_max\\" must be larger than or equal to ref:rooms_min",
             "path": Array [
               "rooms_max",
             ],
@@ -173,10 +188,25 @@ Object {
               "context": Object {
                 "key": "rooms_max",
                 "label": "rooms_max",
-                "limit": 10,
+                "limit": Object {
+                  "adjust": null,
+                  "ancestor": 1,
+                  "depth": 1,
+                  "display": "ref:rooms_min",
+                  "in": false,
+                  "iterables": null,
+                  "key": "rooms_min",
+                  "map": null,
+                  "path": Array [
+                    "rooms_min",
+                  ],
+                  "root": "rooms_min",
+                  "separator": ".",
+                  "type": "value",
+                },
                 "value": 5,
               },
-              "message": "\\"rooms_max\\" must be larger than or equal to 10",
+              "message": "\\"rooms_max\\" must be larger than or equal to ref:rooms_min",
               "path": Array [
                 "rooms_max",
               ],
@@ -218,7 +248,7 @@ Object {
             "context": Object {
               "key": "region",
               "label": "region",
-              "v": "56.96715 24.09457, 56.97923 24.14125, 56.9825 24.17984, 56.95892 2417559, 56.94571 24.14812, 56.93767 24.13181, 56.96715 24.09457",
+              "value": "56.96715 24.09457, 56.97923 24.14125, 56.9825 24.17984, 56.95892 2417559, 56.94571 24.14812, 56.93767 24.13181, 56.96715 24.09457",
             },
             "message": "\\"region\\" needs to be a valid polygon",
             "path": Array [
@@ -233,7 +263,7 @@ Object {
               "context": Object {
                 "key": "region",
                 "label": "region",
-                "v": "56.96715 24.09457, 56.97923 24.14125, 56.9825 24.17984, 56.95892 2417559, 56.94571 24.14812, 56.93767 24.13181, 56.96715 24.09457",
+                "value": "56.96715 24.09457, 56.97923 24.14125, 56.9825 24.17984, 56.95892 2417559, 56.94571 24.14812, 56.93767 24.13181, 56.96715 24.09457",
               },
               "message": "\\"region\\" needs to be a valid polygon",
               "path": Array [
