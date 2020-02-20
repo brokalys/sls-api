@@ -5,6 +5,7 @@ import createPinger from './schema/demo/create-pinger.graphql';
 import unsubscribePinger from './schema/demo/unsubscribe-pinger.graphql';
 import getChartDataQuery from './schema/demo/get-chart-data.graphql';
 import getMapDataQuery from './schema/demo/get-map-data.graphql';
+import getPingerStats from './schema/demo/get-pinger-stats.graphql';
 import getRegionsQuery from './schema/demo/get-regions.graphql';
 import getTableDataQuery from './schema/demo/get-table-data.graphql';
 import schema from './schema/schema.graphql';
@@ -37,6 +38,11 @@ export const server = new ApolloServer({
         name: 'Get Table Data',
         endpoint,
         query: getTableDataQuery.loc.source.body,
+      },
+      {
+        name: 'Get stats for PINGER',
+        endpoint,
+        query: getPingerStats.loc.source.body,
       },
       {
         name: 'Create new PINGER',

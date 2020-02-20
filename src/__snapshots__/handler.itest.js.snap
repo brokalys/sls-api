@@ -18860,6 +18860,40 @@ Object {
 }
 `;
 
+exports[`Query getPingerStats fails validation if region is invalid 1`] = `
+Object {
+  "data": Object {
+    "getPingerStats": Object {
+      "pingers_last_month": 1,
+    },
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
+exports[`Query getPingerStats fetches pinger stats 1`] = `
+Object {
+  "data": Object {
+    "getPingerStats": Object {
+      "pingers_last_month": 1,
+    },
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
 exports[`Query getRegion fails validation if name is not defined 1`] = `
 Object {
   "data": undefined,

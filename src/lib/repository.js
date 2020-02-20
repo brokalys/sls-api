@@ -1,5 +1,5 @@
 import crypto from 'crypto';
-import Moment from 'moment';
+import moment from 'moment';
 
 import mysql from './db';
 
@@ -116,6 +116,52 @@ class Repository {
     });
 
     return data;
+  }
+
+  static async getPingerCount(args) {
+    const start = moment()
+      .subtract(1, 'month')
+      .utc()
+      .startOf('month');
+    const end = start.clone().endOf('month');
+
+    const [data] = await mysql.query({
+      sql: `
+        SELECT COUNT(*) as count
+        FROM ${process.env.DB_DATABASE}.properties
+        WHERE created_at > ? AND created_at < ?
+         ${args.category ? `AND category = "${args.category}"` : ''}
+         ${args.type ? `AND type = "${args.type}"` : ''}
+         ${
+           args.type === 'rent'
+             ? 'AND (rent_type IS NULL OR rent_type = "monthly")'
+             : ''
+         }
+         ${args.price_min > 0 ? `AND price >= ${args.price_min}` : ''}
+         ${args.price_max > 0 ? `AND price <= ${args.price_max}` : ''}
+         ${args.rooms_min > 0 ? `AND rooms >= ${args.rooms_min}` : ''}
+         ${args.rooms_max > 0 ? `AND rooms <= ${args.rooms_max}` : ''}
+         ${
+           args.area_m2_min > 0
+             ? `AND (area >= ${args.area_m2_min} AND area_measurement = "m2" OR area_measurement != "m2")`
+             : ''
+         }
+         ${
+           args.area_m2_max > 0
+             ? `AND (area <= ${args.area_m2_max} AND area_measurement = "m2" OR area_measurement != "m2")`
+             : ''
+         }
+         ${
+           args.region
+             ? `AND ST_Contains(ST_GeomFromText('POLYGON((${args.region}))'), point(lat, lng))`
+             : ''
+         }
+      `,
+
+      values: [start.toISOString(), end.toISOString()],
+    });
+
+    return data.count;
   }
 
   static async createPinger(args) {

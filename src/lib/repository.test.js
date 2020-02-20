@@ -142,6 +142,26 @@ describe('repository', () => {
     });
   });
 
+  describe('getPingerCount', () => {
+    it('returns the pinger count', async () => {
+      mysql.query.mockResolvedValue([
+        {
+          count: 1,
+        },
+      ]);
+
+      const output = await Repository.getPingerCount({
+        category: 'apartment',
+        type: 'sell',
+        price_min: 1,
+        price_max: 2,
+        region: 'test',
+      });
+
+      expect(output).toEqual(1);
+    });
+  });
+
   describe('createPinger', () => {
     it('creates a new pinger', async () => {
       mysql.query.mockResolvedValue({

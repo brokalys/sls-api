@@ -8,6 +8,7 @@ jest.mock('./lib/db');
 
 db.query.mockImplementation(() => [
   {
+    count: 1,
     price: 110000.0,
     lat: 56.9366684,
     lng: 24.0794235,
@@ -102,6 +103,48 @@ describe('Query', () => {
             price {
               count
             }
+          }
+        }
+      `,
+      });
+
+      expect(res).toMatchSnapshot();
+    });
+  });
+
+  describe('getPingerStats', () => {
+    test('fails validation if region is invalid', async () => {
+      const res = await query({
+        query: `
+        {
+          getPingerStats(
+            category: APARTMENT
+            type: SELL
+            price_min: 1
+            price_max: 2
+            region: "WRONG"
+          ) {
+            pingers_last_month
+          }
+        }
+      `,
+      });
+
+      expect(res).toMatchSnapshot();
+    });
+
+    test('fetches pinger stats', async () => {
+      const res = await query({
+        query: `
+        {
+          getPingerStats(
+            category: APARTMENT
+            type: SELL
+            price_min: 1
+            price_max: 2
+            region: "56.992294 24.136619, 56.976394 23.995790, 56.924904 24.005336, 56.889288 24.108467, 56.932211 24.291935, 56.996502 24.245176"
+          ) {
+            pingers_last_month
           }
         }
       `,

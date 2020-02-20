@@ -32,6 +32,18 @@ type Query {
   getTableData(
     category: Category!
   ): [TableData!]
+
+  getPingerStats(
+    category: Category!
+    type: Type!
+    price_min: Int!
+    price_max: Int!
+    region: String!
+    rooms_min: Int
+    rooms_max: Int
+    area_m2_min: Int
+    area_m2_max: Int
+  ): PingerStats!
 }
 
 enum Category {
@@ -106,4 +118,8 @@ type TableData {
 type SellRent {
   sell: Float
   rent: Float
+}
+
+type PingerStats {
+  pingers_last_month: Int
 }
