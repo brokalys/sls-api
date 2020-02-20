@@ -27,8 +27,9 @@ const customJoi = Joi.extend((joi) => ({
               .map((r) => parseFloat(r)),
           ),
         ];
+        parts[0].push(parts[0][0]);
 
-        if (parts.length && geojsonValidation.isPolygonCoor(parts)) {
+        if (!geojsonValidation.isPolygonCoor(parts)) {
           return helpers.error('string.polygon');
         }
 
@@ -115,6 +116,19 @@ async function createPinger(parent, input) {
     .map((r) => r.replace(' ', ','))
     .join('|');
 
+  // Calculate approximate emails per month
+  const emailsLastMonth = await Repository.getPingerCount({
+    category: input.category.toLowerCase(),
+    type: input.type.toLowerCase(),
+    price_min: input.price_min,
+    price_max: input.price_max,
+    location: [input.region, input.region.split(', ')[0]].join(', '),
+    rooms_min: input.rooms_min,
+    rooms_max: input.rooms_max,
+    area_m2_min: input.area_m2_min,
+    area_m2_max: input.area_m2_max,
+  });
+
   // Send a notification to admin
   await mailgun.messages().send({
     from: 'Brokalys PINGER <noreply@brokalys.com>',
@@ -122,6 +136,7 @@ async function createPinger(parent, input) {
     subject: 'New Brokalys Pinger',
     html: `
       <p>A new Brokalys Pinger has been added. Please confirm it.</p>
+      <p>Approximate monthly emails: <strong>${emailsLastMonth}</strong></p>
       <img src="https://maps.googleapis.com/maps/api/staticmap?size=600x300&path=color:0xff0000ff|weight:5|${imgRegion}|${
       imgRegion.split('|')[0]
     }&key=${process.env.GMAPS_KEY}" height="300" />

@@ -82,21 +82,6 @@ Object {
 }
 `;
 
-exports[`Mutation createPinger creates a pinger with region as a plain string 1`] = `
-Object {
-  "data": Object {
-    "createPinger": true,
-  },
-  "errors": undefined,
-  "extensions": undefined,
-  "http": Object {
-    "headers": Headers {
-      Symbol(map): Object {},
-    },
-  },
-}
-`;
-
 exports[`Mutation createPinger creates a pinger with region as a polygon 1`] = `
 Object {
   "data": Object {
@@ -236,56 +221,12 @@ Object {
 }
 `;
 
-exports[`Mutation createPinger fails creating with invalid polymer (mid coordinate is malformed) 1`] = `
+exports[`Mutation createPinger fails creating with invalid polygon (mid coordinate is malformed) 1`] = `
 Object {
-  "data": null,
-  "errors": Array [
-    Object {
-      "extensions": Object {
-        "code": "BAD_USER_INPUT",
-        "details": Array [
-          Object {
-            "context": Object {
-              "key": "region",
-              "label": "region",
-              "value": "56.96715 24.09457, 56.97923 24.14125, 56.9825 24.17984, 56.95892 2417559, 56.94571 24.14812, 56.93767 24.13181, 56.96715 24.09457",
-            },
-            "message": "\\"region\\" needs to be a valid polygon",
-            "path": Array [
-              "region",
-            ],
-            "type": "string.polygon",
-          },
-        ],
-        "exception": Object {
-          "details": Array [
-            Object {
-              "context": Object {
-                "key": "region",
-                "label": "region",
-                "value": "56.96715 24.09457, 56.97923 24.14125, 56.9825 24.17984, 56.95892 2417559, 56.94571 24.14812, 56.93767 24.13181, 56.96715 24.09457",
-              },
-              "message": "\\"region\\" needs to be a valid polygon",
-              "path": Array [
-                "region",
-              ],
-              "type": "string.polygon",
-            },
-          ],
-        },
-      },
-      "locations": Array [
-        Object {
-          "column": 13,
-          "line": 3,
-        },
-      ],
-      "message": "Input validation failed",
-      "path": Array [
-        "createPinger",
-      ],
-    },
-  ],
+  "data": Object {
+    "createPinger": true,
+  },
+  "errors": undefined,
   "extensions": undefined,
   "http": Object {
     "headers": Headers {
@@ -18862,12 +18803,54 @@ Object {
 
 exports[`Query getPingerStats fails validation if region is invalid 1`] = `
 Object {
-  "data": Object {
-    "getPingerStats": Object {
-      "pingers_last_month": 1,
+  "data": null,
+  "errors": Array [
+    Object {
+      "extensions": Object {
+        "code": "BAD_USER_INPUT",
+        "details": Array [
+          Object {
+            "context": Object {
+              "key": "region",
+              "label": "region",
+              "value": "WRONG",
+            },
+            "message": "\\"region\\" needs to be a valid polygon",
+            "path": Array [
+              "region",
+            ],
+            "type": "string.polygon",
+          },
+        ],
+        "exception": Object {
+          "details": Array [
+            Object {
+              "context": Object {
+                "key": "region",
+                "label": "region",
+                "value": "WRONG",
+              },
+              "message": "\\"region\\" needs to be a valid polygon",
+              "path": Array [
+                "region",
+              ],
+              "type": "string.polygon",
+            },
+          ],
+        },
+      },
+      "locations": Array [
+        Object {
+          "column": 11,
+          "line": 3,
+        },
+      ],
+      "message": "Input validation failed",
+      "path": Array [
+        "getPingerStats",
+      ],
     },
-  },
-  "errors": undefined,
+  ],
   "extensions": undefined,
   "http": Object {
     "headers": Headers {

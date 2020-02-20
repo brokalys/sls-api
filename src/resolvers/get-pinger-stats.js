@@ -21,8 +21,9 @@ const customJoi = Joi.extend((joi) => ({
               .map((r) => parseFloat(r)),
           ),
         ];
+        parts[0].push(parts[0][0]);
 
-        if (parts.length && geojsonValidation.isPolygonCoor(parts)) {
+        if (!geojsonValidation.isPolygonCoor(parts)) {
           return helpers.error('string.polygon');
         }
 
