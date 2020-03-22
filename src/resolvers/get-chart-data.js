@@ -22,14 +22,8 @@ async function getChartData(parent, { category, type, date }) {
     );
   }
 
-  const start = month
-    .clone()
-    .startOf('month')
-    .toISOString();
-  const end = month
-    .clone()
-    .endOf('month')
-    .toISOString();
+  const start = month.clone().startOf('month').toISOString();
+  const end = month.clone().endOf('month').toISOString();
 
   const data = await cache.run(
     'getChartData.dataRetrieval',

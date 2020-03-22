@@ -3,10 +3,7 @@ import crypto from 'crypto';
 import mysql from './db';
 
 function hash(key) {
-  return crypto
-    .createHash('md5')
-    .update(JSON.stringify(key))
-    .digest('hex');
+  return crypto.createHash('md5').update(JSON.stringify(key)).digest('hex');
 }
 
 export default {

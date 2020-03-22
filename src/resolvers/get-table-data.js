@@ -15,10 +15,7 @@ function calculatePercentageDifference(a, b) {
 }
 
 async function getTableData(parent, { category }) {
-  const start = moment()
-    .subtract(1, 'month')
-    .utc()
-    .startOf('month');
+  const start = moment().subtract(1, 'month').utc().startOf('month');
   const end = start.clone().endOf('month');
 
   return await cache.run(
@@ -49,14 +46,8 @@ async function getTableDataNow({ category, start, end }) {
     'getTableDataQuery',
     {
       category,
-      start: start
-        .clone()
-        .subtract(1, 'year')
-        .toISOString(),
-      end: end
-        .clone()
-        .subtract(1, 'year')
-        .toISOString(),
+      start: start.clone().subtract(1, 'year').toISOString(),
+      end: end.clone().subtract(1, 'year').toISOString(),
     },
     getData,
   );

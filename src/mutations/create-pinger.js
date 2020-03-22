@@ -41,31 +41,16 @@ const customJoi = Joi.extend((joi) => ({
 
 // Validation schema
 const validationSchema = Joi.object().keys({
-  email: Joi.string()
-    .required()
-    .email({ allowUnicode: false }),
-  category: Joi.string()
-    .required()
-    .allow('APARTMENT', 'HOUSE', 'LAND'),
-  type: Joi.string()
-    .required()
-    .allow('SELL', 'RENT'),
-  price_min: Joi.number()
-    .required()
-    .min(1),
-  price_max: Joi.number()
-    .required()
-    .min(Joi.ref('price_min'))
-    .max(10000000),
+  email: Joi.string().required().email({ allowUnicode: false }),
+  category: Joi.string().required().allow('APARTMENT', 'HOUSE', 'LAND'),
+  type: Joi.string().required().allow('SELL', 'RENT'),
+  price_min: Joi.number().required().min(1),
+  price_max: Joi.number().required().min(Joi.ref('price_min')).max(10000000),
   region: customJoi.string().polygon(),
   rooms_min: Joi.number().min(0),
-  rooms_max: Joi.number()
-    .min(Joi.ref('rooms_min'))
-    .max(20),
+  rooms_max: Joi.number().min(Joi.ref('rooms_min')).max(20),
   area_m2_min: Joi.number().min(0),
-  area_m2_max: Joi.number()
-    .min(Joi.ref('area_m2_min'))
-    .max(1000),
+  area_m2_max: Joi.number().min(Joi.ref('area_m2_min')).max(1000),
   comments: Joi.string().max(255),
 });
 

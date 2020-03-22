@@ -119,10 +119,7 @@ class Repository {
   }
 
   static async getPingerCount(args) {
-    const start = moment()
-      .subtract(1, 'month')
-      .utc()
-      .startOf('month');
+    const start = moment().subtract(1, 'month').utc().startOf('month');
     const end = start.clone().endOf('month');
 
     const [data] = await mysql.query({
