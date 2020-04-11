@@ -20,7 +20,6 @@
     "geojson-validation": "^0.2.1",
     "graphql": "^15.0.0",
     "graphql-iso-date": "^3.6.1",
-    "mailgun-js": "^0.22.0",
     "moment": "^2.23.0",
     "moment-range": "^4.0.1",
     "numbers": "^0.7.0",

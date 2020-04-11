@@ -1,14 +1,8 @@
 import Joi from '@hapi/joi';
 import { UserInputError } from 'apollo-server-lambda';
-import mailgunJs from 'mailgun-js';
 import geojsonValidation from 'geojson-validation';
 
 import Repository from '../lib/repository';
-
-const mailgun = mailgunJs({
-  apiKey: process.env.MAILGUN_API_KEY,
-  domain: process.env.MAILGUN_DOMAIN,
-});
 
 const customJoi = Joi.extend((joi) => ({
   type: 'string',
@@ -78,8 +72,8 @@ async function createPinger(parent, input) {
     );
   }
 
-  // Create a new unconfirmed PINGER
-  const id = await Repository.createPinger({
+  // Create a new PINGER
+  await Repository.createPinger({
     email: input.email,
     category: input.category.toLowerCase(),
     type: input.type.toLowerCase(),
@@ -91,46 +85,6 @@ async function createPinger(parent, input) {
     area_m2_min: input.area_m2_min,
     area_m2_max: input.area_m2_max,
     comments: input.comments,
-  });
-
-  // Retrieve the new PINGER
-  const data = await Repository.getPinger(id);
-
-  const imgRegion = input.region
-    .split(', ')
-    .map((r) => r.replace(' ', ','))
-    .join('|');
-
-  // Calculate approximate emails per month
-  const emailsLastMonth = await Repository.getPingerCount({
-    category: input.category.toLowerCase(),
-    type: input.type.toLowerCase(),
-    price_min: input.price_min,
-    price_max: input.price_max,
-    location: [input.region, input.region.split(', ')[0]].join(', '),
-    rooms_min: input.rooms_min,
-    rooms_max: input.rooms_max,
-    area_m2_min: input.area_m2_min,
-    area_m2_max: input.area_m2_max,
-  });
-
-  // Send a notification to admin
-  await mailgun.messages().send({
-    from: 'Brokalys PINGER <noreply@brokalys.com>',
-    to: process.env.MAILGUN_TO_EMAIL,
-    subject: 'New Brokalys Pinger',
-    html: `
-      <p>A new Brokalys Pinger has been added. Please confirm it.</p>
-      <p>Approximate monthly emails: <strong>${emailsLastMonth}</strong></p>
-      <img src="https://maps.googleapis.com/maps/api/staticmap?size=600x300&path=color:0xff0000ff|weight:5|${imgRegion}|${
-      imgRegion.split('|')[0]
-    }&key=${process.env.GMAPS_KEY}" height="300" />
-      <p>
-        <a href="https://confirm.brokalys.com?id=${data.id}&key=${
-      data.unsubscribe_key
-    }">Confirm this PINGER</a>
-      </p>
-    `,
   });
 
   return true;

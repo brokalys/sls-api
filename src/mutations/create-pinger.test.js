@@ -1,4 +1,3 @@
-import { send } from 'mailgun-js';
 import { UserInputError } from 'apollo-server-lambda';
 
 import Repository from '../lib/repository';
@@ -30,7 +29,6 @@ describe('createPinger', () => {
     );
 
     expect(Repository.createPinger).toHaveBeenCalledTimes(1);
-    expect(send).toHaveBeenCalledTimes(1);
   });
 
   describe('fails creating when', () => {
@@ -100,27 +98,6 @@ describe('createPinger', () => {
 
     test('inserting in DB fails', async () => {
       Repository.createPinger.mockImplementation(() => {
-        throw new Error('Something bad happened');
-      });
-
-      expect.assertions(1);
-      await expect(
-        createPinger(
-          {},
-          {
-            email: 'demo@email.com',
-            category: 'APARTMENT',
-            type: 'SELL',
-            price_min: 10000,
-            price_max: 100000,
-            region: 'TEST',
-          },
-        ),
-      ).rejects.toBeInstanceOf(Error);
-    });
-
-    test('sending email fails', async () => {
-      send.mockImplementation(() => {
         throw new Error('Something bad happened');
       });
 

@@ -178,7 +178,7 @@ class Repository {
           location = ?,
           description = ?,
           unsubscribe_key = ?,
-          confirmed = 0
+          confirmed = 1
       `,
       values: [
         args.email,
