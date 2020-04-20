@@ -55,12 +55,17 @@ custom:
         notifications:
           - protocol: email
             endpoint: matiss@brokalys.com
+      ok:
+        topic: ${self:provider.stage}-${self:service}-alerts-ok
+        notifications:
+          - protocol: email
+            endpoint: matiss@brokalys.com
     definitions:
       functionErrors:
         description: 'SLS API has an error that needs to be fixed'
         treatMissingData: notBreaching
       functionInvocations:
-        threshold: 15
+        threshold: 300
         period: 86400 # 1 day
         treatMissingData: notBreaching
       functionDuration:
