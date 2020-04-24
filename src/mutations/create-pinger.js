@@ -1,37 +1,7 @@
-import Joi from '@hapi/joi';
 import { UserInputError } from 'apollo-server-lambda';
-import geojsonValidation from 'geojson-validation';
 
 import Repository from '../lib/repository';
-
-const customJoi = Joi.extend((joi) => ({
-  type: 'string',
-  base: Joi.string(),
-  messages: {
-    'string.polygon': '{{#label}} needs to be a valid polygon',
-  },
-  rules: {
-    polygon: {
-      validate(value, helpers, args, options) {
-        const parts = [
-          value.split(',').map((p) =>
-            p
-              .trim()
-              .split(' ')
-              .map((r) => parseFloat(r)),
-          ),
-        ];
-        parts[0].push(parts[0][0]);
-
-        if (!geojsonValidation.isPolygonCoor(parts)) {
-          return helpers.error('string.polygon');
-        }
-
-        return value;
-      },
-    },
-  },
-}));
+import Joi from '../lib/validator';
 
 // Validation schema
 const validationSchema = Joi.object().keys({
@@ -40,7 +10,7 @@ const validationSchema = Joi.object().keys({
   type: Joi.string().required().allow('SELL', 'RENT'),
   price_min: Joi.number().required().min(1),
   price_max: Joi.number().required().min(Joi.ref('price_min')).max(10000000),
-  region: customJoi.string().polygon(),
+  region: Joi.string().polygon(),
   rooms_min: Joi.number().min(0),
   rooms_max: Joi.number().min(Joi.ref('rooms_min')).max(20),
   area_m2_min: Joi.number().min(0),

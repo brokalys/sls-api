@@ -17,7 +17,7 @@
     "@hapi/joi": "^17.1.0",
     "apollo-server-lambda": "^2.3.1",
     "colormap": "^2.3.0",
-    "geojson-validation": "^0.2.1",
+    "geojson-validation": "^1.0.1",
     "graphql": "^15.0.0",
     "graphql-iso-date": "^3.6.1",
     "moment": "^2.23.0",
