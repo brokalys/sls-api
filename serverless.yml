@@ -68,14 +68,9 @@ custom:
         threshold: 300
         period: 86400 # 1 day
         treatMissingData: notBreaching
-      functionDuration:
-        threshold: 4000
-        period: 86400 # 1 day
-        treatMissingData: notBreaching
     alarms:
       - functionErrors
       - functionInvocations
-      - functionDuration
 
   webpack:
     includeModules: true
