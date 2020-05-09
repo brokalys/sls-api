@@ -25,7 +25,6 @@ export default {
       sql: `SELECT value FROM ${process.env.DB_CACHE_DATABASE}.cache WHERE \`key\` = ? and \`params_hash\` = ?`,
       values: [key, hash(params)],
     });
-    await mysql.end();
 
     if (response && response.length) {
       return JSON.parse(response[0].value);
