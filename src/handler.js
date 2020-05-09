@@ -5,6 +5,7 @@ import createPinger from './schema/demo/create-pinger.graphql';
 import unsubscribePinger from './schema/demo/unsubscribe-pinger.graphql';
 import getChartDataQuery from './schema/demo/get-chart-data.graphql';
 import getMapDataQuery from './schema/demo/get-map-data.graphql';
+import getMedianPrice from './schema/demo/get-median-price.graphql';
 import getPingerStats from './schema/demo/get-pinger-stats.graphql';
 import getRegionsQuery from './schema/demo/get-regions.graphql';
 import getTableDataQuery from './schema/demo/get-table-data.graphql';
@@ -57,6 +58,11 @@ export const server = new ApolloServer({
         name: 'Confirm PINGER',
         endpoint,
         query: confirmPinger.loc.source.body,
+      },
+      {
+        name: 'Get Median price for a region & month',
+        endpoint,
+        query: getMedianPrice.loc.source.body,
       },
     ],
   },

@@ -44,6 +44,13 @@ type Query {
     area_m2_min: Int
     area_m2_max: Int
   ): PingerStats!
+
+  getMedianPrice(
+    start_date: Date!
+    category: Category
+    type: Type
+    region: String!
+  ): MedianPrice!
 }
 
 enum Category {
@@ -122,4 +129,8 @@ type SellRent {
 
 type PingerStats {
   pingers_last_month: Int
+}
+
+type MedianPrice {
+  price: Int
 }

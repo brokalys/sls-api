@@ -72,6 +72,8 @@ custom:
       - functionErrors
       - functionInvocations
 
+  serverless-offline:
+    useChildProcesses: true
   webpack:
     includeModules: true
     packager: yarn

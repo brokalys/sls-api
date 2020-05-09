@@ -4,6 +4,24 @@ import moment from 'moment';
 import mysql from './db';
 
 class Repository {
+  static async getPricesInRegion({ start, end, region, category, type }) {
+    return (
+      await mysql.query({
+        sql: `
+        SELECT price
+        FROM ${process.env.DB_DATABASE}.properties
+        WHERE published_at BETWEEN ? AND ?
+        ${type ? `AND type = "${type.toLowerCase()}"` : ''}
+        ${category ? `AND category = "${category.toLowerCase()}"` : ''}
+        AND ST_Contains(ST_GeomFromText(?), point(lat, lng))
+        AND location_country = "Latvia"
+        AND price > 1
+      `,
+        values: [start, end, `POLYGON((${region}))`],
+      })
+    ).map(({ price }) => price);
+  }
+
   static async getRawChartData({ category, type, start, end }) {
     const data = await mysql.query({
       sql: `
