@@ -46,7 +46,6 @@ custom:
     certificateName: '*.brokalys.com'
     createRoute53Record: true
     endpointType: edge
-    basePath: '/'
 
   alerts:
     stages:
