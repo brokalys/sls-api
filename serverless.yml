@@ -17,6 +17,7 @@ provider:
     DB_PINGER_DATABASE: ${file(serverless.env.yml):DB_PINGER_DATABASE, env:DB_PINGER_DATABASE}
     DB_CACHE_DATABASE: ${file(serverless.env.yml):DB_CACHE_DATABASE, env:DB_CACHE_DATABASE}
     GMAPS_KEY: ${file(serverless.env.yml):GMAPS_KEY, env:GMAPS_KEY}
+    BROKALYS_PRIVATE_KEY: ${file(serverless.env.yml):BROKALYS_PRIVATE_KEY, env:BROKALYS_PRIVATE_KEY}
     STAGE: ${opt:stage, 'dev'}
 
 functions:

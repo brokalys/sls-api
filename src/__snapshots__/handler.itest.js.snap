@@ -19121,6 +19121,21 @@ Object {
 }
 `;
 
+exports[`Query getPropertiesForPinger fails authenticating and returns nothing 1`] = `
+Object {
+  "data": Object {
+    "getPropertiesForPinger": null,
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
 exports[`Query getRegion fails validation if name is not defined 1`] = `
 Object {
   "data": undefined,

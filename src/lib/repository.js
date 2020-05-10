@@ -4,6 +4,56 @@ import moment from 'moment';
 import mysql from './db';
 
 class Repository {
+  static async getPropertiesForPinger({
+    start_date,
+    category,
+    type,
+    price,
+    rooms,
+    floor,
+    area,
+    region,
+  }) {
+    return await mysql.query({
+      sql: `
+        SELECT *
+        FROM ${process.env.DB_DATABASE}.properties
+        WHERE created_at > ?
+        AND ST_Contains(ST_GeomFromText(?), point(lat, lng))
+        ${category ? `AND category = "${category.toLowerCase()}"` : ''}
+        ${type ? `AND type = "${type.toLowerCase()}"` : ''}
+        ${price.min > 0 ? `AND price >= ${price.min}` : ''}
+        ${price.max > 0 ? `AND price <= ${price.max}` : ''}
+        ${rooms.min > 0 ? `AND rooms >= ${rooms.min}` : ''}
+        ${rooms.max > 0 ? `AND rooms <= ${rooms.max}` : ''}
+        ${floor.min > 0 ? `AND floor >= ${floor.min}` : ''}
+        ${floor.max > 0 ? `AND floor <= ${floor.max}` : ''}
+        ${
+          area.min > 0
+            ? `AND (area >= ${area.min} AND area_measurement = "m2" OR area_measurement != "m2")`
+            : ''
+        }
+        ${
+          area.max > 0
+            ? `AND (area <= ${area.max} AND area_measurement = "m2" OR area_measurement != "m2")`
+            : ''
+        }
+        ORDER BY created_at
+      `,
+      values: [start_date, `POLYGON((${region}))`],
+      typeCast(field, next) {
+        if (field.name === 'content') {
+          return field.string();
+        }
+        if (field.name === 'images') {
+          return JSON.parse(field.string());
+        }
+
+        return next();
+      },
+    });
+  }
+
   static async getPricesInRegion({ start, end, region, category, type }) {
     return (
       await mysql.query({

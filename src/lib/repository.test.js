@@ -4,6 +4,26 @@ import Repository from './repository';
 jest.mock('./db');
 
 describe('repository', () => {
+  describe('getPropertiesForPinger', () => {
+    it('returns the values', async () => {
+      const results = [{ price: 100000 }, { price: 200000 }];
+      mysql.query.mockResolvedValue(results);
+
+      const output = await Repository.getPropertiesForPinger({
+        category: 'APARTMENT',
+        type: 'SELL',
+        start_date: '2010-01-01 00:00:01',
+        region: '1 2, 2 3, 1 2',
+        area: { max: 90 },
+        price: {},
+        floor: { min: 2 },
+        rooms: { min: 1, max: 3 },
+      });
+
+      expect(output).toBe(results);
+    });
+  });
+
   describe('getPricesInRegion', () => {
     it('returns the values', async () => {
       mysql.query.mockResolvedValue([{ price: 100000 }, { price: 200000 }]);

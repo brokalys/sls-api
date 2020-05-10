@@ -51,6 +51,17 @@ type Query {
     type: Type
     region: String!
   ): MedianPrice!
+
+  getPropertiesForPinger(
+    start_date: String!
+    category: Category!
+    type: Type!
+    region: String!
+    price: MinMaxRange
+    rooms: MinMaxRange
+    floor: MinMaxRange
+    area: MinMaxRange
+  ): [PropertyData!]
 }
 
 enum Category {
@@ -133,4 +144,18 @@ type PingerStats {
 
 type MedianPrice {
   price: Int
+}
+
+type PropertyData {
+  id: Int!
+  content: String!
+  images: [String]
+  price: Int!
+  rooms: Int
+  area: Int
+}
+
+input MinMaxRange {
+  min: Int
+  max: Int
 }
