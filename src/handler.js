@@ -88,8 +88,8 @@ export const server = new ApolloServer({
       },
     ],
   },
-  context: ({ event }) => {
-    const { headers } = event || { headers: {} };
+  context: ({ event, req }) => {
+    const { headers } = event || req || { headers: {} };
     return {
       isAuthenticated:
         headers.authorization === process.env.BROKALYS_PRIVATE_KEY,
