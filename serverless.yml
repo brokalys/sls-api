@@ -66,7 +66,7 @@ custom:
         description: 'SLS API has an error that needs to be fixed'
         treatMissingData: notBreaching
       functionInvocations:
-        threshold: 300
+        threshold: 1000
         period: 86400 # 1 day
         treatMissingData: notBreaching
     alarms:
