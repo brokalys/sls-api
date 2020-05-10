@@ -22,6 +22,11 @@ class Repository {
         AND ST_Contains(ST_GeomFromText(?), point(lat, lng))
         ${category ? `AND category = "${category.toLowerCase()}"` : ''}
         ${type ? `AND type = "${type.toLowerCase()}"` : ''}
+        ${
+          type === 'rent'
+            ? `AND (rent_type IS NULL OR rent_type = "monthly")`
+            : ''
+        }
         ${price.min > 0 ? `AND price >= ${price.min}` : ''}
         ${price.max > 0 ? `AND price <= ${price.max}` : ''}
         ${rooms.min > 0 ? `AND rooms >= ${rooms.min}` : ''}
