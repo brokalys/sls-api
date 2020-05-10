@@ -1,7 +1,7 @@
 import { UserInputError } from 'apollo-server-lambda';
 
-import Repository from '../lib/repository';
-import Joi from '../lib/validator';
+import Repository from 'lib/repository';
+import Joi from 'lib/validator';
 
 // Validation schema
 const validationSchema = Joi.object().keys({

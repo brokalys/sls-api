@@ -1,7 +1,7 @@
-import db from '../lib/db';
+import db from 'lib/db';
 import getPingerStats from './get-pinger-stats';
 
-jest.mock('../lib/db');
+jest.mock('lib/db');
 
 db.query.mockImplementation(() => [
   {

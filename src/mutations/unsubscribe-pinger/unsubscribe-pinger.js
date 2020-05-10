@@ -1,4 +1,4 @@
-import Repository from '../lib/repository';
+import Repository from 'lib/repository';
 
 async function unsubscribePinger(parent, input) {
   if (input.all) {

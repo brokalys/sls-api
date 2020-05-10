@@ -1,8 +1,8 @@
-import db from '../lib/db';
-import getRegion from './get-region';
+import db from 'lib/db';
+import getRegion from '../get-region';
 
-jest.mock('../lib/cache');
-jest.mock('../lib/db');
+jest.mock('lib/cache');
+jest.mock('lib/db');
 
 db.query.mockImplementation(() => [
   {

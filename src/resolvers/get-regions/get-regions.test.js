@@ -1,10 +1,10 @@
 import { UserInputError } from 'apollo-server-lambda';
 
-import db from '../lib/db';
+import db from 'lib/db';
 import getRegions from './get-regions';
 
-jest.mock('../lib/cache');
-jest.mock('../lib/db');
+jest.mock('lib/cache');
+jest.mock('lib/db');
 
 db.query.mockImplementation(() => [
   {

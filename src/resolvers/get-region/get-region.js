@@ -1,4 +1,4 @@
-import getRegions from './get-regions';
+import getRegions from '../get-regions';
 
 async function getRegion(parent, args) {
   const name = args.name.toLowerCase();

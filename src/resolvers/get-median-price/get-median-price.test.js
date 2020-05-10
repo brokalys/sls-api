@@ -1,8 +1,8 @@
-import db from '../lib/db';
+import db from 'lib/db';
 import getMedianPrice from './get-median-price';
 
-jest.mock('../lib/cache');
-jest.mock('../lib/db');
+jest.mock('lib/cache');
+jest.mock('lib/db');
 
 db.query.mockImplementation(() => [{ price: 1 }, { price: 2 }, { price: 3 }]);
 

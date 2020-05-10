@@ -13,4 +13,5 @@ module.exports = {
     '!src/**/*.itest.js',
   ],
   testPathIgnorePatterns: ['\\.itest\\.js'],
+  modulePaths: ['<rootDir>/src/', '<rootDir>/data/'],
 };

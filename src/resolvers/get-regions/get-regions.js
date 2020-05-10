@@ -4,9 +4,9 @@ import numbers from 'numbers';
 import inside from 'point-in-polygon';
 import stats from 'stats-lite';
 
-import cache from '../lib/cache';
-import Repository from '../lib/repository';
-import geojson from '../../data/riga-geojson.json';
+import cache from 'lib/cache';
+import Repository from 'lib/repository';
+import geojson from 'riga-geojson.json';
 
 async function getRegions(parent, args) {
   const { category, type } = args;

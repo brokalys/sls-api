@@ -1,7 +1,7 @@
-import Repository from '../lib/repository';
+import Repository from 'lib/repository';
 import unsubscribePinger from './unsubscribe-pinger';
 
-jest.mock('../lib/repository');
+jest.mock('lib/repository');
 
 describe('unsubscribePinger', () => {
   test('attempts to unsubscribe a pinger', async () => {

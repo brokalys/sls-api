@@ -1,7 +1,7 @@
 import colormap from 'colormap';
 
-import geojson from '../../data/riga-geojson.json';
-import getRegions from './get-regions';
+import geojson from 'riga-geojson.json';
+import getRegions from '../get-regions';
 
 async function getMapData(parent, args) {
   const data = await getRegions(parent, args);

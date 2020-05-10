@@ -2,9 +2,9 @@ import { UserInputError } from 'apollo-server-lambda';
 import moment from 'moment';
 import numbers from 'numbers';
 
-import cache from '../lib/cache';
-import Repository from '../lib/repository';
-import Joi from '../lib/validator';
+import cache from 'lib/cache';
+import Repository from 'lib/repository';
+import Joi from 'lib/validator';
 
 // Validation schema
 const validationSchema = Joi.object().keys({

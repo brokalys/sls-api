@@ -1,7 +1,7 @@
-import Repository from '../lib/repository';
+import Repository from 'lib/repository';
 import confirmPinger from './confirm-pinger';
 
-jest.mock('../lib/repository');
+jest.mock('lib/repository');
 
 describe('confirmPinger', () => {
   test('attempts to confirm a pinger', async () => {

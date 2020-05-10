@@ -1,8 +1,8 @@
-import db from '../lib/db';
-import getChartData from './get-chart-data';
+import db from 'lib/db';
+import getChartData from '../get-chart-data';
 
-jest.mock('../lib/cache');
-jest.mock('../lib/db');
+jest.mock('lib/cache');
+jest.mock('lib/db');
 
 db.query.mockImplementation(() => [
   {

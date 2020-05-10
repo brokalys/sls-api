@@ -2,11 +2,11 @@ import { UserInputError } from 'apollo-server-lambda';
 import Moment from 'moment';
 import numbers from 'numbers';
 
-import { getRegionsData } from './get-regions';
+import { getRegionsData } from '../get-regions';
 
-import cache from '../lib/cache';
-import mysql from '../lib/db';
-import Repository from '../lib/repository';
+import cache from 'lib/cache';
+import mysql from 'lib/db';
+import Repository from 'lib/repository';
 
 async function getChartData(parent, { category, type, date }) {
   const month = Moment(date, 'YYYY-MM-DD');

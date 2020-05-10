@@ -1,6 +1,6 @@
 import getMapData from './get-map-data';
 
-jest.mock('./get-regions', () => () => [
+jest.mock('../get-regions', () => () => [
   {
     name: 'Āgenskalns',
     price_per_sqm: {
