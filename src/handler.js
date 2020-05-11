@@ -17,7 +17,7 @@ const endpoint = process.env.STAGE === 'dev' ? '/dev/' : '/';
 const headers =
   process.env.STAGE === 'dev'
     ? {
-        authorization: process.env.BROKALYS_PRIVATE_KEY,
+        Authorization: process.env.BROKALYS_PRIVATE_KEY,
       }
     : {};
 
@@ -92,7 +92,6 @@ export const server = new ApolloServer({
     const { headers } = event || req || { headers: {} };
     return {
       isAuthenticated:
-        headers.authorization === process.env.BROKALYS_PRIVATE_KEY ||
         headers.Authorization === process.env.BROKALYS_PRIVATE_KEY,
     };
   },
