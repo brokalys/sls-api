@@ -1,5 +1,6 @@
 import { ApolloServer } from 'apollo-server-lambda';
 
+import mysql from 'lib/db';
 import confirmPinger from './schema/demo/confirm-pinger.graphql';
 import createPinger from './schema/demo/create-pinger.graphql';
 import unsubscribePinger from './schema/demo/unsubscribe-pinger.graphql';
@@ -105,6 +106,17 @@ export const server = new ApolloServer({
     }
     return error;
   },
+  plugins: [
+    {
+      requestDidStart() {
+        return {
+          willSendResponse() {
+            return mysql.end();
+          },
+        };
+      },
+    },
+  ],
 });
 
 exports.graphqlHandler = server.createHandler({
