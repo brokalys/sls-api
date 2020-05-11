@@ -234,6 +234,15 @@ class Repository {
     return data.count;
   }
 
+  static async createProperty(values) {
+    const { insertId } = await mysql.query({
+      sql: `INSERT INTO \`${process.env.DB_DATABASE}\`.properties SET ?`,
+      values,
+    });
+
+    return insertId;
+  }
+
   static async createPinger(args) {
     const { insertId } = await mysql.query({
       sql: `

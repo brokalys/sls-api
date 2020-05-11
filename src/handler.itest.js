@@ -1,11 +1,12 @@
 import { createTestClient } from 'apollo-server-testing';
 
-import { server } from './handler';
-import cache from './lib/cache';
-import db from './lib/db';
+import { server } from 'handler';
+import cache from 'lib/cache';
+import db from 'lib/db';
 
-jest.mock('./lib/cache');
-jest.mock('./lib/db');
+jest.mock('lib/bugsnag');
+jest.mock('lib/cache');
+jest.mock('lib/db');
 
 db.query.mockImplementation(() => [
   {

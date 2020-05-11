@@ -3,15 +3,7 @@ import { UserInputError } from 'apollo-server-lambda';
 import Repository from 'lib/repository';
 import createPinger from './create-pinger';
 
-jest.mock('lib/repository', () => ({
-  getPingers: jest.fn(() => []),
-  getPinger: jest.fn(() => ({
-    id: 1,
-    unsubscribe_key: 'key',
-  })),
-  createPinger: jest.fn(() => 1),
-  getPingerCount: jest.fn(() => 100),
-}));
+jest.mock('lib/repository');
 
 describe('createPinger', () => {
   test('successfully creates a pinger', async () => {

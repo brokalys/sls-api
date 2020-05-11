@@ -221,6 +221,22 @@ describe('repository', () => {
     });
   });
 
+  describe('createProperty', () => {
+    it('creates a new property', async () => {
+      mysql.query.mockResolvedValue({
+        insertId: 123456789,
+      });
+
+      const output = await Repository.createProperty({
+        category: 'APARTMENT',
+        type: 'SELL',
+        price: 10000,
+      });
+
+      expect(output).toEqual(123456789);
+    });
+  });
+
   describe('confirmPinger', () => {
     it('confirms a pinger', async () => {
       mysql.query.mockResolvedValue({

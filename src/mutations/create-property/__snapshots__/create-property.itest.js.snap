@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Mutation: createProperty fails creating a pinger if is not authenticated 1`] = `
+Object {
+  "data": null,
+  "errors": Array [
+    Object {
+      "extensions": Object {
+        "code": "UNAUTHENTICATED",
+      },
+      "locations": Array [
+        Object {
+          "column": 11,
+          "line": 3,
+        },
+      ],
+      "message": "",
+      "path": Array [
+        "createProperty",
+      ],
+    },
+  ],
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
