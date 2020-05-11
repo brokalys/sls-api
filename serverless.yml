@@ -10,15 +10,6 @@ provider:
   versionFunctions: false
   timeout: 20
   environment:
-    DB_HOST: ${file(serverless.env.yml):DB_HOST, env:DB_HOST}
-    DB_DATABASE: ${file(serverless.env.yml):DB_DATABASE, env:DB_DATABASE}
-    DB_USERNAME: ${file(serverless.env.yml):DB_USERNAME, env:DB_USERNAME}
-    DB_PASSWORD: ${file(serverless.env.yml):DB_PASSWORD, env:DB_PASSWORD}
-    DB_PINGER_DATABASE: ${file(serverless.env.yml):DB_PINGER_DATABASE, env:DB_PINGER_DATABASE}
-    DB_CACHE_DATABASE: ${file(serverless.env.yml):DB_CACHE_DATABASE, env:DB_CACHE_DATABASE}
-    GMAPS_KEY: ${file(serverless.env.yml):GMAPS_KEY, env:GMAPS_KEY}
-    BROKALYS_PRIVATE_KEY: ${file(serverless.env.yml):BROKALYS_PRIVATE_KEY, env:BROKALYS_PRIVATE_KEY}
-    BUSNAG_KEY: ${file(serverless.env.yml):BUSNAG_KEY, env:BUSNAG_KEY}
     STAGE: ${opt:stage, 'dev'}
 
 functions:
@@ -78,5 +69,8 @@ custom:
   serverless-offline:
     useChildProcesses: true
   webpack:
-    includeModules: true
+    webpackConfig: 'webpack.config.js'
+    includeModules:
+      forceExclude:
+        - aws-sdk
     packager: yarn

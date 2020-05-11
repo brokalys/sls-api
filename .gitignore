@@ -6,5 +6,5 @@ coverage
 
 # individual files
 .DS_Store
-serverless.env.yml
+.env
 yarn-error.log
