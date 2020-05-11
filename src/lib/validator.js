@@ -15,7 +15,7 @@ export default Joi.extend((joi) => ({
             p
               .trim()
               .split(' ')
-              .map((r) => parseFloat(r)),
+              .map((r) => (isNaN(r) ? r : parseFloat(r))),
           ),
         ];
         parts[0].push(parts[0][0]);
@@ -43,7 +43,7 @@ export default Joi.extend((joi) => ({
             p
               .trim()
               .split(' ')
-              .map((r) => parseFloat(r)),
+              .map((r) => (isNaN(r) ? r : parseFloat(r))),
           ),
         ];
 
