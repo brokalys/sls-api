@@ -54,7 +54,7 @@ type Query {
 
   getPropertiesForPinger(
     start_date: String!
-    category: Category!
+    category: ExtendedCategory!
     type: Type!
     region: String!
     price: MinMaxRange
@@ -68,6 +68,14 @@ enum Category {
   APARTMENT
   HOUSE
   LAND
+}
+
+enum ExtendedCategory {
+  APARTMENT
+  HOUSE
+  LAND
+  GARAGE
+  OFFICE
 }
 
 enum Type {
