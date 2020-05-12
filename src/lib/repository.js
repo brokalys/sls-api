@@ -61,6 +61,17 @@ class Repository {
     return data;
   }
 
+  static getProperty(by) {
+    return mysql.query({
+      sql: `
+        SELECT *
+        FROM ${process.env.DB_DATABASE}.properties
+        WHERE ?
+      `,
+      values: [by],
+    });
+  }
+
   static async getPricesInRegion({ start, end, region, category, type }) {
     return (
       await mysql.query({

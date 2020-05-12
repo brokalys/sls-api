@@ -24,6 +24,20 @@ describe('repository', () => {
     });
   });
 
+  describe('getProperty', () => {
+    it('returns the values', async () => {
+      const results = [{ price: 100000 }, { price: 200000 }];
+      mysql.query.mockResolvedValue(results);
+
+      const output = await Repository.getProperty({
+        category: 'apartment',
+        type: 'sell',
+      });
+
+      expect(output).toEqual(results);
+    });
+  });
+
   describe('getPricesInRegion', () => {
     it('returns the values', async () => {
       mysql.query.mockResolvedValue([{ price: 100000 }, { price: 200000 }]);
