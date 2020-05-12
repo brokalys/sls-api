@@ -3,16 +3,17 @@ language: node_js
 node_js:
   - node
 
-branches:
-  only:
-    - master
-
 cache: yarn
 
 script:
   - yarn lint
   - yarn test
-  - yarn deploy:ci
+
+deploy:
+  provider: script
+  script: yarn deploy:ci
+  on:
+    branch: master
 
 after_success:
   - bash <(curl -s https://codecov.io/bash) -e TRAVIS_NODE_VERSION
