@@ -58,13 +58,8 @@ custom:
       functionErrors:
         description: 'SLS API has an error that needs to be fixed'
         treatMissingData: notBreaching
-      functionInvocations:
-        threshold: 1000
-        period: 86400 # 1 day
-        treatMissingData: notBreaching
     alarms:
       - functionErrors
-      - functionInvocations
 
   serverless-offline:
     useChildProcesses: true
