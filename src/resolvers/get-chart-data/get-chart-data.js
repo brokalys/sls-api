@@ -5,7 +5,6 @@ import numbers from 'numbers';
 import { getRegionsData } from '../get-regions';
 
 import cache from 'lib/cache';
-import mysql from 'lib/db';
 import Repository from 'lib/repository';
 
 async function getChartData(parent, { category, type, date }) {

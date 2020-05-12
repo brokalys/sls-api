@@ -17,12 +17,9 @@ async function createProperty(parent, input, context) {
       details: validator.error.details,
     });
 
-    Bugsnag.notify(error, {
-      metaData: {
-        input,
-        validator: validator.error.details,
-      },
-    });
+    Bugsnag.addMetadata('input', input);
+    Bugsnag.addMetadata('validator', validator.error.details);
+    Bugsnag.notify(error);
     throw error;
   }
 
