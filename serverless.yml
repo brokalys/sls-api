@@ -9,6 +9,8 @@ provider:
   logRetentionInDays: 7
   versionFunctions: false
   timeout: 20
+  logs:
+    restApi: true
   environment:
     STAGE: ${opt:stage, 'dev'}
 
@@ -63,6 +65,7 @@ custom:
 
   serverless-offline:
     useChildProcesses: true
+
   webpack:
     webpackConfig: 'webpack.config.js'
     includeModules:
