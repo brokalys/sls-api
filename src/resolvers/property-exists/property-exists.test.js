@@ -3,6 +3,7 @@ import { UserInputError } from 'apollo-server-lambda';
 import db from 'lib/db';
 import propertyExists from './property-exists';
 
+jest.mock('lib/bugsnag');
 jest.mock('lib/db');
 
 describe('propertyExists', () => {
