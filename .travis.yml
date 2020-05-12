@@ -12,6 +12,7 @@ script:
 deploy:
   provider: script
   script: yarn deploy:ci
+  skip_cleanup: true
   on:
     branch: master
 
