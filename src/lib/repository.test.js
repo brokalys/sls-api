@@ -133,40 +133,6 @@ describe('repository', () => {
     });
   });
 
-  describe('getTableData', () => {
-    it('returns the values', async () => {
-      mysql.query.mockResolvedValue([
-        {
-          type: 'apartment',
-          price: 100000,
-          lat: 1,
-          lng: 2,
-          area: 100,
-          area_measurement: 'm2',
-          price_per_sqm: null,
-        },
-      ]);
-
-      const output = await Repository.getTableData({
-        category: 'APARTMENT',
-        start: '2010-01-01',
-        end: '2020-01-01',
-      });
-
-      expect(output).toEqual([
-        {
-          type: 'apartment',
-          price: 100000,
-          lat: 1,
-          lng: 2,
-          area: 100,
-          area_measurement: 'm2',
-          price_per_sqm: 1000,
-        },
-      ]);
-    });
-  });
-
   describe('getPingers', () => {
     it('returns the currently registered pingers', async () => {
       mysql.query.mockResolvedValue([

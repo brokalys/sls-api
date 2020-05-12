@@ -48,7 +48,7 @@ describe('Query: propertyExists', () => {
         query {
           propertyExists(
             source: "brokalys.com"
-            foreign_id: "id123"
+            foreign_id: "123"
             url: "https://brokalys.com"
             created_at: "2019-01-01T00:10:20"
           )

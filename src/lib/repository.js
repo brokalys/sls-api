@@ -159,34 +159,6 @@ class Repository {
     });
   }
 
-  static async getTableData({ category, start, end }) {
-    const data = await mysql.query({
-      sql: `
-        SELECT
-          type, price, lat, lng, area,
-          area_measurement, price_per_sqm
-        FROM ${process.env.DB_DATABASE}.properties
-        WHERE published_at BETWEEN ? AND ?
-        AND (type = "rent" AND rent_type = "monthly" OR type = "sell")
-        AND category = ?
-        AND lat IS NOT NULL
-        AND lng IS NOT NULL
-        AND location_country = "Latvia"
-        AND price > 1
-      `,
-
-      values: [start, end, category],
-    });
-
-    return data.map((row) => {
-      if (!row.price_per_sqm && row.area_measurement === 'm2' && row.area) {
-        row.price_per_sqm = row.price / row.area;
-      }
-
-      return row;
-    });
-  }
-
   static async getPingers(email) {
     return await mysql.query({
       sql: `

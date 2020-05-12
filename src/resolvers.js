@@ -11,7 +11,6 @@ import getPingerStats from './resolvers/get-pinger-stats';
 import getPropertiesForPinger from './resolvers/get-properties-for-pinger';
 import getRegion from './resolvers/get-region';
 import getRegions from './resolvers/get-regions';
-import getTableData from './resolvers/get-table-data';
 import propertyExists from './resolvers/property-exists';
 
 export const resolvers = {
@@ -24,7 +23,6 @@ export const resolvers = {
     getPropertiesForPinger,
     getRegion,
     getRegions,
-    getTableData,
     propertyExists,
   },
   Mutation: {

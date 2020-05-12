@@ -29,10 +29,6 @@ type Query {
     date: Date!
   ): ChartData!
 
-  getTableData(
-    category: Category!
-  ): [TableData!]
-
   getPingerStats(
     category: Category!
     type: Type!
