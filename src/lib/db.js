@@ -7,6 +7,7 @@ const mysql = serverlessMysql({
     user: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
   },
+  maxRetries: 5,
 });
 
 export default mysql;
