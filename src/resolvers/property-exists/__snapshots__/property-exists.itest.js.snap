@@ -1,5 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Query: propertyExists checks if property exists with all parameters and information in the DB 1`] = `
+Object {
+  "data": Object {
+    "propertyExists": true,
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
 exports[`Query: propertyExists checks if property exists with valid data and information in the DB 1`] = `
 Object {
   "data": Object {

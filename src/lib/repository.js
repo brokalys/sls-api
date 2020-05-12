@@ -67,6 +67,8 @@ class Repository {
         SELECT *
         FROM ${process.env.DB_DATABASE}.properties
         WHERE ?
+        ORDER BY id
+        LIMIT 30
       `,
       values: [by],
     });

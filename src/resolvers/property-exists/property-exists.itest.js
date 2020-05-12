@@ -32,7 +32,25 @@ describe('Query: propertyExists', () => {
         query {
           propertyExists(
             source: "brokalys.com"
+          )
+        }
+      `,
+    });
+
+    expect(response).toMatchSnapshot();
+  });
+
+  test('checks if property exists with all parameters and information in the DB', async () => {
+    db.query.mockReturnValue([{ price: 1 }, { price: 2 }, { price: 3 }]);
+
+    const response = await query({
+      query: `
+        query {
+          propertyExists(
+            source: "brokalys.com"
             foreign_id: "id123"
+            url: "https://brokalys.com"
+            created_at: "2019-01-01T00:10:20"
           )
         }
       `,
@@ -49,7 +67,6 @@ describe('Query: propertyExists', () => {
         query {
           propertyExists(
             source: "brokalys.com"
-            foreign_id: "id123"
           )
         }
       `,

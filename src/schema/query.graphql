@@ -65,7 +65,9 @@ type Query {
 
   propertyExists(
     source: String!
-    foreign_id: String!
+    url: String
+    foreign_id: String
+    created_at: String
   ): Boolean!
 }
 

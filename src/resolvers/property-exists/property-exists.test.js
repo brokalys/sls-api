@@ -5,20 +5,35 @@ import propertyExists from './property-exists';
 
 jest.mock('lib/db');
 
-db.query.mockReturnValue([{ price: 1 }, { price: 2 }, { price: 3 }]);
-
 describe('propertyExists', () => {
-  test('returns `true` if at least one property was found', async () => {
-    const output = await propertyExists(
-      {},
-      {
-        source: 'brokalys.com',
-        foreign_id: '123',
-      },
-    );
+  test.each([
+    ['brokalys.com', undefined, undefined, undefined],
+    ['brokalys.com', '123', undefined, undefined],
+    ['brokalys.com', undefined, 'https://brokalys.com/test', undefined],
+    ['brokalys.com', undefined, undefined, 2019],
+    ['brokalys.com', undefined, undefined, '2019-01'],
+    ['brokalys.com', undefined, undefined, '2019-01-01 00:00:00'],
+    ['brokalys.com', undefined, undefined, '2019-01-01T00:00:00'],
+    ['brokalys.com', undefined, undefined, '2019-01-01T00:00:00Z'],
+    ['brokalys.com', '123', 'https://brokalys.com/test', '2019-01-01T00:00:00'],
+  ])(
+    'works with input parameters: %s, %s, %s, %s',
+    async (source, foreign_id, url, created_at) => {
+      db.query.mockReturnValue([{ price: 1 }]);
 
-    expect(output).toBeTruthy();
-  });
+      const output = await propertyExists(
+        {},
+        {
+          source,
+          url,
+          foreign_id,
+          created_at,
+        },
+      );
+
+      expect(output).toBeTruthy();
+    },
+  );
 
   test('returns `false` if no properties are found', async () => {
     db.query.mockReturnValue([]);
@@ -27,7 +42,6 @@ describe('propertyExists', () => {
       {},
       {
         source: 'brokalys.com',
-        foreign_id: '123',
       },
     );
 
@@ -36,31 +50,53 @@ describe('propertyExists', () => {
 
   test.each([
     // Source
-    ['quote"brokalys.com', '123'],
-    [123, '123'],
-    [true, '123'],
-    [false, '123'],
-    ['', '123'],
-    [null, '123'],
-    [undefined, '123'],
+    [
+      'quote"brokalys.com',
+      '123',
+      'https://brokalys.com',
+      '2019-01-01T00:00:00',
+    ],
+    [123, '123', 'https://brokalys.com', '2019-01-01T00:00:00'],
+    [true, '123', 'https://brokalys.com', '2019-01-01T00:00:00'],
+    [false, '123', 'https://brokalys.com', '2019-01-01T00:00:00'],
+    ['', '123', 'https://brokalys.com', '2019-01-01T00:00:00'],
+    [null, '123', 'https://brokalys.com', '2019-01-01T00:00:00'],
+    [undefined, '123', 'https://brokalys.com', '2019-01-01T00:00:00'],
 
     // Foreign id
-    ['brokalys.com', '123"123'],
-    ['brokalys.com', 123],
-    ['brokalys.com', null],
-    ['brokalys.com', true],
-    ['brokalys.com', false],
-    ['brokalys.com', ''],
-    ['brokalys.com', undefined],
+    ['brokalys.com', '123"123', 'https://brokalys.com', '2019-01-01T00:00:00'],
+    ['brokalys.com', 123, 'https://brokalys.com', '2019-01-01T00:00:00'],
+    ['brokalys.com', null, 'https://brokalys.com', '2019-01-01T00:00:00'],
+    ['brokalys.com', true, 'https://brokalys.com', '2019-01-01T00:00:00'],
+    ['brokalys.com', false, 'https://brokalys.com', '2019-01-01T00:00:00'],
+    ['brokalys.com', '', 'https://brokalys.com', '2019-01-01T00:00:00'],
+
+    // URL
+    ['brokalys.com', '123', 'brokalys.com', '2019-01-01T00:00:00'],
+    ['brokalys.com', '123', 123, '2019-01-01T00:00:00'],
+    ['brokalys.com', '123', null, '2019-01-01T00:00:00'],
+    ['brokalys.com', '123', false, '2019-01-01T00:00:00'],
+    ['brokalys.com', '123', true, '2019-01-01T00:00:00'],
+    ['brokalys.com', '123', '', '2019-01-01T00:00:00'],
+
+    // Start date
+    ['brokalys.com', '123', 'https://brokalys.com', '2019-01-01T00'],
+    ['brokalys.com', '123', 'https://brokalys.com', 12],
+    ['brokalys.com', '123', 'https://brokalys.com', false],
+    ['brokalys.com', '123', 'https://brokalys.com', true],
+    ['brokalys.com', '123', 'https://brokalys.com', null],
+    ['brokalys.com', '123', 'https://brokalys.com', '2019-01-01T00:00:000'],
   ])(
-    'throws a validation error if input is malformed with: %s && %s',
-    (source, foreign_id) => {
+    'throws a validation error if input is malformed with: %s, %s, %s, %s',
+    (source, foreign_id, url, created_at) => {
       expect(() => {
         propertyExists(
           {},
           {
             source,
+            url,
             foreign_id,
+            created_at,
           },
         );
       }).toThrow(UserInputError);
@@ -73,7 +109,6 @@ describe('propertyExists', () => {
         {},
         {
           source: 'brokalys.com',
-          foreign_id: '123',
           unkown: 'field',
         },
       );
