@@ -69,12 +69,14 @@ class Repository {
       sql: `
         SELECT *
         FROM ${process.env.DB_DATABASE}.properties
-        WHERE ?
+        WHERE ${Object.keys(filters)
+          .map((key) => `${key} = ?`)
+          .join(' AND ')}
         ${by.created_at ? 'AND created_at >= ?' : ''}
         ORDER BY id
         LIMIT 30
       `,
-      values: [filters, by.created_at],
+      values: [...Object.values(filters), by.created_at],
     });
   }
 
