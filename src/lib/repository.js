@@ -62,15 +62,19 @@ class Repository {
   }
 
   static getProperty(by) {
+    const filters = { ...by };
+    delete filters.created_at;
+
     return mysql.query({
       sql: `
         SELECT *
         FROM ${process.env.DB_DATABASE}.properties
         WHERE ?
+        ${by.created_at ? 'AND created_at >= ?' : ''}
         ORDER BY id
         LIMIT 30
       `,
-      values: [by],
+      values: [filters, by.created_at],
     });
   }
 

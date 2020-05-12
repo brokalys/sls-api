@@ -89,7 +89,7 @@ describe('propertyExists', () => {
   ])(
     'throws a validation error if input is malformed with: %s, %s, %s, %s',
     (source, foreign_id, url, created_at) => {
-      expect(() => {
+      expect(() =>
         propertyExists(
           {},
           {
@@ -98,20 +98,20 @@ describe('propertyExists', () => {
             foreign_id,
             created_at,
           },
-        );
-      }).toThrow(UserInputError);
+        ),
+      ).rejects.toBeInstanceOf(UserInputError);
     },
   );
 
   test('throws a validation error if input has unknown fields', () => {
-    expect(() => {
+    expect(() =>
       propertyExists(
         {},
         {
           source: 'brokalys.com',
           unkown: 'field',
         },
-      );
-    }).toThrow(UserInputError);
+      ),
+    ).rejects.toBeInstanceOf(UserInputError);
   });
 });

@@ -3,7 +3,7 @@ import { UserInputError } from 'apollo-server-lambda';
 import Repository from 'lib/repository';
 import validationSchema from './validation';
 
-function propertyExists(parent, input) {
+async function propertyExists(parent, input) {
   const validator = validationSchema.validate(input);
 
   // Validate input
@@ -13,7 +13,8 @@ function propertyExists(parent, input) {
     });
   }
 
-  return Repository.getProperty(validator.value).length > 0;
+  const data = await Repository.getProperty(validator.value);
+  return data.length > 0;
 }
 
 export default propertyExists;

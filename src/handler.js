@@ -15,7 +15,7 @@ const headers =
 export const server = new ApolloServer({
   typeDefs: schema,
   resolvers,
-  playground: false,
+  playground: process.env.STAGE === 'dev',
   context: ({ event, req }) => {
     const { headers } = event || req || { headers: {} };
     return {
