@@ -14,7 +14,7 @@ class Repository {
     area,
     region,
   }) {
-    return await mysql.query({
+    const data = await mysql.query({
       sql: `
         SELECT *
         FROM ${process.env.DB_DATABASE}.properties
@@ -57,6 +57,8 @@ class Repository {
         return next();
       },
     });
+    await mysql.end();
+    return data;
   }
 
   static async getPricesInRegion({ start, end, region, category, type }) {
