@@ -19,7 +19,7 @@ class Repository {
         SELECT *
         FROM ${process.env.DB_DATABASE}.properties
         WHERE created_at > ?
-        AND ST_Contains(ST_GeomFromText(?), point(lat, lng))
+        AND ST_Contains(ST_GeomFromText(?), lat_lng_point)
         ${category ? `AND category = "${category.toLowerCase()}"` : ''}
         ${type ? `AND type = "${type.toLowerCase()}"` : ''}
         ${
@@ -89,7 +89,7 @@ class Repository {
         WHERE published_at BETWEEN ? AND ?
         ${type ? `AND type = "${type.toLowerCase()}"` : ''}
         ${category ? `AND category = "${category.toLowerCase()}"` : ''}
-        AND ST_Contains(ST_GeomFromText(?), point(lat, lng))
+        AND ST_Contains(ST_GeomFromText(?), lat_lng_point)
         AND location_country = "Latvia"
         AND price > 1
       `,
@@ -216,7 +216,7 @@ class Repository {
          }
          ${
            args.region
-             ? `AND ST_Contains(ST_GeomFromText('POLYGON((${args.region}))'), point(lat, lng))`
+             ? `AND ST_Contains(ST_GeomFromText('POLYGON((${args.region}))'), lat_lng_point)`
              : ''
          }
       `,
