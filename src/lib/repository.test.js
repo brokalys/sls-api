@@ -232,7 +232,7 @@ describe('repository', () => {
       expect(output).toEqual(123456789);
       expect(mysql.query).toBeCalledWith(
         expect.objectContaining({
-          sql: expect.not.stringContaining('lat_lng_point'),
+          sql: expect.stringContaining('lat_lng_point = point(0, 0)'),
         }),
       );
     });
