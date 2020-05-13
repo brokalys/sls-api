@@ -90,8 +90,7 @@ class Repository {
         ${type ? `AND type = "${type.toLowerCase()}"` : ''}
         ${category ? `AND category = "${category.toLowerCase()}"` : ''}
         AND ST_Contains(ST_GeomFromText(?), lat_lng_point)
-        AND location_country = "Latvia"
-        AND price > 1
+        AND price IS NOT NULL
       `,
         values: [start, end, `POLYGON((${region}))`],
       })
