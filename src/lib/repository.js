@@ -4,7 +4,7 @@ import moment from 'moment';
 import mysql from './db';
 
 class Repository {
-  static async getPropertiesForPinger({
+  static getPropertiesForPinger({
     start_date,
     category,
     type,
@@ -14,7 +14,7 @@ class Repository {
     area,
     region,
   }) {
-    const data = await mysql.query({
+    return mysql.query({
       sql: `
         SELECT *
         FROM ${process.env.DB_DATABASE}.properties
@@ -56,9 +56,8 @@ class Repository {
 
         return next();
       },
+      timeout: 2000,
     });
-    await mysql.end();
-    return data;
   }
 
   static getProperty(by) {
@@ -77,6 +76,7 @@ class Repository {
         LIMIT 30
       `,
       values: [...Object.values(filters), by.created_at],
+      timeout: 1000,
     });
   }
 
@@ -231,6 +231,7 @@ class Repository {
     const { insertId } = await mysql.query({
       sql: `INSERT INTO \`${process.env.DB_DATABASE}\`.properties SET ?`,
       values,
+      timeout: 1000,
     });
 
     return insertId;
