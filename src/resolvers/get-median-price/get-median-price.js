@@ -2,7 +2,6 @@ import { UserInputError } from 'apollo-server-lambda';
 import moment from 'moment';
 import numbers from 'numbers';
 
-import cache from 'lib/cache';
 import Repository from 'lib/repository';
 import Joi from 'lib/validator';
 
@@ -30,21 +29,13 @@ async function getMedianPrice(parent, args) {
   const start = moment(args.start_date).utc().startOf('month');
   const end = start.clone().endOf('month');
 
-  return await cache.run(
-    'getMedianPrice',
-    {
-      category: args.category,
-      type: args.type,
-      start: start.format('YYYY-MM-DD'),
-      end: end.format('YYYY-MM-DD'),
-      region: args.region,
-    },
-    getData,
-  );
-}
-
-async function getData(input) {
-  const prices = await Repository.getPricesInRegion(input);
+  const prices = await Repository.getPricesInRegion({
+    category: args.category,
+    type: args.type,
+    start: start.format('YYYY-MM-DD'),
+    end: end.format('YYYY-MM-DD'),
+    region: args.region,
+  });
 
   return {
     price: Math.ceil(numbers.statistic.median(prices)) || null,
