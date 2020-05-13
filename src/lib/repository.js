@@ -228,8 +228,12 @@ class Repository {
   }
 
   static async createProperty(values) {
+    const lat_lng_point =
+      values.lat && values.lng
+        ? `, lat_lng_point = point(${values.lat}, ${values.lng})`
+        : '';
     const { insertId } = await mysql.query({
-      sql: `INSERT INTO \`${process.env.DB_DATABASE}\`.properties SET ?`,
+      sql: `INSERT INTO \`${process.env.DB_DATABASE}\`.properties SET ? ${lat_lng_point}`,
       values,
       timeout: 1000,
     });
