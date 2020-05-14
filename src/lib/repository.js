@@ -48,7 +48,7 @@ class Repository {
       values: [start_date, `POLYGON((${region}))`],
       typeCast(field, next) {
         if (field.name === 'content') {
-          return field.string();
+          return field.string() || '';
         }
         if (field.name === 'images') {
           return JSON.parse(field.string());
