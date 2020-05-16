@@ -73,6 +73,7 @@ input PropertyFilter {
   published_at: String
   region: String
   category: Category
+  type: Type
 }
 
 type PropertySummary {

@@ -4,6 +4,7 @@ import Joi from 'lib/validator';
 
 const filter = Joi.object({
   category: Joi.string().lowercase().valid('apartment', 'house', 'land'),
+  type: Joi.string().lowercase().valid('sell', 'rent'),
   region: Joi.string().polygonV2(),
   published_at: Joi.date()
     .iso()

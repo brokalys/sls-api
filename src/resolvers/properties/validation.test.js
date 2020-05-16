@@ -5,6 +5,8 @@ describe('properties: validation', () => {
     [{ filter: { published_at: '2018-12-01' } }],
     [{ filter: { category: 'APARTMENT' } }],
     [{ filter: { category: 'apartment' } }],
+    [{ filter: { type: 'SELL' } }],
+    [{ filter: { type: 'sell' } }],
     [
       {
         filter: {
@@ -25,6 +27,7 @@ describe('properties: validation', () => {
     [{ filter: { published_at: '2018-01-01' } }], // too far in past
     [{ filter: { category: 'unknown' } }], // unknown category filter
     [{ filter: { category: 123 } }], // wrong type
+    [{ filter: { type: 'sellxxxx' } }], // unknown type filter
     [{ filter: { unknown: 'field' } }], // unknown filter
     [
       {
