@@ -30,6 +30,9 @@ input PropertyFilter {
   rooms: FilterInt
   area: FilterInt
   floor: FilterInt
+  source: FilterString
+  url: FilterString
+  foreign_id: FilterString
 }
 
 type PropertySummary {

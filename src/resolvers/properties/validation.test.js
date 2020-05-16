@@ -23,6 +23,9 @@ describe('properties: validation', () => {
     [{ filter: { rooms: { gt: 2, lte: 3 } } }],
     [{ filter: { floor: { gt: 2, lte: 5 } } }],
     [{ filter: { area: { gt: 40 } } }],
+    [{ filter: { source: { eq: 'brokalys.com' } } }],
+    [{ filter: { url: { eq: 'https://brokalys.com' } } }],
+    [{ filter: { foreign_id: { eq: 'id123' } } }],
     [{ filter: {} }],
     [{}],
     [undefined],
@@ -37,6 +40,8 @@ describe('properties: validation', () => {
     [{ filter: { type: { eq: 'sellxxxx' } } }], // unknown type filter
     [{ filter: { unknown: { eq: 'field' } } }], // unknown filter
     [{ filter: { unknown: 'field' } }], // unknown filter
+    [{ filter: { url: { eq: 'brokalys.com' } } }], // missing protocol
+    [{ filter: { foreign_id: { eq: 'ALPHA + NUM & ONLY' } } }], // alphanum only
     [
       {
         filter: {
