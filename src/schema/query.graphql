@@ -1,11 +1,4 @@
 type Query {
-  propertyExists(
-    source: String!
-    url: String
-    foreign_id: String
-    created_at: String
-  ): Boolean!
-
   properties(filter: PropertyFilter): Properties!
 }
 
@@ -31,17 +24,6 @@ type PropertySummary {
 
 type PropertyPriceSummary {
   median: Int
-}
-
-enum Category {
-  APARTMENT
-  HOUSE
-  LAND
-}
-
-enum Type {
-  SELL
-  RENT
 }
 
 type PropertyData {

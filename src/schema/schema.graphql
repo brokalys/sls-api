@@ -5,3 +5,14 @@ schema {
   mutation: Mutation,
   query: Query,
 }
+
+enum Category {
+  APARTMENT
+  HOUSE
+  LAND
+}
+
+enum Type {
+  SELL
+  RENT
+}
