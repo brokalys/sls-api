@@ -9,6 +9,8 @@ describe('Query: properties', () => {
   let query;
 
   beforeEach(() => {
+    process.env.BROKALYS_PRIVATE_KEY = 'PRIVATE_KEY';
+
     const utils = createTestClient(server);
     query = utils.query;
   });
@@ -33,7 +35,9 @@ describe('Query: properties', () => {
     expect(response).toMatchSnapshot();
   });
 
-  test('successfully retrieves results', async () => {
+  // @todo: passing headers to integration tests is currently not possible..
+  // @see https://github.com/apollographql/apollo-server/issues/2277
+  xtest('successfully retrieves results', async () => {
     db.query.mockReturnValue([{ id: 1 }, { id: 2 }]);
 
     const response = await query({
@@ -78,7 +82,27 @@ describe('Query: properties', () => {
     ]);
   });
 
-  // @todo: passing headers to integration tests is currently not possible..
-  // @see https://github.com/apollographql/apollo-server/issues/2277
-  xtest('throws an authentication error if trying to retrieve results without authorizing', () => {});
+  test('throws an authentication error if trying to retrieve results without authorizing', async () => {
+    db.query.mockReturnValue([{ id: 1 }, { id: 2 }]);
+
+    const response = await query({
+      query: `
+        {
+          properties {
+            results {
+              id
+            }
+          }
+        }
+      `,
+    });
+
+    expect(response.errors).toEqual([
+      expect.objectContaining({
+        extensions: {
+          code: 'UNAUTHENTICATED',
+        },
+      }),
+    ]);
+  });
 });

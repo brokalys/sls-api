@@ -2,7 +2,7 @@ import Bugsnag from '@bugsnag/js';
 
 const key = process.env.BUSNAG_KEY;
 
-if (key && !process.env.CI) {
+if (key) {
   Bugsnag.start(key);
 }
 
