@@ -18,34 +18,6 @@ export default Joi.extend((joi) => ({
               .map((r) => (isNaN(r) ? r : parseFloat(r))),
           ),
         ];
-        parts[0].push(parts[0][0]);
-
-        const geojson = {
-          type: 'Feature',
-          geometry: {
-            type: 'Polygon',
-            coordinates: parts,
-          },
-          properties: {},
-        };
-
-        if (!gjv.valid(geojson)) {
-          return helpers.error('string.polygon');
-        }
-
-        return value;
-      },
-    },
-    polygonV2: {
-      validate(value, helpers, args, options) {
-        const parts = [
-          value.split(',').map((p) =>
-            p
-              .trim()
-              .split(' ')
-              .map((r) => (isNaN(r) ? r : parseFloat(r))),
-          ),
-        ];
 
         const geojson = {
           type: 'Feature',

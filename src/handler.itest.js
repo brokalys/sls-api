@@ -1,10 +1,8 @@
 import { createTestClient } from 'apollo-server-testing';
 
 import { server } from 'handler';
-import cache from 'lib/cache';
 import db from 'lib/db';
 
-jest.mock('lib/cache');
 jest.mock('lib/db');
 
 db.query.mockImplementation(() => [
@@ -31,8 +29,6 @@ describe('Query', () => {
   let query;
 
   beforeEach(() => {
-    cache.get.mockReset();
-
     process.env.BROKALYS_PRIVATE_KEY = 'PRIVATE_KEY';
 
     const utils = createTestClient(server);
@@ -107,8 +103,6 @@ describe('Mutation', () => {
   let mutate;
 
   beforeEach(() => {
-    cache.get.mockReset();
-
     const utils = createTestClient(server);
     mutate = utils.mutate;
   });

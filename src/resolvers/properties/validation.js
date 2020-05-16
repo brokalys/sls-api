@@ -22,7 +22,7 @@ const filter = Joi.object({
     Joi.string().lowercase().valid('apartment', 'house', 'land'),
   ),
   type: filterable(Joi.string().lowercase().valid('sell', 'rent')),
-  region: filterable(Joi.array().items(Joi.string().polygonV2()).length(1)),
+  region: filterable(Joi.array().items(Joi.string().polygon()).length(1)),
   price: filterable(Joi.number().integer().min(1)),
   rooms: filterable(Joi.number().integer().min(1)),
   floor: filterable(Joi.number().integer().min(1)),

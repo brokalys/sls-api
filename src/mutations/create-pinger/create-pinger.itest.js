@@ -1,18 +1,14 @@
 import { createTestClient } from 'apollo-server-testing';
 
 import { server } from 'handler';
-import cache from 'lib/cache';
 import db from 'lib/db';
 
-jest.mock('lib/cache');
 jest.mock('lib/db');
 
 describe('Mutation: createPinger', () => {
   let mutate;
 
   beforeEach(() => {
-    cache.get.mockReset();
-
     const utils = createTestClient(server);
     mutate = utils.mutate;
   });
@@ -28,7 +24,7 @@ describe('Mutation: createPinger', () => {
               type: SELL
               price_min: 10000
               price_max: 100000
-              region: "56.96715 24.09457, 56.97923 24.14125, 56.9825 24.17984, 56.95892 24.17559, 56.94571 24.14812, 56.93767 24.13181"
+              region: "56.96715 24.09457, 56.97923 24.14125, 56.9825 24.17984, 56.95892 24.17559, 56.94571 24.14812, 56.93767 24.13181, 56.96715 24.09457"
             )
           }
         `,
@@ -75,7 +71,7 @@ describe('Mutation: createPinger', () => {
             type: SELL
             price_min: 10000
             price_max: 100000
-            region: "56.992294 24.136619, 56.976394 23.995790, 56.924904 24.005336, 56.889288 24.108467, 56.932211 24.291935, 56.996502 24.245176"
+            region: "56.992294 24.136619, 56.976394 23.995790, 56.924904 24.005336, 56.889288 24.108467, 56.932211 24.291935, 56.996502 24.245176, 56.992294 24.136619"
           )
         }
       `,
@@ -94,7 +90,7 @@ describe('Mutation: createPinger', () => {
             type: SELL
             price_min: 10000
             price_max: 100000
-            region: "56.992294 24.136619, 56.976394 23.995790, 56.924904 24.005336, 56.889288 24.108467, 56.932211 24.291935, 56.996502 24.245176"
+            region: "56.992294 24.136619, 56.976394 23.995790, 56.924904 24.005336, 56.889288 24.108467, 56.932211 24.291935, 56.996502 24.245176, 56.992294 24.136619"
             rooms_min: 10
             rooms_max: 5
           )
