@@ -72,21 +72,6 @@ describe('Repository', () => {
     });
   });
 
-  describe('getPricesInRegion', () => {
-    it('returns the values', async () => {
-      mysql.query.mockResolvedValue([{ price: 100000 }, { price: 200000 }]);
-
-      const output = await Repository.getPricesInRegion({
-        category: 'APARTMENT',
-        type: 'SELL',
-        start: '2010-01-01',
-        region: '1 2, 2 3, 1 2',
-      });
-
-      expect(output).toEqual([100000, 200000]);
-    });
-  });
-
   describe('getRawChartData', () => {
     it('returns the values', async () => {
       mysql.query.mockResolvedValue([

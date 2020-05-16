@@ -6,7 +6,6 @@ import createProperty from './mutations/create-property';
 import unsubscribePinger from './mutations/unsubscribe-pinger';
 import getChartData from './resolvers/get-chart-data';
 import getMapData from './resolvers/get-map-data';
-import getMedianPrice from './resolvers/get-median-price';
 import getPingerStats from './resolvers/get-pinger-stats';
 import getPropertiesForPinger from './resolvers/get-properties-for-pinger';
 import getRegion from './resolvers/get-region';
@@ -19,7 +18,6 @@ export const resolvers = {
   Query: {
     getChartData,
     getMapData,
-    getMedianPrice,
     getPingerStats,
     getPropertiesForPinger,
     getRegion,

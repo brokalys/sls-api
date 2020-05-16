@@ -145,23 +145,6 @@ class Repository {
     return data[0].count;
   }
 
-  static async getPricesInRegion({ start, end, region, category, type }) {
-    return (
-      await mysql.query({
-        sql: `
-        SELECT price
-        FROM ${process.env.DB_DATABASE}.properties
-        WHERE published_at BETWEEN ? AND ?
-        ${type ? `AND type = "${type.toLowerCase()}"` : ''}
-        ${category ? `AND category = "${category.toLowerCase()}"` : ''}
-        AND ST_Contains(ST_GeomFromText(?), lat_lng_point)
-        AND price IS NOT NULL
-      `,
-        values: [start, end, `POLYGON((${region}))`],
-      })
-    ).map(({ price }) => price);
-  }
-
   static async getRawChartData({ category, type, start, end }) {
     const data = await mysql.query({
       sql: `

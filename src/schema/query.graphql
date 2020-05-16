@@ -41,13 +41,6 @@ type Query {
     area_m2_max: Int
   ): PingerStats!
 
-  getMedianPrice(
-    start_date: String!
-    category: String
-    type: String
-    region: [String!]!
-  ): MedianPrice!
-
   getPropertiesForPinger(
     start_date: String!
     category: ExtendedCategory!
@@ -169,10 +162,6 @@ type SellRent {
 
 type PingerStats {
   pingers_last_month: Int
-}
-
-type MedianPrice {
-  price: Int
 }
 
 type PropertyData {
