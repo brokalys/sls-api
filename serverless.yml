@@ -60,6 +60,8 @@ custom:
       functionErrors:
         description: 'SLS API has an error that needs to be fixed'
         treatMissingData: notBreaching
+        evaluationPeriods: 10
+        datapointsToAlarm: 5
     alarms:
       - functionErrors
 
