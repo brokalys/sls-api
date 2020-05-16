@@ -5,13 +5,15 @@ const slsw = require('serverless-webpack');
 
 require('dotenv').config();
 
-const env = Object.entries(process.env).reduce(
-  (common, [key, value]) => ({
-    ...common,
-    [`process.env.${key}`]: JSON.stringify(value),
-  }),
-  {},
-);
+const env = Object.entries(process.env)
+  .filter(([, key]) => key !== 'CI')
+  .reduce(
+    (common, [key, value]) => ({
+      ...common,
+      [`process.env.${key}`]: JSON.stringify(value),
+    }),
+    {},
+  );
 
 module.exports = {
   entry: slsw.lib.entries,
