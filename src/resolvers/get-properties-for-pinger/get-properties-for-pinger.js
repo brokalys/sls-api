@@ -16,8 +16,8 @@ const validationSchema = Joi.object().keys({
     .min(moment().subtract(1, 'day'))
     .max('now')
     .required(),
-  category: Joi.string().allow('APARTMENT', 'HOUSE', 'LAND'),
-  type: Joi.string().allow('SELL', 'RENT'),
+  category: Joi.string().valid('APARTMENT', 'HOUSE', 'LAND'),
+  type: Joi.string().valid('SELL', 'RENT'),
   region: Joi.string().required().polygonV2(),
   area: Joi.object().keys(minMaxJoi).default({}),
   rooms: Joi.object().keys(minMaxJoi).default({}),

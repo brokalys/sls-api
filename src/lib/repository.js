@@ -63,21 +63,53 @@ class Repository {
   static getProperty(by) {
     const filters = { ...by };
     delete filters.created_at;
+    delete filters.published_at;
+
+    const keys = Object.keys(filters);
 
     return mysql.query({
       sql: `
         SELECT *
         FROM ${process.env.DB_DATABASE}.properties
-        WHERE ${Object.keys(filters)
-          .map((key) => `${key} = ?`)
-          .join(' AND ')}
+        ${
+          keys.length
+            ? `WHERE ${keys.map((key) => `${key} = ?`).join(' AND ')}`
+            : ''
+        }
         ${by.created_at ? 'AND created_at >= ?' : ''}
+        ${by.published_at ? 'AND published_at >= ?' : ''}
         ORDER BY id
         LIMIT 30
       `,
-      values: [...Object.values(filters), by.created_at],
+      values: [...Object.values(filters), by.created_at || by.published_at],
       timeout: 1000,
     });
+  }
+
+  static async getPropertyCount(by) {
+    const filters = { ...by };
+    delete filters.created_at;
+    delete filters.published_at;
+
+    const keys = Object.keys(filters);
+
+    const data = await mysql.query({
+      sql: `
+        SELECT COUNT(*) as count
+        FROM ${process.env.DB_DATABASE}.properties
+        ${
+          keys.length
+            ? `WHERE ${keys.map((key) => `${key} = ?`).join(' AND ')}`
+            : ''
+        }
+        ${by.created_at ? 'AND created_at >= ?' : ''}
+        ${by.published_at ? 'AND published_at >= ?' : ''}
+      `,
+      values: [...Object.values(filters), by.created_at || by.published_at],
+      timeout: 20000,
+    });
+
+    return data[0].count;
   }
 
   static async getPricesInRegion({ start, end, region, category, type }) {

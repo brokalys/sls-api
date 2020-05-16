@@ -7,8 +7,8 @@ import Joi from 'lib/validator';
 
 // Validation schema
 const validationSchema = Joi.object().keys({
-  category: Joi.string().allow('APARTMENT', 'HOUSE', 'LAND'),
-  type: Joi.string().allow('SELL', 'RENT'),
+  category: Joi.string().valid('APARTMENT', 'HOUSE', 'LAND'),
+  type: Joi.string().valid('SELL', 'RENT'),
   start_date: Joi.date()
     .iso()
     .max(moment().utc().startOf('month').subtract(1, 'day'))

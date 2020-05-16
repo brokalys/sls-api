@@ -6,8 +6,8 @@ import Joi from 'lib/validator';
 // Validation schema
 const validationSchema = Joi.object().keys({
   email: Joi.string().required().email({ allowUnicode: false }),
-  category: Joi.string().required().allow('APARTMENT', 'HOUSE', 'LAND'),
-  type: Joi.string().required().allow('SELL', 'RENT'),
+  category: Joi.string().required().valid('APARTMENT', 'HOUSE', 'LAND'),
+  type: Joi.string().required().valid('SELL', 'RENT'),
   price_min: Joi.number().required().min(1),
   price_max: Joi.number().required().min(Joi.ref('price_min')).max(10000000),
   region: Joi.string().polygon(),

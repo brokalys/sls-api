@@ -65,6 +65,18 @@ type Query {
     foreign_id: String
     created_at: String
   ): Boolean!
+
+  properties(filter: PropertyFilter): Properties!
+}
+
+input PropertyFilter {
+  published_at: String
+  region: String
+  category: Category
+}
+
+type PropertySummary {
+  count: Int!
 }
 
 enum Category {
@@ -165,6 +177,11 @@ type PropertyData {
   price: Int!
   rooms: Int
   area: Int
+}
+
+type Properties {
+  results: [PropertyData!]
+  summary: PropertySummary
 }
 
 input MinMaxRange {
