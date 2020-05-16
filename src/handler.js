@@ -1,6 +1,5 @@
 import { ApolloServer } from 'apollo-server-lambda';
 
-import Bugsnag from 'lib/bugsnag';
 import mysql from 'lib/db';
 import schema from './schema/schema.graphql';
 import { resolvers } from './resolvers';
@@ -28,8 +27,6 @@ export const server = new ApolloServer({
   formatError: (error) => {
     if (process.env.NODE_ENV !== 'test') {
       console.log(error);
-      Bugsnag.addMetadata('error', error);
-      Bugsnag.notify(error);
     }
 
     if (error.extensions.exception && error.extensions.exception.stacktrace) {

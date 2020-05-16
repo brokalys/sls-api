@@ -4,7 +4,6 @@ import { server } from 'handler';
 import cache from 'lib/cache';
 import db from 'lib/db';
 
-jest.mock('lib/bugsnag');
 jest.mock('lib/cache');
 jest.mock('lib/db');
 
