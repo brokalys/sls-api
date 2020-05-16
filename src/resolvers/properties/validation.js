@@ -4,10 +4,11 @@ import Joi from 'lib/validator';
 
 const filter = Joi.object({
   category: Joi.string().lowercase().valid('apartment', 'house', 'land'),
+  region: Joi.string().polygonV2(),
   published_at: Joi.date()
     .iso()
     .min(moment().utc().subtract(1, 'month'))
-    .max(moment().utc().startOf('month').subtract(1, 'day')),
+    .max(moment().utc()),
 }).default({});
 
 const schema = Joi.object({

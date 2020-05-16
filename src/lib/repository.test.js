@@ -3,7 +3,7 @@ import Repository from './repository';
 
 jest.mock('./db');
 
-describe('repository', () => {
+describe('Repository', () => {
   describe('getPropertiesForPinger', () => {
     it('returns the values', async () => {
       const results = [{ price: 100000 }, { price: 200000 }];
@@ -35,44 +35,10 @@ describe('repository', () => {
 
       expect(output).toEqual(results);
     });
-
-    it('created_at should use >= equation', async () => {
-      const results = [{ price: 100000 }];
-      mysql.query.mockResolvedValue(results);
-
-      const output = await Repository.getProperty({
-        source: 'brokalys.com',
-        created_at: '2019-01-01T00:00:00',
-      });
-
-      expect(mysql.query).toBeCalledWith(
-        expect.objectContaining({
-          sql: expect.stringContaining('created_at >= ?'),
-        }),
-      );
-      expect(output).toEqual(results);
-    });
-
-    it('published_at should use >= equation', async () => {
-      const results = [{ price: 100000 }];
-      mysql.query.mockResolvedValue(results);
-
-      const output = await Repository.getProperty({
-        source: 'brokalys.com',
-        published_at: '2019-01-01T00:00:00',
-      });
-
-      expect(mysql.query).toBeCalledWith(
-        expect.objectContaining({
-          sql: expect.stringContaining('published_at >= ?'),
-        }),
-      );
-      expect(output).toEqual(results);
-    });
   });
 
   describe('getPropertyCount', () => {
-    it('returns the values', async () => {
+    it('returns the count', async () => {
       const results = [{ count: 100 }];
       mysql.query.mockResolvedValue(results);
 
@@ -80,40 +46,6 @@ describe('repository', () => {
         source: 'brokalys.com',
       });
 
-      expect(output).toEqual(100);
-    });
-
-    it('created_at should use >= equation', async () => {
-      const results = [{ count: 100 }];
-      mysql.query.mockResolvedValue(results);
-
-      const output = await Repository.getPropertyCount({
-        source: 'brokalys.com',
-        created_at: '2019-01-01T00:00:00',
-      });
-
-      expect(mysql.query).toBeCalledWith(
-        expect.objectContaining({
-          sql: expect.stringContaining('created_at >= ?'),
-        }),
-      );
-      expect(output).toEqual(100);
-    });
-
-    it('published_at should use >= equation', async () => {
-      const results = [{ count: 100 }];
-      mysql.query.mockResolvedValue(results);
-
-      const output = await Repository.getPropertyCount({
-        source: 'brokalys.com',
-        published_at: '2019-01-01T00:00:00',
-      });
-
-      expect(mysql.query).toBeCalledWith(
-        expect.objectContaining({
-          sql: expect.stringContaining('published_at >= ?'),
-        }),
-      );
       expect(output).toEqual(100);
     });
   });

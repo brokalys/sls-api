@@ -1,7 +1,38 @@
 import crypto from 'crypto';
 import moment from 'moment';
+import Knex from 'knex';
 
 import mysql from './db';
+
+const knex = Knex({ client: 'mysql' });
+
+function buildPropertyQuery(filters) {
+  const query = knex(`${process.env.DB_DATABASE}.properties`);
+
+  if (filters.published_at) {
+    query.where('published_at', '>=', filters.published_at);
+  }
+
+  if (filters.created_at) {
+    query.where('created_at', '>=', filters.created_at);
+  }
+
+  if (filters.category) {
+    query.where('category', filters.category);
+  }
+
+  if (filters.type) {
+    query.where('type', filters.type);
+  }
+
+  if (filters.region) {
+    query.whereRaw('ST_Contains(ST_GeomFromText(?), lat_lng_point)', [
+      `POLYGON((${filters.region}))`,
+    ]);
+  }
+
+  return query;
+}
 
 class Repository {
   static getPropertiesForPinger({
@@ -61,51 +92,19 @@ class Repository {
   }
 
   static getProperty(by) {
-    const filters = { ...by };
-    delete filters.created_at;
-    delete filters.published_at;
-
-    const keys = Object.keys(filters);
-
     return mysql.query({
-      sql: `
-        SELECT *
-        FROM ${process.env.DB_DATABASE}.properties
-        ${
-          keys.length
-            ? `WHERE ${keys.map((key) => `${key} = ?`).join(' AND ')}`
-            : ''
-        }
-        ${by.created_at ? 'AND created_at >= ?' : ''}
-        ${by.published_at ? 'AND published_at >= ?' : ''}
-        ORDER BY id
-        LIMIT 30
-      `,
-      values: [...Object.values(filters), by.created_at || by.published_at],
+      sql: buildPropertyQuery(by).toString(),
       timeout: 1000,
     });
   }
 
   static async getPropertyCount(by) {
-    const filters = { ...by };
-    delete filters.created_at;
-    delete filters.published_at;
-
-    const keys = Object.keys(filters);
+    const query = buildPropertyQuery(by).count('*', {
+      as: 'count',
+    });
 
     const data = await mysql.query({
-      sql: `
-        SELECT COUNT(*) as count
-        FROM ${process.env.DB_DATABASE}.properties
-        ${
-          keys.length
-            ? `WHERE ${keys.map((key) => `${key} = ?`).join(' AND ')}`
-            : ''
-        }
-        ${by.created_at ? 'AND created_at >= ?' : ''}
-        ${by.published_at ? 'AND published_at >= ?' : ''}
-      `,
-      values: [...Object.values(filters), by.created_at || by.published_at],
+      sql: query.toString(),
       timeout: 20000,
     });
 
