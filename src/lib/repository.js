@@ -128,7 +128,7 @@ class Repository {
 
     return mysql.query({
       sql: query.toString(),
-      timeout: 1000,
+      timeout: limit <= 100 ? 1000 : 20000,
     });
   }
 
