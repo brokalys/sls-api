@@ -1,15 +1,4 @@
 type Query {
-  getPropertiesForPinger(
-    start_date: String!
-    category: ExtendedCategory!
-    type: Type!
-    region: String!
-    price: MinMaxRange
-    rooms: MinMaxRange
-    floor: MinMaxRange
-    area: MinMaxRange
-  ): [PropertyData!]
-
   propertyExists(
     source: String!
     url: String
@@ -50,14 +39,6 @@ enum Category {
   LAND
 }
 
-enum ExtendedCategory {
-  APARTMENT
-  HOUSE
-  LAND
-  GARAGE
-  OFFICE
-}
-
 enum Type {
   SELL
   RENT
@@ -76,11 +57,6 @@ type PropertyData {
 type Properties {
   results: [PropertyData!]
   summary: PropertySummary
-}
-
-input MinMaxRange {
-  min: Int
-  max: Int
 }
 
 input FilterString {

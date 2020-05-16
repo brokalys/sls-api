@@ -178,18 +178,3 @@ Object {
   },
 }
 `;
-
-exports[`Query getPropertiesForPinger fails authenticating and returns nothing 1`] = `
-Object {
-  "data": Object {
-    "getPropertiesForPinger": null,
-  },
-  "errors": undefined,
-  "extensions": undefined,
-  "http": Object {
-    "headers": Headers {
-      Symbol(map): Object {},
-    },
-  },
-}
-`;

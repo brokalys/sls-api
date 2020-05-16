@@ -19,7 +19,7 @@ const filter = Joi.object({
   published_at: filterable(Joi.date().iso()),
   created_at: filterable(Joi.date().iso()),
   category: filterable(
-    Joi.string().lowercase().valid('apartment', 'house', 'land'),
+    Joi.string().lowercase().valid('apartment', 'house', 'land', 'garage'),
   ),
   type: filterable(Joi.string().lowercase().valid('sell', 'rent')),
   region: filterable(Joi.array().items(Joi.string().polygon()).length(1)),
