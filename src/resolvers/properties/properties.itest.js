@@ -56,9 +56,8 @@ describe('Query: properties', () => {
   });
 
   test.each([
-    { filter: { published_at: 'value' } }, // simply wrong value
-    { filter: { published_at: '2018-01-01' } }, // too far in the past
-    { filter: { published_at: '2020-01-01' } }, // too far in the future
+    { filter: { published_at: { gte: 'value' } } }, // simply wrong value
+    { filter: { published_at: '2019-01-01' } }, // missing filter expression
   ])('successfully retrieves property summary.count data', async (input) => {
     db.query.mockReturnValue([{ count: 120 }]);
 
@@ -75,11 +74,7 @@ describe('Query: properties', () => {
       variables: input,
     });
 
-    expect(response.errors).toEqual([
-      expect.objectContaining({
-        message: 'Input validation failed',
-      }),
-    ]);
+    expect(response.errors).toHaveLength(1);
   });
 
   test('throws an authentication error if trying to retrieve results without authorizing', async () => {

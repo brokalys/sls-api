@@ -66,7 +66,7 @@ describe('properties', () => {
           {},
           {
             filters: {
-              published_at: '2018-01-01',
+              published_at: { gte: '2018-01-01' },
             },
           },
         ),

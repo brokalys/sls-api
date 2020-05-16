@@ -9,28 +9,51 @@ const knex = Knex({ client: 'mysql' });
 function buildPropertyQuery(filters) {
   const query = knex(`${process.env.DB_DATABASE}.properties`);
 
-  if (filters.published_at) {
-    query.where('published_at', '>=', filters.published_at);
+  function buildQueryPart(field, filter = {}) {
+    if (filter.in) {
+      // Reserved keyword
+      if (field === 'region') {
+        return query.whereRaw(
+          'ST_Contains(ST_GeomFromText(?), lat_lng_point)',
+          [`POLYGON((${filter.in[0]}))`],
+        );
+      }
+
+      return query.whereIn(field, filter.in);
+    }
+
+    if (filter.nin) {
+      return query.whereNotIn(field, filter.nin);
+    }
+
+    if (filter.eq) {
+      return query.where(field, filter.eq);
+    }
+
+    if (filter.neq) {
+      return query.whereNot(field, filter.neq);
+    }
+
+    if (filter.gt) {
+      return query.whereNot(field, '>', filter.gt);
+    }
+
+    if (filter.gte) {
+      return query.whereNot(field, '>=', filter.gte);
+    }
+
+    if (filter.lt) {
+      return query.whereNot(field, '<', filter.lt);
+    }
+
+    if (filter.lte) {
+      return query.whereNot(field, '<=', filter.lte);
+    }
+
+    return query.where(field, filter);
   }
 
-  if (filters.created_at) {
-    query.where('created_at', '>=', filters.created_at);
-  }
-
-  if (filters.category) {
-    query.where('category', filters.category);
-  }
-
-  if (filters.type) {
-    query.where('type', filters.type);
-  }
-
-  if (filters.region) {
-    query.whereRaw('ST_Contains(ST_GeomFromText(?), lat_lng_point)', [
-      `POLYGON((${filters.region}))`,
-    ]);
-  }
-
+  Object.entries(filters).forEach(([key, value]) => buildQueryPart(key, value));
   return query;
 }
 

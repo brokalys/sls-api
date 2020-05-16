@@ -70,10 +70,14 @@ type Query {
 }
 
 input PropertyFilter {
-  published_at: String
-  region: String
-  category: Category
-  type: Type
+  published_at: FilterString
+  region: RegionFilter
+  category: FilterString
+  type: FilterString
+}
+
+input RegionFilter {
+  in: String
 }
 
 type PropertySummary {
@@ -188,4 +192,19 @@ type Properties {
 input MinMaxRange {
   min: Int
   max: Int
+}
+
+input FilterString {
+  # equality
+  eq: String
+  neq: String
+
+  # lexicographical comparison
+  gt: String
+  gte: String
+  lt: String
+  lte: String
+
+  in: [String]
+  nin: [String]
 }
