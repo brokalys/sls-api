@@ -2,21 +2,16 @@ import { ApolloServer } from 'apollo-server-lambda';
 
 import mysql from 'lib/db';
 import schema from './schema/schema.graphql';
-import { resolvers } from './resolvers';
+import resolvers from './resolvers';
 
-const endpoint = process.env.STAGE === 'dev' ? '/dev/' : '/';
-const headers =
-  process.env.STAGE === 'dev'
-    ? {
-        Authorization: process.env.BROKALYS_PRIVATE_KEY,
-      }
-    : {};
+const isDevMode = process.env.STAGE === 'dev';
 
 export const server = new ApolloServer({
   typeDefs: schema,
   resolvers,
-  tracing: process.env.STAGE === 'dev',
-  playground: process.env.STAGE === 'dev',
+  tracing: isDevMode,
+  introspection: isDevMode,
+  playground: isDevMode,
   context: ({ event, req }) => {
     const { headers } = event || req || { headers: {} };
     return {

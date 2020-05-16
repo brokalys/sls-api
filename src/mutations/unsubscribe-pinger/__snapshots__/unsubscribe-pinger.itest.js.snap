@@ -1,0 +1,98 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Mutation: createProperty fails unsubscribing a pinger with wrong credentials, but still responds with status = true 1`] = `
+Object {
+  "data": Object {
+    "unsubscribePinger": true,
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
+exports[`Mutation: createProperty fails unsubscribing with missing \`id\` 1`] = `
+Object {
+  "data": undefined,
+  "errors": Array [
+    Object {
+      "extensions": Object {
+        "code": "GRAPHQL_VALIDATION_FAILED",
+      },
+      "locations": Array [
+        Object {
+          "column": 11,
+          "line": 3,
+        },
+      ],
+      "message": "Field \\"unsubscribePinger\\" argument \\"id\\" of type \\"Int!\\" is required, but it was not provided.",
+    },
+  ],
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
+exports[`Mutation: createProperty fails unsubscribing with missing \`unsubscribe_key\` 1`] = `
+Object {
+  "data": undefined,
+  "errors": Array [
+    Object {
+      "extensions": Object {
+        "code": "GRAPHQL_VALIDATION_FAILED",
+      },
+      "locations": Array [
+        Object {
+          "column": 11,
+          "line": 3,
+        },
+      ],
+      "message": "Field \\"unsubscribePinger\\" argument \\"unsubscribe_key\\" of type \\"String!\\" is required, but it was not provided.",
+    },
+  ],
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
+exports[`Mutation: createProperty unsubscribes all pingers of an email 1`] = `
+Object {
+  "data": Object {
+    "unsubscribePinger": true,
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
+exports[`Mutation: createProperty unsubscribes an existing pinger 1`] = `
+Object {
+  "data": Object {
+    "unsubscribePinger": true,
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;

@@ -4,7 +4,7 @@ import createProperty from './mutations/create-property';
 import unsubscribePinger from './mutations/unsubscribe-pinger';
 import properties from './resolvers/properties';
 
-export const resolvers = {
+export default {
   Query: {
     properties,
   },

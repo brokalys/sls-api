@@ -9,7 +9,7 @@ describe('properties', () => {
   afterEach(jest.clearAllMocks);
 
   test('successfully retrieves summary.count', async () => {
-    Repository.getPropertyCount.mockReturnValue(10);
+    Repository.getPropertyCount.mockReturnValueOnce(10);
 
     const data = await properties();
     const count = data.summary.count();
@@ -19,7 +19,7 @@ describe('properties', () => {
 
   test('successfully retrieves summary.price', async () => {
     const results = [{ price: 100 }, { price: 200 }];
-    Repository.getProperty.mockReturnValue(results);
+    Repository.getProperty.mockReturnValueOnce(results);
 
     const data = await properties();
     const price = data.summary.price();
@@ -29,9 +29,21 @@ describe('properties', () => {
     });
   });
 
+  test('returns `null` if no data is found for summary.price', async () => {
+    const results = [];
+    Repository.getProperty.mockReturnValueOnce(results);
+
+    const data = await properties();
+    const price = data.summary.price();
+
+    expect(price).resolves.toEqual({
+      median: null,
+    });
+  });
+
   test('successfully retrieves results', async () => {
     const expectation = [{ id: 123 }, { id: 999 }];
-    Repository.getProperty.mockReturnValue(expectation);
+    Repository.getProperty.mockReturnValueOnce(expectation);
 
     const data = await properties({}, {}, { isAuthenticated: true });
     const results = data.results();

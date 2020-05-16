@@ -18,7 +18,7 @@ describe('Query: properties', () => {
   afterEach(jest.resetAllMocks);
 
   test('successfully retrieves property summary.count data', async () => {
-    db.query.mockReturnValue([{ count: 120 }]);
+    db.query.mockReturnValueOnce([{ count: 120 }]);
 
     const response = await query({
       query: `
@@ -36,7 +36,7 @@ describe('Query: properties', () => {
   });
 
   test('successfully retrieves property summary.price data', async () => {
-    db.query.mockReturnValue([{ price: 100 }, { price: 200 }]);
+    db.query.mockReturnValueOnce([{ price: 100 }, { price: 200 }]);
 
     const response = await query({
       query: `
@@ -58,7 +58,7 @@ describe('Query: properties', () => {
   // @todo: passing headers to integration tests is currently not possible..
   // @see https://github.com/apollographql/apollo-server/issues/2277
   xtest('successfully retrieves results', async () => {
-    db.query.mockReturnValue([{ id: 1 }, { id: 2 }]);
+    db.query.mockReturnValueOnce([{ id: 1 }, { id: 2 }]);
 
     const response = await query({
       query: `
@@ -81,7 +81,7 @@ describe('Query: properties', () => {
   ])(
     'throws a validation error when trying to retrieve summary.count',
     async (input) => {
-      db.query.mockReturnValue([{ count: 120 }]);
+      db.query.mockReturnValueOnce([{ count: 120 }]);
 
       const response = await query({
         query: `
@@ -101,7 +101,7 @@ describe('Query: properties', () => {
   );
 
   test('throws an authentication error if trying to retrieve results without authorizing', async () => {
-    db.query.mockReturnValue([{ id: 1 }, { id: 2 }]);
+    db.query.mockReturnValueOnce([{ id: 1 }, { id: 2 }]);
 
     const response = await query({
       query: `
