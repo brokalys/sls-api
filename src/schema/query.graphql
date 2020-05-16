@@ -1,34 +1,4 @@
-scalar Date
-
 type Query {
-  getRegions(
-    category: Category
-    type: Type
-    start_date: Date!
-    end_date: Date!
-  ): [RegionStats!]
-
-  getRegion(
-    name: String!
-    category: Category
-    type: Type
-    start_date: Date!
-    end_date: Date!
-  ): RegionStats!
-
-  getMapData(
-    category: Category!
-    type: Type!
-    start_date: Date!
-    end_date: Date!
-  ): MapData!
-
-  getChartData(
-    category: Category!
-    type: Type
-    date: Date!
-  ): ChartData!
-
   getPropertiesForPinger(
     start_date: String!
     category: ExtendedCategory!
@@ -87,69 +57,6 @@ enum ExtendedCategory {
 enum Type {
   SELL
   RENT
-}
-
-type RegionStats {
-  name: String!
-  price: RegionPriceStats
-  price_per_sqm: RegionPriceStats
-}
-
-type RegionPriceStats {
-  count: Int!
-  min: Float
-  max: Float
-  mean: Float
-  median: Float
-  mode: Float
-  standardDev: Float
-}
-
-type MapData {
-  type: String!
-  features: [MapDataFeatures!]
-}
-
-type MapDataFeatures {
-  type: String!
-  properties: MapDataFeatureProperties!
-  geometry: MapDataFeatureGeometry!
-}
-
-type MapDataFeatureProperties {
-  name: String!
-  color: String
-  histogram: MapHistogram
-}
-
-type MapHistogram {
-  values: [Int]!
-  bins: Int!
-  bin_width: Float!
-  bin_limits: [Float]!
-}
-
-type MapDataFeatureGeometry {
-  type: String!
-  coordinates: [[[Float!]]]
-}
-
-type ChartData {
-  count: Int!
-  price_per_sqm: Float!
-}
-
-type TableData {
-  name: String!
-  price_per_sqm: SellRent
-  price_per_sqm_change: SellRent
-  btl_ratio: Float
-  btl_ratio_change: Float
-}
-
-type SellRent {
-  sell: Float
-  rent: Float
 }
 
 type PropertyData {

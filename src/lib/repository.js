@@ -145,67 +145,6 @@ class Repository {
     return data[0].count;
   }
 
-  static async getRawChartData({ category, type, start, end }) {
-    const data = await mysql.query({
-      sql: `
-        SELECT
-          price, area, area_measurement,
-          price_per_sqm, published_at
-        FROM ${process.env.DB_DATABASE}.properties
-        WHERE published_at BETWEEN ? AND ?
-        ${type ? `AND type = "${type.toLowerCase()}"` : ''} # @todo: sanitize
-        ${category ? `AND category = "${category.toLowerCase()}"` : ''}
-        AND location_country = "Latvia"
-        AND price > 1
-      `,
-
-      values: [start, end],
-      typeCast(field, next) {
-        if (field.name === 'published_at') {
-          return `${field.string().substr(0, 7)}-01`;
-        }
-
-        return next();
-      },
-    });
-
-    return data.map((row) => {
-      if (!row.price_per_sqm && row.area_measurement === 'm2' && row.area) {
-        row.price_per_sqm = row.price / row.area;
-      }
-
-      return row;
-    });
-  }
-
-  static async getRegionData({ category, type, start, end }) {
-    const data = await mysql.query({
-      sql: `
-        SELECT
-          price, lat, lng, area,
-          area_measurement, price_per_sqm
-        FROM ${process.env.DB_DATABASE}.properties
-        WHERE published_at BETWEEN ? AND ?
-        ${type ? `AND type = "${type.toLowerCase()}"` : ''} # @todo: sanitize
-        ${category ? `AND category = "${category.toLowerCase()}"` : ''}
-        AND lat IS NOT NULL
-        AND lng IS NOT NULL
-        AND location_country = "Latvia"
-        AND price > 1
-      `,
-
-      values: [start, end],
-    });
-
-    return data.map((row) => {
-      if (!row.price_per_sqm && row.area_measurement === 'm2' && row.area) {
-        row.price_per_sqm = row.price / row.area;
-      }
-
-      return row;
-    });
-  }
-
   static async getPingers(email) {
     return await mysql.query({
       sql: `
@@ -229,49 +168,6 @@ class Repository {
     });
 
     return data;
-  }
-
-  static async getPingerCount(args) {
-    const start = moment().subtract(1, 'month').utc().startOf('month');
-    const end = start.clone().endOf('month');
-
-    const [data] = await mysql.query({
-      sql: `
-        SELECT COUNT(*) as count
-        FROM ${process.env.DB_DATABASE}.properties
-        WHERE created_at > ? AND created_at < ?
-         ${args.category ? `AND category = "${args.category}"` : ''}
-         ${args.type ? `AND type = "${args.type}"` : ''}
-         ${
-           args.type === 'rent'
-             ? 'AND (rent_type IS NULL OR rent_type = "monthly")'
-             : ''
-         }
-         ${args.price_min > 0 ? `AND price >= ${args.price_min}` : ''}
-         ${args.price_max > 0 ? `AND price <= ${args.price_max}` : ''}
-         ${args.rooms_min > 0 ? `AND rooms >= ${args.rooms_min}` : ''}
-         ${args.rooms_max > 0 ? `AND rooms <= ${args.rooms_max}` : ''}
-         ${
-           args.area_m2_min > 0
-             ? `AND (area >= ${args.area_m2_min} AND area_measurement = "m2" OR area_measurement != "m2")`
-             : ''
-         }
-         ${
-           args.area_m2_max > 0
-             ? `AND (area <= ${args.area_m2_max} AND area_measurement = "m2" OR area_measurement != "m2")`
-             : ''
-         }
-         ${
-           args.region
-             ? `AND ST_Contains(ST_GeomFromText('POLYGON((${args.region}))'), lat_lng_point)`
-             : ''
-         }
-      `,
-
-      values: [start.toISOString(), end.toISOString()],
-    });
-
-    return data.count;
   }
 
   static async createProperty(values) {

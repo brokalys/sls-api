@@ -72,70 +72,6 @@ describe('Repository', () => {
     });
   });
 
-  describe('getRawChartData', () => {
-    it('returns the values', async () => {
-      mysql.query.mockResolvedValue([
-        {
-          price: 100000,
-          area: 100,
-          area_measurement: 'm2',
-          price_per_sqm: null,
-          published_at: '2011-01-01',
-        },
-      ]);
-
-      const output = await Repository.getRawChartData({
-        category: 'APARTMENT',
-        type: 'SELL',
-        start: '2010-01-01',
-        end: '2020-01-01',
-      });
-
-      expect(output).toEqual([
-        {
-          price: 100000,
-          area: 100,
-          area_measurement: 'm2',
-          price_per_sqm: 1000,
-          published_at: '2011-01-01',
-        },
-      ]);
-    });
-  });
-
-  describe('getRegionData', () => {
-    it('returns the values', async () => {
-      mysql.query.mockResolvedValue([
-        {
-          price: 100000,
-          lat: 1,
-          lng: 2,
-          area: 100,
-          area_measurement: 'm2',
-          price_per_sqm: null,
-        },
-      ]);
-
-      const output = await Repository.getRegionData({
-        category: 'APARTMENT',
-        type: 'SELL',
-        start: '2010-01-01',
-        end: '2020-01-01',
-      });
-
-      expect(output).toEqual([
-        {
-          price: 100000,
-          lat: 1,
-          lng: 2,
-          area: 100,
-          area_measurement: 'm2',
-          price_per_sqm: 1000,
-        },
-      ]);
-    });
-  });
-
   describe('getPingers', () => {
     it('returns the currently registered pingers', async () => {
       mysql.query.mockResolvedValue([
@@ -173,26 +109,6 @@ describe('Repository', () => {
       expect(output).toEqual({
         email: 'noreply@brokalys.com',
       });
-    });
-  });
-
-  describe('getPingerCount', () => {
-    it('returns the pinger count', async () => {
-      mysql.query.mockResolvedValue([
-        {
-          count: 1,
-        },
-      ]);
-
-      const output = await Repository.getPingerCount({
-        category: 'apartment',
-        type: 'sell',
-        price_min: 1,
-        price_max: 2,
-        region: 'test',
-      });
-
-      expect(output).toEqual(1);
     });
   });
 
