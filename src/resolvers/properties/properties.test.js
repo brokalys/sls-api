@@ -17,6 +17,18 @@ describe('properties', () => {
     expect(count).toEqual(10);
   });
 
+  test('successfully retrieves summary.price', async () => {
+    const results = [{ price: 100 }, { price: 200 }];
+    Repository.getProperty.mockReturnValue(results);
+
+    const data = await properties();
+    const price = data.summary.price();
+
+    expect(price).resolves.toEqual({
+      median: 150,
+    });
+  });
+
   test('successfully retrieves results', async () => {
     const expectation = [{ id: 123 }, { id: 999 }];
     Repository.getProperty.mockReturnValue(expectation);
@@ -42,6 +54,7 @@ describe('properties', () => {
       results: expect.any(Function),
       summary: {
         count: expect.any(Function),
+        price: expect.any(Function),
       },
     });
     expect(Repository.getPropertyCount).not.toBeCalled();

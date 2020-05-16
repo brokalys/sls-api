@@ -118,9 +118,19 @@ class Repository {
     });
   }
 
-  static getProperty(by) {
+  static getProperty(by, limit = 30, fields = undefined) {
+    const query = buildPropertyQuery(by);
+
+    if (limit) {
+      query.limit(limit);
+    }
+
+    if (fields) {
+      query.select(fields);
+    }
+
     return mysql.query({
-      sql: buildPropertyQuery(by).toString(),
+      sql: query.toString(),
       timeout: 1000,
     });
   }
@@ -129,8 +139,6 @@ class Repository {
     const query = buildPropertyQuery(by).count('*', {
       as: 'count',
     });
-
-    console.log(query.toString());
 
     const data = await mysql.query({
       sql: query.toString(),

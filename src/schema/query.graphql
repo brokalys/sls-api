@@ -78,6 +78,11 @@ input PropertyFilter {
 
 type PropertySummary {
   count: Int!
+  price: PropertyPriceSummary!
+}
+
+type PropertyPriceSummary {
+  median: Int
 }
 
 enum Category {

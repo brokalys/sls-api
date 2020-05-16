@@ -19,6 +19,27 @@ Object {
 }
 `;
 
+exports[`Query: properties successfully retrieves property summary.price data 1`] = `
+Object {
+  "data": Object {
+    "properties": Object {
+      "summary": Object {
+        "price": Object {
+          "median": 150,
+        },
+      },
+    },
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
 exports[`Query: properties successfully retrieves results 1`] = `
 Object {
   "data": Object {

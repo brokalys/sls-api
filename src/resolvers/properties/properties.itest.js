@@ -35,6 +35,26 @@ describe('Query: properties', () => {
     expect(response).toMatchSnapshot();
   });
 
+  test('successfully retrieves property summary.price data', async () => {
+    db.query.mockReturnValue([{ price: 100 }, { price: 200 }]);
+
+    const response = await query({
+      query: `
+        {
+          properties {
+            summary {
+              price {
+                median
+              }
+            }
+          }
+        }
+      `,
+    });
+
+    expect(response).toMatchSnapshot();
+  });
+
   // @todo: passing headers to integration tests is currently not possible..
   // @see https://github.com/apollographql/apollo-server/issues/2277
   xtest('successfully retrieves results', async () => {
@@ -58,11 +78,13 @@ describe('Query: properties', () => {
   test.each([
     { filter: { published_at: { gte: 'value' } } }, // simply wrong value
     { filter: { published_at: '2019-01-01' } }, // missing filter expression
-  ])('successfully retrieves property summary.count data', async (input) => {
-    db.query.mockReturnValue([{ count: 120 }]);
+  ])(
+    'throws a validation error when trying to retrieve summary.count',
+    async (input) => {
+      db.query.mockReturnValue([{ count: 120 }]);
 
-    const response = await query({
-      query: `
+      const response = await query({
+        query: `
         query GetCount($filter: PropertyFilter) {
           properties(filter: $filter) {
             summary {
@@ -71,11 +93,12 @@ describe('Query: properties', () => {
           }
         }
       `,
-      variables: input,
-    });
+        variables: input,
+      });
 
-    expect(response.errors).toHaveLength(1);
-  });
+      expect(response.errors).toHaveLength(1);
+    },
+  );
 
   test('throws an authentication error if trying to retrieve results without authorizing', async () => {
     db.query.mockReturnValue([{ id: 1 }, { id: 2 }]);
