@@ -13,7 +13,7 @@ const filterable = (field) =>
     lte: field,
 
     in: field,
-  }).default({});
+  });
 
 const filter = Joi.object({
   category: filterable(

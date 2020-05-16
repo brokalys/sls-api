@@ -35,19 +35,23 @@ function buildPropertyQuery(filters) {
     }
 
     if (filter.gt) {
-      return query.whereNot(field, '>', filter.gt);
+      return query.where(field, '>', filter.gt);
     }
 
     if (filter.gte) {
-      return query.whereNot(field, '>=', filter.gte);
+      return query.where(field, '>=', filter.gte);
     }
 
     if (filter.lt) {
-      return query.whereNot(field, '<', filter.lt);
+      return query.where(field, '<', filter.lt);
     }
 
     if (filter.lte) {
-      return query.whereNot(field, '<=', filter.lte);
+      return query.where(field, '<=', filter.lte);
+    }
+
+    if (typeof filter === 'object') {
+      return query;
     }
 
     return query.where(field, filter);
@@ -125,6 +129,8 @@ class Repository {
     const query = buildPropertyQuery(by).count('*', {
       as: 'count',
     });
+
+    console.log(query.toString());
 
     const data = await mysql.query({
       sql: query.toString(),
