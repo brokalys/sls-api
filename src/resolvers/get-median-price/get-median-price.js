@@ -13,7 +13,7 @@ const validationSchema = Joi.object().keys({
     .iso()
     .max(moment().utc().startOf('month').subtract(1, 'day'))
     .required(),
-  region: Joi.string().required().polygonV2(),
+  region: Joi.array().items(Joi.string().required().polygonV2()).length(1),
 });
 
 async function getMedianPrice(parent, args) {
@@ -34,7 +34,7 @@ async function getMedianPrice(parent, args) {
     type: args.type,
     start: start.format('YYYY-MM-DD'),
     end: end.format('YYYY-MM-DD'),
-    region: args.region,
+    region: args.region[0],
   });
 
   return {

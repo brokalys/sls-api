@@ -42,10 +42,10 @@ type Query {
   ): PingerStats!
 
   getMedianPrice(
-    start_date: Date!
-    category: Category
-    type: Type
-    region: String!
+    start_date: String!
+    category: String
+    type: String
+    region: [String!]!
   ): MedianPrice!
 
   getPropertiesForPinger(
@@ -71,13 +71,9 @@ type Query {
 
 input PropertyFilter {
   published_at: FilterString
-  region: RegionFilter
+  region: FilterString
   category: FilterString
   type: FilterString
-}
-
-input RegionFilter {
-  in: String
 }
 
 type PropertySummary {
