@@ -29,18 +29,6 @@ type Query {
     date: Date!
   ): ChartData!
 
-  getPingerStats(
-    category: Category!
-    type: Type!
-    price_min: Int!
-    price_max: Int!
-    region: String!
-    rooms_min: Int
-    rooms_max: Int
-    area_m2_min: Int
-    area_m2_max: Int
-  ): PingerStats!
-
   getPropertiesForPinger(
     start_date: String!
     category: ExtendedCategory!
@@ -162,10 +150,6 @@ type TableData {
 type SellRent {
   sell: Float
   rent: Float
-}
-
-type PingerStats {
-  pingers_last_month: Int
 }
 
 type PropertyData {

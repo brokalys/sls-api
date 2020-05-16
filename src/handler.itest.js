@@ -115,48 +115,6 @@ describe('Query', () => {
     });
   });
 
-  describe('getPingerStats', () => {
-    test('fails validation if region is invalid', async () => {
-      const res = await query({
-        query: `
-        {
-          getPingerStats(
-            category: APARTMENT
-            type: SELL
-            price_min: 1
-            price_max: 2
-            region: "WRONG"
-          ) {
-            pingers_last_month
-          }
-        }
-      `,
-      });
-
-      expect(res).toMatchSnapshot();
-    });
-
-    test('fetches pinger stats', async () => {
-      const res = await query({
-        query: `
-        {
-          getPingerStats(
-            category: APARTMENT
-            type: SELL
-            price_min: 1
-            price_max: 2
-            region: "56.992294 24.136619, 56.976394 23.995790, 56.924904 24.005336, 56.889288 24.108467, 56.932211 24.291935, 56.996502 24.245176"
-          ) {
-            pingers_last_month
-          }
-        }
-      `,
-      });
-
-      expect(res).toMatchSnapshot();
-    });
-  });
-
   describe('getRegion', () => {
     test('fails validation if start date is past end date', async () => {
       const res = await query({
