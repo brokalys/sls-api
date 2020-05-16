@@ -71,4 +71,11 @@ custom:
     includeModules:
       forceExclude:
         - aws-sdk
+
+        # These peerDependencies are not actually used in the project, but are
+        # breaking SLS deployments
+        - mssql
+        - mysql2
+        - pg
+        - sqlite3
     packager: yarn
