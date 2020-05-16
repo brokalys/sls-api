@@ -128,6 +128,16 @@ class Repository {
 
     return mysql.query({
       sql: query.toString(),
+      typeCast(field, next) {
+        if (field.name === 'content') {
+          return field.string() || '';
+        }
+        if (field.name === 'images') {
+          return JSON.parse(field.string());
+        }
+
+        return next();
+      },
       timeout: limit <= 100 ? 1000 : 20000,
     });
   }

@@ -3,6 +3,7 @@ import schema from './validation';
 describe('properties: validation', () => {
   test.each([
     [{ filter: { published_at: { gte: '2018-12-01' } } }],
+    [{ filter: { created_at: { gte: '2018-12-01' } } }],
     [{ filter: { category: { eq: 'APARTMENT' } } }],
     [{ filter: { category: { eq: 'apartment' } } }],
     [{ filter: { type: { eq: 'SELL' } } }],
