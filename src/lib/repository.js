@@ -10,51 +10,48 @@ function buildPropertyQuery(filters) {
   const query = knex(`${process.env.DB_DATABASE}.properties`);
 
   function buildQueryPart(field, filter = {}) {
+    if (typeof filter !== 'object') {
+      return query.where(field, filter);
+    }
+
     if (filter.in) {
       // Reserved keyword
       if (field === 'region') {
-        return query.whereRaw(
-          'ST_Contains(ST_GeomFromText(?), lat_lng_point)',
-          [`POLYGON((${filter.in[0]}))`],
-        );
+        query.whereRaw('ST_Contains(ST_GeomFromText(?), lat_lng_point)', [
+          `POLYGON((${filter.in[0]}))`,
+        ]);
+      } else {
+        query.whereIn(field, filter.in);
       }
-
-      return query.whereIn(field, filter.in);
     }
 
     if (filter.nin) {
-      return query.whereNotIn(field, filter.nin);
+      query.whereNotIn(field, filter.nin);
     }
 
     if (filter.eq) {
-      return query.where(field, filter.eq);
+      query.where(field, filter.eq);
     }
 
     if (filter.neq) {
-      return query.whereNot(field, filter.neq);
+      query.whereNot(field, filter.neq);
     }
 
     if (filter.gt) {
-      return query.where(field, '>', filter.gt);
+      query.where(field, '>', filter.gt);
     }
 
     if (filter.gte) {
-      return query.where(field, '>=', filter.gte);
+      query.where(field, '>=', filter.gte);
     }
 
     if (filter.lt) {
-      return query.where(field, '<', filter.lt);
+      query.where(field, '<', filter.lt);
     }
 
     if (filter.lte) {
-      return query.where(field, '<=', filter.lte);
+      query.where(field, '<=', filter.lte);
     }
-
-    if (typeof filter === 'object') {
-      return query;
-    }
-
-    return query.where(field, filter);
   }
 
   Object.entries(filters).forEach(([key, value]) => buildQueryPart(key, value));
