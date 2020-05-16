@@ -67,6 +67,10 @@ input PropertyFilter {
   region: FilterString
   category: FilterString
   type: FilterString
+  price: FilterInt
+  rooms: FilterInt
+  area: FilterInt
+  floor: FilterInt
 }
 
 type PropertySummary {
@@ -197,4 +201,19 @@ input FilterString {
 
   in: [String]
   nin: [String]
+}
+
+input FilterInt {
+  # equality
+  eq: Int
+  neq: Int
+
+  # lexicographical comparison
+  gt: Int
+  gte: Int
+  lt: Int
+  lte: Int
+
+  in: [Int]
+  nin: [Int]
 }
