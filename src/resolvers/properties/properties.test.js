@@ -1,17 +1,23 @@
 import { AuthenticationError, UserInputError } from 'apollo-server-lambda';
 
-import Repository from 'lib/repository';
+import PropertiesDataSource from 'data-sources/properties';
 import properties from './properties';
 
-jest.mock('lib/repository');
+jest.mock('data-sources/properties');
 
 describe('properties', () => {
+  let dataSources;
+
+  beforeEach(() => {
+    dataSources = {
+      properties: PropertiesDataSource,
+    };
+  });
+
   afterEach(jest.clearAllMocks);
 
   test('successfully retrieves summary.count', async () => {
-    Repository.getPropertyCount.mockReturnValueOnce(10);
-
-    const data = await properties();
+    const data = await properties({}, {}, { dataSources });
     const count = data.summary.count();
 
     expect(count).toEqual(10);
@@ -19,9 +25,9 @@ describe('properties', () => {
 
   test('successfully retrieves summary.price', async () => {
     const results = [{ price: 100 }, { price: 200 }];
-    Repository.getProperty.mockReturnValueOnce(results);
+    dataSources.properties.get.mockReturnValueOnce(results);
 
-    const data = await properties();
+    const data = await properties({}, {}, { dataSources });
     const price = data.summary.price();
 
     expect(price).resolves.toEqual({
@@ -31,9 +37,9 @@ describe('properties', () => {
 
   test('returns `null` if no data is found for summary.price', async () => {
     const results = [];
-    Repository.getProperty.mockReturnValueOnce(results);
+    dataSources.properties.get.mockReturnValueOnce(results);
 
-    const data = await properties();
+    const data = await properties({}, {}, { dataSources });
     const price = data.summary.price();
 
     expect(price).resolves.toEqual({
@@ -43,9 +49,13 @@ describe('properties', () => {
 
   test('successfully retrieves results', async () => {
     const expectation = [{ id: 123 }, { id: 999 }];
-    Repository.getProperty.mockReturnValueOnce(expectation);
+    dataSources.properties.get.mockReturnValueOnce(expectation);
 
-    const data = await properties({}, {}, { isAuthenticated: true });
+    const data = await properties(
+      {},
+      {},
+      { isAuthenticated: true, dataSources },
+    );
     const results = data.results();
 
     expect(results).toEqual(expectation);
@@ -60,7 +70,7 @@ describe('properties', () => {
   });
 
   test('matches the schema and does not make unnecessary db calls', async () => {
-    const data = await properties();
+    const data = await properties({}, {}, { dataSources });
 
     expect(data).toEqual({
       results: expect.any(Function),
@@ -69,8 +79,8 @@ describe('properties', () => {
         price: expect.any(Function),
       },
     });
-    expect(Repository.getPropertyCount).not.toBeCalled();
-    expect(Repository.getProperty).not.toBeCalled();
+    expect(dataSources.properties.getCount).not.toBeCalled();
+    expect(dataSources.properties.get).not.toBeCalled();
   });
 
   describe('throws validation exception when', () => {

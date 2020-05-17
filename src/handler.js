@@ -1,5 +1,6 @@
 import { ApolloServer } from 'apollo-server-lambda';
 
+import Properties from './data-sources/properties';
 import schema from './schema/schema.graphql';
 import resolvers from './resolvers';
 
@@ -8,6 +9,9 @@ const isDevMode = process.env.STAGE === 'dev';
 export const server = new ApolloServer({
   typeDefs: schema,
   resolvers,
+  dataSources: () => ({
+    properties: new Properties({ client: 'mysql' }),
+  }),
   tracing: isDevMode,
   playground: isDevMode,
   context: ({ event, req }) => {

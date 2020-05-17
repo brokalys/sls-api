@@ -9,6 +9,4 @@ export default {
   })),
   createPinger: jest.fn(() => 1),
   createProperty: jest.fn(() => 1),
-  getProperty: jest.fn(() => []),
-  getPropertyCount: jest.fn(100),
 };

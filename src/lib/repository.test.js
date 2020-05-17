@@ -4,54 +4,6 @@ import Repository from './repository';
 jest.mock('./db');
 
 describe('Repository', () => {
-  describe('getProperty', () => {
-    it('returns the values', async () => {
-      const results = [{ price: 100000 }, { price: 200000 }];
-      mysql.query.mockResolvedValue(results);
-
-      const output = await Repository.getProperty({
-        source: 'brokalys.com',
-      });
-
-      expect(output).toEqual(results);
-    });
-
-    it('returns the values with an expression', async () => {
-      const results = [{ price: 100000 }, { price: 200000 }];
-      mysql.query.mockResolvedValue(results);
-
-      const output = await Repository.getProperty({
-        published_at: { gte: '2019-01-01' },
-      });
-
-      expect(output).toEqual(results);
-    });
-  });
-
-  describe('getPropertyCount', () => {
-    it('returns the count', async () => {
-      const results = [{ count: 100 }];
-      mysql.query.mockResolvedValue(results);
-
-      const output = await Repository.getPropertyCount({
-        category: 'apartment',
-      });
-
-      expect(output).toEqual(100);
-    });
-
-    it('returns the count with a date expression', async () => {
-      const results = [{ count: 100 }];
-      mysql.query.mockResolvedValue(results);
-
-      const output = await Repository.getPropertyCount({
-        published_at: { gte: '2019-01-01' },
-      });
-
-      expect(output).toEqual(100);
-    });
-  });
-
   describe('getPingers', () => {
     it('returns the currently registered pingers', async () => {
       mysql.query.mockResolvedValue([
