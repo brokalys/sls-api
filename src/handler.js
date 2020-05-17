@@ -9,7 +9,6 @@ export const server = new ApolloServer({
   typeDefs: schema,
   resolvers,
   tracing: isDevMode,
-  introspection: isDevMode,
   playground: isDevMode,
   context: ({ event, req }) => {
     const { headers } = event || req || { headers: {} };
