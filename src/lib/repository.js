@@ -85,7 +85,6 @@ class Repository {
       timeout: limit <= 100 ? 1000 : 20000,
     });
 
-    await mysql.end();
     return data;
   }
 
@@ -99,7 +98,6 @@ class Repository {
       timeout: 20000,
     });
 
-    await mysql.end();
     return data[0].count;
   }
 
@@ -114,7 +112,6 @@ class Repository {
       values: [email],
     });
 
-    await mysql.end();
     return data;
   }
 
@@ -128,7 +125,6 @@ class Repository {
       values: [id],
     });
 
-    await mysql.end();
     return data;
   }
 
@@ -143,7 +139,6 @@ class Repository {
       timeout: 1000,
     });
 
-    await mysql.end();
     return insertId;
   }
 
@@ -182,7 +177,6 @@ class Repository {
       ],
     });
 
-    await mysql.end();
     return insertId;
   }
 
@@ -198,7 +192,6 @@ class Repository {
       values: [id, confirmKey],
     });
 
-    await mysql.end();
     return affectedRows === 1;
   }
 
@@ -214,7 +207,6 @@ class Repository {
       values: [id, unsubscribeKey],
     });
 
-    await mysql.end();
     return affectedRows === 1;
   }
 
@@ -244,7 +236,6 @@ class Repository {
       values: [data[0].email],
     });
 
-    await mysql.end();
     return affectedRows >= 1;
   }
 }
