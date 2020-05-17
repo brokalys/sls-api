@@ -82,7 +82,7 @@ class Repository {
 
         return next();
       },
-      timeout: limit <= 100 ? 1000 : 20000,
+      timeout: limit && limit <= 100 ? 1000 : 20000,
     });
 
     return data;
