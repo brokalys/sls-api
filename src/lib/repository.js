@@ -59,7 +59,7 @@ function buildPropertyQuery(filters) {
 }
 
 class Repository {
-  static getProperty(by, limit = 30, fields = undefined) {
+  static async getProperty(by, limit = 30, fields = undefined) {
     const query = buildPropertyQuery(by);
 
     if (limit) {
@@ -70,7 +70,7 @@ class Repository {
       query.select(fields);
     }
 
-    return mysql.query({
+    const data = await mysql.query({
       sql: query.toString(),
       typeCast(field, next) {
         if (field.name === 'content') {
@@ -84,6 +84,9 @@ class Repository {
       },
       timeout: limit <= 100 ? 1000 : 20000,
     });
+
+    await mysql.end();
+    return data;
   }
 
   static async getPropertyCount(by) {
@@ -96,11 +99,12 @@ class Repository {
       timeout: 20000,
     });
 
+    await mysql.end();
     return data[0].count;
   }
 
   static async getPingers(email) {
-    return await mysql.query({
+    const data = await mysql.query({
       sql: `
         SELECT *
         FROM \`${process.env.DB_PINGER_DATABASE}\`.pinger_emails
@@ -109,6 +113,9 @@ class Repository {
       `,
       values: [email],
     });
+
+    await mysql.end();
+    return data;
   }
 
   static async getPinger(id) {
@@ -121,6 +128,7 @@ class Repository {
       values: [id],
     });
 
+    await mysql.end();
     return data;
   }
 
@@ -135,6 +143,7 @@ class Repository {
       timeout: 1000,
     });
 
+    await mysql.end();
     return insertId;
   }
 
@@ -173,6 +182,7 @@ class Repository {
       ],
     });
 
+    await mysql.end();
     return insertId;
   }
 
@@ -188,6 +198,7 @@ class Repository {
       values: [id, confirmKey],
     });
 
+    await mysql.end();
     return affectedRows === 1;
   }
 
@@ -203,6 +214,7 @@ class Repository {
       values: [id, unsubscribeKey],
     });
 
+    await mysql.end();
     return affectedRows === 1;
   }
 
@@ -218,6 +230,7 @@ class Repository {
     });
 
     if (data.length === 0) {
+      await mysql.end();
       return false;
     }
 
@@ -231,6 +244,7 @@ class Repository {
       values: [data[0].email],
     });
 
+    await mysql.end();
     return affectedRows >= 1;
   }
 }

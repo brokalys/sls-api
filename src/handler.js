@@ -1,6 +1,5 @@
 import { ApolloServer } from 'apollo-server-lambda';
 
-import mysql from 'lib/db';
 import schema from './schema/schema.graphql';
 import resolvers from './resolvers';
 
@@ -29,17 +28,6 @@ export const server = new ApolloServer({
     }
     return error;
   },
-  plugins: [
-    {
-      requestDidStart() {
-        return {
-          willSendResponse() {
-            return mysql.end();
-          },
-        };
-      },
-    },
-  ],
 });
 
 exports.graphqlHandler = server.createHandler({
