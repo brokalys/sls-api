@@ -23,15 +23,15 @@ export const server = new ApolloServer({
         headers.Authorization === process.env.BROKALYS_PRIVATE_KEY,
     };
   },
-  plugins: [
-    responseCachePlugin({
-      cache: new SqlCache(),
-      shouldReadFromCache(context) {
-        if (context.operationName === 'IntrospectionQuery') return false;
-        return true;
-      },
-    }),
-  ],
+  // plugins: [
+  //   responseCachePlugin({
+  //     cache: new SqlCache(),
+  //     shouldReadFromCache(context) {
+  //       if (context.operationName === 'IntrospectionQuery') return false;
+  //       return true;
+  //     },
+  //   }),
+  // ],
   cacheControl: {
     defaultMaxAge: 86400, // 1 day
   },
