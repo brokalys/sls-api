@@ -1,6 +1,8 @@
 import { ApolloServer } from 'apollo-server-lambda';
+import responseCachePlugin from 'apollo-server-plugin-response-cache';
 
 import Properties from './data-sources/properties';
+import SqlCache from './lib/sql-cache';
 import schema from './schema/schema.graphql';
 import resolvers from './resolvers';
 
@@ -20,6 +22,18 @@ export const server = new ApolloServer({
       isAuthenticated:
         headers.Authorization === process.env.BROKALYS_PRIVATE_KEY,
     };
+  },
+  plugins: [
+    responseCachePlugin({
+      cache: new SqlCache(),
+      shouldReadFromCache(context) {
+        if (context.operationName === 'IntrospectionQuery') return false;
+        return true;
+      },
+    }),
+  ],
+  cacheControl: {
+    defaultMaxAge: 86400, // 1 day
   },
   formatError: (error) => {
     if (process.env.NODE_ENV !== 'test') {
