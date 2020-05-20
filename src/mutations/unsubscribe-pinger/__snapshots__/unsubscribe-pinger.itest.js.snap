@@ -9,11 +9,7 @@ Object {
   "extensions": undefined,
   "http": Object {
     "headers": Headers {
-      Symbol(map): Object {
-        "Cache-Control": Array [
-          "max-age=86400, public",
-        ],
-      },
+      Symbol(map): Object {},
     },
   },
 }
@@ -80,11 +76,7 @@ Object {
   "extensions": undefined,
   "http": Object {
     "headers": Headers {
-      Symbol(map): Object {
-        "Cache-Control": Array [
-          "max-age=86400, public",
-        ],
-      },
+      Symbol(map): Object {},
     },
   },
 }
@@ -99,11 +91,7 @@ Object {
   "extensions": undefined,
   "http": Object {
     "headers": Headers {
-      Symbol(map): Object {
-        "Cache-Control": Array [
-          "max-age=86400, public",
-        ],
-      },
+      Symbol(map): Object {},
     },
   },
 }
