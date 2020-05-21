@@ -85,6 +85,45 @@ describe('Properties', () => {
 
       expect(output).toEqual(results);
     });
+
+    it('selects only specific fields', async () => {
+      const results = [{ price: 100000 }, { price: 200000 }];
+      mysql.query.mockResolvedValue(results);
+
+      const output = await properties.get(
+        {
+          published_at: { gte: '2019-01-01' },
+        },
+        30,
+        ['price'],
+      );
+
+      expect(output).toEqual(results);
+      expect(mysql.query).toBeCalledWith(
+        expect.objectContaining({
+          sql: expect.stringContaining('select `price`'),
+        }),
+      );
+    });
+
+    it('limits the results', async () => {
+      const results = [{ price: 100000 }, { price: 200000 }];
+      mysql.query.mockResolvedValue(results);
+
+      const output = await properties.get(
+        {
+          published_at: { gte: '2019-01-01' },
+        },
+        10,
+      );
+
+      expect(output).toEqual(results);
+      expect(mysql.query).toBeCalledWith(
+        expect.objectContaining({
+          sql: expect.stringContaining('limit 10'),
+        }),
+      );
+    });
   });
 
   describe('getCount', () => {
@@ -155,6 +194,41 @@ describe('Properties', () => {
       });
 
       expect(output).toEqual(100);
+    });
+  });
+
+  describe('buildPropertyQuery', () => {
+    beforeEach(() => {
+      mysql.query.mockRestore();
+    });
+
+    it.each([
+      [
+        { published_at: { gte: '2019-01-01' } },
+        "`published_at` >= '2019-01-01'",
+      ],
+      [
+        { published_at: { lte: '2019-01-01' } },
+        "`published_at` <= '2019-01-01'",
+      ],
+      [{ published_at: { gt: '2019-01-01' } }, "`published_at` > '2019-01-01'"],
+      [{ published_at: { lt: '2019-01-01' } }, "`published_at` < '2019-01-01'"],
+      [{ source: { eq: 'mysite.com' } }, "`source` = 'mysite.com'"],
+      [{ source: { neq: 'mysite.com' } }, "`source` != 'mysite.com'"],
+      [{ source: { in: ['mysite.com'] } }, "`source` in ('mysite.com')"],
+      [{ source: { nin: ['mysite.com'] } }, "`source` not in ('mysite.com')"],
+      [
+        { region: { in: ['special'] } },
+        "ST_Contains(ST_GeomFromText('POLYGON((special))'), lat_lng_point)",
+      ],
+    ])('constructs a query with %j', (filters, queryExpectation) => {
+      properties.get(filters);
+
+      expect(mysql.query).toBeCalledWith(
+        expect.objectContaining({
+          sql: expect.stringContaining(queryExpectation),
+        }),
+      );
     });
   });
 });

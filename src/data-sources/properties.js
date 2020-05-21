@@ -30,7 +30,7 @@ function buildPropertyQuery(knex, filters) {
     }
 
     if (filter.neq) {
-      query.whereNot(field, filter.neq);
+      query.where(field, '!=', filter.neq);
     }
 
     if (filter.gt) {

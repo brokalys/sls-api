@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import confirmPinger from './mutations/confirm-pinger';
 import createPinger from './mutations/create-pinger';
 import createProperty from './mutations/create-property';
