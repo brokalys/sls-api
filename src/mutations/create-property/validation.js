@@ -50,7 +50,7 @@ const schema = Joi.object({
 
   rooms: Joi.number().integer(),
   area: Joi.number(),
-  area_measurement: Joi.valid('m2', 'ha'),
+  area_measurement: Joi.valid('m2'),
   land_area: Joi.number(),
   land_area_measurement: Joi.valid('m2', 'ha'),
   floor: Joi.number().integer(),
