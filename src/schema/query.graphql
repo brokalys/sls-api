@@ -39,6 +39,8 @@ type PropertyData {
   price: Int!
   rooms: Int
   area: Int
+  lat: Float
+  lng: Float
 }
 
 type Properties {
