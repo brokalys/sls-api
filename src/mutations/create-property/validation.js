@@ -27,7 +27,13 @@ const schema = Joi.object({
     'auction',
     'other',
   ),
-  rent_type: Joi.valid('yearly', 'monthly', 'weekly', 'daily', 'hourly'),
+  rent_type: Joi.valid(
+    'yearly',
+    'monthly',
+    'weekly',
+    'daily',
+    'hourly',
+  ).default((parent) => (parent.type === 'rent' ? 'monthly' : undefined)),
 
   price: Joi.number(),
   price_per_sqm: Joi.number(),

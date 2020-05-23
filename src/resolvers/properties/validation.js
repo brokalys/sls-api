@@ -12,7 +12,8 @@ const filterable = (field) =>
     lt: field,
     lte: field,
 
-    in: field,
+    in: Joi.array().items(field),
+    nin: Joi.array().items(field),
   });
 
 const filter = Joi.object({
@@ -22,7 +23,10 @@ const filter = Joi.object({
     Joi.string().lowercase().valid('apartment', 'house', 'land', 'garage'),
   ),
   type: filterable(Joi.string().lowercase().valid('sell', 'rent')),
-  region: filterable(Joi.array().items(Joi.string().polygon()).length(1)),
+  rent_type: filterable(
+    Joi.string().lowercase().valid('yearly', 'monthly', 'weekly', 'daily'),
+  ),
+  region: filterable(Joi.string().polygon()),
   price: filterable(Joi.number().integer().min(1)),
   rooms: filterable(Joi.number().integer().min(1)),
   floor: filterable(Joi.number().integer().min(1)),

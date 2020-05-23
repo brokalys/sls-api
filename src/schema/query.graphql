@@ -11,6 +11,7 @@ input PropertyFilter {
   region: FilterString
   category: FilterString
   type: FilterString
+  rent_type: FilterString
   price: FilterInt
   rooms: FilterInt
   area: FilterInt
