@@ -39,7 +39,7 @@ type PropertyData {
   url: String!
   content: String!
   images: [String]
-  price: Int!
+  price: Float!
   rooms: Int
   area: Int
   lat: Float
