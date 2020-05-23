@@ -1,11 +1,11 @@
 import { AuthenticationError, UserInputError } from 'apollo-server-lambda';
 
+import PropertiesDataSource from 'data-sources/properties';
 import Bugsnag from 'lib/bugsnag';
-import Repository from 'lib/repository';
 import createProperty from './create-property';
 
 jest.mock('lib/bugsnag');
-jest.mock('lib/repository');
+jest.mock('data-sources/properties');
 
 const mockInput = {
   foreign_id: 'id_123',
@@ -19,6 +19,16 @@ const mockInput = {
 };
 
 describe('createProperty', () => {
+  let dataSources;
+
+  beforeEach(() => {
+    dataSources = {
+      properties: PropertiesDataSource,
+    };
+  });
+
+  afterEach(jest.clearAllMocks);
+
   test('successfully creates a pinger', async () => {
     await createProperty(
       {},
@@ -26,11 +36,12 @@ describe('createProperty', () => {
         input: JSON.stringify(mockInput),
       },
       {
+        dataSources,
         isAuthenticated: true,
       },
     );
 
-    expect(Repository.createProperty).toHaveBeenCalledTimes(1);
+    expect(dataSources.properties.create).toHaveBeenCalledTimes(1);
   });
 
   describe('fails creating when', () => {
@@ -46,6 +57,7 @@ describe('createProperty', () => {
             }),
           },
           {
+            dataSources,
             isAuthenticated: true,
           },
         ),
@@ -54,7 +66,6 @@ describe('createProperty', () => {
     });
 
     test('is not authenticated', async () => {
-      expect.assertions(1);
       await expect(
         createProperty(
           {},
@@ -62,6 +73,7 @@ describe('createProperty', () => {
             input: JSON.stringify(mockInput),
           },
           {
+            dataSources,
             isAuthenticated: false,
           },
         ),
@@ -69,11 +81,10 @@ describe('createProperty', () => {
     });
 
     test('inserting in DB fails', async () => {
-      Repository.createProperty.mockImplementation(() => {
+      dataSources.properties.create.mockImplementation(() => {
         throw new Error('Something bad happened');
       });
 
-      expect.assertions(1);
       await expect(
         createProperty(
           {},
@@ -81,6 +92,7 @@ describe('createProperty', () => {
             input: JSON.stringify(mockInput),
           },
           {
+            dataSources,
             isAuthenticated: true,
           },
         ),

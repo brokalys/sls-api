@@ -1,10 +1,9 @@
 import { AuthenticationError, UserInputError } from 'apollo-server-lambda';
 
 import Bugsnag from 'lib/bugsnag';
-import Repository from 'lib/repository';
 import validationSchema from './validation';
 
-async function createProperty(parent, input, context) {
+async function createProperty(parent, input, context = { dataSources: {} }) {
   if (!context.isAuthenticated) {
     throw new AuthenticationError();
   }
@@ -23,9 +22,10 @@ async function createProperty(parent, input, context) {
     throw error;
   }
 
+  const { properties } = context.dataSources;
   const { value } = validator;
 
-  await Repository.createProperty({
+  await properties.create({
     ...value,
     additional_data: JSON.stringify(value.additional_data),
     image_count: value.images.length,

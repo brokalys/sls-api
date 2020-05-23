@@ -68,48 +68,6 @@ describe('Repository', () => {
     });
   });
 
-  describe('createProperty', () => {
-    it('creates a new property', async () => {
-      mysql.query.mockResolvedValue({
-        insertId: 123456789,
-      });
-
-      const output = await Repository.createProperty({
-        category: 'APARTMENT',
-        type: 'SELL',
-        price: 10000,
-      });
-
-      expect(output).toEqual(123456789);
-      expect(mysql.query).toBeCalledWith(
-        expect.objectContaining({
-          sql: expect.stringContaining('lat_lng_point = point(0, 0)'),
-        }),
-      );
-    });
-
-    it('appends `lat_lng_point` if both coordinates exist', async () => {
-      mysql.query.mockResolvedValue({
-        insertId: 1,
-      });
-
-      const output = await Repository.createProperty({
-        category: 'APARTMENT',
-        type: 'SELL',
-        price: 10000,
-        lat: 12,
-        lng: 34.13,
-      });
-
-      expect(output).toEqual(1);
-      expect(mysql.query).toBeCalledWith(
-        expect.objectContaining({
-          sql: expect.stringContaining('lat_lng_point = point(12, 34.13)'),
-        }),
-      );
-    });
-  });
-
   describe('confirmPinger', () => {
     it('confirms a pinger', async () => {
       mysql.query.mockResolvedValue({
