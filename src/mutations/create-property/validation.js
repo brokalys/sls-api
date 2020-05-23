@@ -33,7 +33,8 @@ const schema = Joi.object({
     'weekly',
     'daily',
     'hourly',
-  ).default((parent) => (parent.type === 'rent' ? 'monthly' : undefined)),
+    'unknown',
+  ).default('unknown'),
 
   price: Joi.number(),
   price_per_sqm: Joi.number(),
