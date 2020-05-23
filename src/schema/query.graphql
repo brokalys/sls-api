@@ -23,7 +23,12 @@ type PropertySummary {
 }
 
 type PropertyPriceSummary {
+  min: Int
+  max: Int
+  mean: Int
   median: Int
+  mode: Int
+  standardDev: Int
 }
 
 type PropertyData {

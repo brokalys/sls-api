@@ -31,7 +31,12 @@ describe('properties', () => {
     const price = data.summary.price();
 
     expect(price).resolves.toEqual({
+      min: 100,
+      max: 200,
+      mean: 150,
       median: 150,
+      mode: 100,
+      standardDev: 50,
     });
   });
 
@@ -43,7 +48,12 @@ describe('properties', () => {
     const price = data.summary.price();
 
     expect(price).resolves.toEqual({
+      min: null,
+      max: null,
+      mean: null,
       median: null,
+      mode: null,
+      standardDev: null,
     });
   });
 

@@ -25,7 +25,12 @@ Object {
     "properties": Object {
       "summary": Object {
         "price": Object {
+          "max": 200,
+          "mean": 150,
           "median": 150,
+          "min": 100,
+          "mode": 100,
+          "standardDev": 50,
         },
       },
     },

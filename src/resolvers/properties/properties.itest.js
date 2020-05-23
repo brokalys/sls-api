@@ -45,7 +45,12 @@ describe('Query: properties', () => {
           properties {
             summary {
               price {
+                min
+                max
+                mean
                 median
+                mode
+                standardDev
               }
             }
           }
