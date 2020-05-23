@@ -71,6 +71,46 @@ describe('properties', () => {
     expect(results).toEqual(expectation);
   });
 
+  test('retrieves only selected fields from DB', async () => {
+    const expectation = [{ id: 123 }, { id: 999 }];
+    dataSources.properties.get.mockReturnValueOnce(expectation);
+
+    const data = await properties(
+      {},
+      {},
+      { isAuthenticated: true, dataSources },
+      {
+        operation: {
+          selectionSet: {
+            selections: [
+              {
+                selectionSet: {
+                  selections: [
+                    {
+                      selectionSet: {
+                        selections: [
+                          {
+                            name: {
+                              value: 'id',
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+          },
+        },
+      },
+    );
+    const results = data.results();
+
+    expect(results).toEqual(expectation);
+    expect(dataSources.properties.get).toBeCalledWith({}, 20, ['id']);
+  });
+
   test('fails retrieving results if is not authenticated', async () => {
     const data = await properties();
 

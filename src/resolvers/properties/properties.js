@@ -3,7 +3,17 @@ import numbers from 'numbers';
 
 import validationSchema from './validation';
 
-async function properties(parent, input, context = { dataSources: {} }) {
+function getSelectedFields(info) {
+  try {
+    return info.operation.selectionSet.selections[0].selectionSet.selections[0].selectionSet.selections.map(
+      (row) => row.name.value,
+    );
+  } catch (e) {
+    // Do nothing
+  }
+}
+
+async function properties(parent, input, context = { dataSources: {} }, info) {
   const validator = validationSchema.validate(input);
 
   // Validate input
@@ -22,7 +32,7 @@ async function properties(parent, input, context = { dataSources: {} }) {
         throw new AuthenticationError();
       }
 
-      return properties.get(value.filter, value.limit);
+      return properties.get(value.filter, value.limit, getSelectedFields(info));
     },
     summary: {
       count: () => properties.getCount(value.filter),
