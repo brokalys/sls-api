@@ -34,6 +34,9 @@ const filter = Joi.object({
 
 const schema = Joi.object({
   filter,
+  limit: Joi.alternatives()
+    .try(Joi.number().integer().min(1).strict(), Joi.valid(null))
+    .default(20),
 }).default({});
 
 export default schema;

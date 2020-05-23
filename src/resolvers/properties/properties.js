@@ -22,13 +22,15 @@ async function properties(parent, input, context = { dataSources: {} }) {
         throw new AuthenticationError();
       }
 
-      return properties.get(value.filter);
+      return properties.get(value.filter, value.limit);
     },
     summary: {
       count: () => properties.getCount(value.filter),
       price: async () => {
         const data = await properties.get(value.filter, null, ['price']);
-        const prices = data.map(({ price }) => price);
+        const prices = data
+          .map(({ price }) => price)
+          .filter((price) => price >= 1);
 
         return {
           min: parseInt(numbers.basic.min(prices), 10) || null,

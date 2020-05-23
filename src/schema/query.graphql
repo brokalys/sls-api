@@ -1,5 +1,8 @@
 type Query {
-  properties(filter: PropertyFilter): Properties!
+  properties(
+    filter: PropertyFilter
+    limit: Int
+  ): Properties!
 }
 
 input PropertyFilter {

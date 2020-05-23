@@ -27,6 +27,8 @@ describe('properties: validation', () => {
     [{ filter: { url: { eq: 'https://brokalys.com' } } }],
     [{ filter: { foreign_id: { eq: 'id123' } } }],
     [{ filter: {} }],
+    [{ limit: null }],
+    [{ limit: 20 }],
     [{}],
     [undefined],
   ])('with valid data: %j', (data) => {
@@ -54,6 +56,10 @@ describe('properties: validation', () => {
       },
     ], // Invalid region (missing ending point)
     [{ filter: { region: { in: ['wrong'] } } }], // Invalid region
+    [{ limit: 0 }], // Too small
+    [{ limit: '10' }], // Invalid datatype
+    [{ limit: true }], // Invalid datatype
+    [{ limit: false }], // Invalid datatype
     [{ unknown: 'field' }], // unknown root field filter
   ])('with invalid data: %j', (data) => {
     expect(schema.validate(data).error).not.toBeUndefined();
