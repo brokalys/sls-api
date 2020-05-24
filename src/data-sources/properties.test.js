@@ -27,7 +27,7 @@ describe('Properties', () => {
       expect(output).toEqual(results);
     });
 
-    it('ignores cache', async () => {
+    it('ignores cache if input doesnt have timeframe values', async () => {
       const results = [{ price: 100000 }, { price: 200000 }];
       mysql.query.mockResolvedValue(results);
       mockCache.get.mockResolvedValue(JSON.stringify(results));
@@ -41,6 +41,22 @@ describe('Properties', () => {
 
       expect(output).toEqual(results);
       expect(mockCache.get).not.toBeCalled();
+    });
+
+    it('ignores cache if it is disabled', async () => {
+      const results = [{ price: 100000 }, { price: 200000 }];
+      properties.initialize({
+        cache: mockCache,
+      });
+      properties.setCacheControl(false);
+
+      const output = await properties.get({
+        published_at: { gte: '2019-01-01', lte: '2019-02-01' },
+      });
+
+      expect(output).toEqual(results);
+      expect(mockCache.get).not.toBeCalled();
+      expect(mockCache.set).not.toBeCalled();
     });
 
     it('returns the cached values', async () => {

@@ -26,6 +26,7 @@ export const server = new ApolloServer({
   context: ({ event, req }) => {
     const { headers } = event || req || { headers: {} };
     return {
+      cacheEnabled: headers['Cache-Control'] !== 'no-cache',
       isAuthenticated:
         headers.Authorization === process.env.BROKALYS_PRIVATE_KEY,
     };

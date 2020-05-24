@@ -13,7 +13,7 @@ function getSelectedFields(info) {
   }
 }
 
-async function properties(parent, input, context = { dataSources: {} }, info) {
+async function properties(parent, input, context, info) {
   const validator = validationSchema.validate(input);
 
   // Validate input
@@ -25,6 +25,8 @@ async function properties(parent, input, context = { dataSources: {} }, info) {
 
   const { properties } = context.dataSources;
   const { value } = validator;
+
+  properties.setCacheControl(context.cacheEnabled);
 
   return {
     results: () => {

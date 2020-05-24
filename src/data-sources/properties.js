@@ -63,6 +63,16 @@ function hasTimeframeFilter(filters) {
 }
 
 class Properties extends SQLDataSource {
+  constructor(knexConfig) {
+    super(knexConfig);
+
+    this.setCacheControl(true);
+  }
+
+  setCacheControl(enabled) {
+    this.cacheEnabled = enabled;
+  }
+
   async get(by, limit = 30, fields = undefined) {
     const query = buildPropertyQuery(this.knex, by);
 
@@ -74,7 +84,7 @@ class Properties extends SQLDataSource {
       query.select(fields);
     }
 
-    const cacheEnabled = hasTimeframeFilter(by);
+    const cacheEnabled = this.cacheEnabled && hasTimeframeFilter(by);
 
     return this.performQuery(
       {
@@ -105,7 +115,7 @@ class Properties extends SQLDataSource {
       as: 'count',
     });
 
-    const cacheEnabled = hasTimeframeFilter(by);
+    const cacheEnabled = this.cacheEnabled && hasTimeframeFilter(by);
     const data = await this.performQuery(
       {
         query,
