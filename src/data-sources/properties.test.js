@@ -138,6 +138,17 @@ describe('Properties', () => {
       expect(output).toEqual(100);
     });
 
+    it('returns 0 when no matches found', async () => {
+      const results = [];
+      mysql.query.mockResolvedValue(results);
+
+      const output = await properties.getCount({
+        category: { eq: 'apartment' },
+      });
+
+      expect(output).toEqual(0);
+    });
+
     it('ignores cache', async () => {
       const results = [{ count: 100 }];
       mysql.query.mockResolvedValue(results);

@@ -119,6 +119,10 @@ class Properties extends SQLDataSource {
       },
     );
 
+    if (!data.length) {
+      return 0;
+    }
+
     return data[0].count;
   }
 

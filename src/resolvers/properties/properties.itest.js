@@ -35,6 +35,24 @@ describe('Query: properties', () => {
     expect(response).toMatchSnapshot();
   });
 
+  test('returns 0 count when no properties are found', async () => {
+    db.query.mockReturnValueOnce([]);
+
+    const response = await query({
+      query: `
+        {
+          properties {
+            summary {
+              count
+            }
+          }
+        }
+      `,
+    });
+
+    expect(response).toMatchSnapshot();
+  });
+
   test('successfully retrieves property summary.price data', async () => {
     db.query.mockReturnValueOnce([{ price: 100 }, { price: 200 }]);
 
