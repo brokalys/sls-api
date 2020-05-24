@@ -8,5 +8,4 @@ export default {
     unsubscribe_key: 'key',
   })),
   createPinger: jest.fn(() => 1),
-  createProperty: jest.fn(() => 1),
 };

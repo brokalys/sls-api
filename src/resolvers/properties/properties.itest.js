@@ -4,7 +4,6 @@ import { server } from 'handler';
 import db from 'lib/db';
 
 jest.mock('lib/db');
-jest.mock('lib/sql-cache');
 
 describe('Query: properties', () => {
   let query;

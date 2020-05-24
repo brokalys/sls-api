@@ -1,13 +1,18 @@
 import { ApolloServer } from 'apollo-server-lambda';
+import { SqlCache } from 'apollo-server-cache-sql';
 
 import Properties from './data-sources/properties';
-import SqlCache from './lib/sql-cache';
+import mysql from './lib/db';
 import schema from './schema/schema.graphql';
 import resolvers from './resolvers';
 
 const isDevMode = process.env.STAGE === 'dev';
 
-const cache = new SqlCache();
+const cache = new SqlCache({
+  client: mysql,
+  databaseName: process.env.DB_CACHE_DATABASE,
+  tableName: 'cache',
+});
 
 export const server = new ApolloServer({
   typeDefs: schema,
