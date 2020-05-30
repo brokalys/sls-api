@@ -25,6 +25,7 @@
     "moment-range": "^4.0.1",
     "mysql": "^2.18.1",
     "numbers": "^0.7.0",
+    "point-in-polygon": "^1.0.1",
     "serverless-mysql": "^1.2.0"
   },
   "devDependencies": {

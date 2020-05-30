@@ -1,7 +1,28 @@
 import { AuthenticationError, UserInputError } from 'apollo-server-lambda';
+import inside from 'point-in-polygon';
 
 import Bugsnag from 'lib/bugsnag';
 import validationSchema from './validation';
+import rigaGeojson from 'riga-geojson.json';
+
+/**
+ * Classify locations for faster regional lookups.
+ */
+function getLocationClassificator(lat, lng) {
+  if (!lat || !lng) {
+    return;
+  }
+
+  const location = rigaGeojson.features.find(({ geometry }) =>
+    inside([lng, lat], geometry.coordinates[0]),
+  );
+
+  if (!location) {
+    return;
+  }
+
+  return `latvia-riga-${location.properties.id}`;
+}
 
 async function createProperty(parent, input, context = { dataSources: {} }) {
   if (!context.isAuthenticated) {
@@ -30,6 +51,7 @@ async function createProperty(parent, input, context = { dataSources: {} }) {
     additional_data: JSON.stringify(value.additional_data),
     image_count: value.images.length,
     images: JSON.stringify(value.images),
+    location_classificator: getLocationClassificator(value.lat, value.lng),
   });
 
   return true;

@@ -14,8 +14,8 @@ const mockInput = {
   category: 'apartment',
   url: 'https://example.com',
   price: 10000,
-  lat: 56.11,
-  lng: 55.111112,
+  lat: 56.95,
+  lng: 24.0737,
 };
 
 describe('createProperty', () => {
@@ -42,6 +42,73 @@ describe('createProperty', () => {
     );
 
     expect(dataSources.properties.create).toHaveBeenCalledTimes(1);
+  });
+
+  describe('getLocationClassificator', () => {
+    test('successfully classifies the location', async () => {
+      await createProperty(
+        {},
+        {
+          input: JSON.stringify(mockInput),
+        },
+        {
+          dataSources,
+          isAuthenticated: true,
+        },
+      );
+
+      expect(dataSources.properties.create).toHaveBeenCalledWith(
+        expect.objectContaining({
+          location_classificator: 'latvia-riga-agenskalns',
+        }),
+      );
+    });
+
+    test('does not classify location that is not recognized', async () => {
+      await createProperty(
+        {},
+        {
+          input: JSON.stringify({
+            ...mockInput,
+            lat: 56.11,
+            lng: 30,
+          }),
+        },
+        {
+          dataSources,
+          isAuthenticated: true,
+        },
+      );
+
+      expect(dataSources.properties.create).toHaveBeenCalledWith(
+        expect.objectContaining({
+          location_classificator: undefined,
+        }),
+      );
+    });
+
+    test('does not classify properties without lat/lng', async () => {
+      await createProperty(
+        {},
+        {
+          input: JSON.stringify({
+            ...mockInput,
+            lat: undefined,
+            lng: undefined,
+          }),
+        },
+        {
+          dataSources,
+          isAuthenticated: true,
+        },
+      );
+
+      expect(dataSources.properties.create).toHaveBeenCalledWith(
+        expect.objectContaining({
+          location_classificator: undefined,
+        }),
+      );
+    });
   });
 
   describe('fails creating when', () => {
