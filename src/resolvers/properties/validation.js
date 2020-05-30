@@ -28,6 +28,7 @@ const filter = Joi.object({
       .lowercase()
       .valid('yearly', 'monthly', 'weekly', 'daily', 'hourly', 'unknown'),
   ),
+  location_classificator: filterable(Joi.string()),
   region: filterable(Joi.string().polygon()),
   price: filterable(Joi.number().integer().min(1)),
   rooms: filterable(Joi.number().integer().min(1)),

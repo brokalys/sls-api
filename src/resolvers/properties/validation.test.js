@@ -20,6 +20,7 @@ describe('properties: validation', () => {
       },
     ],
     [{ filter: { price: { gt: 20000 } } }],
+    [{ filter: { location_classificator: { eq: 'latvia-riga-centrs' } } }],
     [{ filter: { rooms: { gt: 2, lte: 3 } } }],
     [{ filter: { floor: { gt: 2, lte: 5 } } }],
     [{ filter: { area: { gt: 40 } } }],
@@ -44,6 +45,7 @@ describe('properties: validation', () => {
     [{ filter: { unknown: 'field' } }], // unknown filter
     [{ filter: { url: { eq: 'brokalys.com' } } }], // missing protocol
     [{ filter: { foreign_id: { eq: 'ALPHA + NUM & ONLY' } } }], // alphanum only
+    [{ filter: { location_classificator: { eq: 123 } } }], // string only
     [
       {
         filter: {

@@ -5,6 +5,7 @@ type Query {
 input PropertyFilter {
   created_at: FilterString
   published_at: FilterString
+  location_classificator: FilterString
   region: FilterString
   category: FilterString
   type: FilterString
