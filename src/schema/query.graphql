@@ -1,8 +1,5 @@
 type Query {
-  properties(
-    filter: PropertyFilter
-    limit: Int
-  ): Properties!
+  properties(filter: PropertyFilter, limit: Int): Properties!
 }
 
 input PropertyFilter {
@@ -42,7 +39,7 @@ type PropertyData {
   images: [String]!
   price: Float
   rooms: Int
-  area: Int
+  area: Float
   lat: Float
   lng: Float
 }
