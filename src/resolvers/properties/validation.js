@@ -26,7 +26,7 @@ const filter = Joi.object({
   rent_type: filterable(
     Joi.string()
       .lowercase()
-      .valid('yearly', 'monthly', 'weekly', 'daily', 'unknown'),
+      .valid('yearly', 'monthly', 'weekly', 'daily', 'hourly', 'unknown'),
   ),
   region: filterable(Joi.string().polygon()),
   price: filterable(Joi.number().integer().min(1)),
