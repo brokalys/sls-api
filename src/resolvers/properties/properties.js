@@ -29,7 +29,7 @@ async function properties(parent, input, context, info) {
   properties.setCacheControl(context.cacheEnabled);
 
   return {
-    results: () => {
+    results: async () => {
       if (!context.isAuthenticated) {
         throw new AuthenticationError();
       }
@@ -44,7 +44,8 @@ async function properties(parent, input, context, info) {
         if (!fields.includes('area')) fields.push('area');
       }
 
-      return properties.get(value.filter, value.limit, fields).map((row) => ({
+      const data = await properties.get(value.filter, value.limit, fields);
+      return data.map((row) => ({
         ...row,
 
         // if price/sqm is not set - attempt to calculate it

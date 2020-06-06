@@ -25,7 +25,7 @@ describe('properties', () => {
 
   test('successfully retrieves summary.price', async () => {
     const results = [{ price: 100 }, { price: 200 }];
-    dataSources.properties.get.mockReturnValueOnce(results);
+    dataSources.properties.get.mockResolvedValueOnce(results);
 
     const data = await properties({}, {}, { dataSources });
     const price = data.summary.price();
@@ -42,7 +42,7 @@ describe('properties', () => {
 
   test('returns `null` if no data is found for summary.price', async () => {
     const results = [];
-    dataSources.properties.get.mockReturnValueOnce(results);
+    dataSources.properties.get.mockResolvedValueOnce(results);
 
     const data = await properties({}, {}, { dataSources });
     const price = data.summary.price();
@@ -59,14 +59,14 @@ describe('properties', () => {
 
   test('successfully retrieves results', async () => {
     const expectation = [{ id: 123 }, { id: 999 }];
-    dataSources.properties.get.mockReturnValueOnce(expectation);
+    dataSources.properties.get.mockResolvedValueOnce(expectation);
 
     const data = await properties(
       {},
       {},
       { isAuthenticated: true, dataSources },
     );
-    const results = data.results();
+    const results = await data.results();
 
     expect(results).toEqual(expectation);
   });
@@ -83,7 +83,7 @@ describe('properties', () => {
 
   test('retrieves only selected fields from DB', async () => {
     const expectation = [{ id: 123 }, { id: 999 }];
-    dataSources.properties.get.mockReturnValueOnce(expectation);
+    dataSources.properties.get.mockResolvedValueOnce(expectation);
 
     const data = await properties(
       {},
@@ -115,7 +115,7 @@ describe('properties', () => {
         },
       },
     );
-    const results = data.results();
+    const results = await data.results();
 
     expect(results).toEqual(expectation);
     expect(dataSources.properties.get).toBeCalledWith({}, 20, ['id']);
@@ -131,7 +131,7 @@ describe('properties', () => {
       { price: null, price_per_sqm: 6, area: null },
       { price: null, price_per_sqm: null, area: 100 },
     ];
-    dataSources.properties.get.mockReturnValueOnce([
+    dataSources.properties.get.mockResolvedValueOnce([
       { price: 100, price_per_sqm: 1, area: 100 },
       { price: 200, price_per_sqm: 2, area: null },
       { price: null, price_per_sqm: 3, area: 100 },
@@ -171,7 +171,7 @@ describe('properties', () => {
         },
       },
     );
-    const results = data.results();
+    const results = await data.results();
 
     expect(results).toEqual(expectation);
     expect(dataSources.properties.get).toBeCalledWith({}, 20, [
@@ -184,9 +184,7 @@ describe('properties', () => {
   test('fails retrieving results if is not authenticated', async () => {
     const data = await properties({}, {}, { dataSources });
 
-    expect(() => {
-      data.results();
-    }).toThrowError(AuthenticationError);
+    expect(data.results()).rejects.toThrowError(AuthenticationError);
   });
 
   test('matches the schema and does not make unnecessary db calls', async () => {
