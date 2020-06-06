@@ -1,7 +1,7 @@
 import { AuthenticationError, UserInputError } from 'apollo-server-lambda';
 import numbers from 'numbers';
 
-import validationSchema from './validation';
+import validationSchema, { discardSchema } from './validation';
 
 function getSelectedFields(info) {
   try {
@@ -11,6 +11,15 @@ function getSelectedFields(info) {
   } catch (e) {
     // Do nothing
   }
+}
+
+function discardPercentage(data, amount = 0) {
+  const itemCount = data.length;
+  const discardStart = Math.floor((itemCount * amount) / 2);
+
+  return data
+    .sort((a, b) => a - b)
+    .splice(discardStart, itemCount - discardStart * 2);
 }
 
 async function properties(parent, input, context, info) {
@@ -57,21 +66,22 @@ async function properties(parent, input, context, info) {
     },
     summary: {
       count: () => properties.getCount(value.filter),
-      price: async () => {
-        const data = await properties.get(value.filter, null, ['price']);
-        const prices = data
-          .map(({ price }) => price)
-          .filter((price) => price >= 1);
+      price: async (params) => {
+        const discardValidator = discardSchema.validate(params);
 
-        return {
-          min: parseInt(numbers.basic.min(prices), 10) || null,
-          max: parseInt(numbers.basic.max(prices), 10) || null,
-          mean: parseInt(numbers.statistic.mean(prices), 10) || null,
-          median: parseInt(numbers.statistic.median(prices), 10) || null,
-          mode: parseInt(numbers.statistic.mode(prices), 10) || null,
-          standardDev:
-            parseInt(numbers.statistic.standardDev(prices), 10) || null,
-        };
+        if (discardValidator.error) {
+          throw new UserInputError('Input validation failed', {
+            message: discardValidator.error.details,
+          });
+        }
+
+        const data = await properties.get(value.filter, null, ['price']);
+        const prices = discardPercentage(
+          data.map(({ price }) => price).filter((price) => !!price),
+          discardValidator.value.discard,
+        );
+
+        return { prices };
       },
     },
   };

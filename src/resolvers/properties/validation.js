@@ -46,4 +46,8 @@ const schema = Joi.object({
     .default(20),
 }).default({});
 
+export const discardSchema = Joi.object({
+  discard: Joi.number().min(0).max(1).precision(2),
+}).default({ discard: 0 });
+
 export default schema;

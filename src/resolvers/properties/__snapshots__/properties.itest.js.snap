@@ -44,6 +44,7 @@ Object {
     "properties": Object {
       "summary": Object {
         "price": Object {
+          "count": 2,
           "max": 200,
           "mean": 150,
           "median": 150,
@@ -76,6 +77,33 @@ Object {
           "id": 2,
         },
       ],
+    },
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
+exports[`Query: properties successfully retrieves truncated property summary.price data 1`] = `
+Object {
+  "data": Object {
+    "properties": Object {
+      "summary": Object {
+        "price": Object {
+          "count": 2,
+          "max": 300,
+          "mean": 250,
+          "median": 250,
+          "min": 200,
+          "mode": 200,
+          "standardDev": 50,
+        },
+      },
     },
   },
   "errors": undefined,

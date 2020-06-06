@@ -62,6 +62,38 @@ describe('Query: properties', () => {
           properties {
             summary {
               price {
+                count
+                min
+                max
+                mean
+                median
+                mode
+                standardDev
+              }
+            }
+          }
+        }
+      `,
+    });
+
+    expect(response).toMatchSnapshot();
+  });
+
+  test('successfully retrieves truncated property summary.price data', async () => {
+    db.query.mockReturnValueOnce([
+      { price: 400 },
+      { price: 200 },
+      { price: 100 },
+      { price: 300 },
+    ]);
+
+    const response = await query({
+      query: `
+        {
+          properties {
+            summary {
+              price(discard: 0.5) {
+                count
                 min
                 max
                 mean

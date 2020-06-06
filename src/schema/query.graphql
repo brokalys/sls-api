@@ -21,10 +21,11 @@ input PropertyFilter {
 
 type PropertySummary {
   count: Int!
-  price: PropertyPriceSummary!
+  price(discard: Float): PropertyPriceSummary!
 }
 
 type PropertyPriceSummary {
+  count: Int
   min: Int
   max: Int
   mean: Int

@@ -14,7 +14,7 @@ describe('properties', () => {
     };
   });
 
-  afterEach(jest.clearAllMocks);
+  afterEach(jest.resetAllMocks);
 
   test('successfully retrieves summary.count', async () => {
     const data = await properties({}, {}, { dataSources });
@@ -28,34 +28,36 @@ describe('properties', () => {
     dataSources.properties.get.mockResolvedValueOnce(results);
 
     const data = await properties({}, {}, { dataSources });
-    const price = data.summary.price();
+    const price = await data.summary.price();
 
-    expect(price).resolves.toEqual({
-      min: 100,
-      max: 200,
-      mean: 150,
-      median: 150,
-      mode: 100,
-      standardDev: 50,
+    expect(price).toEqual({
+      prices: [100, 200],
     });
   });
 
-  test('returns `null` if no data is found for summary.price', async () => {
-    const results = [];
-    dataSources.properties.get.mockResolvedValueOnce(results);
+  test.each([
+    1.1, // too big
+    -0.1, // too small
 
-    const data = await properties({}, {}, { dataSources });
-    const price = data.summary.price();
+    // wrong datatypes
+    'test',
+    '',
+    null,
+    true,
+    false,
+  ])(
+    'throws a validation exception when `discard` is invalid in summary.price: %# - %j',
+    async (discard) => {
+      const results = [{ price: 100 }, { price: 200 }];
+      dataSources.properties.get.mockResolvedValueOnce(results);
 
-    expect(price).resolves.toEqual({
-      min: null,
-      max: null,
-      mean: null,
-      median: null,
-      mode: null,
-      standardDev: null,
-    });
-  });
+      const data = await properties({}, {}, { dataSources });
+
+      expect(data.summary.price({ discard })).rejects.toThrowError(
+        UserInputError,
+      );
+    },
+  );
 
   test('successfully retrieves results', async () => {
     const expectation = [{ id: 123 }, { id: 999 }];
