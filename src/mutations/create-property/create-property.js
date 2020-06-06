@@ -1,9 +1,9 @@
+import { riga } from '@brokalys/location-json-schemas';
 import { AuthenticationError, UserInputError } from 'apollo-server-lambda';
 import inside from 'point-in-polygon';
 
 import Bugsnag from 'lib/bugsnag';
 import validationSchema from './validation';
-import rigaGeojson from 'riga-geojson.json';
 
 /**
  * Classify locations for faster regional lookups.
@@ -13,7 +13,7 @@ function getLocationClassificator(lat, lng) {
     return;
   }
 
-  const location = rigaGeojson.features.find(({ geometry }) =>
+  const location = riga.features.find(({ geometry }) =>
     inside([lng, lat], geometry.coordinates[0]),
   );
 
@@ -21,7 +21,7 @@ function getLocationClassificator(lat, lng) {
     return;
   }
 
-  return `latvia-riga-${location.properties.id}`;
+  return location.properties.id;
 }
 
 async function createProperty(parent, input, context = { dataSources: {} }) {

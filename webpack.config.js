@@ -36,7 +36,6 @@ module.exports = {
   resolve: {
     alias: {
       lib: path.resolve(__dirname, './src/lib'),
-      'riga-geojson.json': path.resolve(__dirname, './data/riga-geojson.json'),
     },
   },
   output: {

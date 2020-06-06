@@ -847,6 +847,11 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
+"@brokalys/location-json-schemas@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@brokalys/location-json-schemas/-/location-json-schemas-1.1.2.tgz#6448f83f4eb727d762788eba507b3d5743a0a640"
+  integrity sha512-Ud1v62McrI3AZCKywqlJBolNtzI/Od3Wtoz5tZfeEA7NBLLFSjKOoY2dpGH672lz9Plf4sfAizo3vi+1I8CO2g==
+
 "@bugsnag/browser@^7.1.1":
   version "7.1.1"
   resolved "https://registry.yarnpkg.com/@bugsnag/browser/-/browser-7.1.1.tgz#a260d7b4ec11dfb0e056f169d3ff392b81eddaef"
