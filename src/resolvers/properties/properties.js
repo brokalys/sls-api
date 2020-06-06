@@ -34,7 +34,25 @@ async function properties(parent, input, context, info) {
         throw new AuthenticationError();
       }
 
-      return properties.get(value.filter, value.limit, getSelectedFields(info));
+      const fields = getSelectedFields(info);
+
+      // If we want to retrieve `price_per_sqm` - some additional calculations
+      // might need to be performed due to the data not always existing (but
+      // area + price might exist from which we can easily calculate price/sqm)
+      if (fields && fields.includes('price_per_sqm')) {
+        if (!fields.includes('price')) fields.push('price');
+        if (!fields.includes('area')) fields.push('area');
+      }
+
+      return properties.get(value.filter, value.limit, fields).map((row) => ({
+        ...row,
+
+        // if price/sqm is not set - attempt to calculate it
+        price_per_sqm:
+          row.area && row.price && !row.price_per_sqm
+            ? row.price / row.area
+            : row.price_per_sqm,
+      }));
     },
     summary: {
       count: () => properties.getCount(value.filter),

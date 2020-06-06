@@ -121,6 +121,66 @@ describe('properties', () => {
     expect(dataSources.properties.get).toBeCalledWith({}, 20, ['id']);
   });
 
+  test('retrieves additional fields if `price_per_sqm` selected, but not `price` and `area`', async () => {
+    const expectation = [
+      { price: 100, price_per_sqm: 1, area: 100 },
+      { price: 200, price_per_sqm: 2, area: null },
+      { price: null, price_per_sqm: 3, area: 100 },
+      { price: 400, price_per_sqm: 4, area: 100 },
+      { price: 500, price_per_sqm: 5, area: null },
+      { price: null, price_per_sqm: 6, area: null },
+      { price: null, price_per_sqm: null, area: 100 },
+    ];
+    dataSources.properties.get.mockReturnValueOnce([
+      { price: 100, price_per_sqm: 1, area: 100 },
+      { price: 200, price_per_sqm: 2, area: null },
+      { price: null, price_per_sqm: 3, area: 100 },
+      { price: 400, price_per_sqm: null, area: 100 },
+      { price: 500, price_per_sqm: 5, area: null },
+      { price: null, price_per_sqm: 6, area: null },
+      { price: null, price_per_sqm: null, area: 100 },
+    ]);
+
+    const data = await properties(
+      {},
+      {},
+      { isAuthenticated: true, dataSources },
+      {
+        operation: {
+          selectionSet: {
+            selections: [
+              {
+                selectionSet: {
+                  selections: [
+                    {
+                      selectionSet: {
+                        selections: [
+                          {
+                            name: {
+                              value: 'price_per_sqm',
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+          },
+        },
+      },
+    );
+    const results = data.results();
+
+    expect(results).toEqual(expectation);
+    expect(dataSources.properties.get).toBeCalledWith({}, 20, [
+      'price_per_sqm',
+      'price',
+      'area',
+    ]);
+  });
+
   test('fails retrieving results if is not authenticated', async () => {
     const data = await properties({}, {}, { dataSources });
 

@@ -39,6 +39,7 @@ type PropertyData {
   content: String!
   images: [String]!
   price: Float
+  price_per_sqm: Float
   rooms: Int
   area: Float
   lat: Float
