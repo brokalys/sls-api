@@ -11,10 +11,19 @@ provider:
   timeout: 20
   logs:
     restApi: true
+  apiKeys:
+    - slsPinger:
+        - name: ${self:provider.stage}-slsPingerKey
+          description: API key used by sls-pinger
   usagePlan:
-    throttle:
-      burstLimit: 20
-      rateLimit: 100
+    - slsPinger:
+        quota:
+          limit: 10000
+          offset: 1
+          period: MONTH
+        throttle:
+          burstLimit: 1000
+          rateLimit: 500
 
 functions:
   graphql:

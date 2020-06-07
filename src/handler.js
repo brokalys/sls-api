@@ -24,11 +24,14 @@ export const server = new ApolloServer({
   tracing: isDevMode,
   playground: isDevMode,
   context: ({ event, req }) => {
-    const { headers } = event || req || { headers: {} };
+    const { headers, requestContext } = event ||
+      req || { headers: {}, requestContext: { identity: {} } };
+
     return {
       cacheEnabled: headers['Cache-Control'] !== 'no-cache',
       isAuthenticated:
-        headers.Authorization === process.env.BROKALYS_PRIVATE_KEY,
+        headers.Authorization === process.env.BROKALYS_PRIVATE_KEY ||
+        !!requestContext.identity.apiKey, // Authorized via API Gateway
     };
   },
   formatError: (error) => {
