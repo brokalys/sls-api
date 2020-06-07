@@ -11,8 +11,6 @@ provider:
   timeout: 20
   logs:
     restApi: true
-  environment:
-    STAGE: ${opt:stage, 'dev'}
   usagePlan:
     throttle:
       burstLimit: 20
