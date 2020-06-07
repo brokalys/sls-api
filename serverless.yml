@@ -13,6 +13,10 @@ provider:
     restApi: true
   environment:
     STAGE: ${opt:stage, 'dev'}
+  usagePlan:
+    throttle:
+      burstLimit: 20
+      rateLimit: 100
 
 functions:
   graphql:
