@@ -1,5 +1,4 @@
 import { ApolloServer } from 'apollo-server-lambda';
-import { SqlCache } from 'apollo-server-cache-sql';
 
 import Properties from './data-sources/properties';
 import mysql from './lib/db';
@@ -8,27 +7,19 @@ import resolvers from './resolvers';
 
 const isDevMode = process.env.STAGE === 'dev';
 
-const cache = new SqlCache({
-  client: mysql,
-  databaseName: process.env.DB_CACHE_DATABASE,
-  tableName: 'cache',
-});
-
 export const server = new ApolloServer({
   typeDefs: schema,
   resolvers,
   dataSources: () => ({
     properties: new Properties({ client: 'mysql' }),
   }),
-  cache,
   tracing: isDevMode,
   playground: isDevMode,
   context: ({ event, req }) => {
-    const { headers, requestContext } = event ||
-      req || { headers: {}, requestContext: { identity: {} } };
+    const { requestContext } = event ||
+      req || { requestContext: { identity: {} } };
 
     return {
-      cacheEnabled: headers['Cache-Control'] !== 'no-cache',
       isAuthenticated: !!requestContext.identity.apiKeyId, // Authorized via API Gateway
     };
   },

@@ -73,16 +73,6 @@ describe('properties', () => {
     expect(results).toEqual(expectation);
   });
 
-  test('disables caching if `cacheEnabled` is set to `false`', async () => {
-    await properties(
-      {},
-      {},
-      { isAuthenticated: true, cacheEnabled: false, dataSources },
-    );
-
-    expect(dataSources.properties.setCacheControl).toBeCalledWith(false);
-  });
-
   test('retrieves only selected fields from DB', async () => {
     const expectation = [{ id: 123 }, { id: 999 }];
     dataSources.properties.get.mockResolvedValueOnce(expectation);

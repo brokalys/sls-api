@@ -35,8 +35,6 @@ async function properties(parent, input, context, info) {
   const { properties } = context.dataSources;
   const { value } = validator;
 
-  properties.setCacheControl(context.cacheEnabled);
-
   return {
     results: async () => {
       if (!context.isAuthenticated) {

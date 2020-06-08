@@ -54,25 +54,7 @@ function buildPropertyQuery(knex, filters) {
   return query;
 }
 
-function hasTimeframeFilter(filters) {
-  return !!Object.entries(filters).find(([field, operations]) => {
-    const hasGt = !!operations.gt || !!operations.gte;
-    const hasLt = !!operations.lt || !!operations.lte;
-    return hasLt && hasGt;
-  });
-}
-
 class Properties extends SQLDataSource {
-  constructor(knexConfig) {
-    super(knexConfig);
-
-    this.setCacheControl(true);
-  }
-
-  setCacheControl(enabled) {
-    this.cacheEnabled = enabled;
-  }
-
   async get(by, limit = 30, fields = undefined) {
     const query = buildPropertyQuery(this.knex, by);
 
@@ -84,16 +66,8 @@ class Properties extends SQLDataSource {
       query.select(fields);
     }
 
-    const cacheEnabled = this.cacheEnabled && hasTimeframeFilter(by);
-
     return this.performQuery(
-      {
-        query,
-        cache: {
-          enabled: cacheEnabled,
-          ttl: 86400 * 7, // 7 days
-        },
-      },
+      { query },
       {
         typeCast(field, next) {
           if (field.name === 'content') {
@@ -115,15 +89,8 @@ class Properties extends SQLDataSource {
       as: 'count',
     });
 
-    const cacheEnabled = this.cacheEnabled && hasTimeframeFilter(by);
     const data = await this.performQuery(
-      {
-        query,
-        cache: {
-          enabled: cacheEnabled,
-          ttl: 86400 * 7, // 7 days
-        },
-      },
+      { query },
       {
         timeout: 20000,
       },
@@ -150,29 +117,13 @@ class Properties extends SQLDataSource {
     return insertId;
   }
 
-  /**
-   * A bit of hacking to enable datasource-sql caching mechanism
-   */
   performQuery(queryConfig, config) {
-    const { query, cache } = queryConfig;
+    const { query } = queryConfig;
 
-    function getData() {
-      return mysql.query({
-        sql: query.toString(),
-        ...config,
-      });
-    }
-
-    if (!cache.enabled) {
-      return getData();
-    }
-
-    query.then = async (callback) => {
-      const data = await getData();
-      return callback(data);
-    };
-
-    return this.cacheQuery(cache.ttl || 60, query);
+    return mysql.query({
+      sql: query.toString(),
+      ...config,
+    });
   }
 }
 
