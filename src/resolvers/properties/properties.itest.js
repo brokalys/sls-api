@@ -9,8 +9,6 @@ describe('Query: properties', () => {
   let query;
 
   beforeEach(() => {
-    process.env.BROKALYS_PRIVATE_KEY = 'PRIVATE_KEY';
-
     const utils = createTestClient(server);
     query = utils.query;
   });

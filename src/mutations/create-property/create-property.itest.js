@@ -22,8 +22,6 @@ describe('Mutation: createProperty', () => {
   let mutate;
 
   beforeEach(() => {
-    process.env.BROKALYS_PRIVATE_KEY = 'PRIVATE_KEY';
-
     const utils = createTestClient(server);
     mutate = utils.mutate;
   });
