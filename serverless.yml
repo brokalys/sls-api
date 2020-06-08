@@ -15,6 +15,12 @@ provider:
     - slsPinger:
         - name: ${self:provider.stage}-slsPingerKey
           description: API key used by sls-pinger
+    - slsDataExtraction:
+        - name: ${self:provider.stage}-slsDataExtractionKey
+          description: API key used by sls-data-extraction
+    - slsStaticApi:
+        - name: ${self:provider.stage}-slsStaticApiKey
+          description: API key used by sls-static-api
   usagePlan:
     - slsPinger:
         quota:
@@ -24,6 +30,22 @@ provider:
         throttle:
           burstLimit: 1000
           rateLimit: 500
+    - slsDataExtraction:
+        quota:
+          limit: 100
+          offset: 1
+          period: MONTH
+        throttle:
+          burstLimit: 10
+          rateLimit: 10
+    - slsStaticApi:
+        quota:
+          limit: 1000
+          offset: 1
+          period: MONTH
+        throttle:
+          burstLimit: 50
+          rateLimit: 50
 
 functions:
   graphql:
