@@ -21,6 +21,9 @@ provider:
     - slsStaticApi:
         - name: ${self:provider.stage}-slsStaticApiKey
           description: API key used by sls-static-api
+    - development:
+        - name: ${self:provider.stage}-development
+          description: Development API Key
   usagePlan:
     - slsPinger:
         quota:
@@ -41,6 +44,14 @@ provider:
     - slsStaticApi:
         quota:
           limit: 1000
+          offset: 1
+          period: MONTH
+        throttle:
+          burstLimit: 50
+          rateLimit: 50
+    - development:
+        quota:
+          limit: 500
           offset: 1
           period: MONTH
         throttle:
