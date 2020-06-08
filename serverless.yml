@@ -15,6 +15,9 @@ provider:
     - slsPinger:
         - name: ${self:provider.stage}-slsPingerKey
           description: API key used by sls-pinger
+    - slsCrawler:
+        - name: ${self:provider.stage}-slsCrawlerKey
+          description: API key used by sls crawlers
     - slsDataExtraction:
         - name: ${self:provider.stage}-slsDataExtractionKey
           description: API key used by sls-data-extraction
@@ -26,6 +29,14 @@ provider:
           description: Development API Key
   usagePlan:
     - slsPinger:
+        quota:
+          limit: 10000
+          offset: 1
+          period: MONTH
+        throttle:
+          burstLimit: 1000
+          rateLimit: 500
+    - slsCrawler:
         quota:
           limit: 10000
           offset: 1
