@@ -31,7 +31,7 @@ export const server = new ApolloServer({
       cacheEnabled: headers['Cache-Control'] !== 'no-cache',
       isAuthenticated:
         headers.Authorization === process.env.BROKALYS_PRIVATE_KEY ||
-        !!requestContext.identity.apiKey, // Authorized via API Gateway
+        !!requestContext.identity.apiKeyId, // Authorized via API Gateway
     };
   },
   formatError: (error) => {
