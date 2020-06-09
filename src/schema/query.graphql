@@ -45,6 +45,7 @@ type PropertyData {
   area: Float
   lat: Float
   lng: Float
+  foreign_id: String
 }
 
 type Properties {
