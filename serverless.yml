@@ -8,7 +8,6 @@ provider:
   cfLogs: true
   logRetentionInDays: 7
   versionFunctions: false
-  memorySize: 2048
   timeout: 10
   logs:
     restApi: true
