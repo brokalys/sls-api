@@ -30,15 +30,15 @@ provider:
   usagePlan:
     - slsPinger:
         quota:
-          limit: 10000
+          limit: 2000000
           offset: 1
           period: MONTH
         throttle:
-          burstLimit: 1000
-          rateLimit: 500
+          burstLimit: 2000
+          rateLimit: 1000
     - slsCrawler:
         quota:
-          limit: 10000
+          limit: 2000000
           offset: 1
           period: MONTH
         throttle:
