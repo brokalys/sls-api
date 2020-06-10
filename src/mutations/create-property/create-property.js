@@ -1,4 +1,4 @@
-import { riga } from '@brokalys/location-json-schemas';
+import { riga, latvia } from '@brokalys/location-json-schemas';
 import { AuthenticationError, UserInputError } from 'apollo-server-lambda';
 import inside from 'point-in-polygon';
 
@@ -18,6 +18,17 @@ function getLocationClassificator(lat, lng) {
   );
 
   if (!location) {
+    const allLatviaLocation = latvia.features
+      .reverse()
+      .find(
+        ({ geometry }) =>
+          !!geometry.coordinates[0].find((coord) => inside([lng, lat], coord)),
+      );
+
+    if (allLatviaLocation) {
+      return allLatviaLocation.properties.id;
+    }
+
     return;
   }
 
