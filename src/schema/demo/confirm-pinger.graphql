@@ -1,6 +1,0 @@
-mutation {
-  confirmPinger(
-    id: 1
-    confirm_key: "test_123"
-  )
-}

@@ -47,8 +47,7 @@ class Repository {
           area_m2_max = ?,
           location = ?,
           description = ?,
-          unsubscribe_key = ?,
-          confirmed = 1
+          unsubscribe_key = ?
       `,
       values: [
         args.email,
@@ -67,21 +66,6 @@ class Repository {
     });
 
     return insertId;
-  }
-
-  static async confirmPinger(id, confirmKey) {
-    const { affectedRows } = await mysql.query({
-      sql: `
-        UPDATE \`${process.env.DB_PINGER_DATABASE}\`.pinger_emails
-        SET confirmed = 1
-        WHERE id = ?
-          AND unsubscribe_key = ?
-          AND confirmed = 0
-      `,
-      values: [id, confirmKey],
-    });
-
-    return affectedRows === 1;
   }
 
   static async unsubscribePinger(id, unsubscribeKey) {

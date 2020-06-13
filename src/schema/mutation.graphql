@@ -13,18 +13,7 @@ type Mutation {
     comments: String
   ): Boolean!
 
-  unsubscribePinger(
-    id: Int!
-    unsubscribe_key: String!
-    all: Boolean
-  ): Boolean!
+  unsubscribePinger(id: Int!, unsubscribe_key: String!, all: Boolean): Boolean!
 
-  confirmPinger(
-    id: Int!
-    confirm_key: String!
-  ): Boolean!
-
-  createProperty(
-    input: String!
-  ): Boolean!
+  createProperty(input: String!): Boolean!
 }

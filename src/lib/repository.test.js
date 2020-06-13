@@ -68,18 +68,6 @@ describe('Repository', () => {
     });
   });
 
-  describe('confirmPinger', () => {
-    it('confirms a pinger', async () => {
-      mysql.query.mockResolvedValue({
-        affectedRows: 1,
-      });
-
-      const output = await Repository.confirmPinger(123456789, 'key');
-
-      expect(output).toEqual(true);
-    });
-  });
-
   describe('unsubscribePinger', () => {
     it('unsubscribes a pinger', async () => {
       mysql.query.mockResolvedValue({
