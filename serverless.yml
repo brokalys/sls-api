@@ -54,12 +54,12 @@ provider:
           rateLimit: 10
     - slsStaticApi:
         quota:
-          limit: 1000
+          limit: 10000
           offset: 1
           period: MONTH
         throttle:
-          burstLimit: 50
-          rateLimit: 50
+          burstLimit: 200
+          rateLimit: 200
     - development:
         quota:
           limit: 500
