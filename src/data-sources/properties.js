@@ -79,7 +79,7 @@ class Properties extends SQLDataSource {
 
           return next();
         },
-        timeout: limit && limit <= 100 ? 1000 : 20000,
+        timeout: limit && limit <= 100 ? 1000 : 5000,
       },
     );
   }
