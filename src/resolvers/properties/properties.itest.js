@@ -2,7 +2,9 @@ import { createTestClient } from 'apollo-server-testing';
 
 import { server } from 'handler';
 import db from 'lib/db';
+import Bugsnag from 'lib/bugsnag';
 
+jest.mock('lib/bugsnag');
 jest.mock('lib/db');
 
 describe('Query: properties', () => {
@@ -149,9 +151,32 @@ describe('Query: properties', () => {
         variables: input,
       });
 
+      expect(Bugsnag.notify).not.toBeCalled();
       expect(response.errors).toHaveLength(1);
     },
   );
+
+  test('property handles internal errors', async () => {
+    db.query.mockImplementation(() => {
+      throw new Error('Database issues');
+    });
+
+    const response = await query({
+      query: `
+        query GetCount($filter: PropertyFilter) {
+          properties(filter: $filter) {
+            summary {
+              count
+            }
+          }
+        }
+      `,
+      variables: { gte: '2019-01-01' },
+    });
+
+    expect(Bugsnag.notify).toBeCalled();
+    expect(response).toMatchSnapshot();
+  });
 
   test('throws an authentication error if trying to retrieve results without authorizing', async () => {
     db.query.mockReturnValueOnce([{ id: 1 }, { id: 2 }]);
@@ -168,6 +193,7 @@ describe('Query: properties', () => {
       `,
     });
 
+    expect(Bugsnag.notify).not.toBeCalled();
     expect(response.errors).toEqual([
       expect.objectContaining({
         extensions: {

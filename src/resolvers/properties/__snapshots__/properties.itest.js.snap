@@ -1,5 +1,26 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Query: properties property handles internal errors 1`] = `
+Object {
+  "data": Object {
+    "properties": Object {
+      "summary": null,
+    },
+  },
+  "errors": Array [
+    Object {
+      "message": "An unexpected error occurred. Pleas try again later.",
+    },
+  ],
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
 exports[`Query: properties returns 0 count when no properties are found 1`] = `
 Object {
   "data": Object {

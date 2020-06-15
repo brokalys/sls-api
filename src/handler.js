@@ -1,6 +1,7 @@
-import { ApolloServer } from 'apollo-server-lambda';
+import { ApolloServer, ApolloError } from 'apollo-server-lambda';
 
 import Properties from './data-sources/properties';
+import Bugsnag from './lib/bugsnag';
 import mysql from './lib/db';
 import schema from './schema/schema.graphql';
 import resolvers from './resolvers';
@@ -24,14 +25,20 @@ export const server = new ApolloServer({
     };
   },
   formatError: (error) => {
+    if (
+      error instanceof ApolloError ||
+      error.originalError instanceof ApolloError ||
+      error.originalError === undefined
+    ) {
+      return error;
+    }
+
     if (process.env.NODE_ENV !== 'test') {
       console.log(error);
     }
 
-    if (error.extensions.exception && error.extensions.exception.stacktrace) {
-      delete error.extensions.exception.stacktrace;
-    }
-    return error;
+    Bugsnag.notify(error);
+    return new Error('An unexpected error occurred. Pleas try again later.');
   },
   plugins: [
     {

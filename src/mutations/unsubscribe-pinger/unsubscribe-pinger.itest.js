@@ -3,6 +3,7 @@ import { createTestClient } from 'apollo-server-testing';
 import { server } from 'handler';
 import db from 'lib/db';
 
+jest.mock('lib/bugsnag');
 jest.mock('lib/db');
 
 describe('Mutation: createProperty', () => {
