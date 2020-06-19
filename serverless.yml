@@ -136,3 +136,13 @@ custom:
         - pg
         - sqlite3
     packager: yarn
+
+resources:
+  Resources:
+    GraphqlAsyncConfig:
+      Type: AWS::Lambda::EventInvokeConfig
+      Properties:
+        FunctionName:
+          Ref: GraphqlLambdaFunction
+        MaximumRetryAttempts: 0
+        Qualifier: $LATEST
