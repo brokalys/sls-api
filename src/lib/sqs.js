@@ -5,5 +5,6 @@ const sqs = new AWS.SQS({
 });
 
 export function sendMessage(message) {
+  console.log(message);
   return sqs.sendMessage(message).promise();
 }
