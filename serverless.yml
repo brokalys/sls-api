@@ -11,6 +11,11 @@ provider:
   timeout: 10
   logs:
     restApi: true
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - SNS:Publish
+      Resource: 'arn:aws:sqs:eu-west-1:*:*'
   apiKeys:
     - slsPinger:
         - name: ${self:provider.stage}-slsPingerKey
