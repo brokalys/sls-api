@@ -2,9 +2,11 @@ import { AuthenticationError, UserInputError } from 'apollo-server-lambda';
 
 import PropertiesDataSource from 'data-sources/properties';
 import Bugsnag from 'lib/bugsnag';
+import * as SQS from 'lib/sqs';
 import createProperty from './create-property';
 
 jest.mock('lib/bugsnag');
+jest.mock('lib/sqs');
 jest.mock('data-sources/properties');
 
 const mockInput = {
@@ -17,6 +19,8 @@ const mockInput = {
   lat: 56.95,
   lng: 24.0737,
 };
+
+const invokedFunctionArn = 'arn:aws:lambda:eu-west-1:123:pinger';
 
 describe('createProperty', () => {
   let dataSources;
@@ -38,10 +42,12 @@ describe('createProperty', () => {
       {
         dataSources,
         isAuthenticated: true,
+        invokedFunctionArn,
       },
     );
 
     expect(dataSources.properties.create).toHaveBeenCalledTimes(1);
+    expect(SQS.sendMessage).toHaveBeenCalledTimes(1);
   });
 
   describe('getLocationClassificator', () => {
@@ -54,6 +60,7 @@ describe('createProperty', () => {
         {
           dataSources,
           isAuthenticated: true,
+          invokedFunctionArn,
         },
       );
 
@@ -77,6 +84,7 @@ describe('createProperty', () => {
         {
           dataSources,
           isAuthenticated: true,
+          invokedFunctionArn,
         },
       );
 
@@ -100,6 +108,7 @@ describe('createProperty', () => {
         {
           dataSources,
           isAuthenticated: true,
+          invokedFunctionArn,
         },
       );
 
@@ -126,6 +135,7 @@ describe('createProperty', () => {
           {
             dataSources,
             isAuthenticated: true,
+            invokedFunctionArn,
           },
         ),
       ).rejects.toBeInstanceOf(UserInputError);
@@ -142,6 +152,7 @@ describe('createProperty', () => {
           {
             dataSources,
             isAuthenticated: false,
+            invokedFunctionArn,
           },
         ),
       ).rejects.toBeInstanceOf(AuthenticationError);
@@ -161,6 +172,7 @@ describe('createProperty', () => {
           {
             dataSources,
             isAuthenticated: true,
+            invokedFunctionArn,
           },
         ),
       ).rejects.toBeInstanceOf(Error);

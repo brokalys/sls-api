@@ -3,6 +3,7 @@ import { AuthenticationError, UserInputError } from 'apollo-server-lambda';
 import inside from 'point-in-polygon';
 
 import Bugsnag from 'lib/bugsnag';
+import * as SQS from 'lib/sqs';
 import validationSchema from './validation';
 
 /**
@@ -40,6 +41,7 @@ async function createProperty(parent, input, context = { dataSources: {} }) {
     throw new AuthenticationError();
   }
 
+  const accountId = context.invokedFunctionArn.split(':')[4];
   const validator = validationSchema.validate(JSON.parse(input.input));
 
   // Validate input
@@ -57,13 +59,30 @@ async function createProperty(parent, input, context = { dataSources: {} }) {
   const { properties } = context.dataSources;
   const { value } = validator;
 
-  await properties.create({
+  const propertyData = {
     ...value,
     additional_data: JSON.stringify(value.additional_data),
     image_count: value.images.length,
     images: JSON.stringify(value.images),
     location_classificator: getLocationClassificator(value.lat, value.lng),
-  });
+  };
+
+  const actions = [
+    // Create a new entry in the DB
+    properties.create(propertyData),
+
+    // Process the new entry via PINGER (SQS)
+    SQS.sendMessage({
+      MessageBody: JSON.stringify(propertyData),
+      QueueUrl: `https://sqs.${
+        process.env.AWS_REGION
+      }.amazonaws.com/${accountId}/${
+        process.env.STAGE === 'prod' ? 'production' : process.env.STAGE
+      }-pinger`,
+    }),
+  ];
+
+  await Promise.all(actions);
 
   return true;
 }

@@ -16,12 +16,13 @@ export const server = new ApolloServer({
   }),
   tracing: isDevMode,
   playground: isDevMode,
-  context: ({ event, req }) => {
+  context: ({ event, req, context }) => {
     const { requestContext } = event ||
       req || { requestContext: { identity: {} } };
 
     return {
       isAuthenticated: !!requestContext.identity.apiKeyId, // Authorized via API Gateway
+      invokedFunctionArn: context ? context.invokedFunctionArn : '',
     };
   },
   formatError: (error) => {
