@@ -1,10 +1,13 @@
 import { riga, latvia } from '@brokalys/location-json-schemas';
 import { AuthenticationError, UserInputError } from 'apollo-server-lambda';
+import crypto from 'crypto';
 import inside from 'point-in-polygon';
 
 import Bugsnag from 'lib/bugsnag';
 import * as SQS from 'lib/sqs';
 import validationSchema from './validation';
+
+const md5sum = crypto.createHash('md5');
 
 /**
  * Classify locations for faster regional lookups.
@@ -74,7 +77,10 @@ async function createProperty(parent, input, context = { dataSources: {} }) {
     // Process the new entry via PINGER (SQS)
     SQS.sendMessage({
       MessageBody: JSON.stringify(propertyData),
-      MessageDeduplicationId: propertyData.url,
+      MessageDeduplicationId: crypto
+        .createHash('md5')
+        .update(propertyData.url)
+        .digest('hex'),
       QueueUrl: `https://sqs.${process.env.AWS_REGION}.amazonaws.com/${accountId}/production-pinger`,
     }),
   ];
