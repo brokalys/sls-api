@@ -74,6 +74,7 @@ async function createProperty(parent, input, context = { dataSources: {} }) {
     // Process the new entry via PINGER (SQS)
     SQS.sendMessage({
       MessageBody: JSON.stringify(propertyData),
+      MessageDeduplicationId: propertyData.url,
       QueueUrl: `https://sqs.${process.env.AWS_REGION}.amazonaws.com/${accountId}/production-pinger`,
     }),
   ];
