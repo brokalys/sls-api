@@ -81,6 +81,7 @@ async function createProperty(parent, input, context = { dataSources: {} }) {
         .createHash('md5')
         .update(propertyData.url)
         .digest('hex'),
+      MessageGroupId: propertyData.source,
       QueueUrl: `https://sqs.${process.env.AWS_REGION}.amazonaws.com/${accountId}/prod-pinger.fifo`,
     }),
   ];
