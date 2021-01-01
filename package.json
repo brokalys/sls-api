@@ -6,6 +6,7 @@
   "license": "MIT",
   "scripts": {
     "start": "serverless offline start",
+    "build": "serverless package",
     "lint": "eslint src",
     "test": "yarn test:unit && yarn test:integration",
     "test:unit": "jest",
