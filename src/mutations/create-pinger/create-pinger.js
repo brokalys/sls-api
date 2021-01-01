@@ -13,8 +13,14 @@ const validationSchema = Joi.object().keys({
   region: Joi.string().polygon(),
   rooms_min: Joi.number().min(0),
   rooms_max: Joi.number().min(Joi.ref('rooms_min')).max(20),
-  area_m2_min: Joi.number().min(0),
-  area_m2_max: Joi.number().min(Joi.ref('area_m2_min')).max(1000),
+  area_m2_min: Joi.number().min(0).default(0),
+  area_m2_max: Joi.number()
+    .min(Joi.ref('area_m2_min'))
+    .when('category', {
+      is: Joi.valid('LAND'),
+      then: Joi.number().max(1000000),
+      otherwise: Joi.number().max(1000),
+    }),
   comments: Joi.string().max(255),
 });
 

@@ -23,6 +23,23 @@ describe('createPinger', () => {
     expect(Repository.createPinger).toHaveBeenCalledTimes(1);
   });
 
+  test('successfully creates with category LAND and large max area', async () => {
+    await createPinger(
+      {},
+      {
+        email: 'demo@email.com',
+        category: 'LAND',
+        type: 'SELL',
+        price_min: 10000,
+        price_max: 100000,
+        area_m2_max: 100000,
+        region:
+          '56.992294 24.136619, 56.976394 23.995790, 56.924904 24.005336, 56.889288 24.108467, 56.932211 24.291935, 56.996502 24.245176, 56.992294 24.136619',
+      },
+    );
+    expect(Repository.createPinger).toHaveBeenCalledTimes(1);
+  });
+
   describe('fails creating when', () => {
     test('input validation fails', () => {
       expect(
@@ -37,6 +54,24 @@ describe('createPinger', () => {
             region: 'TEST',
             rooms_min: 10,
             rooms_max: 5,
+          },
+        ),
+      ).rejects.toBeInstanceOf(UserInputError);
+    });
+
+    test('fails creating because area is too large', () => {
+      expect(
+        createPinger(
+          {},
+          {
+            email: 'demo@email.com',
+            category: 'APARTMENT',
+            type: 'SELL',
+            price_min: 10000,
+            price_max: 100000,
+            area_m2_max: 100000,
+            region:
+              '56.992294 24.136619, 56.976394 23.995790, 56.924904 24.005336, 56.889288 24.108467, 56.932211 24.291935, 56.996502 24.245176, 56.992294 24.136619',
           },
         ),
       ).rejects.toBeInstanceOf(UserInputError);
