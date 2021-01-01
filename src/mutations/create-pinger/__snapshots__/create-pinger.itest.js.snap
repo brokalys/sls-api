@@ -78,7 +78,7 @@ Object {
               },
               "value": 5,
             },
-            "message": "\\"rooms_max\\" must be larger than or equal to ref:rooms_min",
+            "message": "\\"rooms_max\\" must be greater than or equal to ref:rooms_min",
             "path": Array [
               "rooms_max",
             ],
@@ -109,7 +109,7 @@ Object {
                 },
                 "value": 5,
               },
-              "message": "\\"rooms_max\\" must be larger than or equal to ref:rooms_min",
+              "message": "\\"rooms_max\\" must be greater than or equal to ref:rooms_min",
               "path": Array [
                 "rooms_max",
               ],
