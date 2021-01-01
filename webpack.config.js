@@ -33,6 +33,11 @@ module.exports = {
       },
     ],
   },
+  optimization: {
+    // fix node modules not packaged into zip
+    // @see: https://github.com/serverless-heaven/serverless-webpack/issues/651
+    concatenateModules: false,
+  },
   resolve: {
     alias: {
       lib: path.resolve(__dirname, './src/lib'),
