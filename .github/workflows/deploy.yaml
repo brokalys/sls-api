@@ -20,7 +20,7 @@ jobs:
           DB_USERNAME: ${{ secrets.DB_USERNAME }}
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
           DB_PINGER_DATABASE: ${{ secrets.DB_PINGER_DATABASE }}
-          BUSNAG_KEY: ${{ secrets.BUSNAG_KEY }}
+          BUGSNAG_KEY: ${{ secrets.BUGSNAG_KEY }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: yarn deploy:ci

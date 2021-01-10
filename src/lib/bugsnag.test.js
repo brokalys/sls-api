@@ -4,11 +4,11 @@ jest.mock('@bugsnag/js');
 
 describe('bugsnag', () => {
   beforeEach(() => {
-    delete process.env.BUSNAG_KEY;
+    delete process.env.BUGSNAG_KEY;
   });
 
   test('starts the client if key is present', () => {
-    process.env.BUSNAG_KEY = 'key';
+    process.env.BUGSNAG_KEY = 'key';
 
     require('./bugsnag');
 
