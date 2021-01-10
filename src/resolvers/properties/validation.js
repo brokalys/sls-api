@@ -34,7 +34,7 @@ const filter = Joi.object({
   rooms: filterable(Joi.number().integer().min(1)),
   floor: filterable(Joi.number().integer().min(1)),
   area: filterable(Joi.number().integer().min(1)),
-  source: filterable(Joi.string().domain()),
+  source: filterable(Joi.string()),
   url: filterable(Joi.string().uri()),
   foreign_id: filterable(Joi.string().alphanum()),
 }).default({});

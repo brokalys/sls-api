@@ -25,6 +25,7 @@ describe('properties: validation', () => {
     [{ filter: { floor: { gt: 2, lte: 5 } } }],
     [{ filter: { area: { gt: 40 } } }],
     [{ filter: { source: { eq: 'brokalys.com' } } }],
+    [{ filter: { source: { eq: 'mm-lv' } } }],
     [{ filter: { url: { eq: 'https://brokalys.com' } } }],
     [{ filter: { foreign_id: { eq: 'id123' } } }],
     [{ filter: {} }],
