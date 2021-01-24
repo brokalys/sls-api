@@ -14,4 +14,5 @@ module.exports = {
   ],
   testPathIgnorePatterns: ['\\.itest\\.js'],
   modulePaths: ['<rootDir>/src/', '<rootDir>/data/'],
+  modulePathIgnorePatterns: ['/.serverless/'],
 };

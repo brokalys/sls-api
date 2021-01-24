@@ -50,6 +50,107 @@ describe('createProperty', () => {
     expect(SQS.sendMessage).toHaveBeenCalledTimes(1);
   });
 
+  describe('price per SQM', () => {
+    test('uses the default price_per_sqm field if it is provided', async () => {
+      await createProperty(
+        {},
+        {
+          input: JSON.stringify({
+            ...mockInput,
+            price_per_sqm: 123,
+          }),
+        },
+        {
+          dataSources,
+          isAuthenticated: true,
+          invokedFunctionArn,
+        },
+      );
+
+      expect(dataSources.properties.create).toHaveBeenCalledWith(
+        expect.objectContaining({
+          calc_price_per_sqm: 123,
+        }),
+      );
+    });
+
+    test('calculates price per sqm if price_per_sqm is not provided', async () => {
+      await createProperty(
+        {},
+        {
+          input: JSON.stringify({
+            ...mockInput,
+            price_per_sqm: undefined,
+            price: 10000,
+            area: 100,
+            area_measurement: 'm2',
+          }),
+        },
+        {
+          dataSources,
+          isAuthenticated: true,
+          invokedFunctionArn,
+        },
+      );
+
+      expect(dataSources.properties.create).toHaveBeenCalledWith(
+        expect.objectContaining({
+          calc_price_per_sqm: 100,
+        }),
+      );
+    });
+
+    test('does not calculate price_per_sqm field if area is not provided', async () => {
+      await createProperty(
+        {},
+        {
+          input: JSON.stringify({
+            ...mockInput,
+            price_per_sqm: undefined,
+            price: 10000,
+            area_measurement: 'm2',
+          }),
+        },
+        {
+          dataSources,
+          isAuthenticated: true,
+          invokedFunctionArn,
+        },
+      );
+
+      expect(dataSources.properties.create).toHaveBeenCalledWith(
+        expect.objectContaining({
+          calc_price_per_sqm: undefined,
+        }),
+      );
+    });
+
+    test('does not calculate price_per_sqm field if area_measurement is not provided', async () => {
+      await createProperty(
+        {},
+        {
+          input: JSON.stringify({
+            ...mockInput,
+            price_per_sqm: undefined,
+            price: 10000,
+            area: 100,
+          }),
+        },
+        {
+          dataSources,
+          isAuthenticated: true,
+          invokedFunctionArn,
+        },
+      );
+
+      expect(dataSources.properties.create).toHaveBeenCalledWith(
+        expect.objectContaining({
+          calc_price_per_sqm: undefined,
+        }),
+      );
+    });
+  });
+
   describe('getLocationClassificator', () => {
     test('successfully classifies the location', async () => {
       await createProperty(

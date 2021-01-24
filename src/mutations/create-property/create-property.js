@@ -68,6 +68,7 @@ async function createProperty(parent, input, context = { dataSources: {} }) {
     image_count: value.images.length,
     images: JSON.stringify(value.images),
     location_classificator: getLocationClassificator(value.lat, value.lng),
+    calc_price_per_sqm: calculatePricePerSqm(value),
   };
 
   const actions = [
@@ -89,6 +90,16 @@ async function createProperty(parent, input, context = { dataSources: {} }) {
   await Promise.all(actions);
 
   return true;
+}
+
+function calculatePricePerSqm(obj) {
+  if (obj.price_per_sqm) {
+    return obj.price_per_sqm;
+  }
+
+  if (obj.area > 0 && obj.area_measurement === 'm2' && obj.price > 0) {
+    return obj.price / obj.area;
+  }
 }
 
 export default createProperty;
