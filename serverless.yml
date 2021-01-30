@@ -51,7 +51,7 @@ provider:
           rateLimit: 500
     - slsDataExtraction:
         quota:
-          limit: 100
+          limit: 200
           offset: 1
           period: MONTH
         throttle:
