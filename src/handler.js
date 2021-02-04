@@ -43,7 +43,11 @@ export const server = new ApolloServer({
   },
   plugins: [
     {
-      requestDidStart() {
+      requestDidStart(requestContext) {
+        if (process.env.NODE_ENV !== 'test') {
+          console.log('Request:', requestContext.request.query);
+        }
+
         return {
           willSendResponse() {
             return mysql.end();
