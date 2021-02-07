@@ -2,8 +2,8 @@
 #import "./query.graphql"
 
 schema {
-  mutation: Mutation,
-  query: Query,
+  mutation: Mutation
+  query: Query
 }
 
 enum Category {
@@ -15,4 +15,9 @@ enum Category {
 enum Type {
   SELL
   RENT
+}
+
+enum PriceType {
+  TOTAL
+  SQM
 }

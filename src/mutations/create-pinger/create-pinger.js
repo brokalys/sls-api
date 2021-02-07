@@ -10,6 +10,7 @@ const validationSchema = Joi.object().keys({
   type: Joi.string().required().valid('SELL', 'RENT'),
   price_min: Joi.number().required().min(1),
   price_max: Joi.number().required().min(Joi.ref('price_min')).max(10000000),
+  price_type: Joi.string().valid('TOTAL', 'SQM').default('TOTAL'),
   region: Joi.string().polygon(),
   rooms_min: Joi.number().min(0),
   rooms_max: Joi.number().min(Joi.ref('rooms_min')).max(20),
@@ -27,16 +28,16 @@ const validationSchema = Joi.object().keys({
 const MAX_PINGERS = 5;
 
 async function createPinger(parent, input) {
-  const validator = validationSchema.validate(input);
+  const { error, value } = validationSchema.validate(input);
 
   // Validate input
-  if (validator.error) {
+  if (error) {
     throw new UserInputError('Input validation failed', {
-      details: validator.error.details,
+      details: error.details,
     });
   }
 
-  const currentPingers = await Repository.getPingers(input.email);
+  const currentPingers = await Repository.getPingers(value.email);
 
   // Check against spam attempts
   if (currentPingers.length >= MAX_PINGERS) {
@@ -50,17 +51,18 @@ async function createPinger(parent, input) {
 
   // Create a new PINGER
   await Repository.createPinger({
-    email: input.email,
-    category: input.category.toLowerCase(),
-    type: input.type.toLowerCase(),
-    price_min: input.price_min,
-    price_max: input.price_max,
-    location: [input.region, input.region.split(', ')[0]].join(', '),
-    rooms_min: input.rooms_min,
-    rooms_max: input.rooms_max,
-    area_m2_min: input.area_m2_min,
-    area_m2_max: input.area_m2_max,
-    comments: input.comments,
+    email: value.email,
+    category: value.category.toLowerCase(),
+    type: value.type.toLowerCase(),
+    price_min: value.price_min,
+    price_max: value.price_max,
+    price_type: value.price_type.toLowerCase(),
+    location: [value.region, value.region.split(', ')[0]].join(', '),
+    rooms_min: value.rooms_min,
+    rooms_max: value.rooms_max,
+    area_m2_min: value.area_m2_min,
+    area_m2_max: value.area_m2_max,
+    comments: value.comments,
   });
 
   return true;

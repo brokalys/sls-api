@@ -1,5 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Mutation: createPinger creates a pinger with price_type set to custom \`sqm\` 1`] = `
+Object {
+  "data": Object {
+    "createPinger": true,
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
 exports[`Mutation: createPinger creates a pinger with region as a polygon 1`] = `
 Object {
   "data": Object {
