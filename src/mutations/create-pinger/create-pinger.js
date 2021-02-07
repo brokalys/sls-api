@@ -21,7 +21,7 @@ const validationSchema = Joi.object().keys({
       then: Joi.number().max(1000000),
       otherwise: Joi.number().max(1000),
     }),
-  comments: Joi.string().max(255),
+  comments: Joi.string().allow('').max(255),
 });
 
 const MAX_PINGERS = 5;
