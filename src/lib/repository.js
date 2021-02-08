@@ -47,6 +47,7 @@ class Repository {
           area_m2_min = ?,
           area_m2_max = ?,
           location = ?,
+          frequency = ?,
           description = ?,
           unsubscribe_key = ?
       `,
@@ -62,6 +63,7 @@ class Repository {
         args.area_m2_min || null,
         args.area_m2_max || null,
         args.location,
+        args.frequency || 'immediate',
         args.comments,
         crypto.randomBytes(20).toString('hex'),
       ],

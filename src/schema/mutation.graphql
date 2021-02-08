@@ -11,6 +11,7 @@ type Mutation {
     rooms_max: Int
     area_m2_min: Int
     area_m2_max: Int
+    frequency: EmailFrequency
     comments: String
   ): Boolean!
 

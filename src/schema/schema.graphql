@@ -21,3 +21,10 @@ enum PriceType {
   TOTAL
   SQM
 }
+
+enum EmailFrequency {
+  IMMEDIATE
+  DAILY
+  WEEKLY
+  MONTHLY
+}
