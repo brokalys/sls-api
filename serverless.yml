@@ -1,11 +1,11 @@
 service: sls-api
+useDotenv: true
 
 provider:
   name: aws
   region: eu-west-1
   runtime: nodejs12.x
   stage: ${opt:stage, 'dev'}
-  cfLogs: true
   logRetentionInDays: 7
   versionFunctions: false
   timeout: 10
@@ -16,63 +16,73 @@ provider:
       Action:
         - SNS:Publish
       Resource: 'arn:aws:sqs:eu-west-1:*:*'
-  apiKeys:
-    - slsPinger:
-        - name: ${self:provider.stage}-slsPingerKey
-          description: API key used by sls-pinger
-    - slsCrawler:
-        - name: ${self:provider.stage}-slsCrawlerKey
-          description: API key used by sls crawlers
-    - slsDataExtraction:
-        - name: ${self:provider.stage}-slsDataExtractionKey
-          description: API key used by sls-data-extraction
-    - slsStaticApi:
-        - name: ${self:provider.stage}-slsStaticApiKey
-          description: API key used by sls-static-api
-    - development:
-        - name: ${self:provider.stage}-development
-          description: Development API Key
-  usagePlan:
-    - slsPinger:
-        quota:
-          limit: 2000000
-          offset: 1
-          period: MONTH
-        throttle:
-          burstLimit: 2000
-          rateLimit: 1000
-    - slsCrawler:
-        quota:
-          limit: 2000000
-          offset: 1
-          period: MONTH
-        throttle:
-          burstLimit: 1000
-          rateLimit: 500
-    - slsDataExtraction:
-        quota:
-          limit: 200
-          offset: 1
-          period: MONTH
-        throttle:
-          burstLimit: 10
-          rateLimit: 10
-    - slsStaticApi:
-        quota:
-          limit: 10000
-          offset: 1
-          period: MONTH
-        throttle:
-          burstLimit: 200
-          rateLimit: 200
-    - development:
-        quota:
-          limit: 500
-          offset: 1
-          period: MONTH
-        throttle:
-          burstLimit: 50
-          rateLimit: 50
+  apiGateway:
+    shouldStartNameWithService: true
+    apiKeys:
+      - slsPinger:
+          - name: ${self:provider.stage}-slsPingerKey
+            description: API key used by sls-pinger
+      - slsCrawler:
+          - name: ${self:provider.stage}-slsCrawlerKey
+            description: API key used by sls crawlers
+      - slsDataExtraction:
+          - name: ${self:provider.stage}-slsDataExtractionKey
+            description: API key used by sls-data-extraction
+      - slsStaticApi:
+          - name: ${self:provider.stage}-slsStaticApiKey
+            description: API key used by sls-static-api
+      - development:
+          - name: ${self:provider.stage}-development
+            description: Development API Key
+    usagePlan:
+      - slsPinger:
+          quota:
+            limit: 2000000
+            offset: 1
+            period: MONTH
+          throttle:
+            burstLimit: 2000
+            rateLimit: 1000
+      - slsCrawler:
+          quota:
+            limit: 2000000
+            offset: 1
+            period: MONTH
+          throttle:
+            burstLimit: 1000
+            rateLimit: 500
+      - slsDataExtraction:
+          quota:
+            limit: 200
+            offset: 1
+            period: MONTH
+          throttle:
+            burstLimit: 10
+            rateLimit: 10
+      - slsStaticApi:
+          quota:
+            limit: 10000
+            offset: 1
+            period: MONTH
+          throttle:
+            burstLimit: 200
+            rateLimit: 200
+      - development:
+          quota:
+            limit: 500
+            offset: 1
+            period: MONTH
+          throttle:
+            burstLimit: 50
+            rateLimit: 50
+  environment:
+    STAGE: ${opt:stage, 'dev'}
+    DB_HOST: ${env:DB_HOST}
+    DB_DATABASE: ${env:DB_DATABASE}
+    DB_USERNAME: ${env:DB_USERNAME}
+    DB_PASSWORD: ${env:DB_PASSWORD}
+    DB_PINGER_DATABASE: ${env:DB_PINGER_DATABASE}
+    BUGSNAG_KEY: ${env:BUGSNAG_KEY}
 
 functions:
   graphql:
