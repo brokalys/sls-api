@@ -83,7 +83,7 @@ async function createProperty(parent, input, context = { dataSources: {} }) {
         .update(propertyData.url)
         .digest('hex'),
       MessageGroupId: propertyData.source,
-      QueueUrl: `https://sqs.${process.env.AWS_REGION}.amazonaws.com/${accountId}/prod-pinger.fifo`,
+      QueueUrl: `https://sqs.${process.env.AWS_REGION}.amazonaws.com/${accountId}/${process.env.PINGER_PROPERTY_QUEUE_NAME}`,
     }),
   ];
 
