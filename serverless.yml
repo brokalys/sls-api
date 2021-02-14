@@ -137,6 +137,7 @@ custom:
 
   serverless-offline:
     useChildProcesses: true
+    httpPort: 8000
 
   webpack:
     webpackConfig: 'webpack.config.js'
