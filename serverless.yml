@@ -31,9 +31,6 @@ provider:
       - slsStaticApi:
           - name: ${self:provider.stage}-slsStaticApiKey
             description: API key used by sls-static-api
-      - development:
-          - name: ${self:provider.stage}-development
-            description: Development API Key
     usagePlan:
       - slsPinger:
           quota:
@@ -67,14 +64,6 @@ provider:
           throttle:
             burstLimit: 200
             rateLimit: 200
-      - development:
-          quota:
-            limit: 500
-            offset: 1
-            period: MONTH
-          throttle:
-            burstLimit: 50
-            rateLimit: 50
   environment:
     STAGE: ${opt:stage, 'dev'}
     DB_HOST: ${env:DB_HOST}

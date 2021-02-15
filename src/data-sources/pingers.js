@@ -51,20 +51,6 @@ class Pingers extends SQLDataSource {
     return data[0].count;
   }
 
-  async create(values) {
-    const lat_lng_point = `, lat_lng_point = point(${[
-      values.lat || 0,
-      values.lng || 0,
-    ].join(', ')})`;
-    const { insertId } = await mysql.query({
-      sql: `INSERT INTO \`${process.env.DB_DATABASE}\`.properties SET ? ${lat_lng_point}`,
-      values,
-      timeout: 1000,
-    });
-
-    return insertId;
-  }
-
   performQuery(queryConfig, config) {
     const { query } = queryConfig;
 
