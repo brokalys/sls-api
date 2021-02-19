@@ -11,11 +11,13 @@ provider:
   timeout: 10
   logs:
     restApi: true
-  iamRoleStatements:
-    - Effect: Allow
-      Action:
-        - SNS:Publish
-      Resource: 'arn:aws:sqs:eu-west-1:*:*'
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - SNS:Publish
+          Resource: 'arn:aws:sqs:eu-west-1:*:*'
   apiGateway:
     shouldStartNameWithService: true
     apiKeys:
