@@ -5,7 +5,7 @@ const slsw = require('serverless-webpack');
 module.exports = {
   entry: slsw.lib.entries,
   target: 'node',
-  mode: 'production',
+  mode: 'development',
   externals: [nodeExternals()],
   module: {
     rules: [
@@ -21,19 +21,9 @@ module.exports = {
       },
     ],
   },
-  optimization: {
-    // fix node modules not packaged into zip
-    // @see: https://github.com/serverless-heaven/serverless-webpack/issues/651
-    concatenateModules: false,
-  },
   resolve: {
     alias: {
       lib: path.resolve(__dirname, './src/lib'),
     },
-  },
-  output: {
-    libraryTarget: 'commonjs',
-    path: path.join(__dirname, '.webpack'),
-    filename: '[name].js',
   },
 };
