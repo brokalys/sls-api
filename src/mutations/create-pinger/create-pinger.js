@@ -26,6 +26,7 @@ const validationSchema = Joi.object().keys({
     .valid('IMMEDIATE', 'DAILY', 'WEEKLY', 'MONTHLY')
     .default('IMMEDIATE'),
   comments: Joi.string().allow('').max(255),
+  marketing: Joi.boolean().default(false),
 });
 
 const MAX_PINGERS = 5;
@@ -67,6 +68,7 @@ async function createPinger(parent, input) {
     area_m2_max: value.area_m2_max,
     frequency: value.frequency.toLowerCase(),
     comments: value.comments,
+    marketing: value.marketing,
   });
 
   return true;

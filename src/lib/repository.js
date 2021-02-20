@@ -49,6 +49,7 @@ class Repository {
           location = ?,
           frequency = ?,
           description = ?,
+          marketing = ?,
           unsubscribe_key = ?
       `,
       values: [
@@ -65,6 +66,7 @@ class Repository {
         args.location,
         args.frequency || 'immediate',
         args.comments,
+        args.marketing,
         crypto.randomBytes(20).toString('hex'),
       ],
     });

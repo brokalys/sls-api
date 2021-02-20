@@ -13,6 +13,7 @@ type Mutation {
     area_m2_max: Int
     frequency: EmailFrequency
     comments: String
+    marketing: Boolean
   ): Boolean!
 
   unsubscribePinger(id: Int!, unsubscribe_key: String!, all: Boolean): Boolean!
