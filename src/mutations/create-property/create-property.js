@@ -1,6 +1,7 @@
 import { riga, latvia } from '@brokalys/location-json-schemas';
 import { AuthenticationError, UserInputError } from 'apollo-server-lambda';
 import crypto from 'crypto';
+import moment from 'moment';
 import inside from 'point-in-polygon';
 
 import Bugsnag from 'lib/bugsnag';
@@ -76,15 +77,18 @@ async function createProperty(parent, input, context = { dataSources: {} }) {
     properties.create(propertyData),
 
     // Process the new entry via PINGER (SQS)
-    SQS.sendMessage({
-      MessageBody: JSON.stringify(propertyData),
-      MessageDeduplicationId: crypto
-        .createHash('md5')
-        .update(propertyData.url)
-        .digest('hex'),
-      MessageGroupId: propertyData.source,
-      QueueUrl: `https://sqs.${process.env.AWS_REGION}.amazonaws.com/${accountId}/${process.env.PINGER_PROPERTY_QUEUE_NAME}`,
-    }),
+    !propertyData.published_at ||
+    moment(propertyData.published_at).isAfter('2020-01-01')
+      ? SQS.sendMessage({
+          MessageBody: JSON.stringify(propertyData),
+          MessageDeduplicationId: crypto
+            .createHash('md5')
+            .update(propertyData.url)
+            .digest('hex'),
+          MessageGroupId: propertyData.source,
+          QueueUrl: `https://sqs.${process.env.AWS_REGION}.amazonaws.com/${accountId}/${process.env.PINGER_PROPERTY_QUEUE_NAME}`,
+        })
+      : null,
   ];
 
   await Promise.all(actions);

@@ -50,6 +50,25 @@ describe('createProperty', () => {
     expect(SQS.sendMessage).toHaveBeenCalledTimes(1);
   });
 
+  test('does not publish a SQS event if the pinger was published before 2020', async () => {
+    await createProperty(
+      {},
+      {
+        input: JSON.stringify({
+          ...mockInput,
+          published_at: '2010-01-01 00:00:00',
+        }),
+      },
+      {
+        dataSources,
+        isAuthenticated: true,
+        invokedFunctionArn,
+      },
+    );
+
+    expect(SQS.sendMessage).not.toHaveBeenCalled();
+  });
+
   describe('price per SQM', () => {
     test('uses the default price_per_sqm field if it is provided', async () => {
       await createProperty(
