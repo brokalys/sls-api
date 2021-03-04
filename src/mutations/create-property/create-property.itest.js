@@ -6,7 +6,7 @@ import db from 'lib/db';
 
 jest.mock('lib/bugsnag');
 jest.mock('lib/db');
-jest.mock('lib/sqs');
+jest.mock('lib/sns');
 
 const mockInput = {
   foreign_id: 'id_123',

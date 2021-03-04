@@ -2,11 +2,11 @@ import { AuthenticationError, UserInputError } from 'apollo-server-lambda';
 
 import PropertiesDataSource from 'data-sources/properties';
 import Bugsnag from 'lib/bugsnag';
-import * as SQS from 'lib/sqs';
+import * as SNS from 'lib/sns';
 import createProperty from './create-property';
 
 jest.mock('lib/bugsnag');
-jest.mock('lib/sqs');
+jest.mock('lib/sns');
 jest.mock('data-sources/properties');
 
 const mockInput = {
@@ -47,10 +47,10 @@ describe('createProperty', () => {
     );
 
     expect(dataSources.properties.create).toHaveBeenCalledTimes(1);
-    expect(SQS.sendMessage).toHaveBeenCalledTimes(1);
+    expect(SNS.publish).toHaveBeenCalledTimes(1);
   });
 
-  test('does not publish a SQS event if the pinger was published before 2020', async () => {
+  test('does not publish a SNS message if the pinger was published before 2020', async () => {
     await createProperty(
       {},
       {
@@ -66,7 +66,7 @@ describe('createProperty', () => {
       },
     );
 
-    expect(SQS.sendMessage).not.toHaveBeenCalled();
+    expect(SNS.publish).not.toHaveBeenCalled();
   });
 
   describe('price per SQM', () => {

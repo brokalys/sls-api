@@ -5,7 +5,7 @@ import moment from 'moment';
 import inside from 'point-in-polygon';
 
 import Bugsnag from 'lib/bugsnag';
-import * as SQS from 'lib/sqs';
+import * as SNS from 'lib/sns';
 import validationSchema from './validation';
 
 const md5sum = crypto.createHash('md5');
@@ -76,17 +76,23 @@ async function createProperty(parent, input, context = { dataSources: {} }) {
     // Create a new entry in the DB
     properties.create(propertyData),
 
-    // Process the new entry via PINGER (SQS)
+    // Publish a new SNS message for the created property
     !propertyData.published_at ||
     moment(propertyData.published_at).isAfter('2020-01-01')
-      ? SQS.sendMessage({
-          MessageBody: JSON.stringify(propertyData),
+      ? SNS.publish({
+          Message: 'property',
+          MessageAttributes: {
+            body: {
+              DataType: 'String',
+              StringValue: JSON.stringify(propertyData),
+            },
+          },
           MessageDeduplicationId: crypto
             .createHash('md5')
             .update(propertyData.url)
             .digest('hex'),
-          MessageGroupId: propertyData.source,
-          QueueUrl: `https://sqs.${process.env.AWS_REGION}.amazonaws.com/${accountId}/${process.env.PINGER_PROPERTY_QUEUE_NAME}`,
+          MessageStructure: 'string',
+          TargetArn: `arn:aws:sns:${process.env.AWS_REGION}:${accountId}:property-creation-${process.env.STAGE}`,
         })
       : null,
   ];
