@@ -29,7 +29,7 @@ Object {
           "line": 3,
         },
       ],
-      "message": "Field \\"unsubscribePinger\\" argument \\"id\\" of type \\"Int!\\" is required, but it was not provided.",
+      "message": "Field \\"unsubscribePinger\\" argument \\"id\\" of type \\"String!\\" is required, but it was not provided.",
     },
   ],
   "extensions": undefined,
@@ -83,6 +83,21 @@ Object {
 `;
 
 exports[`Mutation: createProperty unsubscribes an existing pinger 1`] = `
+Object {
+  "data": Object {
+    "unsubscribePinger": true,
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
+exports[`Mutation: createProperty unsubscribes an existing pinger with id-hash 1`] = `
 Object {
   "data": Object {
     "unsubscribePinger": true,

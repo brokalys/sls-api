@@ -36,6 +36,7 @@ class Repository {
       sql: `
         INSERT INTO \`${process.env.DB_PINGER_DATABASE}\`.pinger_emails
         SET
+          id_hash = UUID(),
           email = ?,
           categories = ?,
           types = ?,
@@ -79,7 +80,7 @@ class Repository {
       sql: `
         UPDATE \`${process.env.DB_PINGER_DATABASE}\`.pinger_emails
         SET unsubscribed_at = CURRENT_TIMESTAMP
-        WHERE id = ?
+        WHERE ${isNaN(id) ? 'id_hash' : 'id'} = ?
           AND unsubscribe_key = ?
           AND unsubscribed_at IS NULL
       `,
@@ -94,7 +95,7 @@ class Repository {
       sql: `
         SELECT email
         FROM \`${process.env.DB_PINGER_DATABASE}\`.pinger_emails
-        WHERE id = ?
+        WHERE ${isNaN(id) ? 'id_hash' : 'id'} = ?
           AND unsubscribe_key = ?
       `,
       values: [id, unsubscribeKey],

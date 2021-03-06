@@ -23,7 +23,26 @@ describe('Mutation: createProperty', () => {
       mutation: `
         mutation {
           unsubscribePinger(
-            id: 1
+            id: "1"
+            unsubscribe_key: "test_123"
+          )
+        }
+      `,
+    });
+
+    expect(response).toMatchSnapshot();
+  });
+
+  test('unsubscribes an existing pinger with id-hash', async () => {
+    db.query.mockReturnValueOnce({
+      affectedRows: 1,
+    });
+
+    const response = await mutate({
+      mutation: `
+        mutation {
+          unsubscribePinger(
+            id: "c8bf6d2c-7eba-11eb-b2a8-663c33f40218"
             unsubscribe_key: "test_123"
           )
         }
@@ -47,7 +66,7 @@ describe('Mutation: createProperty', () => {
       mutation: `
         mutation {
           unsubscribePinger(
-            id: 1
+            id: "1"
             unsubscribe_key: "test_123"
             all: true
           )
@@ -67,7 +86,7 @@ describe('Mutation: createProperty', () => {
       mutation: `
         mutation {
           unsubscribePinger(
-            id: 1
+            id: "1"
             unsubscribe_key: "wrong_credentials"
           )
         }
@@ -96,7 +115,7 @@ describe('Mutation: createProperty', () => {
       mutation: `
         mutation {
           unsubscribePinger(
-            id: 1
+            id: "1"
           )
         }
       `,
