@@ -155,4 +155,6 @@ resources:
     PropertyCreationTopic:
       Type: AWS::SNS::Topic
       Properties:
-        TopicName: property-creation-${self:provider.stage}
+        TopicName: property-creation-${self:provider.stage}.fifo
+        ContentBasedDeduplication: true
+        FifoTopic: true

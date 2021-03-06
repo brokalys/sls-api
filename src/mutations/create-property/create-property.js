@@ -1,14 +1,11 @@
 import { riga, latvia } from '@brokalys/location-json-schemas';
 import { AuthenticationError, UserInputError } from 'apollo-server-lambda';
-import crypto from 'crypto';
 import moment from 'moment';
 import inside from 'point-in-polygon';
 
 import Bugsnag from 'lib/bugsnag';
 import * as SNS from 'lib/sns';
 import validationSchema from './validation';
-
-const md5sum = crypto.createHash('md5');
 
 /**
  * Classify locations for faster regional lookups.
@@ -80,19 +77,10 @@ async function createProperty(parent, input, context = { dataSources: {} }) {
     !propertyData.published_at ||
     moment(propertyData.published_at).isAfter('2020-01-01')
       ? SNS.publish({
-          Message: 'property',
-          MessageAttributes: {
-            body: {
-              DataType: 'String',
-              StringValue: JSON.stringify(propertyData),
-            },
-          },
-          MessageDeduplicationId: crypto
-            .createHash('md5')
-            .update(propertyData.url)
-            .digest('hex'),
+          Message: JSON.stringify(propertyData),
+          MessageGroupId: propertyData.source,
           MessageStructure: 'string',
-          TargetArn: `arn:aws:sns:${process.env.AWS_REGION}:${accountId}:property-creation-${process.env.STAGE}`,
+          TargetArn: `arn:aws:sns:${process.env.AWS_REGION}:${accountId}:property-creation-${process.env.STAGE}.fifo`,
         })
       : null,
   ];
