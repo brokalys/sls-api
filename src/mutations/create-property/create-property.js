@@ -5,6 +5,7 @@ import inside from 'point-in-polygon';
 
 import Bugsnag from 'lib/bugsnag';
 import * as SNS from 'lib/sns';
+import * as utils from 'lib/utils';
 import validationSchema from './validation';
 
 /**
@@ -42,7 +43,6 @@ async function createProperty(parent, input, context = { dataSources: {} }) {
     throw new AuthenticationError();
   }
 
-  const accountId = context.invokedFunctionArn.split(':')[4];
   const validator = validationSchema.validate(JSON.parse(input.input));
 
   // Validate input
@@ -80,7 +80,10 @@ async function createProperty(parent, input, context = { dataSources: {} }) {
           Message: JSON.stringify(propertyData),
           MessageGroupId: propertyData.source,
           MessageStructure: 'string',
-          TargetArn: `arn:aws:sns:${process.env.AWS_REGION}:${accountId}:property-creation-${process.env.STAGE}.fifo`,
+          TargetArn: utils.constructArn(
+            context,
+            process.env.PROPERTY_CREATION_SNS_TOPIC_NAME,
+          ),
         })
       : null,
   ];

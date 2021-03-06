@@ -17,7 +17,7 @@ provider:
         - Effect: Allow
           Action:
             - SNS:Publish
-          Resource: 'arn:aws:sns:eu-west-1:*:*'
+          Resource: '${self:custom.propertyCreationSnsTopicArn}'
   apiGateway:
     shouldStartNameWithService: true
     apiKeys:
@@ -68,13 +68,13 @@ provider:
             rateLimit: 200
   environment:
     STAGE: ${opt:stage, 'dev'}
+    PROPERTY_CREATION_SNS_TOPIC_NAME: ${self:custom.propertyCreationSnsTopicName}
     DB_HOST: ${env:DB_HOST}
     DB_DATABASE: ${env:DB_DATABASE}
     DB_USERNAME: ${env:DB_USERNAME}
     DB_PASSWORD: ${env:DB_PASSWORD}
     DB_PINGER_DATABASE: ${env:DB_PINGER_DATABASE}
     BUGSNAG_KEY: ${env:BUGSNAG_KEY}
-    PINGER_PROPERTY_QUEUE_NAME: ${env:PINGER_PROPERTY_QUEUE_NAME}
 
 functions:
   graphql:
@@ -98,6 +98,14 @@ plugins:
   - serverless-layers
 
 custom:
+  propertyCreationSnsTopicName: property-creation-${self:provider.stage}.fifo
+  propertyCreationSnsTopicArn: !Join
+    - ':'
+    - - 'arn:aws:sns'
+      - !Ref AWS::Region
+      - !Ref AWS::AccountId
+      - !GetAtt PropertyCreationTopic.TopicName
+
   customDomain:
     domainName: api.brokalys.com
     stage: prod
@@ -155,7 +163,7 @@ resources:
     PropertyCreationTopic:
       Type: AWS::SNS::Topic
       Properties:
-        TopicName: property-creation-${self:provider.stage}.fifo
+        TopicName: ${self:custom.propertyCreationSnsTopicName}
         ContentBasedDeduplication: true
         FifoTopic: true
   Outputs:
