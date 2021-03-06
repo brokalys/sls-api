@@ -158,3 +158,8 @@ resources:
         TopicName: property-creation-${self:provider.stage}.fifo
         ContentBasedDeduplication: true
         FifoTopic: true
+  Outputs:
+    PropertyCreationTopicArn:
+      Value: !Ref PropertyCreationTopic
+      Export:
+        Name: PropertyCreationTopic-Arn-${self:provider.stage}
