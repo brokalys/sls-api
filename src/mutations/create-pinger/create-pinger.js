@@ -12,7 +12,7 @@ const validationSchema = Joi.object().keys({
   price_max: Joi.number().required().min(Joi.ref('price_min')).max(10000000),
   price_type: Joi.string().valid('TOTAL', 'SQM').default('TOTAL'),
   region: Joi.string().polygon(),
-  rooms_min: Joi.number().min(0),
+  rooms_min: Joi.number().min(0).default(0),
   rooms_max: Joi.number().min(Joi.ref('rooms_min')).max(20),
   area_m2_min: Joi.number().min(0).default(0),
   area_m2_max: Joi.number()

@@ -42,6 +42,43 @@ describe('createPinger', () => {
     expect(Repository.createPinger).toHaveBeenCalledTimes(1);
   });
 
+  test('can create a pinger with no min rooms', async () => {
+    await createPinger(
+      {},
+      {
+        email: 'demo@email.com',
+        category: 'APARTMENT',
+        type: 'SELL',
+        price_min: 10000,
+        price_max: 100000,
+        region:
+          '56.992294 24.136619, 56.976394 23.995790, 56.924904 24.005336, 56.889288 24.108467, 56.932211 24.291935, 56.996502 24.245176, 56.992294 24.136619',
+        rooms_max: 2,
+      },
+    );
+
+    expect(Repository.createPinger).toHaveBeenCalledTimes(1);
+  });
+
+  test('fails creating when area_m2_max is less than area_m2_min', async () => {
+    expect(
+      createPinger(
+        {},
+        {
+          email: 'demo@email.com',
+          category: 'APARTMENT',
+          type: 'SELL',
+          price_min: 10000,
+          price_max: 100000,
+          region:
+            '56.992294 24.136619, 56.976394 23.995790, 56.924904 24.005336, 56.889288 24.108467, 56.932211 24.291935, 56.996502 24.245176, 56.992294 24.136619',
+          area_m2_min: 100,
+          area_m2_max: 10,
+        },
+      ),
+    ).rejects.toBeInstanceOf(UserInputError);
+  });
+
   test('successfully creates a pinger with defined `price_type` as `sqm`', async () => {
     await createPinger(
       {},
