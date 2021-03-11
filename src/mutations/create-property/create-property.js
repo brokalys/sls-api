@@ -69,26 +69,27 @@ async function createProperty(parent, input, context = { dataSources: {} }) {
     calc_price_per_sqm: calculatePricePerSqm(value),
   };
 
-  const actions = [
-    // Create a new entry in the DB
-    properties.create(propertyData),
+  // Create a new entry in the DB
+  const propertyId = await properties.create(propertyData);
 
-    // Publish a new SNS message for the created property
+  // Publish a new SNS message for the created property
+  if (
     !propertyData.published_at ||
     moment(propertyData.published_at).isAfter('2020-01-01')
-      ? SNS.publish({
-          Message: JSON.stringify(propertyData),
-          MessageGroupId: propertyData.source,
-          MessageStructure: 'string',
-          TargetArn: utils.constructArn(
-            context,
-            process.env.PROPERTY_CREATION_SNS_TOPIC_NAME,
-          ),
-        })
-      : null,
-  ];
-
-  await Promise.all(actions);
+  ) {
+    await SNS.publish({
+      Message: JSON.stringify({
+        ...propertyData,
+        id: propertyId,
+      }),
+      MessageGroupId: propertyData.source,
+      MessageStructure: 'string',
+      TargetArn: utils.constructArn(
+        context,
+        process.env.PROPERTY_CREATION_SNS_TOPIC_NAME,
+      ),
+    });
+  }
 
   return true;
 }
