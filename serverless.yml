@@ -9,8 +9,6 @@ provider:
   logRetentionInDays: 7
   versionFunctions: false
   timeout: 10
-  logs:
-    restApi: true
   iam:
     role:
       statements:
