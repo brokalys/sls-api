@@ -1,5 +1,6 @@
 import { ApolloServer, ApolloError } from 'apollo-server-lambda';
 
+import Buildings from './data-sources/buildings';
 import Properties from './data-sources/properties';
 import Bugsnag from './lib/bugsnag';
 import mysql from './lib/db';
@@ -12,6 +13,7 @@ export const server = new ApolloServer({
   typeDefs: schema,
   resolvers,
   dataSources: () => ({
+    buildings: new Buildings({ client: 'mysql' }),
     properties: new Properties({ client: 'mysql' }),
   }),
   tracing: isDevMode,
@@ -27,6 +29,7 @@ export const server = new ApolloServer({
   },
   formatError: (error) => {
     if (
+      (process.env.STAGE !== 'prod' && process.env.NODE_ENV !== 'test') ||
       error instanceof ApolloError ||
       error.originalError instanceof ApolloError ||
       error.originalError === undefined
@@ -39,7 +42,7 @@ export const server = new ApolloServer({
     }
 
     Bugsnag.notify(error);
-    return new Error('An unexpected error occurred. Pleas try again later.');
+    return new Error('An unexpected error occurred. Please try again later.');
   },
   plugins: [
     {

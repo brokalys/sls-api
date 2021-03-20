@@ -1,5 +1,6 @@
 type Query {
   properties(filter: PropertyFilter, limit: Int): Properties!
+  buildings(bounds: String!): [Building!]!
 }
 
 input PropertyFilter {
@@ -48,9 +49,31 @@ type PropertyData {
   foreign_id: String
 }
 
+type LimitedPropertyData {
+  category: String!
+  type: String!
+  rent_type: String
+  price: Float!
+  price_per_sqm: Float
+  rooms: Int
+  area: Float
+  floor: Int
+  published_at: String
+}
+
 type Properties {
   results: [PropertyData!]
   summary: PropertySummary
+}
+
+type LimitedProperties {
+  results: [LimitedPropertyData]!
+}
+
+type Building {
+  id: Int!
+  bounds: String!
+  properties: LimitedProperties!
 }
 
 input FilterString {

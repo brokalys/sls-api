@@ -1,0 +1,172 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Query: buildings successfully retrieves building an property information 1`] = `
+Object {
+  "data": Object {
+    "buildings": Array [
+      Object {
+        "id": 1,
+        "properties": Object {
+          "results": Array [
+            Object {
+              "price": 1,
+            },
+            Object {
+              "price": 2,
+            },
+          ],
+        },
+      },
+      Object {
+        "id": 2,
+        "properties": Object {
+          "results": Array [
+            Object {
+              "price": 3,
+            },
+          ],
+        },
+      },
+      Object {
+        "id": 3,
+        "properties": Object {
+          "results": Array [],
+        },
+      },
+    ],
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
+exports[`Query: buildings successfully retrieves building data 1`] = `
+Object {
+  "data": Object {
+    "buildings": Array [
+      Object {
+        "bounds": "56.992294 24.136619, 56.976394 23.99579, 56.992294 24.136619",
+        "id": 1,
+      },
+      Object {
+        "bounds": "56.992294 24.136619, 56.976394 23.99579, 56.992294 24.136619",
+        "id": 2,
+      },
+    ],
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
+exports[`Query: buildings successfully returns nothing if there are no buildings in this bound 1`] = `
+Object {
+  "data": Object {
+    "buildings": Array [],
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
+exports[`Query: buildings throws a validation exception if bounds filter has too large location 1`] = `
+Object {
+  "data": null,
+  "errors": Array [
+    Object {
+      "extensions": Object {
+        "code": "BAD_USER_INPUT",
+        "details": Array [
+          Object {
+            "context": Object {
+              "area": 0.0001,
+              "key": "bounds",
+              "label": "bounds",
+              "value": "57.0510741522279 24.34369621296768, 56.86735048784755 24.34369621296768, 56.86735048784755 23.842917061051175, 57.0510741522279 23.842917061051175, 57.0510741522279 24.34369621296768",
+            },
+            "message": "\\"bounds\\" are must not exceed 0.0001",
+            "path": Array [
+              "bounds",
+            ],
+            "type": "string.maxArea",
+          },
+        ],
+        "exception": Object {
+          "details": Array [
+            Object {
+              "context": Object {
+                "area": 0.0001,
+                "key": "bounds",
+                "label": "bounds",
+                "value": "57.0510741522279 24.34369621296768, 56.86735048784755 24.34369621296768, 56.86735048784755 23.842917061051175, 57.0510741522279 23.842917061051175, 57.0510741522279 24.34369621296768",
+              },
+              "message": "\\"bounds\\" are must not exceed 0.0001",
+              "path": Array [
+                "bounds",
+              ],
+              "type": "string.maxArea",
+            },
+          ],
+        },
+      },
+      "locations": Array [
+        Object {
+          "column": 11,
+          "line": 3,
+        },
+      ],
+      "message": "Input validation failed",
+      "path": Array [
+        "buildings",
+      ],
+    },
+  ],
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
+exports[`Query: buildings throws a validation exception if no bounds filter provided 1`] = `
+Object {
+  "data": undefined,
+  "errors": Array [
+    Object {
+      "extensions": Object {
+        "code": "GRAPHQL_VALIDATION_FAILED",
+      },
+      "locations": Array [
+        Object {
+          "column": 11,
+          "line": 3,
+        },
+      ],
+      "message": "Field \\"buildings\\" argument \\"bounds\\" of type \\"String!\\" is required, but it was not provided.",
+    },
+  ],
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;

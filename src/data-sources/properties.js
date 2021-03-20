@@ -1,4 +1,5 @@
 import { SQLDataSource } from 'datasource-sql';
+import moment from 'moment';
 
 import mysql from 'lib/db';
 
@@ -81,6 +82,64 @@ class Properties extends SQLDataSource {
         },
         timeout: limit && limit <= 100 ? 1000 : 5000,
       },
+    );
+  }
+
+  async getInBuildings(buildingIds) {
+    if (buildingIds.length === 0) {
+      return {};
+    }
+
+    const query = this.knex(`${process.env.DB_DATABASE}.properties`)
+      .select([
+        'id',
+        'building_id',
+        'category',
+        'type',
+        'rent_type',
+        'price',
+        'calc_price_per_sqm',
+        'rooms',
+        'area',
+        'floor',
+        'published_at',
+      ])
+      .whereIn('building_id', buildingIds)
+      .orderBy('published_at', 'DESC');
+
+    const data = await this.performQuery({ query }, { timeout: 2000 });
+
+    // Construct a hash-map with the values
+    // Key: building id
+    // Value: array of properties
+    const initialHashMap = buildingIds.reduce(
+      (carry, id) => ({
+        ...carry,
+        [id]: [],
+      }),
+      {},
+    );
+    return data.reduce(
+      (carry, item) => ({
+        ...carry,
+        [item.building_id]: [
+          ...carry[item.building_id],
+          {
+            category: item.category,
+            type: item.type,
+            rent_type: item.type === 'rent' ? item.rent_type : undefined,
+            price: item.price,
+            price_per_sqm: item.calc_price_per_sqm,
+            rooms: item.rooms,
+            area: item.area,
+            floor: item.floor,
+            published_at: moment(item.published_at).isBefore('2018-01-01')
+              ? undefined
+              : moment(item.published_at).toISOString(),
+          },
+        ],
+      }),
+      initialHashMap,
     );
   }
 

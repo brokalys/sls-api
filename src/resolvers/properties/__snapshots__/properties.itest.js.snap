@@ -9,7 +9,7 @@ Object {
   },
   "errors": Array [
     Object {
-      "message": "An unexpected error occurred. Pleas try again later.",
+      "message": "An unexpected error occurred. Please try again later.",
     },
   ],
   "extensions": undefined,

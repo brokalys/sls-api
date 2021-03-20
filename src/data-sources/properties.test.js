@@ -73,6 +73,77 @@ describe('Properties', () => {
     });
   });
 
+  describe('getInBuildings', () => {
+    it('returns the values', async () => {
+      mysql.query.mockResolvedValue([
+        {
+          id: 1,
+          category: 'apartment',
+          type: 'sell',
+          rent_type: 'unknown',
+          building_id: 1,
+          price: 100000,
+          calc_price_per_sqm: 100,
+          rooms: 2,
+          floor: 2,
+          area: 100,
+          published_at: '2020-01-01T00:00:00.000Z',
+        },
+        {
+          id: 2,
+          category: 'apartment',
+          type: 'rent',
+          rent_type: 'monthly',
+          building_id: 2,
+          price: 200000,
+          calc_price_per_sqm: 200,
+          rooms: 2,
+          floor: 2,
+          area: 100,
+          published_at: '2017-01-01T00:00:00.000Z',
+        },
+      ]);
+
+      const output = await properties.getInBuildings([1, 2, 3]);
+
+      expect(output).toEqual({
+        1: [
+          {
+            category: 'apartment',
+            type: 'sell',
+            price: 100000,
+            price_per_sqm: 100,
+            rooms: 2,
+            floor: 2,
+            area: 100,
+            published_at: '2020-01-01T00:00:00.000Z',
+          },
+        ],
+        2: [
+          {
+            category: 'apartment',
+            type: 'rent',
+            rent_type: 'monthly',
+            price: 200000,
+            price_per_sqm: 200,
+            rooms: 2,
+            floor: 2,
+            area: 100,
+            published_at: undefined,
+          },
+        ],
+        3: [],
+      });
+    });
+
+    it('does not perform a SQL call if no bulding ids provided', async () => {
+      const output = await properties.getInBuildings([]);
+
+      expect(output).toEqual({});
+      expect(mysql.query).not.toBeCalled();
+    });
+  });
+
   describe('getCount', () => {
     it('returns the count', async () => {
       const results = [{ count: 100 }];

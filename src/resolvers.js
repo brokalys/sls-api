@@ -2,11 +2,13 @@
 import createPinger from './mutations/create-pinger';
 import createProperty from './mutations/create-property';
 import unsubscribePinger from './mutations/unsubscribe-pinger';
+import buildings from './resolvers/buildings';
 import properties from './resolvers/properties';
 import PropertyPriceSummary from './resolvers/property-price-summary';
 
 export default {
   Query: {
+    buildings,
     properties,
   },
   Mutation: {
