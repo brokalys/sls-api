@@ -69,6 +69,25 @@ Object {
 }
 `;
 
+exports[`Query: buildings successfully retrieves single building 1`] = `
+Object {
+  "data": Object {
+    "buildings": Array [
+      Object {
+        "id": 1,
+      },
+    ],
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
 exports[`Query: buildings successfully returns nothing if there are no buildings in this bound 1`] = `
 Object {
   "data": Object {
@@ -94,32 +113,82 @@ Object {
         "details": Array [
           Object {
             "context": Object {
-              "area": 0.0001,
-              "key": "bounds",
-              "label": "bounds",
-              "value": "57.0510741522279 24.34369621296768, 56.86735048784755 24.34369621296768, 56.86735048784755 23.842917061051175, 57.0510741522279 23.842917061051175, 57.0510741522279 24.34369621296768",
+              "details": Array [
+                Object {
+                  "context": Object {
+                    "area": 0.0001,
+                    "key": "bounds",
+                    "label": "bounds",
+                    "value": "57.0510741522279 24.34369621296768, 56.86735048784755 24.34369621296768, 56.86735048784755 23.842917061051175, 57.0510741522279 23.842917061051175, 57.0510741522279 24.34369621296768",
+                  },
+                  "message": "\\"bounds\\" are must not exceed 0.0001",
+                  "path": Array [
+                    "bounds",
+                  ],
+                  "type": "string.maxArea",
+                },
+                Object {
+                  "context": Object {
+                    "key": "id",
+                    "label": "id",
+                  },
+                  "message": "\\"id\\" is required",
+                  "path": Array [
+                    "id",
+                  ],
+                  "type": "any.required",
+                },
+              ],
+              "label": "value",
+              "message": "\\"bounds\\" are must not exceed 0.0001. \\"id\\" is required",
+              "value": Object {
+                "bounds": "57.0510741522279 24.34369621296768, 56.86735048784755 24.34369621296768, 56.86735048784755 23.842917061051175, 57.0510741522279 23.842917061051175, 57.0510741522279 24.34369621296768",
+              },
             },
-            "message": "\\"bounds\\" are must not exceed 0.0001",
-            "path": Array [
-              "bounds",
-            ],
-            "type": "string.maxArea",
+            "message": "\\"value\\" does not match any of the allowed types",
+            "path": Array [],
+            "type": "alternatives.match",
           },
         ],
         "exception": Object {
           "details": Array [
             Object {
               "context": Object {
-                "area": 0.0001,
-                "key": "bounds",
-                "label": "bounds",
-                "value": "57.0510741522279 24.34369621296768, 56.86735048784755 24.34369621296768, 56.86735048784755 23.842917061051175, 57.0510741522279 23.842917061051175, 57.0510741522279 24.34369621296768",
+                "details": Array [
+                  Object {
+                    "context": Object {
+                      "area": 0.0001,
+                      "key": "bounds",
+                      "label": "bounds",
+                      "value": "57.0510741522279 24.34369621296768, 56.86735048784755 24.34369621296768, 56.86735048784755 23.842917061051175, 57.0510741522279 23.842917061051175, 57.0510741522279 24.34369621296768",
+                    },
+                    "message": "\\"bounds\\" are must not exceed 0.0001",
+                    "path": Array [
+                      "bounds",
+                    ],
+                    "type": "string.maxArea",
+                  },
+                  Object {
+                    "context": Object {
+                      "key": "id",
+                      "label": "id",
+                    },
+                    "message": "\\"id\\" is required",
+                    "path": Array [
+                      "id",
+                    ],
+                    "type": "any.required",
+                  },
+                ],
+                "label": "value",
+                "message": "\\"bounds\\" are must not exceed 0.0001. \\"id\\" is required",
+                "value": Object {
+                  "bounds": "57.0510741522279 24.34369621296768, 56.86735048784755 24.34369621296768, 56.86735048784755 23.842917061051175, 57.0510741522279 23.842917061051175, 57.0510741522279 24.34369621296768",
+                },
               },
-              "message": "\\"bounds\\" are must not exceed 0.0001",
-              "path": Array [
-                "bounds",
-              ],
-              "type": "string.maxArea",
+              "message": "\\"value\\" does not match any of the allowed types",
+              "path": Array [],
+              "type": "alternatives.match",
             },
           ],
         },
@@ -147,11 +216,85 @@ Object {
 
 exports[`Query: buildings throws a validation exception if no bounds filter provided 1`] = `
 Object {
-  "data": undefined,
+  "data": null,
   "errors": Array [
     Object {
       "extensions": Object {
-        "code": "GRAPHQL_VALIDATION_FAILED",
+        "code": "BAD_USER_INPUT",
+        "details": Array [
+          Object {
+            "context": Object {
+              "details": Array [
+                Object {
+                  "context": Object {
+                    "key": "bounds",
+                    "label": "bounds",
+                  },
+                  "message": "\\"bounds\\" is required",
+                  "path": Array [
+                    "bounds",
+                  ],
+                  "type": "any.required",
+                },
+                Object {
+                  "context": Object {
+                    "key": "id",
+                    "label": "id",
+                  },
+                  "message": "\\"id\\" is required",
+                  "path": Array [
+                    "id",
+                  ],
+                  "type": "any.required",
+                },
+              ],
+              "label": "value",
+              "message": "\\"bounds\\" is required. \\"id\\" is required",
+              "value": Object {},
+            },
+            "message": "\\"value\\" does not match any of the allowed types",
+            "path": Array [],
+            "type": "alternatives.match",
+          },
+        ],
+        "exception": Object {
+          "details": Array [
+            Object {
+              "context": Object {
+                "details": Array [
+                  Object {
+                    "context": Object {
+                      "key": "bounds",
+                      "label": "bounds",
+                    },
+                    "message": "\\"bounds\\" is required",
+                    "path": Array [
+                      "bounds",
+                    ],
+                    "type": "any.required",
+                  },
+                  Object {
+                    "context": Object {
+                      "key": "id",
+                      "label": "id",
+                    },
+                    "message": "\\"id\\" is required",
+                    "path": Array [
+                      "id",
+                    ],
+                    "type": "any.required",
+                  },
+                ],
+                "label": "value",
+                "message": "\\"bounds\\" is required. \\"id\\" is required",
+                "value": Object {},
+              },
+              "message": "\\"value\\" does not match any of the allowed types",
+              "path": Array [],
+              "type": "alternatives.match",
+            },
+          ],
+        },
       },
       "locations": Array [
         Object {
@@ -159,7 +302,10 @@ Object {
           "line": 3,
         },
       ],
-      "message": "Field \\"buildings\\" argument \\"bounds\\" of type \\"String!\\" is required, but it was not provided.",
+      "message": "Input validation failed",
+      "path": Array [
+        "buildings",
+      ],
     },
   ],
   "extensions": undefined,

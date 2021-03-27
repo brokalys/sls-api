@@ -20,7 +20,9 @@ export default async function (parent, input, context, info) {
     (row) => row.name.value === 'properties',
   );
 
-  const buildingData = await buildings.getInBounds(value.bounds);
+  const buildingData = await (value.id
+    ? buildings.getById(value.id)
+    : buildings.getInBounds(value.bounds));
   const propertyData = hasSelectedProperties
     ? await properties.getInBuildings(buildingData.map(({ id }) => id))
     : {};

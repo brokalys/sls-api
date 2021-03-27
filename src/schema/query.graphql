@@ -1,6 +1,6 @@
 type Query {
   properties(filter: PropertyFilter, limit: Int): Properties!
-  buildings(bounds: String!): [Building!]!
+  buildings(bounds: String, id: Int): [Building!]!
 }
 
 input PropertyFilter {

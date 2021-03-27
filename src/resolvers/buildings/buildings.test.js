@@ -67,6 +67,31 @@ describe('buildings', () => {
     });
   });
 
+  test('successfully retrieves single result', async () => {
+    const data = await buildings(
+      {},
+      { id: 1 },
+      { dataSources },
+      MOCK_GQL_OPERATION,
+    );
+
+    expect(data).toEqual([
+      {
+        id: 1,
+        bounds: expect.any(String),
+        properties: expect.any(Function),
+      },
+    ]);
+    expect(data[0].properties()).toEqual({
+      results: [
+        {
+          building_id: 1,
+          price: 123,
+        },
+      ],
+    });
+  });
+
   test('does not make an unnecessary sql call to properties DB if the data is not necessary', async () => {
     const data = await buildings(
       {},

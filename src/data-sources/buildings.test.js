@@ -10,6 +10,17 @@ describe('Buildings', () => {
     buildings = new Buildings({ client: 'mysql' });
   });
 
+  describe('getById', () => {
+    it('returns the values', async () => {
+      const results = [{ id: 1 }];
+      mysql.query.mockResolvedValue(results);
+
+      const output = await buildings.getById(1);
+
+      expect(output).toEqual(results);
+    });
+  });
+
   describe('getInBounds', () => {
     it('returns the values', async () => {
       const results = [{ id: 1 }, { id: 2 }];

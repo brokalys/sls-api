@@ -59,6 +59,36 @@ describe('Query: buildings', () => {
     expect(response).toMatchSnapshot();
   });
 
+  test('successfully retrieves single building', async () => {
+    db.query.mockReturnValueOnce([
+      {
+        id: 1,
+        bounds: [
+          [
+            { x: 56.992294, y: 24.136619 },
+            { x: 56.976394, y: 23.99579 },
+            { x: 56.992294, y: 24.136619 },
+          ],
+        ],
+      },
+    ]);
+
+    const response = await run({
+      query: `
+        query GetBuilding($id: Int!) {
+          buildings(id: $id) {
+            id
+          }
+        }
+      `,
+      variables: {
+        id: 1,
+      },
+    });
+
+    expect(response).toMatchSnapshot();
+  });
+
   test('successfully returns nothing if there are no buildings in this bound', async () => {
     db.query.mockReturnValueOnce([]);
 
