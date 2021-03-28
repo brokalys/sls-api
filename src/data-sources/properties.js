@@ -107,7 +107,7 @@ class Properties extends SQLDataSource {
       .whereIn('building_id', buildingIds)
       .whereIn('category', ['apartment', 'house'])
       .whereNotNull('type')
-      .where('price', '>=', 1)
+      .where('price', '>', 1)
       .orderBy('published_at', 'DESC');
 
     const data = await this.performQuery({ query }, { timeout: 2000 });
