@@ -109,6 +109,7 @@ describe('Properties', () => {
       expect(output).toEqual({
         1: [
           {
+            id: 1,
             category: 'apartment',
             type: 'sell',
             price: 100000,
@@ -121,6 +122,7 @@ describe('Properties', () => {
         ],
         2: [
           {
+            id: 2,
             category: 'apartment',
             type: 'rent',
             rent_type: 'monthly',

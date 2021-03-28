@@ -50,6 +50,7 @@ type PropertyData {
 }
 
 type LimitedPropertyData {
+  id: Int!
   category: String!
   type: String!
   rent_type: String

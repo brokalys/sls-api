@@ -128,6 +128,7 @@ class Properties extends SQLDataSource {
         [item.building_id]: [
           ...carry[item.building_id],
           {
+            id: item.id,
             category: item.category,
             type: item.type,
             rent_type: item.type === 'rent' ? item.rent_type : undefined,
