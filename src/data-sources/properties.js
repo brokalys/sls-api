@@ -105,7 +105,8 @@ class Properties extends SQLDataSource {
         'published_at',
       ])
       .whereIn('building_id', buildingIds)
-      .whereIn('category', ['apartment', 'house'])
+      .whereIn('category', ['apartment', 'house', 'office'])
+      .whereIn('type', ['sell', 'rent', 'auction'])
       .whereNotNull('type')
       .where('price', '>', 1)
       .orderBy('published_at', 'DESC');
