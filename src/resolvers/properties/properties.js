@@ -1,6 +1,10 @@
 import { AuthenticationError, UserInputError } from 'apollo-server-lambda';
 import numbers from 'numbers';
 
+import {
+  hasPermission,
+  PERMISSION_GET_DETAILED_PROPERTY_DATA,
+} from 'lib/permissions';
 import validationSchema, { discardSchema } from './validation';
 
 function getSelectedFields(info) {
@@ -37,7 +41,13 @@ async function properties(parent, input, context, info) {
 
   return {
     results: async () => {
-      if (!context.isAuthenticated) {
+      if (
+        !context.isAuthenticated ||
+        !hasPermission(
+          context.customerId,
+          PERMISSION_GET_DETAILED_PROPERTY_DATA,
+        )
+      ) {
         throw new AuthenticationError();
       }
 

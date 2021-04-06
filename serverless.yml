@@ -16,21 +16,33 @@ provider:
           Action:
             - SNS:Publish
           Resource: '${self:custom.propertyCreationSnsTopicArn}'
+        - Effect: Allow
+          Action:
+            - APIGateway:Get
+          Resource: '*'
   apiGateway:
     shouldStartNameWithService: true
     apiKeys:
       - slsPinger:
           - name: ${self:provider.stage}-slsPingerKey
             description: API key used by sls-pinger
+            customerId: slsPinger
       - slsCrawler:
           - name: ${self:provider.stage}-slsCrawlerKey
             description: API key used by sls crawlers
+            customerId: slsCrawler
       - slsDataExtraction:
           - name: ${self:provider.stage}-slsDataExtractionKey
             description: API key used by sls-data-extraction
+            customerId: slsDataExtraction
       - slsStaticApi:
           - name: ${self:provider.stage}-slsStaticApiKey
             description: API key used by sls-static-api
+            customerId: slsStaticApi
+      - mapApp:
+          - name: ${self:provider.stage}-mapAppKey
+            description: API key used by map-app
+            customerId: mapApp
     usagePlan:
       - slsPinger:
           quota:
@@ -63,6 +75,14 @@ provider:
             period: MONTH
           throttle:
             burstLimit: 200
+            rateLimit: 200
+      - mapApp:
+          quota:
+            limit: 100000
+            offset: 1
+            period: MONTH
+          throttle:
+            burstLimit: 50
             rateLimit: 200
   environment:
     STAGE: ${opt:stage, 'dev'}

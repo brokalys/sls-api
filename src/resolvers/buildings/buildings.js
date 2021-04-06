@@ -1,9 +1,25 @@
 import { AuthenticationError, UserInputError } from 'apollo-server-lambda';
 import numbers from 'numbers';
 
+import {
+  hasPermission,
+  PERMISSION_GET_BASIC_PROPERTY_DATA,
+} from 'lib/permissions';
 import validationSchema from './validation';
 
 export default async function (parent, input, context, info) {
+  const hasSelectedProperties = !!info.operation.selectionSet.selections[0].selectionSet.selections.find(
+    (row) => row.name.value === 'properties',
+  );
+
+  if (
+    hasSelectedProperties &&
+    (!context.isAuthenticated ||
+      !hasPermission(context.customerId, PERMISSION_GET_BASIC_PROPERTY_DATA))
+  ) {
+    throw new AuthenticationError();
+  }
+
   const validator = validationSchema.validate(input);
 
   // Validate input
@@ -15,10 +31,6 @@ export default async function (parent, input, context, info) {
 
   const { buildings, properties } = context.dataSources;
   const { value } = validator;
-
-  const hasSelectedProperties = !!info.operation.selectionSet.selections[0].selectionSet.selections.find(
-    (row) => row.name.value === 'properties',
-  );
 
   const buildingData = await (value.id
     ? buildings.getById(value.id)

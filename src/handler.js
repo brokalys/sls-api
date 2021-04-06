@@ -2,12 +2,18 @@ import { ApolloServer, ApolloError } from 'apollo-server-lambda';
 
 import Buildings from './data-sources/buildings';
 import Properties from './data-sources/properties';
+import { getApiKey } from './lib/api-gateway';
 import Bugsnag from './lib/bugsnag';
 import mysql from './lib/db';
 import schema from './schema/schema.graphql';
 import resolvers from './resolvers';
 
 const isDevMode = process.env.STAGE === 'dev';
+
+async function getApiKeyCustomerId(id) {
+  const { customerId } = await getApiKey(id);
+  return customerId;
+}
 
 export const server = new ApolloServer({
   typeDefs: schema,
@@ -18,12 +24,17 @@ export const server = new ApolloServer({
   }),
   tracing: isDevMode,
   playground: isDevMode,
-  context: ({ event, req, context }) => {
+  context: async ({ event, req, context }) => {
     const { requestContext } = event ||
       req || { requestContext: { identity: {} } };
 
+    const isAuthenticated = !!requestContext.identity.apiKeyId;
+
     return {
-      isAuthenticated: !!requestContext.identity.apiKeyId, // Authorized via API Gateway
+      isAuthenticated, // Authorized via API Gateway
+      customerId: isAuthenticated
+        ? await getApiKeyCustomerId(requestContext.identity.apiKeyId)
+        : null,
       invokedFunctionArn: context ? context.invokedFunctionArn : '',
     };
   },

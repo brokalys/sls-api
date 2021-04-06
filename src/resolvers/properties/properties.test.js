@@ -4,6 +4,7 @@ import PropertiesDataSource from 'data-sources/properties';
 import properties from './properties';
 
 jest.mock('data-sources/properties');
+jest.mock('lib/permissions');
 
 describe('properties', () => {
   let dataSources;
@@ -14,7 +15,7 @@ describe('properties', () => {
     };
   });
 
-  afterEach(jest.resetAllMocks);
+  afterEach(jest.clearAllMocks);
 
   test('successfully retrieves summary.count', async () => {
     const data = await properties({}, {}, { dataSources });
@@ -48,9 +49,6 @@ describe('properties', () => {
   ])(
     'throws a validation exception when `discard` is invalid in summary.price: %# - %j',
     async (discard) => {
-      const results = [{ price: 100 }, { price: 200 }];
-      dataSources.properties.get.mockResolvedValueOnce(results);
-
       const data = await properties({}, {}, { dataSources });
 
       expect(data.summary.price({ discard })).rejects.toThrowError(

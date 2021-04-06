@@ -4,6 +4,7 @@ import moment from 'moment';
 import inside from 'point-in-polygon';
 
 import Bugsnag from 'lib/bugsnag';
+import { hasPermission, PERMISSION_CREATE_PROPERTY } from 'lib/permissions';
 import * as SNS from 'lib/sns';
 import * as utils from 'lib/utils';
 import validationSchema from './validation';
@@ -39,7 +40,10 @@ function getLocationClassificator(lat, lng) {
 }
 
 async function createProperty(parent, input, context = { dataSources: {} }) {
-  if (!context.isAuthenticated) {
+  if (
+    !context.isAuthenticated ||
+    !hasPermission(context.customerId, PERMISSION_CREATE_PROPERTY)
+  ) {
     throw new AuthenticationError();
   }
 

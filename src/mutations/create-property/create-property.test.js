@@ -6,6 +6,7 @@ import * as SNS from 'lib/sns';
 import createProperty from './create-property';
 
 jest.mock('lib/bugsnag');
+jest.mock('lib/permissions');
 jest.mock('lib/sns');
 jest.mock('data-sources/properties');
 
