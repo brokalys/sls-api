@@ -1,4 +1,3 @@
-export const CUSTOMER_SLS_PINGER = 'slsPinger';
 export const CUSTOMER_SLS_CRAWLER = 'slsCrawler';
 export const CUSTOMER_SLS_DATA_EXTRACTION = 'slsDataExtraction';
 export const CUSTOMER_SLS_STATIC_API = 'slsStaticApi';
@@ -18,7 +17,6 @@ export function hasPermission(customerId, permission) {
         PERMISSION_GET_DETAILED_PROPERTY_DATA,
       ].includes(permission);
 
-    case CUSTOMER_SLS_PINGER:
     case CUSTOMER_SLS_DATA_EXTRACTION:
       return [PERMISSION_GET_DETAILED_PROPERTY_DATA].includes(permission);
 

@@ -23,10 +23,6 @@ provider:
   apiGateway:
     shouldStartNameWithService: true
     apiKeys:
-      - slsPinger:
-          - name: ${self:provider.stage}-slsPingerKey
-            description: API key used by sls-pinger
-            customerId: slsPinger
       - slsCrawler:
           - name: ${self:provider.stage}-slsCrawlerKey
             description: API key used by sls crawlers
@@ -44,14 +40,6 @@ provider:
             description: API key used by map-app
             customerId: mapApp
     usagePlan:
-      - slsPinger:
-          quota:
-            limit: 2000000
-            offset: 1
-            period: MONTH
-          throttle:
-            burstLimit: 2000
-            rateLimit: 1000
       - slsCrawler:
           quota:
             limit: 2000000
