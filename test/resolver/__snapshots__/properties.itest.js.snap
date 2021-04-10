@@ -1,0 +1,204 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Query: properties returns 0 count when no properties are found 1`] = `
+Object {
+  "data": Object {
+    "properties": Object {
+      "summary": Object {
+        "count": 0,
+      },
+    },
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
+exports[`Query: properties successfully retrieves all the property fields 1`] = `
+Object {
+  "data": Object {
+    "properties": Object {
+      "results": Array [
+        Object {
+          "area": 90,
+          "calc_price_per_sqm": 1.11,
+          "category": "apartment",
+          "content": "",
+          "floor": 2,
+          "foreign_id": null,
+          "id": 1,
+          "images": Array [],
+          "lat": 56.1,
+          "lng": 24.9,
+          "price": 100,
+          "price_per_sqm": 1.11,
+          "published_at": "2021-04-12T19:47:30.000Z",
+          "rent_type": "monthly",
+          "rooms": null,
+          "type": "rent",
+          "url": "https://www.ss.com/msg/lv/real-estate/flats/aizkraukle-and-reg/aiviekstes-pag/aghfx.html",
+        },
+        Object {
+          "area": null,
+          "calc_price_per_sqm": null,
+          "category": "apartment",
+          "content": "",
+          "floor": null,
+          "foreign_id": null,
+          "id": 2,
+          "images": Array [],
+          "lat": 56.1,
+          "lng": 24.9,
+          "price": 200,
+          "price_per_sqm": null,
+          "published_at": "2021-04-12T19:47:30.000Z",
+          "rent_type": "monthly",
+          "rooms": null,
+          "type": "rent",
+          "url": "https://www.ss.lv/msg/lv/real-estate/flats/riga/bolderaya/cceeb.html",
+        },
+        Object {
+          "area": null,
+          "calc_price_per_sqm": null,
+          "category": "house",
+          "content": "",
+          "floor": null,
+          "foreign_id": null,
+          "id": 3,
+          "images": Array [],
+          "lat": null,
+          "lng": null,
+          "price": 300,
+          "price_per_sqm": null,
+          "published_at": "2021-04-12T19:47:30.000Z",
+          "rent_type": "monthly",
+          "rooms": null,
+          "type": "rent",
+          "url": "https://www.ss.com/msg/lv/real-estate/homes-summer-residences/tukums-and-reg/engures-pag/hhjbf.html",
+        },
+      ],
+      "summary": Object {
+        "count": 3,
+        "price": Object {
+          "count": 3,
+          "max": 300,
+          "mean": 200,
+          "median": 200,
+          "min": 100,
+          "mode": 100,
+          "standardDev": 81,
+        },
+      },
+    },
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
+exports[`Query: properties successfully retrieves property summary.count data 1`] = `
+Object {
+  "data": Object {
+    "properties": Object {
+      "summary": Object {
+        "count": 3,
+      },
+    },
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
+exports[`Query: properties successfully retrieves property summary.price data 1`] = `
+Object {
+  "data": Object {
+    "properties": Object {
+      "summary": Object {
+        "price": Object {
+          "count": 3,
+          "max": 300,
+          "mean": 200,
+          "median": 200,
+          "min": 100,
+          "mode": 100,
+          "standardDev": 81,
+        },
+      },
+    },
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
+exports[`Query: properties successfully retrieves results 1`] = `
+Object {
+  "data": Object {
+    "properties": Object {
+      "results": Array [
+        Object {
+          "id": 1,
+        },
+        Object {
+          "id": 2,
+        },
+      ],
+    },
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
+exports[`Query: properties successfully retrieves truncated property summary.price data 1`] = `
+Object {
+  "data": Object {
+    "properties": Object {
+      "summary": Object {
+        "price": Object {
+          "count": 2,
+          "max": 300,
+          "mean": 250,
+          "median": 250,
+          "min": 200,
+          "mode": 200,
+          "standardDev": 50,
+        },
+      },
+    },
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;

@@ -20,9 +20,11 @@ const filter = Joi.object({
   published_at: filterable(Joi.date().iso()),
   created_at: filterable(Joi.date().iso()),
   category: filterable(
-    Joi.string().lowercase().valid('apartment', 'house', 'land', 'garage'),
+    Joi.string()
+      .lowercase()
+      .valid('apartment', 'house', 'land', 'garage', 'office'),
   ),
-  type: filterable(Joi.string().lowercase().valid('sell', 'rent')),
+  type: filterable(Joi.string().lowercase().valid('sell', 'rent', 'auction')),
   rent_type: filterable(
     Joi.string()
       .lowercase()
@@ -37,12 +39,13 @@ const filter = Joi.object({
   source: filterable(Joi.string()),
   url: filterable(Joi.string().uri()),
   foreign_id: filterable(Joi.string().alphanum()),
+  building_id: filterable(Joi.string().alphanum()),
 }).default({});
 
 const schema = Joi.object({
   filter,
   limit: Joi.alternatives()
-    .try(Joi.number().integer().min(1).strict(), Joi.valid(null))
+    .try(Joi.number().integer().min(1).max(100).strict(), Joi.valid(null))
     .default(20),
 }).default({});
 

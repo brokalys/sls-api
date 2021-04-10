@@ -1,30 +1,17 @@
-import { SQLDataSource } from 'datasource-sql';
+import BaseDataSource from './base';
 
-import mysql from 'lib/db';
-
-export default class Buildings extends SQLDataSource {
+export default class Buildings extends BaseDataSource {
   getById(id) {
-    const query = this.knex(`${process.env.DB_DATABASE}.buildings`).where(
-      'id',
-      id,
-    );
-
-    return mysql.query({
-      sql: query.toString(),
-      timeout: 1000,
-    });
+    return this.getDataLoader(
+      this.knex('buildings').withSchema(process.env.DB_DATABASE),
+    )
+      .load(id)
+      .then(([result]) => result);
   }
 
   getInBounds(bounds) {
-    const query = this.knex(
-      `${process.env.DB_DATABASE}.buildings`,
-    ).whereRaw('ST_Contains(ST_GeomFromText(?), bounds)', [
-      `POLYGON((${bounds}))`,
-    ]);
-
-    return mysql.query({
-      sql: query.toString(),
-      timeout: 2000,
-    });
+    return this.knex('buildings')
+      .withSchema(process.env.DB_DATABASE)
+      .whereInBounds(bounds);
   }
 }

@@ -13,6 +13,6 @@ module.exports = {
     '!src/**/*.itest.js',
   ],
   testPathIgnorePatterns: ['\\.itest\\.js'],
-  modulePaths: ['<rootDir>/src/', '<rootDir>/data/'],
+  modulePaths: ['<rootDir>/src/', '<rootDir>/data/', '<rootDir>/test/'],
   modulePathIgnorePatterns: ['/.serverless/'],
 };

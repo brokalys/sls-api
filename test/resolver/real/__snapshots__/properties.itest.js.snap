@@ -1,0 +1,193 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Resolver: properties - real queries from other services crawler city24.lv 1`] = `
+Object {
+  "data": Object {
+    "properties": Object {
+      "results": Array [
+        Object {
+          "foreign_id": "id111",
+        },
+      ],
+    },
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
+exports[`Resolver: properties - real queries from other services crawler inch.lv 1`] = `
+Object {
+  "data": Object {
+    "row_0": Object {
+      "summary": Object {
+        "count": 1,
+      },
+    },
+    "row_1": Object {
+      "summary": Object {
+        "count": 0,
+      },
+    },
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
+exports[`Resolver: properties - real queries from other services crawler mm.lv 1`] = `
+Object {
+  "data": Object {
+    "properties": Object {
+      "results": Array [
+        Object {
+          "url": "https://mm.lv",
+        },
+      ],
+    },
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
+exports[`Resolver: properties - real queries from other services crawler ss.lv 1`] = `
+Object {
+  "data": Object {
+    "properties": Object {
+      "results": Array [
+        Object {
+          "url": "https://www.ss.com/msg/lv/real-estate/flats/aizkraukle-and-reg/aiviekstes-pag/aghfx.html",
+        },
+      ],
+    },
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
+exports[`Resolver: properties - real queries from other services data extraction base-data 1`] = `
+Object {
+  "data": Object {
+    "properties": Object {
+      "summary": Object {
+        "count": 2,
+        "price": Object {
+          "max": 300,
+          "mean": 250,
+          "median": 250,
+          "min": 200,
+          "mode": 200,
+          "standardDev": 50,
+        },
+      },
+    },
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
+exports[`Resolver: properties - real queries from other services data extraction regional-data 1`] = `
+Object {
+  "data": Object {
+    "properties": Object {
+      "results": Array [
+        Object {
+          "lat": 56.1,
+          "lng": 24.9,
+          "price": 100,
+        },
+        Object {
+          "lat": 56.1,
+          "lng": 24.9,
+          "price": 200,
+        },
+      ],
+    },
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
+exports[`Resolver: properties - real queries from other services data extraction regional-price-per-sqm 1`] = `
+Object {
+  "data": Object {
+    "properties": Object {
+      "results": Array [
+        Object {
+          "area": 90,
+          "lat": 56.1,
+          "lng": 24.9,
+          "price": 100,
+        },
+      ],
+    },
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
+exports[`Resolver: properties - real queries from other services static api regional-price-per-sqm 1`] = `
+Object {
+  "data": Object {
+    "properties": Object {
+      "results": Array [
+        Object {
+          "price": 100,
+          "price_per_sqm": 1.11,
+        },
+        Object {
+          "price": 200,
+          "price_per_sqm": null,
+        },
+      ],
+    },
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;

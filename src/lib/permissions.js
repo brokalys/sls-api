@@ -1,28 +1,34 @@
-export const CUSTOMER_SLS_CRAWLER = 'slsCrawler';
-export const CUSTOMER_SLS_DATA_EXTRACTION = 'slsDataExtraction';
-export const CUSTOMER_SLS_STATIC_API = 'slsStaticApi';
-export const CUSTOMER_MAP_APP = 'mapApp';
+const CUSTOMER_SLS_CRAWLER = 'slsCrawler';
+const CUSTOMER_SLS_DATA_EXTRACTION = 'slsDataExtraction';
+const CUSTOMER_SLS_STATIC_API = 'slsStaticApi';
+const CUSTOMER_MAP_APP = 'mapApp';
 
-export const PERMISSION_CREATE_PROPERTY = 'create-property';
-export const PERMISSION_GET_DETAILED_PROPERTY_DATA =
-  'get-detailed-property-data';
-export const PERMISSION_GET_BASIC_PROPERTY_DATA = 'get-basic-property-data';
+const PERMISSION_CREATE_PROPERTY = 'CreateProperty';
+export const PERMISSION_READ_PROPERTY_DATA = 'ReadPropertyData';
+const PERMISSION_READ_PROPERTY_DATA_DETAILED = 'ReadPropertyData:Detailed';
+export const PERMISSION_READ_UNLIMITED_PROPERTY_DATA = 'ReadUnlimitedData';
 
-export function hasPermission(customerId, permission) {
+export function getRoles(customerId) {
   switch (customerId) {
     case CUSTOMER_SLS_CRAWLER:
     case CUSTOMER_SLS_STATIC_API:
       return [
         PERMISSION_CREATE_PROPERTY,
-        PERMISSION_GET_DETAILED_PROPERTY_DATA,
-      ].includes(permission);
+        PERMISSION_READ_PROPERTY_DATA,
+        PERMISSION_READ_PROPERTY_DATA_DETAILED,
+        PERMISSION_READ_UNLIMITED_PROPERTY_DATA,
+      ];
 
     case CUSTOMER_SLS_DATA_EXTRACTION:
-      return [PERMISSION_GET_DETAILED_PROPERTY_DATA].includes(permission);
+      return [
+        PERMISSION_READ_PROPERTY_DATA,
+        PERMISSION_READ_PROPERTY_DATA_DETAILED,
+        PERMISSION_READ_UNLIMITED_PROPERTY_DATA,
+      ];
 
     case CUSTOMER_MAP_APP:
-      return [PERMISSION_GET_BASIC_PROPERTY_DATA].includes(permission);
+      return [PERMISSION_READ_PROPERTY_DATA];
   }
 
-  return false;
+  return [];
 }

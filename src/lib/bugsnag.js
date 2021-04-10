@@ -1,9 +1,12 @@
 import Bugsnag from '@bugsnag/js';
 
-const key = process.env.BUGSNAG_KEY;
+const apiKey = process.env.BUGSNAG_KEY;
 
-if (key) {
-  Bugsnag.start(key);
+if (apiKey) {
+  Bugsnag.start({
+    apiKey,
+    logger: null,
+  });
 }
 
 export default Bugsnag;

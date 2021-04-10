@@ -1,4 +1,4 @@
-import { AuthenticationError, UserInputError } from 'apollo-server-lambda';
+import { UserInputError } from 'apollo-server-lambda';
 
 import PropertiesDataSource from 'data-sources/properties';
 import Bugsnag from 'lib/bugsnag';
@@ -261,22 +261,6 @@ describe('createProperty', () => {
         ),
       ).rejects.toBeInstanceOf(UserInputError);
       expect(Bugsnag.notify).toBeCalled();
-    });
-
-    test('is not authenticated', async () => {
-      await expect(
-        createProperty(
-          {},
-          {
-            input: JSON.stringify(mockInput),
-          },
-          {
-            dataSources,
-            isAuthenticated: false,
-            invokedFunctionArn,
-          },
-        ),
-      ).rejects.toBeInstanceOf(AuthenticationError);
     });
 
     test('inserting in DB fails', async () => {

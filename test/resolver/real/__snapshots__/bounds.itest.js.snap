@@ -1,0 +1,119 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Resolver: bounds - real queries from other services map-app retrieve map data 1`] = `
+Object {
+  "data": Object {
+    "bounds": Object {
+      "buildings": Array [
+        Object {
+          "bounds": "56.992294 24.136619, 56.976394 23.99579, 56.992294 24.136619",
+          "id": 1,
+          "properties": Object {
+            "results": Array [
+              Object {
+                "area": 90,
+                "category": "apartment",
+                "floor": 2,
+                "price": 100,
+                "price_per_sqm": 1.11,
+                "published_at": "2021-04-12T19:47:30.000Z",
+                "rent_type": "monthly",
+                "rooms": null,
+                "type": "rent",
+              },
+              Object {
+                "area": null,
+                "category": "apartment",
+                "floor": null,
+                "price": 200,
+                "price_per_sqm": null,
+                "published_at": "2021-04-12T19:47:30.000Z",
+                "rent_type": "monthly",
+                "rooms": null,
+                "type": "rent",
+              },
+            ],
+          },
+        },
+        Object {
+          "bounds": "56.992294 24.136619, 56.976394 23.99579, 56.992294 24.136619",
+          "id": 2,
+          "properties": Object {
+            "results": Array [
+              Object {
+                "area": null,
+                "category": "house",
+                "floor": null,
+                "price": 300,
+                "price_per_sqm": null,
+                "published_at": "2021-04-12T19:47:30.000Z",
+                "rent_type": "monthly",
+                "rooms": null,
+                "type": "rent",
+              },
+            ],
+          },
+        },
+        Object {
+          "bounds": "56.992294 24.136619, 56.976394 23.99579, 56.992294 24.136619",
+          "id": 3,
+          "properties": Object {
+            "results": Array [],
+          },
+        },
+      ],
+    },
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
+exports[`Resolver: bounds - real queries from other services map-app retrieve single building 1`] = `
+Object {
+  "data": Object {
+    "building": Object {
+      "bounds": "56.992294 24.136619, 56.976394 23.99579, 56.992294 24.136619",
+      "id": 1,
+      "properties": Object {
+        "results": Array [
+          Object {
+            "area": 90,
+            "category": "apartment",
+            "floor": 2,
+            "price": 100,
+            "price_per_sqm": 1.11,
+            "published_at": "2021-04-12T19:47:30.000Z",
+            "rent_type": "monthly",
+            "rooms": null,
+            "type": "rent",
+          },
+          Object {
+            "area": null,
+            "category": "apartment",
+            "floor": null,
+            "price": 200,
+            "price_per_sqm": null,
+            "published_at": "2021-04-12T19:47:30.000Z",
+            "rent_type": "monthly",
+            "rooms": null,
+            "type": "rent",
+          },
+        ],
+      },
+    },
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;

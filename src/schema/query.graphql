@@ -1,13 +1,16 @@
+directive @auth(requires: String) on FIELD_DEFINITION | OBJECT
+
 type Query {
-  properties(filter: PropertyFilter, limit: Int): Properties!
-  buildings(bounds: String, id: Int): [Building!]!
+  properties(filter: PropertyFilter, limit: Int): PropertyWrapper!
+  building(id: Int!): Building @auth
+  bounds(bounds: String!): Bounds! @auth
 }
 
 input PropertyFilter {
   created_at: FilterString
   published_at: FilterString
   location_classificator: FilterString
-  region: FilterString
+  region: FilterString @deprecated
   category: FilterString
   type: FilterString
   rent_type: FilterString
@@ -18,6 +21,7 @@ input PropertyFilter {
   source: FilterString
   url: FilterString
   foreign_id: FilterString
+  building_id: FilterString
 }
 
 type PropertySummary {
@@ -35,46 +39,40 @@ type PropertyPriceSummary {
   standardDev: Int
 }
 
-type PropertyData {
+type Property @auth(requires: "ReadPropertyData") {
   id: Int!
-  url: String!
-  content: String!
-  images: [String]!
+  url: String @auth(requires: "ReadPropertyData:Detailed")
+  category: String
+  type: String
+  rent_type: String
+  content: String! @auth(requires: "ReadPropertyData:Detailed")
+  images: [String]! @auth(requires: "ReadPropertyData:Detailed")
   price: Float
   price_per_sqm: Float
+  calc_price_per_sqm: Float
   rooms: Int
   area: Float
-  lat: Float
-  lng: Float
-  foreign_id: String
-}
-
-type LimitedPropertyData {
-  id: Int!
-  category: String!
-  type: String!
-  rent_type: String
-  price: Float!
-  price_per_sqm: Float
-  rooms: Int
-  area: Float
-  floor: Int
+  floor: Float
+  lat: Float @auth(requires: "ReadPropertyData:Detailed")
+  lng: Float @auth(requires: "ReadPropertyData:Detailed")
   published_at: String
+  foreign_id: String @auth(requires: "ReadPropertyData:Detailed")
 }
 
-type Properties {
-  results: [PropertyData!]
-  summary: PropertySummary
+type PropertyWrapper {
+  results: [Property!]! @auth(requires: "ReadPropertyData")
+  summary: PropertySummary!
 }
 
-type LimitedProperties {
-  results: [LimitedPropertyData]!
-}
-
-type Building {
+type Building @auth {
   id: Int!
   bounds: String!
-  properties: LimitedProperties!
+  properties(filter: PropertyFilter): PropertyWrapper!
+}
+
+type Bounds {
+  bounds: String!
+  buildings: [Building!]! @auth
 }
 
 input FilterString {

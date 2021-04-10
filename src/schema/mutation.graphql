@@ -22,5 +22,5 @@ type Mutation {
     all: Boolean
   ): Boolean!
 
-  createProperty(input: String!): Boolean!
+  createProperty(input: String!): Boolean! @auth(requires: "CreateProperty")
 }

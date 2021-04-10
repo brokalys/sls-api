@@ -1,40 +1,39 @@
 import { ApolloServer, ApolloError } from 'apollo-server-lambda';
-
+import {
+  ApolloServerPluginInlineTrace,
+  ApolloServerPluginInlineTraceDisabled,
+} from 'apollo-server-core';
 import Buildings from './data-sources/buildings';
 import Properties from './data-sources/properties';
-import { getApiKey } from './lib/api-gateway';
+import loadUser from './lib/auth';
+import AuhtDirective from './lib/auth-directive';
 import Bugsnag from './lib/bugsnag';
 import mysql from './lib/db';
 import schema from './schema/schema.graphql';
+import dbConfig from './db-config';
 import resolvers from './resolvers';
+import './knex-extensions';
 
 const isDevMode = process.env.STAGE === 'dev';
 
-async function getApiKeyCustomerId(id) {
-  const { customerId } = await getApiKey(id);
-  return customerId;
-}
-
 export const server = new ApolloServer({
   typeDefs: schema,
+  schemaDirectives: {
+    auth: AuhtDirective,
+  },
   resolvers,
   dataSources: () => ({
-    buildings: new Buildings({ client: 'mysql' }),
-    properties: new Properties({ client: 'mysql' }),
+    buildings: new Buildings(dbConfig),
+    properties: new Properties(dbConfig),
   }),
   tracing: isDevMode,
   playground: isDevMode,
-  context: async ({ event, req, context }) => {
+  context: async ({ event, req, request, context }) => {
     const { requestContext } = event ||
       req || { requestContext: { identity: {} } };
 
-    const isAuthenticated = !!requestContext.identity.apiKeyId;
-
     return {
-      isAuthenticated, // Authorized via API Gateway
-      customerId: isAuthenticated
-        ? await getApiKeyCustomerId(requestContext.identity.apiKeyId)
-        : null,
+      user: await loadUser(requestContext.identity.apiKeyId),
       invokedFunctionArn: context ? context.invokedFunctionArn : '',
     };
   },
@@ -50,12 +49,15 @@ export const server = new ApolloServer({
 
     if (process.env.NODE_ENV !== 'test') {
       console.log(error);
+      Bugsnag.notify(error);
     }
 
-    Bugsnag.notify(error);
     return new Error('An unexpected error occurred. Please try again later.');
   },
   plugins: [
+    isDevMode
+      ? ApolloServerPluginInlineTrace()
+      : ApolloServerPluginInlineTraceDisabled(),
     {
       requestDidStart(requestContext) {
         return {

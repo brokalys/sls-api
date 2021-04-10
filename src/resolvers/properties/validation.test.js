@@ -6,8 +6,10 @@ describe('properties: validation', () => {
     [{ filter: { created_at: { gte: '2018-12-01' } } }],
     [{ filter: { category: { eq: 'APARTMENT' } } }],
     [{ filter: { category: { eq: 'apartment' } } }],
+    [{ filter: { category: { eq: 'office' } } }],
     [{ filter: { type: { eq: 'SELL' } } }],
     [{ filter: { type: { eq: 'sell' } } }],
+    [{ filter: { type: { eq: 'auction' } } }],
     [
       {
         filter: {

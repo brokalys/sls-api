@@ -1,10 +1,9 @@
 import { riga, latvia } from '@brokalys/location-json-schemas';
-import { AuthenticationError, UserInputError } from 'apollo-server-lambda';
+import { UserInputError } from 'apollo-server-lambda';
 import moment from 'moment';
 import inside from 'point-in-polygon';
 
 import Bugsnag from 'lib/bugsnag';
-import { hasPermission, PERMISSION_CREATE_PROPERTY } from 'lib/permissions';
 import * as SNS from 'lib/sns';
 import * as utils from 'lib/utils';
 import validationSchema from './validation';
@@ -39,14 +38,7 @@ function getLocationClassificator(lat, lng) {
   return location.properties.id;
 }
 
-async function createProperty(parent, input, context = { dataSources: {} }) {
-  if (
-    !context.isAuthenticated ||
-    !hasPermission(context.customerId, PERMISSION_CREATE_PROPERTY)
-  ) {
-    throw new AuthenticationError();
-  }
-
+async function createProperty(parent, input, context) {
   const validator = validationSchema.validate(JSON.parse(input.input));
 
   // Validate input
@@ -74,7 +66,7 @@ async function createProperty(parent, input, context = { dataSources: {} }) {
   };
 
   // Create a new entry in the DB
-  const propertyId = await properties.create(propertyData);
+  const [propertyId] = await properties.create(propertyData);
 
   // Publish a new SNS message for the created property
   if (

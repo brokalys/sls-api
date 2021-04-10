@@ -1,8 +1,7 @@
 export default {
-  get: jest.fn(() => []),
-  getCount: jest.fn(() => 10),
-  create: jest.fn(() => 123),
-  getInBuildings: jest.fn(() => ({
+  get: jest.fn().mockResolvedValue([]),
+  create: jest.fn().mockResolvedValue([123]),
+  loadByBuildingId: jest.fn(() => ({
     1: [
       {
         building_id: 1,
@@ -10,4 +9,5 @@ export default {
       },
     ],
   })),
+  loadMany: jest.fn().mockResolvedValue([]),
 };

@@ -1,0 +1,143 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Resolver: buildings successfully retrieves all the available fields 1`] = `
+Object {
+  "data": Object {
+    "building": Object {
+      "bounds": "56.992294 24.136619, 56.976394 23.99579, 56.992294 24.136619",
+      "id": 1,
+      "properties": Object {
+        "results": Array [
+          Object {
+            "area": 90,
+            "calc_price_per_sqm": 1.11,
+            "category": "apartment",
+            "content": "",
+            "floor": 2,
+            "foreign_id": null,
+            "id": 1,
+            "images": Array [],
+            "lat": 56.1,
+            "lng": 24.9,
+            "price": 100,
+            "price_per_sqm": 1.11,
+            "published_at": "2021-04-12T19:47:30.000Z",
+            "rent_type": "monthly",
+            "rooms": null,
+            "type": "rent",
+            "url": "https://www.ss.com/msg/lv/real-estate/flats/aizkraukle-and-reg/aiviekstes-pag/aghfx.html",
+          },
+          Object {
+            "area": null,
+            "calc_price_per_sqm": null,
+            "category": "apartment",
+            "content": "",
+            "floor": null,
+            "foreign_id": null,
+            "id": 2,
+            "images": Array [],
+            "lat": 56.1,
+            "lng": 24.9,
+            "price": 200,
+            "price_per_sqm": null,
+            "published_at": "2021-04-12T19:47:30.000Z",
+            "rent_type": "monthly",
+            "rooms": null,
+            "type": "rent",
+            "url": "https://www.ss.lv/msg/lv/real-estate/flats/riga/bolderaya/cceeb.html",
+          },
+        ],
+        "summary": Object {
+          "count": 2,
+          "price": Object {
+            "count": 2,
+            "max": 200,
+            "mean": 150,
+            "median": 150,
+            "min": 100,
+            "mode": 100,
+            "standardDev": 50,
+          },
+        },
+      },
+    },
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
+exports[`Resolver: buildings successfully retrieves building an property information 1`] = `
+Object {
+  "data": Object {
+    "building": Object {
+      "id": 1,
+      "properties": Object {
+        "results": Array [
+          Object {
+            "price": 100,
+          },
+          Object {
+            "price": 200,
+          },
+        ],
+      },
+    },
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
+exports[`Resolver: buildings successfully retrieves single building 1`] = `
+Object {
+  "data": Object {
+    "building": Object {
+      "id": 1,
+    },
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
+exports[`Resolver: buildings throws a validation exception if no id filter provided 1`] = `
+Object {
+  "data": undefined,
+  "errors": Array [
+    Object {
+      "extensions": Object {
+        "code": "GRAPHQL_VALIDATION_FAILED",
+      },
+      "locations": Array [
+        Object {
+          "column": 11,
+          "line": 3,
+        },
+      ],
+      "message": "Field \\"building\\" argument \\"id\\" of type \\"Int!\\" is required, but it was not provided.",
+    },
+  ],
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;

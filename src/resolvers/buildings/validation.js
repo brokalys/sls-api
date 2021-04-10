@@ -1,16 +1,8 @@
 import moment from 'moment';
-
 import Joi from 'lib/validator';
 
-const schema = Joi.alternatives()
-  .try(
-    Joi.object({
-      bounds: Joi.string().polygon().maxArea(0.0001).required(),
-    }).required(),
-    Joi.object({
-      id: Joi.number().required(),
-    }).required(),
-  )
-  .required();
+const schema = Joi.object({
+  id: Joi.number().required(),
+}).required();
 
 export default schema;

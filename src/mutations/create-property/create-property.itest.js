@@ -1,11 +1,10 @@
 import { createTestClient } from 'apollo-server-testing';
-
 import { server } from 'handler';
+import { authenticateAs } from 'helpers';
 import Bugsnag from 'lib/bugsnag';
-import db from 'lib/db';
+import db from 'db-config';
 
 jest.mock('lib/bugsnag');
-jest.mock('lib/db');
 jest.mock('lib/sns');
 
 const mockInput = {
@@ -19,17 +18,17 @@ const mockInput = {
   lng: 55.111112,
 };
 
-describe('Mutation: createProperty', () => {
-  let mutate;
+const { mutate } = createTestClient(server);
 
-  beforeEach(() => {
-    const utils = createTestClient(server);
-    mutate = utils.mutate;
+describe('Mutation: createProperty', () => {
+  beforeAll(async () => {
+    await db.migrate.latest();
+    await db.seed.run();
   });
 
-  // @todo: passing headers to integration tests is currently not possible..
-  // @see https://github.com/apollographql/apollo-server/issues/2277
-  xtest('creates a property with valid data', async () => {
+  test('creates a property with valid data', async () => {
+    authenticateAs('slsCrawler', server);
+
     const response = await mutate({
       mutation: `
         mutation {
@@ -43,9 +42,9 @@ describe('Mutation: createProperty', () => {
     expect(response).toMatchSnapshot();
   });
 
-  // @todo: passing headers to integration tests is currently not possible..
-  // @see https://github.com/apollographql/apollo-server/issues/2277
-  xtest('fails creating a pinger if input validation fails', async () => {
+  test('fails creating a pinger if input validation fails', async () => {
+    authenticateAs('slsCrawler', server);
+
     const response = await mutate({
       mutation: `
         mutation {

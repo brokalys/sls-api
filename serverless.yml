@@ -19,6 +19,7 @@ provider:
         - Effect: Allow
           Action:
             - APIGateway:Get
+            - cloudwatch:PutMetricData
           Resource: '*'
   apiGateway:
     shouldStartNameWithService: true
@@ -145,6 +146,7 @@ custom:
   serverless-offline:
     useChildProcesses: true
     httpPort: 8000
+    noPrependStageInUrl: true
 
   webpack:
     webpackConfig: 'webpack.config.js'
