@@ -252,14 +252,12 @@ describe('Resolver: properties - real queries from other services', () => {
                 category: { eq: $category }
                 type: { eq: $type }
                 rent_type: { in: ["monthly", "unknown"] }
-                price: { gte: 1 }
-                area: { gte: 1 }
+                calc_price_per_sqm: { gt: 0 }
               },
               limit: null
             ) {
               results {
-                price
-                area
+                calc_price_per_sqm
                 lat
                 lng
               }

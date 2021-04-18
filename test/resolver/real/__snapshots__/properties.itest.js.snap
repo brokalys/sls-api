@@ -148,10 +148,9 @@ Object {
     "properties": Object {
       "results": Array [
         Object {
-          "area": 90,
+          "calc_price_per_sqm": 1.11,
           "lat": 56.1,
           "lng": 24.9,
-          "price": 100,
         },
       ],
     },

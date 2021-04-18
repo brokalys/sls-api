@@ -33,6 +33,7 @@ const filter = Joi.object({
   location_classificator: filterable(Joi.string()),
   region: filterable(Joi.string().polygon()),
   price: filterable(Joi.number().integer().min(1)),
+  calc_price_per_sqm: filterable(Joi.number().integer().min(0)),
   rooms: filterable(Joi.number().integer().min(1)),
   floor: filterable(Joi.number().integer().min(1)),
   area: filterable(Joi.number().integer().min(1)),

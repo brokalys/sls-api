@@ -33,7 +33,7 @@ Knex.QueryBuilder.extend('withFilters', function (filters) {
       return query.where(field, filter);
     }
 
-    if (filter.in) {
+    if (filter.in !== undefined) {
       // Reserved keyword
       if (field === 'region') {
         query.whereRaw('ST_Contains(ST_GeomFromText(?), lat_lng_point)', [
@@ -44,19 +44,19 @@ Knex.QueryBuilder.extend('withFilters', function (filters) {
       }
     }
 
-    if (filter.nin) {
+    if (filter.nin !== undefined) {
       query.whereNotIn(field, filter.nin);
     }
 
-    if (filter.eq) {
+    if (filter.eq !== undefined) {
       query.where(field, filter.eq);
     }
 
-    if (filter.neq) {
+    if (filter.neq !== undefined) {
       query.where(field, '!=', filter.neq);
     }
 
-    if (filter.gt) {
+    if (filter.gt !== undefined) {
       query.where(
         field,
         '>',
@@ -64,7 +64,7 @@ Knex.QueryBuilder.extend('withFilters', function (filters) {
       );
     }
 
-    if (filter.gte) {
+    if (filter.gte !== undefined) {
       query.where(
         field,
         '>=',
@@ -72,7 +72,7 @@ Knex.QueryBuilder.extend('withFilters', function (filters) {
       );
     }
 
-    if (filter.lt) {
+    if (filter.lt !== undefined) {
       query.where(
         field,
         '<',
@@ -80,7 +80,7 @@ Knex.QueryBuilder.extend('withFilters', function (filters) {
       );
     }
 
-    if (filter.lte) {
+    if (filter.lte !== undefined) {
       query.where(
         field,
         '<=',

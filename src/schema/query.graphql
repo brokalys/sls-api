@@ -15,6 +15,7 @@ input PropertyFilter {
   type: FilterString
   rent_type: FilterString
   price: FilterInt
+  calc_price_per_sqm: FilterInt
   rooms: FilterInt
   area: FilterInt
   floor: FilterInt
