@@ -61,13 +61,32 @@ export const server = new ApolloServer({
     isDevMode
       ? ApolloServerPluginInlineTrace()
       : ApolloServerPluginInlineTraceDisabled(),
-    !isDevMode
-      ? ApolloServerPluginUsageReportingDisabled()
-      : ApolloServerPluginUsageReporting({
+    !isDevMode && !isTestMode
+      ? ApolloServerPluginUsageReporting({
           sendVariableValues: {
             exceptNames: ['email', 'unsubscribe_key'],
           },
-        }),
+          logger: {
+            debug: () => {},
+            info: () => {},
+            warn: console.warn,
+            error: console.error,
+          },
+          generateClientInfo: ({ context }) => {
+            if (!context.user) {
+              return {
+                clientName: 'Unauthorized',
+                clientVersion: '1.0.0',
+              };
+            }
+
+            return {
+              clientName: context.user.apiKey.name,
+              clientVersion: '1.0.0',
+            };
+          },
+        })
+      : ApolloServerPluginUsageReportingDisabled(),
     {
       requestDidStart(requestContext) {
         return {
