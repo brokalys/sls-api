@@ -72,17 +72,21 @@ export const server = new ApolloServer({
             warn: console.warn,
             error: console.error,
           },
-          generateClientInfo: ({ context }) => {
+          generateClientInfo: ({ context, request }) => {
+            const headers = request.http && request.http.headers;
+            const clientVersion =
+              headers['apollographql-client-version'] || '1.0.0';
+
             if (!context.user) {
               return {
                 clientName: 'Unauthorized',
-                clientVersion: '1.0.0',
+                clientVersion,
               };
             }
 
             return {
               clientName: context.user.apiKey.name,
-              clientVersion: '1.0.0',
+              clientVersion,
             };
           },
         })

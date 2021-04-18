@@ -10,7 +10,7 @@ input PropertyFilter {
   created_at: FilterString
   published_at: FilterString
   location_classificator: FilterString
-  region: FilterString @deprecated
+  region: FilterString @deprecated(reason: "Please use the new bounds API")
   category: FilterString
   type: FilterString
   rent_type: FilterString
@@ -49,6 +49,7 @@ type Property @auth(requires: "ReadPropertyData") {
   images: [String]! @auth(requires: "ReadPropertyData:Detailed")
   price: Float
   price_per_sqm: Float
+    @deprecated(reason: "Please use the new calc_price_per_sqm field")
   calc_price_per_sqm: Float
   rooms: Int
   area: Float
