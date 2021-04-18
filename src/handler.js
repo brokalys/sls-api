@@ -2,6 +2,8 @@ import { ApolloServer, ApolloError } from 'apollo-server-lambda';
 import {
   ApolloServerPluginInlineTrace,
   ApolloServerPluginInlineTraceDisabled,
+  ApolloServerPluginUsageReporting,
+  ApolloServerPluginUsageReportingDisabled,
 } from 'apollo-server-core';
 import Buildings from './data-sources/buildings';
 import Properties from './data-sources/properties';
@@ -15,6 +17,7 @@ import resolvers from './resolvers';
 import './knex-extensions';
 
 const isDevMode = process.env.STAGE === 'dev';
+const isTestMode = process.env.NODE_ENV === 'test';
 
 export const server = new ApolloServer({
   typeDefs: schema,
@@ -39,7 +42,7 @@ export const server = new ApolloServer({
   },
   formatError: (error) => {
     if (
-      (process.env.STAGE !== 'prod' && process.env.NODE_ENV !== 'test') ||
+      (isDevMode && !isTestMode) ||
       error instanceof ApolloError ||
       error.originalError instanceof ApolloError ||
       error.originalError === undefined
@@ -47,7 +50,7 @@ export const server = new ApolloServer({
       return error;
     }
 
-    if (process.env.NODE_ENV !== 'test') {
+    if (!isTestMode) {
       console.log(error);
       Bugsnag.notify(error);
     }
@@ -58,6 +61,13 @@ export const server = new ApolloServer({
     isDevMode
       ? ApolloServerPluginInlineTrace()
       : ApolloServerPluginInlineTraceDisabled(),
+    !isDevMode
+      ? ApolloServerPluginUsageReportingDisabled()
+      : ApolloServerPluginUsageReporting({
+          sendVariableValues: {
+            exceptNames: ['email', 'unsubscribe_key'],
+          },
+        }),
     {
       requestDidStart(requestContext) {
         return {
