@@ -1,42 +1,10 @@
-import { riga, latvia } from '@brokalys/location-json-schemas';
 import { UserInputError } from 'apollo-server-lambda';
 import moment from 'moment';
-import inside from 'point-in-polygon';
-
 import Bugsnag from 'lib/bugsnag';
+import getLocationClassificator from 'lib/location-classificator';
 import * as SNS from 'lib/sns';
 import * as utils from 'lib/utils';
 import validationSchema from './validation';
-
-/**
- * Classify locations for faster regional lookups.
- */
-function getLocationClassificator(lat, lng) {
-  if (!lat || !lng) {
-    return;
-  }
-
-  const location = riga.features.find(({ geometry }) =>
-    inside([lng, lat], geometry.coordinates[0]),
-  );
-
-  if (!location) {
-    const allLatviaLocation = latvia.features
-      .reverse()
-      .find(
-        ({ geometry }) =>
-          !!geometry.coordinates[0].find((coord) => inside([lng, lat], coord)),
-      );
-
-    if (allLatviaLocation) {
-      return allLatviaLocation.properties.id;
-    }
-
-    return;
-  }
-
-  return location.properties.id;
-}
 
 async function createProperty(parent, input, context) {
   const validator = validationSchema.validate(JSON.parse(input.input));
