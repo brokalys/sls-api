@@ -74,6 +74,7 @@ const schema = Joi.object({
   additional_data: Joi.object().default({}),
   published_at: Joi.date().iso(),
   foreign_id: Joi.string().max(100),
+  cadastre_number: Joi.string(),
 });
 
 export default schema;

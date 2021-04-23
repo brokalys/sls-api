@@ -16,6 +16,7 @@ const mockInput = {
   price: 10000,
   lat: 56.11,
   lng: 55.111112,
+  cadastre_number: '01000280009',
 };
 
 const { mutate } = createTestClient(server);

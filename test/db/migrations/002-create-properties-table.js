@@ -23,6 +23,7 @@ exports.up = function (knex) {
     table.string('foreign_id');
     table.integer('building_id');
     table.text('additional_data');
+    table.string('cadastre_number');
   });
 };
 
