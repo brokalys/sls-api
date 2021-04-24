@@ -26,6 +26,7 @@ async function createProperty(parent, input, context) {
 
   const propertyData = {
     ...value,
+    rent_type: value.rent_type === 'unknown' ? undefined : value.rent_type,
     additional_data: JSON.stringify(value.additional_data),
     image_count: value.images.length,
     images: JSON.stringify(value.images),

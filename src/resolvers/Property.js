@@ -10,7 +10,8 @@ export default {
   price: (item) => item.price,
   price_per_sqm: (item) => item.calc_price_per_sqm,
   calc_price_per_sqm: (item) => item.calc_price_per_sqm,
-  rent_type: (item) => (item.type === 'rent' ? item.rent_type : undefined),
+  rent_type: (item) =>
+    item.type === 'rent' ? item.rent_type || 'unknown' : undefined,
   rooms: (item) => item.rooms,
   area: (item) => item.area,
   floor: (item) => item.floor,

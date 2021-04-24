@@ -94,9 +94,18 @@ describe('Property', () => {
   });
 
   describe('rent_type', () => {
-    it('returns rent_type value if property.type is rent', () => {
+    it('returns rent_type value if property.type is rent and rent_type is set', () => {
+      const output = resolvers.rent_type({
+        ...property,
+        type: 'rent',
+        rent_type: 'monthly',
+      });
+      expect(output).toEqual('monthly');
+    });
+
+    it('returns default rent_type value if property.type is rent and rent type is not set', () => {
       const output = resolvers.rent_type({ ...property, type: 'rent' });
-      expect(output).toEqual(property.rent_type);
+      expect(output).toEqual('unknown');
     });
 
     it('returns undefined if property.type is not rent', () => {

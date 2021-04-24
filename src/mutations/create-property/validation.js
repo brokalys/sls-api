@@ -34,7 +34,7 @@ const schema = Joi.object({
     'daily',
     'hourly',
     'unknown',
-  ).default('unknown'),
+  ),
 
   price: Joi.number(),
   price_per_sqm: Joi.number(),
