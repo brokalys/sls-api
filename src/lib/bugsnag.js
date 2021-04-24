@@ -6,6 +6,7 @@ if (apiKey) {
   Bugsnag.start({
     apiKey,
     logger: null,
+    releaseStage: process.env.STAGE,
   });
 }
 
