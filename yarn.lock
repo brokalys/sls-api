@@ -7385,6 +7385,11 @@ kleur@^3.0.3:
   resolved "https://registry.yarnpkg.com/kleur/-/kleur-3.0.3.tgz#a79c9ecc86ee1ce3fa6206d1216c501f147fc07e"
   integrity sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==
 
+knex-serverless-mysql@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/knex-serverless-mysql/-/knex-serverless-mysql-1.1.0.tgz#87b74973bdc323a432bdb77e257dfa839aa3a3cb"
+  integrity sha512-aFFYIQS4+f3JhXTx03XOdEr74uDjPezOAlMh51PlKQy0d46VGdsClKtyiHyF/C11dUiMrX8DTpJTve0c6qjOKQ==
+
 knex-tiny-logger@^2.0.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/knex-tiny-logger/-/knex-tiny-logger-2.1.0.tgz#11a7cc9b6979eb9dc34c8c5591abb31eff5f5b81"

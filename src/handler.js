@@ -10,7 +10,6 @@ import Properties from './data-sources/properties';
 import loadUser from './lib/auth';
 import AuhtDirective from './lib/auth-directive';
 import Bugsnag from './lib/bugsnag';
-import mysql from './lib/db';
 import schema from './schema/schema.graphql';
 import dbConfig from './db-config';
 import resolvers from './resolvers';
@@ -91,15 +90,6 @@ export const server = new ApolloServer({
           },
         })
       : ApolloServerPluginUsageReportingDisabled(),
-    {
-      requestDidStart(requestContext) {
-        return {
-          willSendResponse() {
-            return mysql.end();
-          },
-        };
-      },
-    },
   ],
 });
 

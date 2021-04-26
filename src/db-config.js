@@ -1,10 +1,12 @@
 import Knex from 'knex';
+import ServerlessMysqlClient from 'knex-serverless-mysql';
 import path from 'path';
-import ServerlessMysqlClient from './data-sources/client';
+import mysql from 'lib/db';
 
 const config = {
   prod: {
     client: ServerlessMysqlClient,
+    mysql,
   },
 
   test: {
