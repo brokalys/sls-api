@@ -81,8 +81,11 @@ exports.seed = function (knex) {
           type: 'sell',
           rent_type: null,
           price: 400,
+          foreign_id: 'id111',
           location_classificator: 'latvia-riga-mezciems',
           building_id: 4,
+          created_at: '2020-01-02T00:00:00.000Z',
+          published_at: '2021-04-12T19:47:30.000Z',
         },
         {
           id: 7,

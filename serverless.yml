@@ -40,6 +40,10 @@ provider:
           - name: ${self:provider.stage}-mapAppKey
             description: API key used by map-app
             customerId: mapApp
+      - chromeExtension:
+          - name: ${self:provider.stage}-chromeExtensionKey
+            description: API key used by chrome extension
+            customerId: chromeExtension
     usagePlan:
       - slsCrawler:
           quota:
@@ -66,6 +70,14 @@ provider:
             burstLimit: 200
             rateLimit: 200
       - mapApp:
+          quota:
+            limit: 100000
+            offset: 1
+            period: MONTH
+          throttle:
+            burstLimit: 50
+            rateLimit: 200
+      - chromeExtension:
           quota:
             limit: 100000
             offset: 1

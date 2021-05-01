@@ -22,4 +22,6 @@ export default {
     moment(item.published_at).isBefore('2018-01-01')
       ? undefined
       : moment(item.published_at).toISOString(),
+  building: (item, input, context) =>
+    item.building_id && context.dataSources.buildings.getById(item.building_id),
 };

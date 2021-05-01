@@ -1,5 +1,33 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Resolver: properties - real queries from other services chrome extension get ss.lv data 1`] = `
+Object {
+  "data": Object {
+    "properties": Object {
+      "results": Array [
+        Object {
+          "building": Object {
+            "id": 4,
+            "properties": Object {
+              "summary": Object {
+                "count": 3,
+              },
+            },
+          },
+        },
+      ],
+    },
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
 exports[`Resolver: properties - real queries from other services crawler city24.lv 1`] = `
 Object {
   "data": Object {

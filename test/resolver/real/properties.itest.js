@@ -321,4 +321,50 @@ describe('Resolver: properties - real queries from other services', () => {
       expect(response).toMatchSnapshot();
     });
   });
+
+  describe('chrome extension', () => {
+    test('get ss.lv data', async () => {
+      authenticateAs('chromeExtension', server);
+
+      const response = await query({
+        query: `
+          query ChromeExtension_GetState($filter: PropertyFilter!) {
+            properties(filter: $filter, limit: 1) {
+              results {
+                building {
+                  id
+                  properties {
+                    summary {
+                      count
+                    }
+                  }
+                }
+              }
+            }
+          }
+        `,
+        variables: {
+          filter: {
+            source: {
+              eq: 'ss.lv',
+            },
+            category: {
+              eq: 'house',
+            },
+            type: {
+              eq: 'sell',
+            },
+            foreign_id: {
+              eq: 'id111',
+            },
+            published_at: {
+              gte: '2010-01-01T00:00:00.000Z',
+            },
+          },
+        },
+      });
+
+      expect(response).toMatchSnapshot();
+    });
+  });
 });
