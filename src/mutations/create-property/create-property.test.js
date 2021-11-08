@@ -89,7 +89,7 @@ describe('createProperty', () => {
 
       expect(dataSources.properties.create).toHaveBeenCalledWith(
         expect.objectContaining({
-          calc_price_per_sqm: 123,
+          calc_price_per_sqm: '123.00',
         }),
       );
     });
@@ -115,7 +115,7 @@ describe('createProperty', () => {
 
       expect(dataSources.properties.create).toHaveBeenCalledWith(
         expect.objectContaining({
-          calc_price_per_sqm: 100,
+          calc_price_per_sqm: '100.00',
         }),
       );
     });
