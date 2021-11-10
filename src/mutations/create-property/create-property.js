@@ -61,11 +61,11 @@ async function createProperty(parent, input, context) {
 
 function calculatePricePerSqm(obj) {
   if (obj.price_per_sqm) {
-    return obj.price_per_sqm.toFixed(2);
+    return Number(obj.price_per_sqm.toFixed(2));
   }
 
   if (obj.area > 0 && obj.area_measurement === 'm2' && obj.price > 0) {
-    return (obj.price / obj.area).toFixed(2);
+    return Number((obj.price / obj.area).toFixed(2));
   }
 }
 
