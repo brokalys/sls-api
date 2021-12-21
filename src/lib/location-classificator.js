@@ -2,7 +2,7 @@ import { riga, latvia } from '@brokalys/location-json-schemas';
 import area from 'area-polygon';
 import inside from 'point-in-polygon';
 
-const latviaFeatures = latvia.features;
+const latviaFeatures = latvia.features.reverse();
 
 /**
  * Classify locations for faster regional lookups.
