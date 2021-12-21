@@ -7,6 +7,7 @@ describe('getLocationClassificator', () => {
     [56.91918143, 24.01534081, 'latvia-marupes-novads'],
     [56.91906, 24.01539, 'latvia-marupes-novads'],
     [56.91926342, 24.01765823, 'latvia-marupes-novads'],
+    [56.50901459, 27.33291236, 'latvia-rezekne'],
   ])(
     'classifies the location correctly: %j, %j as %s',
     (lat, lng, expectation) => {

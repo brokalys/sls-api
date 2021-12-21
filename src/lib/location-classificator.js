@@ -1,7 +1,8 @@
 import { riga, latvia } from '@brokalys/location-json-schemas';
+import area from 'area-polygon';
 import inside from 'point-in-polygon';
 
-const latviaFeatures = latvia.features.reverse();
+const latviaFeatures = latvia.features;
 
 /**
  * Classify locations for faster regional lookups.
@@ -19,12 +20,21 @@ export default function getLocationClassificator(lat, lng) {
     return location.properties.id;
   }
 
-  const allLatviaLocation = latviaFeatures.find(
-    ({ geometry }) =>
-      !!geometry.coordinates[0].find((coord) => inside([lng, lat], coord)),
-  );
+  const allLatviaLocations = latviaFeatures
+    .filter(
+      ({ geometry }) =>
+        !!geometry.coordinates[0].find((coord) => inside([lng, lat], coord)),
+    )
+    .map((row) => ({
+      id: row.properties.id,
+      area: row.geometry.coordinates[0].reduce(
+        (carry, item) => carry + area(item),
+        0,
+      ),
+    }))
+    .sort((a, b) => a.area - b.area);
 
-  if (allLatviaLocation) {
-    return allLatviaLocation.properties.id;
+  if (allLatviaLocations.length) {
+    return allLatviaLocations[0].id;
   }
 }
