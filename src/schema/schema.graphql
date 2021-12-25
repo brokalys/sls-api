@@ -15,6 +15,7 @@ enum Category {
 enum Type {
   SELL
   RENT
+  AUCTION
 }
 
 enum PriceType {
