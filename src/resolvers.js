@@ -4,6 +4,7 @@ import createProperty from './mutations/create-property';
 import unsubscribePinger from './mutations/unsubscribe-pinger';
 import bounds from './resolvers/bounds';
 import building from './resolvers/buildings';
+import point from './resolvers/point';
 import properties from './resolvers/properties';
 import Building from './resolvers/Building';
 import Property from './resolvers/Property';
@@ -14,6 +15,7 @@ export default {
   Query: {
     bounds,
     building,
+    point,
     properties,
   },
   Mutation: {

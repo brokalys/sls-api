@@ -14,4 +14,10 @@ export default class Buildings extends BaseDataSource {
       .withSchema(process.env.DB_DATABASE)
       .whereInBounds(bounds);
   }
+
+  getInPoint(lat, lng) {
+    return this.knex('buildings')
+      .withSchema(process.env.DB_DATABASE)
+      .whereInPoint(lat, lng);
+  }
 }

@@ -2,7 +2,7 @@ import Knex from 'knex';
 
 Knex.QueryBuilder.extend('whereInBounds', function (bounds) {
   return this.where(function () {
-    // Sqlite does not support spatial lookup
+    // SQLite does not support spatial lookup
     // some ugly hacking to make integration tests work nicely
     if (this.client.driverName === 'sqlite3') {
       const parts = bounds.split(', ');
@@ -21,6 +21,20 @@ Knex.QueryBuilder.extend('whereInBounds', function (bounds) {
 
     return this.whereRaw('ST_Contains(ST_GeomFromText(?), bounds)', [
       `POLYGON((${bounds}))`,
+    ]);
+  });
+});
+
+Knex.QueryBuilder.extend('whereInPoint', function (lat, lng) {
+  return this.where(function () {
+    // SQLite does not support spatial lookup
+    // some ugly hacking to make integration tests work nicely
+    if (this.client.driverName === 'sqlite3') {
+      return this.where('id', parseInt(lat + lng));
+    }
+
+    return this.whereRaw('ST_Contains(bounds, ST_GeomFromText(?))', [
+      `POINT(${lat} ${lng})`,
     ]);
   });
 });

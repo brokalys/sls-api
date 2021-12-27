@@ -4,6 +4,7 @@ type Query {
   properties(filter: PropertyFilter, limit: Int): PropertyWrapper!
   building(id: Int!): Building @auth
   bounds(bounds: String!): Bounds! @auth
+  point(lat: Float!, lng: Float!): Point! @auth
 }
 
 input PropertyFilter {
@@ -75,6 +76,10 @@ type Building @auth {
 
 type Bounds {
   bounds: String!
+  buildings: [Building!]! @auth
+}
+
+type Point {
   buildings: [Building!]! @auth
 }
 
