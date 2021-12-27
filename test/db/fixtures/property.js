@@ -1,8 +1,7 @@
 export default function makeProperty(customData = {}) {
   return {
     source: 'ss.lv',
-    url:
-      'https://www.ss.com/msg/lv/real-estate/flats/aizkraukle-and-reg/aiviekstes-pag/aghfx.html',
+    url: 'https://www.ss.com/msg/lv/real-estate/flats/aizkraukle-and-reg/aiviekstes-pag/aghfx.html',
     category: 'apartment',
     type: 'rent',
     rent_type: 'monthly',

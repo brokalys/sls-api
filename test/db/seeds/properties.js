@@ -6,8 +6,7 @@ exports.seed = function (knex) {
         {
           id: 1,
           source: 'ss.lv',
-          url:
-            'https://www.ss.com/msg/lv/real-estate/flats/aizkraukle-and-reg/aiviekstes-pag/aghfx.html',
+          url: 'https://www.ss.com/msg/lv/real-estate/flats/aizkraukle-and-reg/aiviekstes-pag/aghfx.html',
           category: 'apartment',
           type: 'rent',
           rent_type: 'monthly',
@@ -25,8 +24,7 @@ exports.seed = function (knex) {
         {
           id: 2,
           source: 'ss.lv',
-          url:
-            'https://www.ss.lv/msg/lv/real-estate/flats/riga/bolderaya/cceeb.html',
+          url: 'https://www.ss.lv/msg/lv/real-estate/flats/riga/bolderaya/cceeb.html',
           category: 'apartment',
           type: 'rent',
           rent_type: 'monthly',
@@ -41,8 +39,7 @@ exports.seed = function (knex) {
         {
           id: 3,
           source: 'ss.lv',
-          url:
-            'https://www.ss.com/msg/lv/real-estate/homes-summer-residences/tukums-and-reg/engures-pag/hhjbf.html',
+          url: 'https://www.ss.com/msg/lv/real-estate/homes-summer-residences/tukums-and-reg/engures-pag/hhjbf.html',
           category: 'house',
           type: 'rent',
           rent_type: 'monthly',
