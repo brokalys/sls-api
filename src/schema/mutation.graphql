@@ -52,7 +52,7 @@ type Mutation {
     content: String
     building_project: String
     building_material: String
-    images: [String]!
+    images: [String]
 
     foreign_id: String
     additional_data: String
