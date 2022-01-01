@@ -7,6 +7,7 @@ import {
 } from 'apollo-server-core';
 import Buildings from './data-sources/buildings';
 import Properties from './data-sources/properties';
+import UserClassifieds from './data-sources/user-classifieds';
 import loadUser from './lib/auth';
 import AuhtDirective from './lib/auth-directive';
 import Bugsnag from './lib/bugsnag';
@@ -27,6 +28,7 @@ export const server = new ApolloServer({
   dataSources: () => ({
     buildings: new Buildings(dbConfig),
     properties: new Properties(dbConfig),
+    userClassifieds: new UserClassifieds(dbConfig),
   }),
   tracing: isDevMode,
   playground: isDevMode,

@@ -12,6 +12,9 @@ exports.seed = function (knex) {
               { x: 56.992294, y: 24.136619 },
             ],
           ]),
+          city: 'riga',
+          street: 'brivibas',
+          housenumber: '12',
         },
         {
           id: 2,
@@ -22,6 +25,9 @@ exports.seed = function (knex) {
               { x: 56.992294, y: 24.136619 },
             ],
           ]),
+          city: 'riga',
+          street: 'brivibas',
+          housenumber: '13',
         },
         {
           id: 3,
@@ -42,6 +48,9 @@ exports.seed = function (knex) {
               { x: 56.1, y: 24.1 },
             ],
           ]),
+          city: 'riga',
+          street: 'brivibas',
+          housenumber: '13',
         },
       ]);
     });

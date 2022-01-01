@@ -1,4 +1,5 @@
 /* istanbul ignore file */
+import calculateBuildingId from './mutations/calculate-building-id';
 import createPinger from './mutations/create-pinger';
 import createProperty from './mutations/create-property';
 import unsubscribePinger from './mutations/unsubscribe-pinger';
@@ -19,6 +20,7 @@ export default {
     properties,
   },
   Mutation: {
+    calculateBuildingId,
     createPinger,
     createProperty,
     unsubscribePinger,

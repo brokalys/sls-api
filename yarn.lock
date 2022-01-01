@@ -965,6 +965,13 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
+"@brokalys/address-normalization@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@brokalys/address-normalization/-/address-normalization-1.0.0.tgz#686ee282180aa4b3511619d7dc4487725f4185f5"
+  integrity sha512-w0/UC/eJ+BzGgvd+BZado5U582n1aplGXv3uXXwnMYAwMzNKwK3uulyWl81KHF+pHnFyEz0Mdb0C+pNVWoyMWg==
+  dependencies:
+    diacritics "^1.3.0"
+
 "@brokalys/location-json-schemas@^1.2.0":
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/@brokalys/location-json-schemas/-/location-json-schemas-1.3.0.tgz#3774e61250ec4841ac32f579ddafba786124aa1b"
@@ -4284,6 +4291,11 @@ detect-newline@^3.0.0:
   resolved "https://registry.yarnpkg.com/detect-newline/-/detect-newline-3.1.0.tgz#576f5dfc63ae1a192ff192d8ad3af6308991b651"
   integrity sha512-TLz+x/vEXm/Y7P7wn1EJFNLxYpUD4TgMosxY6fAVJUnJMbupHBOncxyWUG9OpTaH9EBD7uFI5LfEgmMOc54DsA==
 
+diacritics@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/diacritics/-/diacritics-1.3.0.tgz#3efa87323ebb863e6696cebb0082d48ff3d6f7a1"
+  integrity sha1-PvqHMj67hj5mls67AILUj/PW96E=
+
 diagnostics@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/diagnostics/-/diagnostics-1.1.1.tgz#cab6ac33df70c9d9a727490ae43ac995a769b22a"
@@ -4321,6 +4333,11 @@ dir-glob@^3.0.1:
   integrity sha512-WkrWp9GR4KXfKGYzOLmTuGVi1UWFfws377n9cc55/tb6DuqyF6pcQ5AbiHEshaDpY9v6oaSr2XCDidGmMwdzIA==
   dependencies:
     path-type "^4.0.0"
+
+distance-to-polygon@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/distance-to-polygon/-/distance-to-polygon-2.0.2.tgz#4e17983f8989ddcf33962c5c57ce8d54c37987f6"
+  integrity sha1-TheYP4mJ3c8zlixcV86NVMN5h/Y=
 
 doctrine@^3.0.0:
   version "3.0.0"

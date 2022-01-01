@@ -35,4 +35,5 @@ export default {
       ],
     },
   ]),
+  findBuildingIdByAddress: jest.fn(() => 1),
 };

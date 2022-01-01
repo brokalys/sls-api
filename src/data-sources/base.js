@@ -1,10 +1,12 @@
 import DataLoader from 'dataloader';
 import { SQLDataSource } from 'datasource-sql';
+import '../knex-extensions';
 
 export default class BaseDataSource extends SQLDataSource {
   constructor(knexConfig) {
     super(knexConfig);
 
+    this.config = knexConfig;
     this.loaders = new Map();
   }
 

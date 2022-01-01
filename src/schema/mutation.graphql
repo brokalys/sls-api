@@ -23,4 +23,44 @@ type Mutation {
   ): Boolean!
 
   createProperty(input: String!): Boolean! @auth(requires: "CreateProperty")
+
+  calculateBuildingId(
+    source: String
+    url: String
+
+    category: String
+    type: String
+    rent_type: String
+
+    lat: Float
+    lng: Float
+
+    price: Float
+    price_per_sqm: Float
+
+    location_district: String
+    location_parish: String
+    location_address: String
+    location_village: String
+
+    rooms: Int
+    area: Int
+    area_measurement: String
+    floor: Int
+    max_floors: Int
+
+    content: String
+    building_project: String
+    building_material: String
+    images: [String]!
+
+    foreign_id: String
+    additional_data: String
+    cadastre_number: String
+
+    land_area: Float
+    land_area_measurement: String
+    published_at: String
+    views: Int
+  ): Int
 }

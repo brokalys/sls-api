@@ -10,6 +10,9 @@ exports.up = function (knex) {
     table.string('building');
     table.integer('building_levels');
     table.integer('osm_id');
+    table.string('city');
+    table.string('street');
+    table.string('housenumber');
   });
 };
 
