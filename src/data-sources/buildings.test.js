@@ -1,6 +1,5 @@
 import BuildingsDataSource from './buildings';
 import db from 'db-config';
-import Knex from 'knex';
 
 describe('BuildingsDataSource', () => {
   let dataSource;
@@ -10,9 +9,12 @@ describe('BuildingsDataSource', () => {
     await db.seed.run();
   });
 
+  afterAll(async () => {
+    await db.destroy();
+  });
+
   beforeEach(() => {
     dataSource = new BuildingsDataSource(db);
-    jest.spyOn(dataSource, 'knex');
   });
 
   describe('findBuildingIdByAddress', () => {
@@ -61,6 +63,8 @@ describe('BuildingsDataSource', () => {
     });
 
     it('if not enough data - returns nothing', async () => {
+      jest.spyOn(dataSource, 'knex');
+
       const output = await dataSource.findBuildingIdByAddress({});
 
       expect(dataSource.knex).not.toBeCalled();
