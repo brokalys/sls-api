@@ -24,6 +24,8 @@ export default class Buildings extends BaseDataSource {
   }
 
   async findBuildingIdByAddress({
+    category,
+    type,
     city,
     street,
     housenumber,
@@ -31,6 +33,14 @@ export default class Buildings extends BaseDataSource {
     lng,
     foreign_id,
   }) {
+    // Whitelist: only these options will have a "building"
+    if (
+      (!!category && !['apartment', 'house', 'office'].includes(category)) ||
+      (!!type && !['sell', 'auction', 'rent'].includes(type))
+    ) {
+      return;
+    }
+
     if (city && street && housenumber) {
       const buildings = await this.knex('buildings')
         .withSchema(process.env.DB_DATABASE)

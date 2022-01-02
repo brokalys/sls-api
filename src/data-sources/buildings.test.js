@@ -70,5 +70,29 @@ describe('BuildingsDataSource', () => {
       expect(dataSource.knex).not.toBeCalled();
       expect(output).toEqual(undefined);
     });
+
+    it.each([
+      [{ category: 'apartment' }, true],
+      [{ category: 'house' }, true],
+      [{ category: 'office' }, true],
+      [{ category: 'land' }, false],
+      [{ type: 'rent' }, true],
+      [{ type: 'sell' }, true],
+      [{ type: 'auction' }, true],
+      [{ type: 'want_to_rent' }, false],
+    ])('%j property makes DB query = %b', async (data, makseDBCall) => {
+      jest.spyOn(dataSource, 'knex');
+
+      const output = await dataSource.findBuildingIdByAddress({
+        ...data,
+        foreign_id: '123',
+      });
+
+      if (makseDBCall) {
+        expect(dataSource.knex).toBeCalled();
+      } else {
+        expect(dataSource.knex).not.toBeCalled();
+      }
+    });
   });
 });

@@ -13,10 +13,8 @@ async function calculateBuildingId(parent, input, context) {
   const [buildingId] = await Promise.all([
     // Attempt to locate the appropriate building
     buildings.findBuildingIdByAddress({
+      ...data,
       ...addr,
-      lat: data.lat,
-      lng: data.lng,
-      foreign_id: data.foreign_id,
     }),
 
     // Create a new entry in the DB
