@@ -27,11 +27,9 @@ class Properties extends BaseDataSource {
   }
 
   loadMany(ids, fields) {
-    const query = this.knex('properties')
-      .withSchema(process.env.DB_DATABASE)
-      .select(fields);
-
-    return this.getDataLoader(query)
+    return this.getDataLoader(
+      this.knex('properties').withSchema(process.env.DB_DATABASE),
+    )
       .loadMany(ids)
       .then((results) => results.map(([data]) => data));
   }
@@ -39,10 +37,19 @@ class Properties extends BaseDataSource {
   loadByBuildingId(id, filters) {
     const query = this.knex('properties')
       .withSchema(process.env.DB_DATABASE)
+      .leftJoin(
+        'property_building_links',
+        'properties.id',
+        'property_building_links.property_id',
+      )
       .withFilters(filters)
-      .select('id');
+      .select('properties.id', 'property_building_links.vzd_building_id');
 
-    return this.getDataLoader(query, 'building_id').load(id);
+    return this.getDataLoader(
+      query,
+      'property_building_links.vzd_building_id',
+      'vzd_building_id',
+    ).load(id);
   }
 
   create(values) {

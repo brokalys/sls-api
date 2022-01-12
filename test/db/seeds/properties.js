@@ -17,7 +17,6 @@ exports.seed = function (knex) {
           area: 90,
           floor: 2,
           calc_price_per_sqm: 1.11,
-          building_id: 1,
           created_at: '2021-01-02T00:00:00.000Z',
           published_at: '2021-04-12T19:47:30.000Z',
         },
@@ -32,7 +31,6 @@ exports.seed = function (knex) {
           lat: 56.1,
           lng: 24.9,
           location_classificator: 'latvia-riga-agenskalns',
-          building_id: 1,
           created_at: '2019-04-02T00:00:00.000Z',
           published_at: '2021-04-12T19:47:30.000Z',
         },
@@ -45,7 +43,6 @@ exports.seed = function (knex) {
           rent_type: 'monthly',
           price: 300,
           location_classificator: 'latvia-riga-mezciems',
-          building_id: 2,
           created_at: '2020-01-02T00:00:00.000Z',
           published_at: '2021-04-12T19:47:30.000Z',
         },
@@ -57,7 +54,6 @@ exports.seed = function (knex) {
           rent_type: 'monthly',
           price: 400,
           location_classificator: 'latvia-riga-mezciems',
-          building_id: 4,
           foreign_id: 'id111',
         },
         {
@@ -68,7 +64,6 @@ exports.seed = function (knex) {
           rent_type: 'monthly',
           price: 400,
           location_classificator: 'latvia-riga-mezciems',
-          building_id: 4,
           foreign_id: 'id999',
         },
         {
@@ -80,7 +75,6 @@ exports.seed = function (knex) {
           price: 400,
           foreign_id: 'id111',
           location_classificator: 'latvia-riga-mezciems',
-          building_id: 4,
           created_at: '2020-01-02T00:00:00.000Z',
           published_at: '2021-04-12T19:47:30.000Z',
         },
@@ -94,7 +88,6 @@ exports.seed = function (knex) {
           price: 60000,
           location_classificator: 'latvia-riga-vecpilseta',
           foreign_id: '10001',
-          building_id: 5,
         },
         {
           id: 8,
@@ -106,7 +99,6 @@ exports.seed = function (knex) {
           price: 400000,
           location_classificator: 'latvia-riga-vecpilseta',
           foreign_id: '10009',
-          building_id: 5,
         },
         {
           id: 9,
@@ -117,7 +109,6 @@ exports.seed = function (knex) {
           rent_type: null,
           price: 400000,
           foreign_id: 'id111',
-          building_id: 5,
         },
         {
           id: 10,
@@ -128,7 +119,6 @@ exports.seed = function (knex) {
           rent_type: null,
           price: 400000,
           foreign_id: 'id222',
-          building_id: 5,
         },
       ]);
     });

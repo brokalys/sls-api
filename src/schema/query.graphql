@@ -60,7 +60,6 @@ type Property @auth(requires: "ReadPropertyData") {
   lng: Float @auth(requires: "ReadPropertyData:Detailed")
   published_at: String
   foreign_id: String @auth(requires: "ReadPropertyData:Detailed")
-  building: Building
 }
 
 type PropertyWrapper {

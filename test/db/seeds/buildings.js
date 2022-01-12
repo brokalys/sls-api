@@ -1,8 +1,8 @@
 exports.seed = function (knex) {
-  return knex('buildings')
+  return knex('vzd_buildings')
     .del()
     .then(function () {
-      return knex('buildings').insert([
+      return knex('vzd_buildings').insert([
         {
           id: 1,
           bounds: JSON.stringify([
@@ -14,7 +14,7 @@ exports.seed = function (knex) {
           ]),
           city: 'riga',
           street: 'brivibas',
-          housenumber: '12',
+          house_number: '12',
         },
         {
           id: 2,
@@ -27,7 +27,7 @@ exports.seed = function (knex) {
           ]),
           city: 'riga',
           street: 'brivibas',
-          housenumber: '13',
+          house_number: '13',
         },
         {
           id: 3,
@@ -50,7 +50,7 @@ exports.seed = function (knex) {
           ]),
           city: 'riga',
           street: 'brivibas',
-          housenumber: '13',
+          house_number: '13',
         },
       ]);
     });

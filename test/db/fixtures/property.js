@@ -12,7 +12,6 @@ export default function makeProperty(customData = {}) {
     area: 90,
     floor: 2,
     calc_price_per_sqm: 1.11,
-    building_id: 1,
     created_at: '2021-01-02T00:00:00.000Z',
     published_at: '2021-04-12T19:47:30.000Z',
     ...customData,

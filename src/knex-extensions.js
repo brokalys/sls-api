@@ -1,6 +1,6 @@
 import Knex from 'knex';
 
-Knex.QueryBuilder.extend('whereInBounds', function (bounds) {
+Knex.QueryBuilder.extend('whereInPolygon', function (fieldName, bounds) {
   return this.where(function () {
     // SQLite does not support spatial lookup
     // some ugly hacking to make integration tests work nicely
@@ -9,7 +9,7 @@ Knex.QueryBuilder.extend('whereInBounds', function (bounds) {
       if (parts[0] === parts[parts.length - 1]) parts.pop();
 
       return this.where(
-        'bounds',
+        fieldName,
         JSON.stringify([
           parts.map((row) => {
             const [x, y] = row.split(' ');
@@ -19,13 +19,13 @@ Knex.QueryBuilder.extend('whereInBounds', function (bounds) {
       );
     }
 
-    return this.whereRaw('ST_Contains(ST_GeomFromText(?), bounds)', [
+    return this.whereRaw(`ST_Contains(ST_GeomFromText(?), ${fieldName})`, [
       `POLYGON((${bounds}))`,
     ]);
   });
 });
 
-Knex.QueryBuilder.extend('whereInPoint', function (lat, lng) {
+Knex.QueryBuilder.extend('whereInPoint', function (fieldName, lat, lng) {
   return this.where(function () {
     // SQLite does not support spatial lookup
     // some ugly hacking to make integration tests work nicely
@@ -33,7 +33,7 @@ Knex.QueryBuilder.extend('whereInPoint', function (lat, lng) {
       return this.where('id', parseInt(lat + lng));
     }
 
-    return this.whereRaw('ST_Contains(bounds, ST_GeomFromText(?))', [
+    return this.whereRaw(`ST_Contains(${fieldName}, ST_GeomFromText(?))`, [
       `POINT(${lat} ${lng})`,
     ]);
   });

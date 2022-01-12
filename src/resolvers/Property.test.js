@@ -1,7 +1,4 @@
-import BuildingsDataSource from 'data-sources/buildings';
 import resolvers from './Property';
-
-jest.mock('data-sources/buildings');
 
 const property = {
   id: 1,
@@ -20,18 +17,9 @@ const property = {
   lng: 24.1,
   foreign_id: 'id-123',
   published_at: '2020-01-01T00:00:10.000Z',
-  building_id: 123,
 };
 
 describe('Property', () => {
-  let dataSources;
-
-  beforeEach(() => {
-    dataSources = {
-      buildings: BuildingsDataSource,
-    };
-  });
-
   describe('id', () => {
     it('returns id value', () => {
       const output = resolvers.id(property);
@@ -180,34 +168,6 @@ describe('Property', () => {
         published_at: '2010-01-01T00:00:00.000Z',
       });
       expect(output).toBeUndefined();
-    });
-  });
-
-  describe('building', () => {
-    it('forwards the `building_id` field to the data-source getter if `building_id` is set', () => {
-      const mockBuilding = {
-        id: property.building_id,
-      };
-      BuildingsDataSource.getById.mockReturnValueOnce(mockBuilding);
-
-      const output = resolvers.building(property, {}, { dataSources });
-
-      expect(BuildingsDataSource.getById).toBeCalled();
-      expect(output).toEqual(mockBuilding);
-    });
-
-    it('does not forward the `building_id` field to the data-source getter if `building_id` is empty', () => {
-      const output = resolvers.building(
-        {
-          ...property,
-          building_id: null,
-        },
-        {},
-        { dataSources },
-      );
-
-      expect(BuildingsDataSource.getById).not.toBeCalled();
-      expect(output).toBeNull();
     });
   });
 });

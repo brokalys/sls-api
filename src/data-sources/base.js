@@ -10,10 +10,10 @@ export default class BaseDataSource extends SQLDataSource {
     this.loaders = new Map();
   }
 
-  getDataLoader(query, keyField = 'id') {
+  getDataLoader(query, selectField = 'id', keyField = selectField) {
     // Add the key field if this is not a get-all query
-    if (keyField && !/^select \* /i.test(query.toString())) {
-      query.select(keyField);
+    if (!/^select \* /i.test(query.toString())) {
+      query.select(selectField);
     }
 
     const hash = query.toString();
@@ -22,16 +22,16 @@ export default class BaseDataSource extends SQLDataSource {
       return this.loaders.get(hash);
     }
 
-    const loader = new DataLoader(batchGet(query, keyField));
+    const loader = new DataLoader(batchGet(query, selectField, keyField));
 
     this.loaders.set(hash, loader);
     return loader;
   }
 }
 
-function batchGet(query, keyField) {
+function batchGet(query, selectField, keyField) {
   return async (ids) => {
-    const data = await query.whereIn(keyField, ids);
+    const data = await query.whereIn(selectField, ids);
 
     const map = new Map();
     ids.forEach((item) => map.set(item, []));

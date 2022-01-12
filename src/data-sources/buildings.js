@@ -2,25 +2,27 @@ import { distanceToPolygon } from 'distance-to-polygon';
 
 import BaseDataSource from './base';
 
+const TABLE_NAME = 'vzd_buildings';
+
 export default class Buildings extends BaseDataSource {
   getById(id) {
     return this.getDataLoader(
-      this.knex('buildings').withSchema(process.env.DB_DATABASE),
+      this.knex(TABLE_NAME).withSchema(process.env.DB_DATABASE),
     )
       .load(id)
       .then(([result]) => result);
   }
 
   getInBounds(bounds) {
-    return this.knex('buildings')
+    return this.knex(TABLE_NAME)
       .withSchema(process.env.DB_DATABASE)
-      .whereInBounds(bounds);
+      .whereInPolygon('bounds', bounds);
   }
 
   getInPoint(lat, lng) {
-    return this.knex('buildings')
+    return this.knex(TABLE_NAME)
       .withSchema(process.env.DB_DATABASE)
-      .whereInPoint(lat, lng);
+      .whereInPoint('bounds', lat, lng);
   }
 
   async findBuildingIdByAddress({
@@ -42,11 +44,11 @@ export default class Buildings extends BaseDataSource {
     }
 
     if (city && street && housenumber) {
-      const buildings = await this.knex('buildings')
+      const buildings = await this.knex(TABLE_NAME)
         .withSchema(process.env.DB_DATABASE)
         .where('city', city)
         .where('street', street)
-        .where('housenumber', housenumber);
+        .where('house_number', housenumber);
 
       if (buildings.length) {
         // Since there can be multiple matches.. calculate the distance
@@ -87,7 +89,12 @@ export default class Buildings extends BaseDataSource {
     if (foreign_id) {
       const property = await this.knex('properties')
         .withSchema(process.env.DB_DATABASE)
-        .select('building_id')
+        .select('property_building_links.vzd_building_id as building_id')
+        .leftJoin(
+          'property_building_links',
+          'properties.id',
+          'property_building_links.property_id',
+        )
         .where('foreign_id', foreign_id)
         .first();
 

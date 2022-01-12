@@ -8,7 +8,7 @@ provider:
   architecture: arm64
   stage: ${opt:stage, 'dev'}
   logRetentionInDays: 7
-  versionFunctions: false
+  versionFunctions: true
   timeout: 10
   iam:
     role:

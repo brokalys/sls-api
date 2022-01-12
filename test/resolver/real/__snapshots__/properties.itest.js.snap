@@ -3,19 +3,24 @@
 exports[`Resolver: properties - real queries from other services chrome extension get ss.lv data 1`] = `
 Object {
   "data": Object {
-    "properties": Object {
-      "results": Array [
-        Object {
-          "building": Object {
-            "id": 4,
-            "properties": Object {
-              "summary": Object {
-                "count": 3,
-              },
-            },
+    "building": Object {
+      "bounds": "56 24, 56.1 23.1, 56.1 24.1",
+      "id": 4,
+      "properties": Object {
+        "results": Array [
+          Object {
+            "area": null,
+            "calc_price_per_sqm": null,
+            "category": "house",
+            "id": 6,
+            "price": 400,
+            "published_at": "2021-04-12T19:47:30.000Z",
+            "rent_type": null,
+            "rooms": null,
+            "type": "sell",
           },
-        },
-      ],
+        ],
+      },
     },
   },
   "errors": undefined,

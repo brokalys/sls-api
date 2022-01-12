@@ -328,22 +328,28 @@ describe('Resolver: properties - real queries from other services', () => {
 
       const response = await query({
         query: `
-          query ChromeExtension_GetState($filter: PropertyFilter!) {
-            properties(filter: $filter, limit: 1) {
-              results {
-                building {
+          query ChromeExtension_GetState($buildingId: Int!, $filter: PropertyFilter) {
+            building(id: $buildingId) {
+              id
+              bounds
+              properties(filter: $filter) {
+                results {
                   id
-                  properties {
-                    summary {
-                      count
-                    }
-                  }
+                  category
+                  type
+                  rent_type
+                  price
+                  calc_price_per_sqm
+                  area
+                  rooms
+                  published_at
                 }
               }
             }
           }
         `,
         variables: {
+          buildingId: 4,
           filter: {
             source: {
               eq: 'ss.lv',
