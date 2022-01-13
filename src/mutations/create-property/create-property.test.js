@@ -51,13 +51,49 @@ describe('createProperty', () => {
     expect(SNS.publish).toHaveBeenCalledTimes(1);
   });
 
-  test('does not publish a SNS message if the pinger was published before 2020', async () => {
+  test('successfully creates a pinger if the location is explicitly defined as LV', async () => {
+    await createProperty(
+      {},
+      {
+        input: JSON.stringify({ ...mockInput, location_country: 'Latvia' }),
+      },
+      {
+        dataSources,
+        isAuthenticated: true,
+        invokedFunctionArn,
+      },
+    );
+
+    expect(dataSources.properties.create).toHaveBeenCalledTimes(1);
+    expect(SNS.publish).toHaveBeenCalledTimes(1);
+  });
+
+  test('does not publish a SNS message if the property was published before 2020', async () => {
     await createProperty(
       {},
       {
         input: JSON.stringify({
           ...mockInput,
           published_at: '2010-01-01 00:00:00',
+        }),
+      },
+      {
+        dataSources,
+        isAuthenticated: true,
+        invokedFunctionArn,
+      },
+    );
+
+    expect(SNS.publish).not.toHaveBeenCalled();
+  });
+
+  test('does not publish a SNS message if the property is not in LV', async () => {
+    await createProperty(
+      {},
+      {
+        input: JSON.stringify({
+          ...mockInput,
+          location_country: 'Estonia'
         }),
       },
       {

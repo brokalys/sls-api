@@ -53,11 +53,12 @@ class Properties extends BaseDataSource {
   }
 
   create(values) {
+    const isInLatvia = !values.location_country || values.location_country.toLowerCase() === 'latvia';
     const lat_lng_point = this.knex.raw(
       `point(${[values.lat || 0, values.lng || 0].join(', ')})`,
     );
 
-    return this.knex('properties')
+    return this.knex(isInLatvia ?  'properties' : 'properties_foreign')
       .withSchema(process.env.DB_DATABASE)
       .insert(
         this.knex.client.driverName === 'sqlite3'

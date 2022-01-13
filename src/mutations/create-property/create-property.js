@@ -37,10 +37,13 @@ async function createProperty(parent, input, context) {
   // Create a new entry in the DB
   const [propertyId] = await properties.create(propertyData);
 
+  const isInLatvia = (!propertyData.location_country || propertyData.location_country.toLowerCase() === 'latvia');
+
   // Publish a new SNS message for the created property
   if (
+    isInLatvia && (
     !propertyData.published_at ||
-    moment(propertyData.published_at).isAfter('2020-01-01')
+    moment(propertyData.published_at).isAfter('2020-01-01'))
   ) {
     await SNS.publish({
       Message: JSON.stringify({
