@@ -2,6 +2,7 @@
 import calculateBuildingId from './mutations/calculate-building-id';
 import createPinger from './mutations/create-pinger';
 import createProperty from './mutations/create-property';
+import submitFeedback from './mutations/submit-feedback';
 import unsubscribePinger from './mutations/unsubscribe-pinger';
 import bounds from './resolvers/bounds';
 import building from './resolvers/buildings';
@@ -23,6 +24,7 @@ export default {
     calculateBuildingId,
     createPinger,
     createProperty,
+    submitFeedback,
     unsubscribePinger,
   },
 
