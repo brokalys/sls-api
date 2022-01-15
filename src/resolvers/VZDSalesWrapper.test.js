@@ -24,7 +24,7 @@ describe('VZDSalesWrapper', () => {
         { fieldNodes: [] },
       );
 
-      expect(output).toEqual([1, 2, 3]);
+      expect(output).toEqual(apartmentSales);
     });
   });
 });

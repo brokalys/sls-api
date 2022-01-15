@@ -86,12 +86,8 @@ type VZDApartmentSale {
   room_count: Int!
 }
 
-type VZDApartmentSalesWrapper {
-  results: [VZDApartmentSale!]!
-}
-
 type VZDSalesWrapper {
-  apartments: VZDApartmentSalesWrapper!
+  apartments: [VZDApartmentSale!]!
   # @todo: buildings
 }
 

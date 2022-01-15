@@ -11,7 +11,7 @@ class VZDApartmentSales extends BaseDataSource {
       .then((results) => results.map(([data]) => data));
   }
 
-  loadByBuildingId(id) {
+  async loadByBuildingId(id) {
     const query = this.knex(TABLE_NAME)
       .withSchema(process.env.DB_DATABASE)
       .leftJoin(
@@ -23,9 +23,15 @@ class VZDApartmentSales extends BaseDataSource {
       .select(`${TABLE_NAME}.id`, 'vzd_buildings.id as building_id')
       .groupBy('sale_id');
 
-    return this.getDataLoader(query, 'vzd_buildings.id', 'building_id').load(
-      id,
-    );
+    const ids = await this.getDataLoader(
+      query,
+      'vzd_buildings.id',
+      'building_id',
+    )
+      .load(id)
+      .then((results) => results.map(({ id }) => id));
+
+    return this.loadMany(ids);
   }
 }
 

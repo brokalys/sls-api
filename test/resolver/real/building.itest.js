@@ -37,21 +37,19 @@ describe('Resolver: building - real queries from customer apps', () => {
               }
               vzd {
                 apartments {
-                  results {
-                    id
-                    cadastre_number
-                    property_address
-                    sale_date
-                    price
-                    land_cadastral_designations
-                    land_area_m2
-                    building_depreciation_percentage
-                    building_cadastral_designations
-                    space_group_lowest_floor
-                    space_group_highest_floor
-                    apartment_total_area_m2
-                    room_count
-                  }
+                  id
+                  cadastre_number
+                  property_address
+                  sale_date
+                  price
+                  land_cadastral_designations
+                  land_area_m2
+                  building_depreciation_percentage
+                  building_cadastral_designations
+                  space_group_lowest_floor
+                  space_group_highest_floor
+                  apartment_total_area_m2
+                  room_count
                 }
               }
             }
