@@ -291,7 +291,7 @@ describe('Resolver: properties - real queries from other services', () => {
             ) {
               results {
                 price
-                price_per_sqm
+                calc_price_per_sqm
               }
             }
           }

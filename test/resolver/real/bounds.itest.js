@@ -32,7 +32,7 @@ describe('Resolver: bounds - real queries from other services', () => {
                     type
                     rent_type
                     price
-                    price_per_sqm
+                    calc_price_per_sqm
                     rooms
                     area
                     floor
@@ -70,7 +70,7 @@ describe('Resolver: bounds - real queries from other services', () => {
                   type
                   rent_type
                   price
-                  price_per_sqm
+                  calc_price_per_sqm
                   rooms
                   area
                   floor

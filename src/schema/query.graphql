@@ -48,8 +48,6 @@ type Property @auth(requires: "ReadPropertyData") {
   content: String! @auth(requires: "ReadPropertyData:Detailed")
   images: [String]! @auth(requires: "ReadPropertyData:Detailed")
   price: Float
-  price_per_sqm: Float
-    @deprecated(reason: "Please use the new calc_price_per_sqm field")
   calc_price_per_sqm: Float
   rooms: Int
   area: Float

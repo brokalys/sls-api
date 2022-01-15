@@ -28,7 +28,7 @@ describe('Resolver: building - real queries from customer apps', () => {
                   type
                   rent_type
                   price
-                  price_per_sqm
+                  calc_price_per_sqm
                   rooms
                   area
                   floor

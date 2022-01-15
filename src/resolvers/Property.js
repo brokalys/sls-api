@@ -8,7 +8,6 @@ export default {
   content: (item) => item.content || '',
   images: (item) => (item.images ? JSON.parse(item.images) : []),
   price: (item) => item.price,
-  price_per_sqm: (item) => item.calc_price_per_sqm,
   calc_price_per_sqm: (item) => item.calc_price_per_sqm,
   rent_type: (item) =>
     item.type === 'rent' ? item.rent_type || 'unknown' : undefined,

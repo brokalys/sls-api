@@ -54,16 +54,7 @@ Object {
         "code": "BAD_USER_INPUT",
         "maxPingers": 5,
       },
-      "locations": Array [
-        Object {
-          "column": 11,
-          "line": 3,
-        },
-      ],
       "message": "Max amount of 5 PINGERS per email exceeded.",
-      "path": Array [
-        "createPinger",
-      ],
     },
   ],
   "extensions": undefined,
@@ -113,16 +104,7 @@ Object {
           },
         ],
       },
-      "locations": Array [
-        Object {
-          "column": 11,
-          "line": 3,
-        },
-      ],
       "message": "Input validation failed",
-      "path": Array [
-        "createPinger",
-      ],
     },
   ],
   "extensions": undefined,
@@ -156,16 +138,7 @@ Object {
           },
         ],
       },
-      "locations": Array [
-        Object {
-          "column": 11,
-          "line": 3,
-        },
-      ],
       "message": "Input validation failed",
-      "path": Array [
-        "createPinger",
-      ],
     },
   ],
   "extensions": undefined,

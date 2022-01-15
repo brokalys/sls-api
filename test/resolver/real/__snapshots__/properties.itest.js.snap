@@ -204,12 +204,12 @@ Object {
     "properties": Object {
       "results": Array [
         Object {
+          "calc_price_per_sqm": 1.11,
           "price": 100,
-          "price_per_sqm": 1.11,
         },
         Object {
+          "calc_price_per_sqm": null,
           "price": 200,
-          "price_per_sqm": null,
         },
       ],
     },

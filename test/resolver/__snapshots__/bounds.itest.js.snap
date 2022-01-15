@@ -8,274 +8,79 @@ Object {
       "extensions": Object {
         "code": "UNAUTHENTICATED",
       },
-      "locations": Array [
-        Object {
-          "column": 19,
-          "line": 11,
-        },
-      ],
       "message": "You need following role: ReadPropertyData:Detailed",
-      "path": Array [
-        "bounds",
-        "buildings",
-        0,
-        "properties",
-        "results",
-        0,
-        "url",
-      ],
     },
     Object {
       "extensions": Object {
         "code": "UNAUTHENTICATED",
       },
-      "locations": Array [
-        Object {
-          "column": 19,
-          "line": 23,
-        },
-      ],
       "message": "You need following role: ReadPropertyData:Detailed",
-      "path": Array [
-        "bounds",
-        "buildings",
-        0,
-        "properties",
-        "results",
-        0,
-        "lat",
-      ],
     },
     Object {
       "extensions": Object {
         "code": "UNAUTHENTICATED",
       },
-      "locations": Array [
-        Object {
-          "column": 19,
-          "line": 24,
-        },
-      ],
       "message": "You need following role: ReadPropertyData:Detailed",
-      "path": Array [
-        "bounds",
-        "buildings",
-        0,
-        "properties",
-        "results",
-        0,
-        "lng",
-      ],
     },
     Object {
       "extensions": Object {
         "code": "UNAUTHENTICATED",
       },
-      "locations": Array [
-        Object {
-          "column": 19,
-          "line": 26,
-        },
-      ],
       "message": "You need following role: ReadPropertyData:Detailed",
-      "path": Array [
-        "bounds",
-        "buildings",
-        0,
-        "properties",
-        "results",
-        0,
-        "foreign_id",
-      ],
     },
     Object {
       "extensions": Object {
         "code": "UNAUTHENTICATED",
       },
-      "locations": Array [
-        Object {
-          "column": 19,
-          "line": 11,
-        },
-      ],
       "message": "You need following role: ReadPropertyData:Detailed",
-      "path": Array [
-        "bounds",
-        "buildings",
-        0,
-        "properties",
-        "results",
-        1,
-        "url",
-      ],
     },
     Object {
       "extensions": Object {
         "code": "UNAUTHENTICATED",
       },
-      "locations": Array [
-        Object {
-          "column": 19,
-          "line": 23,
-        },
-      ],
       "message": "You need following role: ReadPropertyData:Detailed",
-      "path": Array [
-        "bounds",
-        "buildings",
-        0,
-        "properties",
-        "results",
-        1,
-        "lat",
-      ],
     },
     Object {
       "extensions": Object {
         "code": "UNAUTHENTICATED",
       },
-      "locations": Array [
-        Object {
-          "column": 19,
-          "line": 24,
-        },
-      ],
       "message": "You need following role: ReadPropertyData:Detailed",
-      "path": Array [
-        "bounds",
-        "buildings",
-        0,
-        "properties",
-        "results",
-        1,
-        "lng",
-      ],
     },
     Object {
       "extensions": Object {
         "code": "UNAUTHENTICATED",
       },
-      "locations": Array [
-        Object {
-          "column": 19,
-          "line": 26,
-        },
-      ],
       "message": "You need following role: ReadPropertyData:Detailed",
-      "path": Array [
-        "bounds",
-        "buildings",
-        0,
-        "properties",
-        "results",
-        1,
-        "foreign_id",
-      ],
     },
     Object {
       "extensions": Object {
         "code": "UNAUTHENTICATED",
       },
-      "locations": Array [
-        Object {
-          "column": 19,
-          "line": 11,
-        },
-      ],
       "message": "You need following role: ReadPropertyData:Detailed",
-      "path": Array [
-        "bounds",
-        "buildings",
-        1,
-        "properties",
-        "results",
-        0,
-        "url",
-      ],
     },
     Object {
       "extensions": Object {
         "code": "UNAUTHENTICATED",
       },
-      "locations": Array [
-        Object {
-          "column": 19,
-          "line": 23,
-        },
-      ],
       "message": "You need following role: ReadPropertyData:Detailed",
-      "path": Array [
-        "bounds",
-        "buildings",
-        1,
-        "properties",
-        "results",
-        0,
-        "lat",
-      ],
     },
     Object {
       "extensions": Object {
         "code": "UNAUTHENTICATED",
       },
-      "locations": Array [
-        Object {
-          "column": 19,
-          "line": 24,
-        },
-      ],
       "message": "You need following role: ReadPropertyData:Detailed",
-      "path": Array [
-        "bounds",
-        "buildings",
-        1,
-        "properties",
-        "results",
-        0,
-        "lng",
-      ],
     },
     Object {
       "extensions": Object {
         "code": "UNAUTHENTICATED",
       },
-      "locations": Array [
-        Object {
-          "column": 19,
-          "line": 26,
-        },
-      ],
       "message": "You need following role: ReadPropertyData:Detailed",
-      "path": Array [
-        "bounds",
-        "buildings",
-        1,
-        "properties",
-        "results",
-        0,
-        "foreign_id",
-      ],
     },
     Object {
       "extensions": Object {
         "code": "UNAUTHENTICATED",
       },
-      "locations": Array [
-        Object {
-          "column": 19,
-          "line": 15,
-        },
-      ],
       "message": "You need following role: ReadPropertyData:Detailed",
-      "path": Array [
-        "bounds",
-        "buildings",
-        0,
-        "properties",
-        "results",
-        0,
-        "content",
-      ],
     },
   ],
   "extensions": undefined,
@@ -310,7 +115,6 @@ Object {
                 "lat": 56.1,
                 "lng": 24.9,
                 "price": 100,
-                "price_per_sqm": 1.11,
                 "published_at": "2021-04-12T19:47:30.000Z",
                 "rent_type": "monthly",
                 "rooms": null,
@@ -329,7 +133,6 @@ Object {
                 "lat": 56.1,
                 "lng": 24.9,
                 "price": 200,
-                "price_per_sqm": null,
                 "published_at": "2021-04-12T19:47:30.000Z",
                 "rent_type": "monthly",
                 "rooms": null,
@@ -368,7 +171,6 @@ Object {
                 "lat": null,
                 "lng": null,
                 "price": 300,
-                "price_per_sqm": null,
                 "published_at": "2021-04-12T19:47:30.000Z",
                 "rent_type": "monthly",
                 "rooms": null,
@@ -526,16 +328,7 @@ Object {
           },
         ],
       },
-      "locations": Array [
-        Object {
-          "column": 11,
-          "line": 3,
-        },
-      ],
       "message": "Input validation failed",
-      "path": Array [
-        "bounds",
-      ],
     },
   ],
   "extensions": undefined,
@@ -555,12 +348,6 @@ Object {
       "extensions": Object {
         "code": "GRAPHQL_VALIDATION_FAILED",
       },
-      "locations": Array [
-        Object {
-          "column": 11,
-          "line": 3,
-        },
-      ],
       "message": "Field \\"bounds\\" argument \\"bounds\\" of type \\"String!\\" is required, but it was not provided.",
     },
   ],

@@ -79,13 +79,6 @@ describe('Property', () => {
     });
   });
 
-  describe('price_per_sqm', () => {
-    it('returns calc_price_per_sqm value', () => {
-      const output = resolvers.price_per_sqm(property);
-      expect(output).toEqual(property.calc_price_per_sqm);
-    });
-  });
-
   describe('calc_price_per_sqm', () => {
     it('returns calc_price_per_sqm value', () => {
       const output = resolvers.calc_price_per_sqm(property);

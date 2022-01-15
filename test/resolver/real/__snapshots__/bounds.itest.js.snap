@@ -12,10 +12,10 @@ Object {
             "results": Array [
               Object {
                 "area": 90,
+                "calc_price_per_sqm": 1.11,
                 "category": "apartment",
                 "floor": 2,
                 "price": 100,
-                "price_per_sqm": 1.11,
                 "published_at": "2021-04-12T19:47:30.000Z",
                 "rent_type": "monthly",
                 "rooms": null,
@@ -23,10 +23,10 @@ Object {
               },
               Object {
                 "area": null,
+                "calc_price_per_sqm": null,
                 "category": "apartment",
                 "floor": null,
                 "price": 200,
-                "price_per_sqm": null,
                 "published_at": "2021-04-12T19:47:30.000Z",
                 "rent_type": "monthly",
                 "rooms": null,
@@ -42,10 +42,10 @@ Object {
             "results": Array [
               Object {
                 "area": null,
+                "calc_price_per_sqm": null,
                 "category": "house",
                 "floor": null,
                 "price": 300,
-                "price_per_sqm": null,
                 "published_at": "2021-04-12T19:47:30.000Z",
                 "rent_type": "monthly",
                 "rooms": null,
@@ -84,10 +84,10 @@ Object {
         "results": Array [
           Object {
             "area": 90,
+            "calc_price_per_sqm": 1.11,
             "category": "apartment",
             "floor": 2,
             "price": 100,
-            "price_per_sqm": 1.11,
             "published_at": "2021-04-12T19:47:30.000Z",
             "rent_type": "monthly",
             "rooms": null,
@@ -95,10 +95,10 @@ Object {
           },
           Object {
             "area": null,
+            "calc_price_per_sqm": null,
             "category": "apartment",
             "floor": null,
             "price": 200,
-            "price_per_sqm": null,
             "published_at": "2021-04-12T19:47:30.000Z",
             "rent_type": "monthly",
             "rooms": null,

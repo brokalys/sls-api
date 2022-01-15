@@ -23,12 +23,6 @@ Object {
       "extensions": Object {
         "code": "GRAPHQL_VALIDATION_FAILED",
       },
-      "locations": Array [
-        Object {
-          "column": 11,
-          "line": 3,
-        },
-      ],
       "message": "Field \\"unsubscribePinger\\" argument \\"id\\" of type \\"String!\\" is required, but it was not provided.",
     },
   ],
@@ -49,12 +43,6 @@ Object {
       "extensions": Object {
         "code": "GRAPHQL_VALIDATION_FAILED",
       },
-      "locations": Array [
-        Object {
-          "column": 11,
-          "line": 3,
-        },
-      ],
       "message": "Field \\"unsubscribePinger\\" argument \\"unsubscribe_key\\" of type \\"String!\\" is required, but it was not provided.",
     },
   ],

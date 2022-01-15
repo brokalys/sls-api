@@ -46,16 +46,7 @@ Object {
           },
         ],
       },
-      "locations": Array [
-        Object {
-          "column": 11,
-          "line": 3,
-        },
-      ],
       "message": "Input validation failed",
-      "path": Array [
-        "createProperty",
-      ],
     },
   ],
   "extensions": undefined,
@@ -75,16 +66,7 @@ Object {
       "extensions": Object {
         "code": "UNAUTHENTICATED",
       },
-      "locations": Array [
-        Object {
-          "column": 11,
-          "line": 3,
-        },
-      ],
       "message": "Unauthenticated",
-      "path": Array [
-        "createProperty",
-      ],
     },
   ],
   "extensions": undefined,

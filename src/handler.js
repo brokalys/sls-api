@@ -52,6 +52,12 @@ export const server = new ApolloServer({
       error.originalError instanceof ApolloError ||
       error.originalError === undefined
     ) {
+      if (error.message) {
+        return {
+          message: error.message,
+          extensions: error.extensions,
+        };
+      }
       return error;
     }
 

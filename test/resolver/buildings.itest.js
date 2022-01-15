@@ -51,7 +51,6 @@ describe('Resolver: buildings', () => {
                 content
                 images
                 price
-                price_per_sqm
                 calc_price_per_sqm
                 rooms
                 area
