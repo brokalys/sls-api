@@ -17,7 +17,8 @@ function properties(parent, input, context) {
   // Only specific customers can access unlimited properties
   if (
     !limit &&
-    !context.user.hasRole(PERMISSION_READ_UNLIMITED_PROPERTY_DATA)
+    (!context.user ||
+      !context.user.hasRole(PERMISSION_READ_UNLIMITED_PROPERTY_DATA))
   ) {
     throw new AuthenticationError(
       'You do not have sufficient permissions to query for unlimited results. Please provide a limit.',
