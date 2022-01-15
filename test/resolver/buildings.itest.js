@@ -74,6 +74,25 @@ describe('Resolver: buildings', () => {
                 }
               }
             }
+            vzd {
+              apartments {
+                results {
+                  id
+                  cadastre_number
+                  property_address
+                  sale_date
+                  price
+                  land_cadastral_designations
+                  land_area_m2
+                  building_depreciation_percentage
+                  building_cadastral_designations
+                  space_group_lowest_floor
+                  space_group_highest_floor
+                  apartment_total_area_m2
+                  room_count
+                }
+              }
+            }
           }
         }
       `,
@@ -96,6 +115,34 @@ describe('Resolver: buildings', () => {
             properties {
               results {
                 price
+              }
+            }
+          }
+        }
+      `,
+      variables: {
+        id: 1,
+      },
+    });
+
+    expect(response).toMatchSnapshot();
+  });
+
+  test('successfully retrieves building VZD sales information', async () => {
+    authenticateAs('mapApp', server);
+
+    const response = await query({
+      query: `
+        query($id: Int!) {
+          building(id: $id) {
+            id
+            vzd {
+              apartments {
+                results {
+                  id
+                  cadastre_number
+                  price
+                }
               }
             }
           }
@@ -134,6 +181,36 @@ describe('Resolver: buildings', () => {
             properties {
               results {
                 price
+              }
+            }
+          }
+        }
+      `,
+      variables: {
+        id: 1,
+      },
+    });
+
+    expect(response.errors).toEqual([
+      expect.objectContaining({
+        extensions: {
+          code: 'UNAUTHENTICATED',
+        },
+      }),
+    ]);
+  });
+
+  test('throws an authentication error if trying to retrieve results without authorizing', async () => {
+    const response = await query({
+      query: `
+        query($id: Int!) {
+          building(id: $id) {
+            id
+            vzd {
+              apartments {
+                results {
+                  price
+                }
               }
             }
           }

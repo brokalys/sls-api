@@ -24,4 +24,5 @@ export default {
       .loadByBuildingId(building.id, validator.value.filter)
       .then((results) => results.map(({ id }) => id));
   },
+  vzd: (building) => building,
 };

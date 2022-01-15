@@ -12,7 +12,7 @@ export default class BaseDataSource extends SQLDataSource {
 
   getDataLoader(query, selectField = 'id', keyField = selectField) {
     // Add the key field if this is not a get-all query
-    if (!/^select \* /i.test(query.toString())) {
+    if (keyField === selectField && !/^select \* /i.test(query.toString())) {
       query.select(selectField);
     }
 

@@ -1,0 +1,50 @@
+exports.up = function (knex) {
+  return knex.schema.createTable('vzd_apartment_sales', (table) => {
+    table.increments('id');
+    table.integer('sale_id');
+    table.string('object_type');
+    table.string('cadastre_number');
+    table.string('property_name');
+    table.string('property_address');
+    table.string('property_county');
+    table.string('property_city');
+    table.string('property_parish');
+    table.string('sale_date');
+    table.integer('price');
+    table.string('land_cadastral_designations');
+    table.float('land_part_counter');
+    table.float('land_part_denominator');
+    table.float('land_area_m2');
+    table.integer('building_count');
+    table.string('building_cadastral_designation');
+    table.float('building_part_counter');
+    table.float('building_part_denominator');
+    table.string('building_usage_name');
+    table.integer('building_usage_code');
+    table.integer('building_overground_floors');
+    table.float('building_area_m2');
+    table.float('building_total_area_m2');
+    table.float('building_volume_m3');
+    table.string('building_outer_wall_material');
+    table.string('building_commissioning_year');
+    table.float('building_depreciation_percentage');
+    table.string('building_cadastral_designations');
+    table.integer('space_group_count');
+    table.integer('apartment_count');
+    table.string('space_cadastral_designations');
+    table.float('space_group_counter');
+    table.float('space_group_denominator');
+    table.integer('space_group_usage_code');
+    table.integer('space_group_lowest_floor');
+    table.integer('space_group_highest_floor');
+    table.float('space_group_total_area_m2');
+    table.integer('apartment_total_area_m2');
+    table.integer('space_count_in_space_group');
+    table.integer('room_count');
+    table.datetime('created_at').defaultTo(knex.fn.now());
+  });
+};
+
+exports.down = function (knex) {
+  return knex.schema.dropTable('vzd_apartment_sales');
+};

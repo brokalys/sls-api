@@ -15,6 +15,7 @@ exports.seed = function (knex) {
           city: 'riga',
           street: 'brivibas',
           house_number: '12',
+          cadastral_designation: '42010053310001',
         },
         {
           id: 2,
@@ -28,6 +29,7 @@ exports.seed = function (knex) {
           city: 'riga',
           street: 'brivibas',
           house_number: '13',
+          cadastral_designation: '42010053310002',
         },
         {
           id: 3,
@@ -38,6 +40,7 @@ exports.seed = function (knex) {
               { x: 56.992294, y: 24.136619 },
             ],
           ]),
+          cadastral_designation: '42010053310003',
         },
         {
           id: 4,
@@ -51,6 +54,7 @@ exports.seed = function (knex) {
           city: 'riga',
           street: 'brivibas',
           house_number: '13',
+          cadastral_designation: '42010053310004',
         },
       ]);
     });

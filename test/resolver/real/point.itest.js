@@ -15,7 +15,7 @@ describe('Resolver: point - real queries from customer apps', () => {
 
   describe('chrome extension', () => {
     test('retrieve all the historical data', async () => {
-      authenticateAs('mapApp', server);
+      authenticateAs('chromeExtension', server);
 
       const response = await query({
         query: `

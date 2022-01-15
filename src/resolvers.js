@@ -12,6 +12,9 @@ import Building from './resolvers/Building';
 import Property from './resolvers/Property';
 import PropertyPriceSummary from './resolvers/PropertyPriceSummary';
 import PropertyWrapper from './resolvers/PropertyWrapper';
+import VZDApartmentSale from './resolvers/VZDApartmentSale';
+import VZDApartmentSalesWrapper from './resolvers/VZDApartmentSalesWrapper';
+import VZDSalesWrapper from './resolvers/VZDSalesWrapper';
 
 export default {
   Query: {
@@ -32,4 +35,8 @@ export default {
   Property,
   PropertyWrapper,
   PropertyPriceSummary,
+
+  VZDApartmentSale,
+  VZDApartmentSalesWrapper,
+  VZDSalesWrapper,
 };

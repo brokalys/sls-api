@@ -1,0 +1,90 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Resolver: building - real queries from customer apps chrome extension retrieve all the historical data 1`] = `
+Object {
+  "data": Object {
+    "building": Object {
+      "id": 1,
+      "properties": Object {
+        "results": Array [
+          Object {
+            "area": 90,
+            "category": "apartment",
+            "floor": 2,
+            "price": 100,
+            "price_per_sqm": 1.11,
+            "published_at": "2021-04-12T19:47:30.000Z",
+            "rent_type": "monthly",
+            "rooms": null,
+            "type": "rent",
+          },
+          Object {
+            "area": null,
+            "category": "apartment",
+            "floor": null,
+            "price": 200,
+            "price_per_sqm": null,
+            "published_at": "2021-04-12T19:47:30.000Z",
+            "rent_type": "monthly",
+            "rooms": null,
+            "type": "rent",
+          },
+        ],
+      },
+      "vzd": Object {
+        "apartments": Object {
+          "results": Array [
+            Object {
+              "apartment_total_area_m2": 51.9,
+              "building_cadastral_designations": Array [
+                "42010053310002",
+                "42010053310001",
+              ],
+              "building_depreciation_percentage": 65,
+              "cadastre_number": "42019001741",
+              "id": 1,
+              "land_area_m2": 175,
+              "land_cadastral_designations": Array [
+                "42010053310",
+              ],
+              "price": 12000,
+              "property_address": "Vaļņu iela 37 - 4, Cēsis, Cēsu nov., LV-4101",
+              "room_count": 2,
+              "sale_date": "2020-09-21T23:00:00.000Z",
+              "space_group_highest_floor": 2,
+              "space_group_lowest_floor": 2,
+            },
+            Object {
+              "apartment_total_area_m2": 51.9,
+              "building_cadastral_designations": Array [
+                "42010053310002",
+                "42010053310001",
+              ],
+              "building_depreciation_percentage": 65,
+              "cadastre_number": "42019001741",
+              "id": 2,
+              "land_area_m2": 175,
+              "land_cadastral_designations": Array [
+                "42010053310",
+              ],
+              "price": 12000,
+              "property_address": "Vaļņu iela 37 - 4, Cēsis, Cēsu nov., LV-4101",
+              "room_count": 2,
+              "sale_date": "2020-09-21T23:00:00.000Z",
+              "space_group_highest_floor": 2,
+              "space_group_lowest_floor": 2,
+            },
+          ],
+        },
+      },
+    },
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
