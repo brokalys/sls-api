@@ -9,7 +9,8 @@ describe('auth', () => {
   test('does not load a user if no API key provided', async () => {
     const user = await loadUser(null);
 
-    expect(user).toBeNull();
+    expect(user.isAuthenticated()).toBeFalsy();
+    expect(user.hasRole('what-is-this')).toBeFalsy();
     expect(getApiKey).not.toBeCalled();
   });
 
@@ -18,7 +19,8 @@ describe('auth', () => {
 
     const user = await loadUser('wrong-api-key');
 
-    expect(user).toBeNull();
+    expect(user.isAuthenticated()).toBeFalsy();
+    expect(user.hasRole('what-is-this')).toBeFalsy();
   });
 
   test('successfully loads a user', async () => {
@@ -28,10 +30,7 @@ describe('auth', () => {
 
     const user = await loadUser('correct-api-key');
 
-    expect(user).toEqual({
-      apiKey: { customerId: 'mapApp' },
-      hasRole: expect.any(Function),
-    });
+    expect(user.isAuthenticated()).toBeTruthy();
     expect(user.hasRole('what-is-this')).toBeFalsy();
     expect(user.hasRole(PERMISSION_READ_PROPERTY_DATA)).toBeTruthy();
   });

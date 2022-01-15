@@ -22,7 +22,7 @@ export default function authDirectiveTransformer(schema, directiveName) {
         return resolve(source, args, context, info);
       }
 
-      if (!context.user) {
+      if (!context.user.isAuthenticated()) {
         throw new AuthenticationError('Unauthenticated');
       }
 
