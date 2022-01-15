@@ -28,7 +28,7 @@ export default () => ({
             if (!fields.resolvers.length) return;
 
             await putMetricData({
-              Namespace: 'Brokalys/GraphQL',
+              Namespace: 'Brokalys/GraphQL/Performance',
               MetricData: fields.resolvers.map((resolver) => ({
                 MetricName: resolver,
                 Unit: 'Microseconds',
