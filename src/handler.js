@@ -69,7 +69,8 @@ export const server = new ApolloServer({
           ApolloServerPluginLandingPageGraphQLPlayground(),
         ]
       : [ApolloServerPluginLandingPageDisabled()]),
-    ...(!isDevMode ? [ApolloServerPluginCloudwatchReporting()] : []),
+    // @todo: re-enable after rate limiting & metric request size issue is fixed
+    // ...(!isDevMode ? [ApolloServerPluginCloudwatchReporting()] : []),
     ApolloServerPluginUsageReportingDisabled(),
   ],
 });
