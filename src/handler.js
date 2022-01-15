@@ -15,6 +15,7 @@ import Bugsnag from './lib/bugsnag';
 import typeDefs from './schema/schema.graphql';
 import dbConfig from './db-config';
 import resolvers from './resolvers';
+import ApolloServerPluginCloudwatchReporting from './lib/apollo-serverless-plugin-cloudwatch-reporting';
 import './knex-extensions';
 
 const isDevMode = process.env.STAGE === 'dev';
@@ -61,7 +62,12 @@ export const server = new ApolloServer({
     return new Error('An unexpected error occurred. Please try again later.');
   },
   plugins: [
-    ...(isDevMode ? [require('apollo-tracing').plugin()] : []),
+    ...(isDevMode
+      ? [
+          require('apollo-tracing').plugin(),
+          ApolloServerPluginCloudwatchReporting(),
+        ]
+      : []),
     isDevMode
       ? ApolloServerPluginLandingPageGraphQLPlayground()
       : ApolloServerPluginLandingPageDisabled(),

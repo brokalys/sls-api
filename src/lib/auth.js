@@ -1,5 +1,5 @@
 import { getApiKey } from './api-gateway';
-import { putMetricData } from './cloudwatch';
+import { logMetric } from './cloudwatch';
 import { getRoles } from './permissions';
 
 export default async function loadUser(apiKeyId) {
@@ -13,7 +13,7 @@ export default async function loadUser(apiKeyId) {
     return null;
   }
 
-  await putMetricData('ApiKeyUsage', 1, [
+  await logMetric('ApiKeyUsage', 1, [
     { Name: 'KeyId', Value: apiKeyId },
     { Name: 'CustomerId', Value: apiKey.customerId },
   ]);
