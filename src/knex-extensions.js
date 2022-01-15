@@ -48,14 +48,7 @@ Knex.QueryBuilder.extend('withFilters', function (filters) {
     }
 
     if (filter.in !== undefined) {
-      // Reserved keyword
-      if (field === 'region') {
-        query.whereRaw('ST_Contains(ST_GeomFromText(?), lat_lng_point)', [
-          `POLYGON((${filter.in[0]}))`,
-        ]);
-      } else {
-        query.whereIn(field, filter.in);
-      }
+      query.whereIn(field, filter.in);
     }
 
     if (filter.nin !== undefined) {

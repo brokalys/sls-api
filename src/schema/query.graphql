@@ -10,7 +10,6 @@ input PropertyFilter {
   created_at: FilterString
   published_at: FilterString
   location_classificator: FilterString
-  region: FilterString @deprecated(reason: "Please use the new bounds API")
   category: FilterString
   type: FilterString
   rent_type: FilterString

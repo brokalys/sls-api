@@ -10,17 +10,6 @@ describe('properties: validation', () => {
     [{ filter: { type: { eq: 'SELL' } } }],
     [{ filter: { type: { eq: 'sell' } } }],
     [{ filter: { type: { eq: 'auction' } } }],
-    [
-      {
-        filter: {
-          region: {
-            in: [
-              '56.992294 24.136619, 56.976394 23.995790, 56.924904 24.005336, 56.889288 24.108467, 56.932211 24.291935, 56.996502 24.245176, 56.992294 24.136619',
-            ],
-          },
-        },
-      },
-    ],
     [{ filter: { price: { gt: 20000 } } }],
     [{ filter: { location_classificator: { eq: 'latvia-riga-centrs' } } }],
     [{ filter: { rooms: { gt: 2, lte: 3 } } }],
@@ -49,17 +38,6 @@ describe('properties: validation', () => {
     [{ filter: { url: { eq: 'brokalys.com' } } }], // missing protocol
     [{ filter: { foreign_id: { eq: 'ALPHA + NUM & ONLY' } } }], // alphanum only
     [{ filter: { location_classificator: { eq: 123 } } }], // string only
-    [
-      {
-        filter: {
-          region: {
-            in: [
-              '56.992294 24.136619, 56.976394 23.995790, 56.924904 24.005336, 56.889288 24.108467, 56.932211 24.291935, 56.996502 24.245176',
-            ],
-          },
-        },
-      },
-    ], // Invalid region (missing ending point)
     [{ filter: { region: { in: ['wrong'] } } }], // Invalid region
     [{ limit: 0 }], // Too small
     [{ limit: '10' }], // Invalid datatype
