@@ -1,60 +1,47 @@
-import {
-  AuthenticationError,
-  SchemaDirectiveVisitor,
-} from 'apollo-server-lambda';
+import { AuthenticationError } from 'apollo-server-lambda';
 import { defaultFieldResolver } from 'graphql';
+import { mapSchema, getDirective, MapperKind } from '@graphql-tools/utils';
 
 const ANY_ROLE = 'authorized';
 
-class AuthDirective extends SchemaDirectiveVisitor {
-  visitObject(type) {
-    this.ensureFieldsWrapped(type);
-    type._requiredAuthRole = this.args.requires || ANY_ROLE;
+export default function authDirectiveTransformer(schema, directiveName) {
+  function applyDirective(fieldConfig) {
+    const [authDirective] =
+      getDirective(schema, fieldConfig, directiveName) || [];
+
+    if (!authDirective) {
+      return fieldConfig;
+    }
+
+    const { resolve = defaultFieldResolver } = fieldConfig;
+
+    fieldConfig.resolve = async function (source, args, context, info) {
+      const requiredRole = authDirective.requires || ANY_ROLE;
+
+      if (!requiredRole) {
+        return resolve(source, args, context, info);
+      }
+
+      if (!context.user) {
+        throw new AuthenticationError('Unauthenticated');
+      }
+
+      if (requiredRole === ANY_ROLE) {
+        return resolve(source, args, context, info);
+      }
+
+      if (!context.user.hasRole(requiredRole)) {
+        throw new AuthenticationError(
+          `You need following role: ${requiredRole}`,
+        );
+      }
+
+      return resolve(source, args, context, info);
+    };
   }
 
-  visitFieldDefinition(field, details) {
-    this.ensureFieldsWrapped(details.objectType);
-    field._requiredAuthRole = this.args.requires || ANY_ROLE;
-  }
-
-  ensureFieldsWrapped(objectType) {
-    if (objectType._authFieldsWrapped) return;
-    objectType._authFieldsWrapped = true;
-
-    const fields = objectType.getFields();
-
-    Object.keys(fields).forEach((fieldName) => {
-      const field = fields[fieldName];
-      const { resolve = defaultFieldResolver } = field;
-
-      field.resolve = async function (...args) {
-        const requiredRole =
-          field._requiredAuthRole || objectType._requiredAuthRole;
-
-        if (!requiredRole) {
-          return resolve.apply(this, args);
-        }
-
-        const context = args[2];
-
-        if (!context.user) {
-          throw new AuthenticationError('Unauthenticated');
-        }
-
-        if (requiredRole === ANY_ROLE) {
-          return resolve.apply(this, args);
-        }
-
-        if (!context.user.hasRole(requiredRole)) {
-          throw new AuthenticationError(
-            `You need following role: ${requiredRole}`,
-          );
-        }
-
-        return resolve.apply(this, args);
-      };
-    });
-  }
+  return mapSchema(schema, {
+    [MapperKind.OBJECT_FIELD]: applyDirective,
+    [MapperKind.FIELD_DEFINITION]: applyDirective,
+  });
 }
-
-export default AuthDirective;

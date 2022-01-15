@@ -52,9 +52,6 @@ Object {
     Object {
       "extensions": Object {
         "code": "BAD_USER_INPUT",
-        "exception": Object {
-          "maxPingers": 5,
-        },
         "maxPingers": 5,
       },
       "locations": Array [
@@ -115,38 +112,6 @@ Object {
             "type": "number.min",
           },
         ],
-        "exception": Object {
-          "details": Array [
-            Object {
-              "context": Object {
-                "key": "rooms_max",
-                "label": "rooms_max",
-                "limit": Object {
-                  "adjust": null,
-                  "ancestor": 1,
-                  "depth": 1,
-                  "display": "ref:rooms_min",
-                  "in": false,
-                  "iterables": null,
-                  "key": "rooms_min",
-                  "map": null,
-                  "path": Array [
-                    "rooms_min",
-                  ],
-                  "root": "rooms_min",
-                  "separator": ".",
-                  "type": "value",
-                },
-                "value": 5,
-              },
-              "message": "\\"rooms_max\\" must be greater than or equal to ref:rooms_min",
-              "path": Array [
-                "rooms_max",
-              ],
-              "type": "number.min",
-            },
-          ],
-        },
       },
       "locations": Array [
         Object {
@@ -190,22 +155,6 @@ Object {
             "type": "string.polygon",
           },
         ],
-        "exception": Object {
-          "details": Array [
-            Object {
-              "context": Object {
-                "key": "region",
-                "label": "region",
-                "value": "very wrong, 56.95892 24.17559, 56.94571 24.14812, 56.93767 24.13181",
-              },
-              "message": "\\"region\\" needs to be a valid polygon",
-              "path": Array [
-                "region",
-              ],
-              "type": "string.polygon",
-            },
-          ],
-        },
       },
       "locations": Array [
         Object {

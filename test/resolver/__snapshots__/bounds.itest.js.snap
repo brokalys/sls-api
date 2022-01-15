@@ -525,23 +525,6 @@ Object {
             "type": "string.maxArea",
           },
         ],
-        "exception": Object {
-          "details": Array [
-            Object {
-              "context": Object {
-                "area": 0.0001,
-                "key": "bounds",
-                "label": "bounds",
-                "value": "57.0510741522279 24.34369621296768, 56.86735048784755 24.34369621296768, 56.86735048784755 23.842917061051175, 57.0510741522279 23.842917061051175, 57.0510741522279 24.34369621296768",
-              },
-              "message": "\\"bounds\\" are must not exceed 0.0001",
-              "path": Array [
-                "bounds",
-              ],
-              "type": "string.maxArea",
-            },
-          ],
-        },
       },
       "locations": Array [
         Object {

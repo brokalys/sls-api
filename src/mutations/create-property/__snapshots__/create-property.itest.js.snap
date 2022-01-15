@@ -45,31 +45,6 @@ Object {
             "type": "any.only",
           },
         ],
-        "exception": Object {
-          "details": Array [
-            Object {
-              "context": Object {
-                "key": "type",
-                "label": "type",
-                "valids": Array [
-                  "sell",
-                  "rent",
-                  "buy",
-                  "swap",
-                  "want_to_rent",
-                  "auction",
-                  "other",
-                ],
-                "value": "WRONG",
-              },
-              "message": "\\"type\\" must be one of [sell, rent, buy, swap, want_to_rent, auction, other]",
-              "path": Array [
-                "type",
-              ],
-              "type": "any.only",
-            },
-          ],
-        },
       },
       "locations": Array [
         Object {

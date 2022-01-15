@@ -1,8 +1,8 @@
+import { makeExecutableSchema } from '@graphql-tools/schema';
 import { ApolloServer, ApolloError } from 'apollo-server-lambda';
 import {
-  ApolloServerPluginInlineTrace,
-  ApolloServerPluginInlineTraceDisabled,
-  ApolloServerPluginUsageReporting,
+  ApolloServerPluginLandingPageGraphQLPlayground,
+  ApolloServerPluginLandingPageDisabled,
   ApolloServerPluginUsageReportingDisabled,
 } from 'apollo-server-core';
 import Buildings from './data-sources/buildings';
@@ -10,9 +10,9 @@ import Properties from './data-sources/properties';
 import UserClassifieds from './data-sources/user-classifieds';
 import VZDApartmentSales from './data-sources/vzd-apartment-sales';
 import loadUser from './lib/auth';
-import AuhtDirective from './lib/auth-directive';
+import authDirectiveTransformer from './lib/auth-directive';
 import Bugsnag from './lib/bugsnag';
-import schema from './schema/schema.graphql';
+import typeDefs from './schema/schema.graphql';
 import dbConfig from './db-config';
 import resolvers from './resolvers';
 import './knex-extensions';
@@ -20,20 +20,20 @@ import './knex-extensions';
 const isDevMode = process.env.STAGE === 'dev';
 const isTestMode = process.env.NODE_ENV === 'test';
 
-export const server = new ApolloServer({
-  typeDefs: schema,
-  schemaDirectives: {
-    auth: AuhtDirective,
-  },
+let schema = makeExecutableSchema({
+  typeDefs,
   resolvers,
+});
+schema = authDirectiveTransformer(schema, 'auth');
+
+export const server = new ApolloServer({
+  schema,
   dataSources: () => ({
     buildings: new Buildings(dbConfig),
     properties: new Properties(dbConfig),
     userClassifieds: new UserClassifieds(dbConfig),
     vzdApartmentSales: new VZDApartmentSales(dbConfig),
   }),
-  tracing: isDevMode,
-  playground: isDevMode,
   context: async ({ event, req, request, context }) => {
     const { requestContext } = event ||
       req || { requestContext: { identity: {} } };
@@ -61,39 +61,11 @@ export const server = new ApolloServer({
     return new Error('An unexpected error occurred. Please try again later.');
   },
   plugins: [
+    ...(isDevMode ? [require('apollo-tracing').plugin()] : []),
     isDevMode
-      ? ApolloServerPluginInlineTrace()
-      : ApolloServerPluginInlineTraceDisabled(),
-    !isDevMode && !isTestMode
-      ? ApolloServerPluginUsageReporting({
-          sendVariableValues: {
-            exceptNames: ['email', 'unsubscribe_key'],
-          },
-          logger: {
-            debug: () => {},
-            info: () => {},
-            warn: console.warn,
-            error: console.error,
-          },
-          generateClientInfo: ({ context, request }) => {
-            const headers = request.http && request.http.headers;
-            const clientVersion =
-              headers['apollographql-client-version'] || '1.0.0';
-
-            if (!context.user) {
-              return {
-                clientName: 'Unauthorized',
-                clientVersion,
-              };
-            }
-
-            return {
-              clientName: context.user.apiKey.name,
-              clientVersion,
-            };
-          },
-        })
-      : ApolloServerPluginUsageReportingDisabled(),
+      ? ApolloServerPluginLandingPageGraphQLPlayground()
+      : ApolloServerPluginLandingPageDisabled(),
+    ApolloServerPluginUsageReportingDisabled(),
   ],
 });
 
