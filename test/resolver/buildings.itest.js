@@ -89,6 +89,21 @@ describe('Resolver: buildings', () => {
                 apartment_total_area_m2
                 room_count
               }
+              premises {
+                id
+                cadastre_number
+                property_address
+                sale_date
+                price
+                land_cadastral_designations
+                land_area_m2
+                building_depreciation_percentage
+                building_cadastral_designations
+                space_group_lowest_floor
+                space_group_highest_floor
+                space_group_total_area_m2
+                space_count_in_space_group
+              }
             }
           }
         }
@@ -135,6 +150,11 @@ describe('Resolver: buildings', () => {
             id
             vzd {
               apartments {
+                id
+                cadastre_number
+                price
+              }
+              premises {
                 id
                 cadastre_number
                 price
@@ -195,7 +215,7 @@ describe('Resolver: buildings', () => {
     ]);
   });
 
-  test('throws an authentication error if trying to retrieve results without authorizing', async () => {
+  test('throws an authentication error if trying to retrieve VZD apartment results without authorizing', async () => {
     const response = await query({
       query: `
         query($id: Int!) {
@@ -203,6 +223,34 @@ describe('Resolver: buildings', () => {
             id
             vzd {
               apartments {
+                price
+              }
+            }
+          }
+        }
+      `,
+      variables: {
+        id: 1,
+      },
+    });
+
+    expect(response.errors).toEqual([
+      expect.objectContaining({
+        extensions: {
+          code: 'UNAUTHENTICATED',
+        },
+      }),
+    ]);
+  });
+
+  test('throws an authentication error if trying to retrieve VZD premise results without authorizing', async () => {
+    const response = await query({
+      query: `
+        query($id: Int!) {
+          building(id: $id) {
+            id
+            vzd {
+              premises {
                 price
               }
             }

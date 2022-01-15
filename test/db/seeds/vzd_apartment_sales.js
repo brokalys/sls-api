@@ -17,10 +17,15 @@ exports.seed = function (knex) {
           building_cadastral_designation: '42010053310001',
         }),
         makeVZDApartmentSale({
+          building_cadastral_designation: '42010053310001',
+          object_type: 'T',
+        }),
+        makeVZDApartmentSale({
           building_cadastral_designation: '42010053310002',
         }),
         makeVZDApartmentSale({
           building_cadastral_designation: '42010053310003',
+          object_type: 'T',
         }),
       ]);
     });

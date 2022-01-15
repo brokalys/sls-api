@@ -86,8 +86,32 @@ type VZDApartmentSale {
   room_count: Int!
 }
 
+type VZDPremiseSale {
+  id: Int!
+  cadastre_number: String!
+  property_address: String!
+  sale_date: String!
+  price: Float!
+  land_cadastral_designations: [String!]!
+  land_area_m2: Float
+  # @todo: consider adding these too at some point
+  # building_usage_name: String!
+  # building_overground_floors: Int!
+  # building_area_m2: Float!
+  # building_total_area_m2: Float!
+  # building_outer_wall_material: Float!
+  # building_commissioning_year: Int
+  building_depreciation_percentage: Float!
+  building_cadastral_designations: [String!]!
+  space_group_lowest_floor: Int
+  space_group_highest_floor: Int
+  space_group_total_area_m2: Float!
+  space_count_in_space_group: Int
+}
+
 type VZDSalesWrapper {
   apartments: [VZDApartmentSale!]!
+  premises: [VZDPremiseSale!]!
   # @todo: buildings
 }
 

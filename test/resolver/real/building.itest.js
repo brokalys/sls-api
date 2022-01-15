@@ -51,6 +51,21 @@ describe('Resolver: building - real queries from customer apps', () => {
                   apartment_total_area_m2
                   room_count
                 }
+                premises {
+                  id
+                  cadastre_number
+                  property_address
+                  sale_date
+                  price
+                  land_cadastral_designations
+                  land_area_m2
+                  building_depreciation_percentage
+                  building_cadastral_designations
+                  space_group_lowest_floor
+                  space_group_highest_floor
+                  space_group_total_area_m2
+                  space_count_in_space_group
+                }
               }
             }
           }

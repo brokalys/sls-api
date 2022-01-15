@@ -12,6 +12,7 @@ import Property from './resolvers/Property';
 import PropertyPriceSummary from './resolvers/PropertyPriceSummary';
 import PropertyWrapper from './resolvers/PropertyWrapper';
 import VZDApartmentSale from './resolvers/VZDApartmentSale';
+import VZDPremiseSale from './resolvers/VZDPremiseSale';
 import VZDSalesWrapper from './resolvers/VZDSalesWrapper';
 
 export default {
@@ -34,5 +35,6 @@ export default {
   PropertyPriceSummary,
 
   VZDApartmentSale,
+  VZDPremiseSale,
   VZDSalesWrapper,
 };

@@ -1,5 +1,4 @@
 export default {
-  loadMany: jest.fn().mockResolvedValue([]),
   loadByBuildingId: jest.fn(() => ({
     1: [
       {
