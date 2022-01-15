@@ -19,6 +19,7 @@ import ApolloServerPluginCloudwatchReporting from './lib/apollo-serverless-plugi
 import './knex-extensions';
 
 const isDevMode = process.env.STAGE === 'dev';
+const isStagingMode = process.env.STAGE === 'staging';
 const isTestMode = process.env.NODE_ENV === 'test';
 
 let schema = makeExecutableSchema({
@@ -62,15 +63,13 @@ export const server = new ApolloServer({
     return new Error('An unexpected error occurred. Please try again later.');
   },
   plugins: [
-    ...(isDevMode
+    ...(isDevMode || isStagingMode
       ? [
           require('apollo-tracing').plugin(),
-          ApolloServerPluginCloudwatchReporting(),
+          ApolloServerPluginLandingPageGraphQLPlayground(),
         ]
-      : []),
-    isDevMode
-      ? ApolloServerPluginLandingPageGraphQLPlayground()
-      : ApolloServerPluginLandingPageDisabled(),
+      : [ApolloServerPluginLandingPageDisabled()]),
+    ...(!isDevMode ? [ApolloServerPluginCloudwatchReporting()] : []),
     ApolloServerPluginUsageReportingDisabled(),
   ],
 });

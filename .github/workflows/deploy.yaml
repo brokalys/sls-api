@@ -23,8 +23,5 @@ jobs:
           BUGSNAG_KEY: ${{ secrets.BUGSNAG_KEY }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          APOLLO_KEY: ${{ secrets.APOLLO_KEY }}
-          APOLLO_GRAPH_VARIANT: ${{ secrets.APOLLO_GRAPH_VARIANT }}
-          APOLLO_SCHEMA_REPORTING: ${{ secrets.APOLLO_SCHEMA_REPORTING }}
         run: yarn deploy:ci
       - uses: codecov/codecov-action@v1

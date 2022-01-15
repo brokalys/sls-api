@@ -9,6 +9,7 @@ provider:
   stage: ${opt:stage, 'dev'}
   logRetentionInDays: 7
   versionFunctions: true
+  lambdaHashingVersion: 20201221
   timeout: 10
   iam:
     role:
@@ -95,9 +96,6 @@ provider:
     DB_PASSWORD: ${env:DB_PASSWORD}
     DB_PINGER_DATABASE: ${env:DB_PINGER_DATABASE}
     BUGSNAG_KEY: ${env:BUGSNAG_KEY}
-    APOLLO_KEY: ${env:APOLLO_KEY}
-    APOLLO_GRAPH_VARIANT: ${env:APOLLO_GRAPH_VARIANT}
-    APOLLO_SCHEMA_REPORTING: ${env:APOLLO_SCHEMA_REPORTING}
 
 functions:
   graphql:
@@ -182,7 +180,7 @@ custom:
   serverless-layers:
     packageManager: yarn
     dependenciesPath: ./package.json
-    layersDeploymentBucket: ${self:provider.stage}-brokalys-lambda-layers
+    layersDeploymentBucket: brokalys-lambda-layers
     customInstallationCommand: yarn install --production --ignore-scripts
 
 resources:
