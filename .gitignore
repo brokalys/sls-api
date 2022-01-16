@@ -7,4 +7,5 @@ coverage
 # individual files
 .DS_Store
 .env
+.env.staging
 yarn-error.log

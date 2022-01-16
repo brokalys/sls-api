@@ -125,7 +125,7 @@ type VZDHouseSale {
   building_depreciation_percentage: Float
 }
 
-type VZDSalesWrapper {
+type VZDSalesWrapper @auth {
   apartments: [VZDApartmentSale!]!
   premises: [VZDPremiseSale!]!
   houses: [VZDHouseSale!]!

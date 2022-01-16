@@ -89,6 +89,7 @@ provider:
             rateLimit: 200
   environment:
     STAGE: ${opt:stage, 'dev'}
+    NODE_ENV: ${opt:stage, 'dev'}
     PROPERTY_CREATION_SNS_TOPIC_NAME: ${self:custom.propertyCreationSnsTopicName}
     DB_HOST: ${env:DB_HOST}
     DB_DATABASE: ${env:DB_DATABASE}
