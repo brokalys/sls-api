@@ -31,6 +31,7 @@ schema = authDirectiveTransformer(schema, 'auth');
 
 export const server = new ApolloServer({
   schema,
+  debug: isDevMode,
   dataSources: () => ({
     buildings: new Buildings(dbConfig),
     properties: new Properties(dbConfig),
