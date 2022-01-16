@@ -74,6 +74,42 @@ Object {
             "space_group_lowest_floor": 2,
           },
         ],
+        "houses": Array [
+          Object {
+            "building_cadastral_designation": "42010053310001",
+            "building_commissioning_year": 1946,
+            "building_depreciation_percentage": 60,
+            "building_outer_wall_material": "Silikātķieģeļi",
+            "building_overground_floors": 0,
+            "building_total_area_m2": 9,
+            "cadastre_number": "01000930259",
+            "id": 1,
+            "land_cadastral_designations": Array [
+              "01000930259",
+            ],
+            "land_total_area_m2": 1512,
+            "price": 39000,
+            "property_address": "Imantas 8. līnija 10, Rīga, LV-1083",
+            "sale_date": "2015-12-16T00:00:00.000Z",
+          },
+          Object {
+            "building_cadastral_designation": "42010053310001",
+            "building_commissioning_year": 1946,
+            "building_depreciation_percentage": 60,
+            "building_outer_wall_material": "Silikātķieģeļi",
+            "building_overground_floors": 0,
+            "building_total_area_m2": 9,
+            "cadastre_number": "01000930259",
+            "id": 2,
+            "land_cadastral_designations": Array [
+              "01000930259",
+            ],
+            "land_total_area_m2": 1512,
+            "price": 39000,
+            "property_address": "Imantas 8. līnija 10, Rīga, LV-1083",
+            "sale_date": "2015-12-16T00:00:00.000Z",
+          },
+        ],
         "premises": Array [
           Object {
             "building_cadastral_designations": Array [

@@ -13,4 +13,7 @@ export default {
       .loadByBuildingId(building.id)
       .then(filterByObjectType('T'));
   },
+  houses: (building, input, { dataSources }) => {
+    return dataSources.vzdHouseSales.loadByBuildingId(building.id);
+  },
 };

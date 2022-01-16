@@ -104,6 +104,21 @@ describe('Resolver: buildings', () => {
                 space_group_total_area_m2
                 space_count_in_space_group
               }
+              houses {
+                id
+                cadastre_number
+                property_address
+                sale_date
+                price
+                land_cadastral_designations
+                land_total_area_m2
+                building_cadastral_designation
+                building_overground_floors
+                building_total_area_m2
+                building_commissioning_year
+                building_outer_wall_material
+                building_depreciation_percentage
+              }
             }
           }
         }
@@ -155,6 +170,11 @@ describe('Resolver: buildings', () => {
                 price
               }
               premises {
+                id
+                cadastre_number
+                price
+              }
+              houses {
                 id
                 cadastre_number
                 price
@@ -251,6 +271,34 @@ describe('Resolver: buildings', () => {
             id
             vzd {
               premises {
+                price
+              }
+            }
+          }
+        }
+      `,
+      variables: {
+        id: 1,
+      },
+    });
+
+    expect(response.errors).toEqual([
+      expect.objectContaining({
+        extensions: {
+          code: 'UNAUTHENTICATED',
+        },
+      }),
+    ]);
+  });
+
+  test('throws an authentication error if trying to retrieve VZD house results without authorizing', async () => {
+    const response = await query({
+      query: `
+        query($id: Int!) {
+          building(id: $id) {
+            id
+            vzd {
+              houses {
                 price
               }
             }

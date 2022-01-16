@@ -109,10 +109,26 @@ type VZDPremiseSale {
   space_count_in_space_group: Int
 }
 
+type VZDHouseSale {
+  id: Int!
+  cadastre_number: String!
+  property_address: String!
+  sale_date: String!
+  price: Float!
+  land_cadastral_designations: [String!]!
+  land_total_area_m2: Float
+  building_cadastral_designation: String!
+  building_overground_floors: Int
+  building_total_area_m2: Float
+  building_commissioning_year: Int
+  building_outer_wall_material: String
+  building_depreciation_percentage: Float
+}
+
 type VZDSalesWrapper {
   apartments: [VZDApartmentSale!]!
   premises: [VZDPremiseSale!]!
-  # @todo: buildings
+  houses: [VZDHouseSale!]!
 }
 
 type Building @auth {

@@ -9,6 +9,7 @@ import Buildings from './data-sources/buildings';
 import Properties from './data-sources/properties';
 import UserClassifieds from './data-sources/user-classifieds';
 import VZDApartmentSales from './data-sources/vzd-apartment-sales';
+import VZDHouseSales from './data-sources/vzd-house-sales';
 import loadUser from './lib/auth';
 import authDirectiveTransformer from './lib/auth-directive';
 import Bugsnag from './lib/bugsnag';
@@ -35,6 +36,7 @@ export const server = new ApolloServer({
     properties: new Properties(dbConfig),
     userClassifieds: new UserClassifieds(dbConfig),
     vzdApartmentSales: new VZDApartmentSales(dbConfig),
+    vzdHouseSales: new VZDHouseSales(dbConfig),
   }),
   context: async ({ event, req, request, context }) => {
     const { requestContext } = event ||

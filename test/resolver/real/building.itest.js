@@ -66,6 +66,21 @@ describe('Resolver: building - real queries from customer apps', () => {
                   space_group_total_area_m2
                   space_count_in_space_group
                 }
+                houses {
+                  id
+                  cadastre_number
+                  property_address
+                  sale_date
+                  price
+                  land_cadastral_designations
+                  land_total_area_m2
+                  building_cadastral_designation
+                  building_overground_floors
+                  building_total_area_m2
+                  building_commissioning_year
+                  building_outer_wall_material
+                  building_depreciation_percentage
+                }
               }
             }
           }

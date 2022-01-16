@@ -1,0 +1,52 @@
+exports.up = function (knex) {
+  return knex.schema.createTable('vzd_house_sales', (table) => {
+    table.increments('id');
+    table.integer('sale_id');
+    table.string('object_type');
+    table.string('cadastre_number');
+    table.string('property_name');
+    table.string('property_address');
+    table.string('property_county');
+    table.string('property_city');
+    table.string('property_parish');
+    table.string('sale_date');
+    table.integer('price');
+    table.integer('land_count');
+    table.string('land_cadastral_designations');
+    table.float('land_part_counter');
+    table.float('land_part_denominator');
+    table.float('land_total_area_m2');
+    table.float('agricultural_land_area_m2');
+    table.float('arable_land_area_m2');
+    table.float('orchard_land_area_m2');
+    table.float('meadow_land_area_m2');
+    table.float('pasture_land_area_m2');
+    table.float('ameliorated_land_area_m2');
+    table.float('forest_land_area_m2');
+    table.float('shrubbery_land_area_m2');
+    table.float('swamp_land_area_m2');
+    table.float('under_water_land_area_m2');
+    table.float('under_pond_land_area_m2');
+    table.float('under_buildings_land_area_m2');
+    table.float('under_roads_land_area_m2');
+    table.float('other_land_area_m2');
+    table.integer('building_count');
+    table.string('building_cadastral_designation');
+    table.float('building_part_counter');
+    table.float('building_part_denominator');
+    table.string('building_usage_name');
+    table.integer('building_usage_code');
+    table.integer('building_overground_floors');
+    table.float('building_area_m2');
+    table.float('building_total_area_m2');
+    table.float('building_volume_m3');
+    table.string('building_outer_wall_material');
+    table.string('building_commissioning_year');
+    table.float('building_depreciation_percentage');
+    table.datetime('created_at').defaultTo(knex.fn.now());
+  });
+};
+
+exports.down = function (knex) {
+  return knex.schema.dropTable('vzd_house_sales');
+};
