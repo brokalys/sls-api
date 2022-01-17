@@ -10,4 +10,8 @@ const mysql = serverlessMysql({
   maxRetries: 5,
 });
 
+if (process.env.NODE_ENV !== 'test') {
+  mysql.connect();
+}
+
 export default mysql;
