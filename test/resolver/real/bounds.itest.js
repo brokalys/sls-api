@@ -26,19 +26,6 @@ describe('Resolver: bounds - real queries from other services', () => {
               buildings {
                 id
                 bounds
-                properties {
-                  results {
-                    category
-                    type
-                    rent_type
-                    price
-                    calc_price_per_sqm
-                    rooms
-                    area
-                    floor
-                    published_at
-                  }
-                }
               }
             }
           }

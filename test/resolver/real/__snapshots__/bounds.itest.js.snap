@@ -8,58 +8,14 @@ Object {
         Object {
           "bounds": "56.992294 24.136619, 56.976394 23.99579, 56.992294 24.136619",
           "id": 1,
-          "properties": Object {
-            "results": Array [
-              Object {
-                "area": 90,
-                "calc_price_per_sqm": 1.11,
-                "category": "apartment",
-                "floor": 2,
-                "price": 100,
-                "published_at": "2021-04-12T19:47:30.000Z",
-                "rent_type": "monthly",
-                "rooms": null,
-                "type": "rent",
-              },
-              Object {
-                "area": null,
-                "calc_price_per_sqm": null,
-                "category": "apartment",
-                "floor": null,
-                "price": 200,
-                "published_at": "2021-04-12T19:47:30.000Z",
-                "rent_type": "monthly",
-                "rooms": null,
-                "type": "rent",
-              },
-            ],
-          },
         },
         Object {
           "bounds": "56.992294 24.136619, 56.976394 23.99579, 56.992294 24.136619",
           "id": 2,
-          "properties": Object {
-            "results": Array [
-              Object {
-                "area": null,
-                "calc_price_per_sqm": null,
-                "category": "house",
-                "floor": null,
-                "price": 300,
-                "published_at": "2021-04-12T19:47:30.000Z",
-                "rent_type": "monthly",
-                "rooms": null,
-                "type": "rent",
-              },
-            ],
-          },
         },
         Object {
           "bounds": "56.992294 24.136619, 56.976394 23.99579, 56.992294 24.136619",
           "id": 3,
-          "properties": Object {
-            "results": Array [],
-          },
         },
       ],
     },

@@ -172,7 +172,7 @@ describe('Resolver: bounds', () => {
     expect(response).toMatchSnapshot();
   });
 
-  test('successfully retrieves building an property information', async () => {
+  test('successfully retrieves building and property information', async () => {
     authenticateAs('mapApp', server);
 
     const response = await query({
@@ -215,6 +215,33 @@ describe('Resolver: bounds', () => {
   });
 
   test('throws a validation exception if bounds filter has too large location', async () => {
+    authenticateAs('mapApp', server);
+
+    const response = await query({
+      query: `
+        query GetBounds($bounds: String!) {
+          bounds(bounds: $bounds) {
+            bounds
+            buildings{
+              properties {
+                results {
+                  id
+                }
+              }
+            }
+          }
+        }
+      `,
+      variables: {
+        bounds:
+          '57.0510741522279 24.34369621296768, 56.86735048784755 24.34369621296768, 56.86735048784755 23.842917061051175, 57.0510741522279 23.842917061051175, 57.0510741522279 24.34369621296768',
+      },
+    });
+
+    expect(response).toMatchSnapshot();
+  });
+
+  test('throws a validation exception if bounds filter has too large location, but allows for larger region if no property data requested', async () => {
     authenticateAs('mapApp', server);
 
     const response = await query({

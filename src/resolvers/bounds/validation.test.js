@@ -9,7 +9,7 @@ describe('buildings: validation', () => {
       },
     ],
   ])('with valid data: %j', (data) => {
-    expect(schema.validate(data).error).toBeUndefined();
+    expect(schema().validate(data).error).toBeUndefined();
   });
 
   test.each([
@@ -22,6 +22,6 @@ describe('buildings: validation', () => {
     [{}],
     [undefined],
   ])('with invalid data: %j', (data) => {
-    expect(schema.validate(data).error).not.toBeUndefined();
+    expect(schema().validate(data).error).not.toBeUndefined();
   });
 });

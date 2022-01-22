@@ -241,7 +241,7 @@ Object {
 }
 `;
 
-exports[`Resolver: bounds successfully retrieves building an property information 1`] = `
+exports[`Resolver: bounds successfully retrieves building and property information 1`] = `
 Object {
   "data": Object {
     "bounds": Object {
@@ -321,6 +321,41 @@ Object {
               "value": "57.0510741522279 24.34369621296768, 56.86735048784755 24.34369621296768, 56.86735048784755 23.842917061051175, 57.0510741522279 23.842917061051175, 57.0510741522279 24.34369621296768",
             },
             "message": "\\"bounds\\" are must not exceed 0.0001",
+            "path": Array [
+              "bounds",
+            ],
+            "type": "string.maxArea",
+          },
+        ],
+      },
+      "message": "Input validation failed",
+    },
+  ],
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
+exports[`Resolver: bounds throws a validation exception if bounds filter has too large location, but allows for larger region if no property data requested 1`] = `
+Object {
+  "data": null,
+  "errors": Array [
+    Object {
+      "extensions": Object {
+        "code": "BAD_USER_INPUT",
+        "details": Array [
+          Object {
+            "context": Object {
+              "area": 0.001,
+              "key": "bounds",
+              "label": "bounds",
+              "value": "57.0510741522279 24.34369621296768, 56.86735048784755 24.34369621296768, 56.86735048784755 23.842917061051175, 57.0510741522279 23.842917061051175, 57.0510741522279 24.34369621296768",
+            },
+            "message": "\\"bounds\\" are must not exceed 0.001",
             "path": Array [
               "bounds",
             ],
