@@ -192,25 +192,6 @@ Object {
             },
           },
         },
-        Object {
-          "bounds": "56.992294 24.136619, 56.976394 23.99579, 56.992294 24.136619",
-          "id": 3,
-          "properties": Object {
-            "results": Array [],
-            "summary": Object {
-              "count": 0,
-              "price": Object {
-                "count": 0,
-                "max": null,
-                "mean": null,
-                "median": null,
-                "min": null,
-                "mode": null,
-                "standardDev": null,
-              },
-            },
-          },
-        },
       ],
     },
   },
@@ -267,12 +248,6 @@ Object {
                 "price": 300,
               },
             ],
-          },
-        },
-        Object {
-          "id": 3,
-          "properties": Object {
-            "results": Array [],
           },
         },
       ],

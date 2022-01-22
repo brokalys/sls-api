@@ -16,6 +16,13 @@ export default class Buildings extends BaseDataSource {
   getInBounds(bounds) {
     return this.knex(TABLE_NAME)
       .withSchema(process.env.DB_DATABASE)
+      .select(`${TABLE_NAME}.*`)
+      .innerJoin(
+        'property_building_links',
+        `${TABLE_NAME}.id`,
+        'property_building_links.vzd_building_id',
+      )
+      .groupBy(`${TABLE_NAME}.id`)
       .whereInPolygon('bounds', bounds);
   }
 
