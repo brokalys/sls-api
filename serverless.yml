@@ -102,6 +102,7 @@ functions:
     name: ${self:provider.stage}-GraphQLApi
     description: GraphQL API of Brokalys.
     handler: src/handler.graphqlHandler
+    maximumRetryAttempts: 0
     events:
       - http:
           path: /
