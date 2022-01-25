@@ -1,5 +1,5 @@
 import { UserInputError } from 'apollo-server-lambda';
-import validationSchema from './properties/validation';
+import validationSchema from './query/properties/validation';
 
 export default {
   id: (building) => building.id,

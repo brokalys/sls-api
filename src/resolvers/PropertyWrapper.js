@@ -1,6 +1,6 @@
 import { UserInputError } from 'apollo-server-lambda';
 import graphqlFields from 'graphql-fields';
-import { discardSchema } from './properties/validation';
+import { discardSchema } from './query/properties/validation';
 
 function discardPercentage(data, percentage = 0) {
   if (percentage === 0) {

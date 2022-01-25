@@ -1,6 +1,6 @@
 import schema from './validation';
 
-describe('buildings: validation', () => {
+describe('building: validation', () => {
   test('with valid data', () => {
     expect(
       schema.validate({

@@ -1,10 +1,10 @@
 import { UserInputError } from 'apollo-server-lambda';
 import BuildingsDataSource from 'data-sources/buildings';
-import buildings from './buildings';
+import building from './building';
 
 jest.mock('data-sources/buildings');
 
-describe('buildings', () => {
+describe('building', () => {
   let dataSources;
 
   beforeEach(() => {
@@ -16,7 +16,7 @@ describe('buildings', () => {
   afterEach(jest.clearAllMocks);
 
   test('successfully retrieves basic data', async () => {
-    const data = await buildings({}, { id: 1 }, { dataSources });
+    const data = await building({}, { id: 1 }, { dataSources });
 
     expect(data).toEqual([
       {
@@ -29,13 +29,13 @@ describe('buildings', () => {
   describe('throws validation exception when', () => {
     test('no bounds provided', () => {
       expect(() => {
-        buildings({}, {});
+        building({}, {});
       }).toThrowError(UserInputError);
     });
 
     test('invalid id data-type provided', () => {
       expect(() => {
-        buildings(
+        building(
           {},
           {
             id: 'wrong',
