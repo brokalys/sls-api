@@ -1,3 +1,4 @@
+import { UserInputError } from 'apollo-server-lambda';
 import VZDApartmentSales from 'data-sources/vzd-apartment-sales';
 import VZDHouseSales from 'data-sources/vzd-house-sales';
 import resolvers from './VZDSalesWrapper';
@@ -5,11 +6,7 @@ import resolvers from './VZDSalesWrapper';
 jest.mock('data-sources/vzd-apartment-sales');
 jest.mock('data-sources/vzd-house-sales');
 
-const mockApartmentSales = [
-  { id: 1, object_type: 'Dz' },
-  { id: 2, object_type: 'Dz' },
-  { id: 3, object_type: 'T' },
-];
+const mockApartmentSales = [{ id: 1 }, { id: 2 }, { id: 3 }];
 const mockHouseSales = [{ id: 1 }, { id: 2 }];
 
 describe('VZDSalesWrapper', () => {
@@ -30,42 +27,84 @@ describe('VZDSalesWrapper', () => {
   describe('apartments', () => {
     test('return the apartment data', async () => {
       const output = await resolvers.apartments(
-        [1, 2, 3],
-        {},
+        { id: 1 },
+        { filter: { sale_date: { gte: '2020-01-01' } } },
         { dataSources },
         { fieldNodes: [] },
       );
 
-      expect(output).toEqual([
-        { id: 1, object_type: 'Dz' },
-        { id: 2, object_type: 'Dz' },
-      ]);
+      expect(output).toEqual([{ id: 1 }, { id: 2 }, { id: 3 }]);
+      expect(VZDApartmentSales.loadByBuildingId).toBeCalledWith(
+        expect.anything(),
+        expect.objectContaining({
+          object_type: { eq: 'Dz' },
+        }),
+      );
+    });
+
+    test('throws an error if trying to use invalid filters', async () => {
+      expect(() =>
+        resolvers.apartments(
+          { id: 1 },
+          { filter: { some_weird_filter: { eq: 'yep' } } },
+          { dataSources },
+          { fieldNodes: [] },
+        ),
+      ).toThrowError(UserInputError);
     });
   });
 
   describe('premises', () => {
     test('return the premise data', async () => {
       const output = await resolvers.premises(
-        [1, 2, 3],
-        {},
+        { id: 1 },
+        { filter: { sale_date: { gte: '2020-01-01' } } },
         { dataSources },
         { fieldNodes: [] },
       );
 
-      expect(output).toEqual([{ id: 3, object_type: 'T' }]);
+      expect(output).toEqual([{ id: 1 }, { id: 2 }, { id: 3 }]);
+      expect(VZDApartmentSales.loadByBuildingId).toBeCalledWith(
+        expect.anything(),
+        expect.objectContaining({
+          object_type: { eq: 'T' },
+        }),
+      );
+    });
+
+    test('throws an error if trying to use invalid filters', async () => {
+      expect(() =>
+        resolvers.premises(
+          { id: 1 },
+          { filter: { some_weird_filter: { eq: 'yep' } } },
+          { dataSources },
+          { fieldNodes: [] },
+        ),
+      ).toThrowError(UserInputError);
     });
   });
 
   describe('houses', () => {
     test('return the house data', async () => {
       const output = await resolvers.houses(
-        [1, 2],
-        {},
+        { id: 2 },
+        { filter: { sale_date: { gte: '2020-01-01' } } },
         { dataSources },
         { fieldNodes: [] },
       );
 
       expect(output).toEqual(mockHouseSales);
+    });
+
+    test('throws an error if trying to use invalid filters', async () => {
+      expect(() =>
+        resolvers.houses(
+          { id: 2 },
+          { filter: { some_weird_filter: { eq: 'yep' } } },
+          { dataSources },
+          { fieldNodes: [] },
+        ),
+      ).toThrowError(UserInputError);
     });
   });
 });

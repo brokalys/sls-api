@@ -2,44 +2,32 @@ import moment from 'moment';
 
 import Joi from 'lib/validator';
 
-const filterable = (field) =>
-  Joi.object({
-    eq: field,
-    neq: field,
-
-    gt: field,
-    gte: field,
-    lt: field,
-    lte: field,
-
-    in: Joi.array().items(field),
-    nin: Joi.array().items(field),
-  });
-
 const filter = Joi.object({
-  published_at: filterable(Joi.date().iso()),
-  created_at: filterable(Joi.date().iso()),
-  category: filterable(
+  published_at: Joi.object().filterOf(Joi.date().iso()),
+  created_at: Joi.object().filterOf(Joi.date().iso()),
+  category: Joi.object().filterOf(
     Joi.string()
       .lowercase()
       .valid('apartment', 'house', 'land', 'garage', 'office'),
   ),
-  type: filterable(Joi.string().lowercase().valid('sell', 'rent', 'auction')),
-  rent_type: filterable(
+  type: Joi.object().filterOf(
+    Joi.string().lowercase().valid('sell', 'rent', 'auction'),
+  ),
+  rent_type: Joi.object().filterOf(
     Joi.string()
       .lowercase()
       .valid('yearly', 'monthly', 'weekly', 'daily', 'hourly', 'unknown'),
   ),
-  location_classificator: filterable(Joi.string()),
-  price: filterable(Joi.number().integer().min(1)),
-  calc_price_per_sqm: filterable(Joi.number().integer().min(0)),
-  rooms: filterable(Joi.number().integer().min(1)),
-  floor: filterable(Joi.number().integer().min(1)),
-  area: filterable(Joi.number().integer().min(1)),
-  source: filterable(Joi.string()),
-  url: filterable(Joi.string().uri()),
-  foreign_id: filterable(Joi.string().alphanum()),
-  building_id: filterable(Joi.string().alphanum()),
+  location_classificator: Joi.object().filterOf(Joi.string()),
+  price: Joi.object().filterOf(Joi.number().integer().min(1)),
+  calc_price_per_sqm: Joi.object().filterOf(Joi.number().integer().min(0)),
+  rooms: Joi.object().filterOf(Joi.number().integer().min(1)),
+  floor: Joi.object().filterOf(Joi.number().integer().min(1)),
+  area: Joi.object().filterOf(Joi.number().integer().min(1)),
+  source: Joi.object().filterOf(Joi.string()),
+  url: Joi.object().filterOf(Joi.string().uri()),
+  foreign_id: Joi.object().filterOf(Joi.string().alphanum()),
+  building_id: Joi.object().filterOf(Joi.string().alphanum()),
 }).default({});
 
 const schema = Joi.object({

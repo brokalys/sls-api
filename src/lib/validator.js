@@ -58,4 +58,25 @@ export default Joi.extend((joi) => ({
       },
     },
   },
+})).extend((joi) => ({
+  type: 'object',
+  base: joi.object(),
+  rules: {
+    filterOf: {
+      method(field) {
+        return joi.object({
+          eq: field,
+          neq: field,
+
+          gt: field,
+          gte: field,
+          lt: field,
+          lte: field,
+
+          in: joi.array().items(field),
+          nin: joi.array().items(field),
+        });
+      },
+    },
+  },
 }));

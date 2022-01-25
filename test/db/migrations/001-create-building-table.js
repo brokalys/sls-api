@@ -6,6 +6,7 @@ exports.up = function (knex) {
     table.string('city');
     table.string('street');
     table.string('house_number');
+    table.string('location_classificator');
   });
 };
 

@@ -11,6 +11,7 @@ exports.seed = function (knex) {
         makeVZDApartmentSale({
           sale_id: 100,
           building_cadastral_designation: '42010053310001',
+          sale_date: '2020-01-15T00:00:00Z',
         }),
         makeVZDApartmentSale({
           sale_id: 100,
@@ -19,6 +20,7 @@ exports.seed = function (knex) {
         makeVZDApartmentSale({
           building_cadastral_designation: '42010053310001',
           object_type: 'T',
+          sale_date: '2020-01-15T00:00:00Z',
         }),
         makeVZDApartmentSale({
           building_cadastral_designation: '42010053310002',

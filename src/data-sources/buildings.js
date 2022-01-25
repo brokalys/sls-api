@@ -5,6 +5,19 @@ import BaseDataSource from './base';
 const TABLE_NAME = 'vzd_buildings';
 
 export default class Buildings extends BaseDataSource {
+  get(filters, limit = undefined) {
+    const query = this.knex(TABLE_NAME)
+      .withSchema(process.env.DB_DATABASE)
+      .withFilters(filters)
+      .timeout(5000);
+
+    if (limit) {
+      query.limit(limit);
+    }
+
+    return query;
+  }
+
   getById(id) {
     return this.getDataLoader(
       this.knex(TABLE_NAME).withSchema(process.env.DB_DATABASE),
