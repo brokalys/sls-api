@@ -16,6 +16,10 @@ exports.seed = function (knex) {
           street: 'brivibas',
           house_number: '12',
           cadastral_designation: '42010053310001',
+          object_code: '5201011310',
+          land_cadastral_designation: '42010053310001',
+          area: 100,
+          group_code: '9894006',
           location_classificator: 'latvia-riga-centrs',
         },
         {
@@ -31,6 +35,10 @@ exports.seed = function (knex) {
           street: 'brivibas',
           house_number: '13',
           cadastral_designation: '42010053310002',
+          object_code: '5201011310',
+          land_cadastral_designation: '42010053310002',
+          area: 100,
+          group_code: '9894006',
           location_classificator: 'latvia-riga-centrs',
         },
         {
@@ -43,6 +51,10 @@ exports.seed = function (knex) {
             ],
           ]),
           cadastral_designation: '42010053310003',
+          object_code: '5201011310',
+          land_cadastral_designation: '42010053310003',
+          area: 100,
+          group_code: '9894006',
           location_classificator: 'latvia-riga-agenskalns',
         },
         {
@@ -58,6 +70,10 @@ exports.seed = function (knex) {
           street: 'brivibas',
           house_number: '13',
           cadastral_designation: '42010053310004',
+          object_code: '5201011310',
+          land_cadastral_designation: '42010053310004',
+          area: 100,
+          group_code: '9894006',
           location_classificator: 'latvia-riga',
         },
       ]);

@@ -139,6 +139,11 @@ type VZDSalesWrapper @auth {
 type Building @auth {
   id: Int!
   bounds: String!
+  cadastral_designation: String!
+  object_code: String!
+  land_cadastral_designation: String!
+  area: Float!
+  group_code: String!
   location_classificator: String
   properties(filter: PropertyFilter): PropertyWrapper!
   vzd: VZDSalesWrapper!

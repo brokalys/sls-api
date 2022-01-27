@@ -3,6 +3,10 @@ exports.up = function (knex) {
     table.increments('id');
     table.json('bounds');
     table.string('cadastral_designation');
+    table.string('object_code');
+    table.string('land_cadastral_designation');
+    table.integer('area');
+    table.string('group_code');
     table.string('city');
     table.string('street');
     table.string('house_number');

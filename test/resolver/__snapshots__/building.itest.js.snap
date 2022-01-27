@@ -4,8 +4,14 @@ exports[`Resolver: building successfully retrieves all the available fields 1`] 
 Object {
   "data": Object {
     "building": Object {
+      "area": 100,
       "bounds": "56.992294 24.136619, 56.976394 23.99579, 56.992294 24.136619",
+      "cadastral_designation": "42010053310001",
+      "group_code": "9894006",
       "id": 1,
+      "land_cadastral_designation": "42010053310001",
+      "location_classificator": "latvia-riga-centrs",
+      "object_code": "5201011310",
       "properties": Object {
         "results": Array [
           Object {

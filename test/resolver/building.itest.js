@@ -41,6 +41,12 @@ describe('Resolver: building', () => {
           building(id: $id) {
             id
             bounds
+            cadastral_designation
+            object_code
+            land_cadastral_designation
+            area
+            group_code
+            location_classificator
             properties {
               results {
                 id
