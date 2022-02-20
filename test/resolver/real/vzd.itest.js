@@ -5,7 +5,7 @@ import db from 'db-config';
 
 const { query } = createTestClient(server);
 
-describe('Resolver: buildings - real queries from customer apps', () => {
+describe('Resolver: vzd - real queries from customer apps', () => {
   beforeAll(async () => {
     await db.migrate.latest();
     await db.seed.run();
@@ -19,34 +19,30 @@ describe('Resolver: buildings - real queries from customer apps', () => {
 
       const response = await query({
         query: `
-          query($buildingFilter: BuildingFilter!, $vzdFilter: VZDFilter!) {
-            buildings(filter: $buildingFilter, limit: null) {
-              vzd {
-                apartments(filter: $vzdFilter) {
-                  price
-                  area: apartment_total_area_m2
-                }
-                premises(filter: $vzdFilter) {
-                  price
-                  area: space_group_total_area_m2
-                }
-                houses(filter: $vzdFilter) {
-                  price
-                  area: building_total_area_m2
-                }
+          query($filters: VZDFilter!) {
+            vzd {
+              apartments(filter: $filters) {
+                price
+                area: apartment_total_area_m2
+              }
+              premises(filter: $filters) {
+                price
+                area: space_group_total_area_m2
+              }
+              houses(filter: $filters) {
+                price
+                area: building_total_area_m2
               }
             }
           }
         `,
         variables: {
-          buildingFilter: {
-            location_classificator: { eq: 'latvia-riga-centrs' },
-          },
-          vzdFilter: {
+          filters: {
             sale_date: {
               gte: '2020-09-01T00:00:00Z',
               lt: '2020-10-01T00:00:00Z',
             },
+            location_classificator: { eq: 'latvia-riga-centrs' },
           },
         },
       });

@@ -3,7 +3,7 @@ directive @auth(requires: String) on FIELD_DEFINITION | OBJECT
 type Query {
   properties(filter: PropertyFilter, limit: Int): PropertyWrapper!
   building(id: Int!): Building @auth
-  buildings(filter: BuildingFilter, limit: Int): [Building]! @auth
+  vzd: VZDSalesWrapper! @auth
   bounds(bounds: String!): Bounds! @auth
 }
 
@@ -131,9 +131,9 @@ type VZDHouseSale {
 }
 
 type VZDSalesWrapper @auth {
-  apartments(filter: VZDFilter): [VZDApartmentSale!]!
-  premises(filter: VZDFilter): [VZDPremiseSale!]!
-  houses(filter: VZDFilter): [VZDHouseSale!]!
+  apartments(filter: VZDFilter, limit: Int): [VZDApartmentSale!]!
+  premises(filter: VZDFilter, limit: Int): [VZDPremiseSale!]!
+  houses(filter: VZDFilter, limit: Int): [VZDHouseSale!]!
 }
 
 type Building @auth {
@@ -156,6 +156,7 @@ type Bounds {
 
 input VZDFilter {
   sale_date: FilterString
+  location_classificator: FilterString
 }
 
 input FilterString {

@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Resolver: vzd - real queries from customer apps sls-static-api retrieve all the historical data 1`] = `
+Object {
+  "data": Object {
+    "vzd": Object {
+      "apartments": Array [
+        Object {
+          "area": 51.9,
+          "price": 12000,
+        },
+        Object {
+          "area": 51.9,
+          "price": 12000,
+        },
+        Object {
+          "area": 51.9,
+          "price": 12000,
+        },
+      ],
+      "houses": Array [],
+      "premises": Array [],
+    },
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;

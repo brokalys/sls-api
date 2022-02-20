@@ -6,8 +6,8 @@ import submitFeedback from './mutations/submit-feedback';
 import unsubscribePinger from './mutations/unsubscribe-pinger';
 import bounds from './resolvers/query/bounds';
 import building from './resolvers/query/building';
-import buildings from './resolvers/query/buildings';
 import properties from './resolvers/query/properties';
+import vzd from './resolvers/query/vzd';
 import Building from './resolvers/Building';
 import Property from './resolvers/Property';
 import PropertyPriceSummary from './resolvers/PropertyPriceSummary';
@@ -21,8 +21,8 @@ export default {
   Query: {
     bounds,
     building,
-    buildings,
     properties,
+    vzd,
   },
   Mutation: {
     calculateBuildingId,

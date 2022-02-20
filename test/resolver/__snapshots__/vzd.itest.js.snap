@@ -1,16 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Resolver: buildings successfully filters buildings by location 1`] = `
+exports[`Resolver: vzd successfully filters vzd apartment data by location 1`] = `
 Object {
   "data": Object {
-    "buildings": Array [
-      Object {
-        "location_classificator": "latvia-riga-centrs",
-      },
-      Object {
-        "location_classificator": "latvia-riga-centrs",
-      },
-    ],
+    "vzd": Object {
+      "apartments": Array [
+        Object {
+          "id": 1,
+        },
+        Object {
+          "id": 2,
+        },
+        Object {
+          "id": 3,
+        },
+        Object {
+          "id": 5,
+        },
+      ],
+    },
   },
   "errors": undefined,
   "extensions": undefined,
@@ -22,23 +30,25 @@ Object {
 }
 `;
 
-exports[`Resolver: buildings successfully retrieves ALL buildings with sufficient permissions 1`] = `
+exports[`Resolver: vzd successfully retrieves ALL vzd apartment data with sufficient permissions 1`] = `
 Object {
   "data": Object {
-    "buildings": Array [
-      Object {
-        "location_classificator": "latvia-riga-centrs",
-      },
-      Object {
-        "location_classificator": "latvia-riga-centrs",
-      },
-      Object {
-        "location_classificator": "latvia-riga-agenskalns",
-      },
-      Object {
-        "location_classificator": "latvia-riga",
-      },
-    ],
+    "vzd": Object {
+      "apartments": Array [
+        Object {
+          "id": 1,
+        },
+        Object {
+          "id": 2,
+        },
+        Object {
+          "id": 3,
+        },
+        Object {
+          "id": 5,
+        },
+      ],
+    },
   },
   "errors": undefined,
   "extensions": undefined,
@@ -50,23 +60,25 @@ Object {
 }
 `;
 
-exports[`Resolver: buildings successfully retrieves multiple buildings 1`] = `
+exports[`Resolver: vzd successfully retrieves vzd apartment data 1`] = `
 Object {
   "data": Object {
-    "buildings": Array [
-      Object {
-        "id": 1,
-      },
-      Object {
-        "id": 2,
-      },
-      Object {
-        "id": 3,
-      },
-      Object {
-        "id": 4,
-      },
-    ],
+    "vzd": Object {
+      "apartments": Array [
+        Object {
+          "id": 1,
+        },
+        Object {
+          "id": 2,
+        },
+        Object {
+          "id": 3,
+        },
+        Object {
+          "id": 5,
+        },
+      ],
+    },
   },
   "errors": undefined,
   "extensions": undefined,
@@ -78,7 +90,7 @@ Object {
 }
 `;
 
-exports[`Resolver: buildings throws a validation exception if limit too large provided 1`] = `
+exports[`Resolver: vzd throws a validation exception if limit too large provided 1`] = `
 Object {
   "data": null,
   "errors": Array [
@@ -113,7 +125,7 @@ Object {
 }
 `;
 
-exports[`Resolver: buildings throws a validation exception if no limit provided 1`] = `
+exports[`Resolver: vzd throws a validation exception if no limit provided 1`] = `
 Object {
   "data": null,
   "errors": Array [

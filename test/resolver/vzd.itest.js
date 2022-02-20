@@ -5,7 +5,7 @@ import db from 'db-config';
 
 const { query } = createTestClient(server);
 
-describe('Resolver: buildings', () => {
+describe('Resolver: vzd', () => {
   beforeAll(async () => {
     await db.migrate.latest();
     await db.seed.run();
@@ -13,14 +13,16 @@ describe('Resolver: buildings', () => {
 
   afterEach(jest.clearAllMocks);
 
-  test('successfully retrieves multiple buildings', async () => {
+  test('successfully retrieves vzd apartment data', async () => {
     authenticateAs('mapApp', server);
 
     const response = await query({
       query: `
         {
-          buildings {
-            id
+          vzd {
+            apartments {
+              id
+            }
           }
         }
       `,
@@ -29,14 +31,16 @@ describe('Resolver: buildings', () => {
     expect(response).toMatchSnapshot();
   });
 
-  test('successfully retrieves ALL buildings with sufficient permissions', async () => {
+  test('successfully retrieves ALL vzd apartment data with sufficient permissions', async () => {
     authenticateAs('slsStaticApi', server);
 
     const response = await query({
       query: `
         query {
-          buildings(limit: null) {
-            location_classificator
+          vzd {
+            apartments(limit: null) {
+              id
+            }
           }
         }
       `,
@@ -45,14 +49,16 @@ describe('Resolver: buildings', () => {
     expect(response).toMatchSnapshot();
   });
 
-  test('successfully filters buildings by location', async () => {
+  test('successfully filters vzd apartment data by location', async () => {
     authenticateAs('mapApp', server);
 
     const response = await query({
       query: `
-        query ($filter: BuildingFilter) {
-          buildings(filter: $filter) {
-            location_classificator
+        query ($filter: VZDFilter) {
+          vzd {
+            apartments(filter: $filter) {
+              id
+            }
           }
         }
       `,
@@ -72,8 +78,10 @@ describe('Resolver: buildings', () => {
     const response = await query({
       query: `
         {
-          buildings(limit: 10000) {
-            id
+          vzd {
+            apartments(limit: 10000) {
+              id
+            }
           }
         }
       `,
@@ -88,8 +96,10 @@ describe('Resolver: buildings', () => {
     const response = await query({
       query: `
         {
-          buildings(limit: null) {
-            id
+          vzd {
+            apartments(limit: null) {
+              id
+            }
           }
         }
       `,
@@ -102,8 +112,10 @@ describe('Resolver: buildings', () => {
     const response = await query({
       query: `
         {
-          buildings {
-            id
+          vzd {
+            apartments {
+              id
+            }
           }
         }
       `,
