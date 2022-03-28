@@ -52,6 +52,13 @@ describe('VZDPremiseSale', () => {
     });
   });
 
+  describe('sale_id', () => {
+    it('returns sale_id value', () => {
+      const output = resolvers.sale_id(premise);
+      expect(output).toEqual(premise.sale_id);
+    });
+  });
+
   describe('cadastre_number', () => {
     it('returns cadastre_number value', () => {
       const output = resolvers.cadastre_number(premise);

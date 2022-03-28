@@ -70,6 +70,7 @@ type PropertyWrapper {
 
 type VZDApartmentSale {
   id: Int!
+  sale_id: Int!
   cadastre_number: String!
   property_address: String!
   sale_date: String!
@@ -93,6 +94,7 @@ type VZDApartmentSale {
 
 type VZDPremiseSale {
   id: Int!
+  sale_id: Int!
   cadastre_number: String!
   property_address: String!
   sale_date: String!
@@ -116,6 +118,7 @@ type VZDPremiseSale {
 
 type VZDHouseSale {
   id: Int!
+  sale_id: Int!
   cadastre_number: String!
   property_address: String!
   sale_date: String!

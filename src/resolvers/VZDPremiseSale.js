@@ -2,6 +2,7 @@ import moment from 'moment';
 
 export default {
   id: (item) => item.id,
+  sale_id: (item) => item.sale_id,
   cadastre_number: (item) => item.cadastre_number,
   property_address: (item) => item.property_address,
   sale_date: (item) => moment(item.sale_date).toISOString(),
