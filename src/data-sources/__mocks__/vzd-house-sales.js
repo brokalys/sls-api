@@ -7,4 +7,12 @@ export default {
       },
     ],
   })),
+  get: jest.fn(() => ({
+    1: [
+      {
+        building_id: 1,
+        price: 123,
+      },
+    ],
+  })),
 };

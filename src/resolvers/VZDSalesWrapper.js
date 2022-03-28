@@ -69,7 +69,7 @@ export default {
     return dataSources.vzdApartmentSales.loadByBuildingId(building.id, filters);
   },
 
-  houses: (building, input, { dataSources }) => {
+  houses: (building, input, { dataSources, user }) => {
     const validator = validationSchema.validate(input);
 
     // Validate input

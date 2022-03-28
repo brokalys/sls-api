@@ -11,17 +11,22 @@ const mockHouseSales = [{ id: 1 }, { id: 2 }];
 
 describe('VZDSalesWrapper', () => {
   let dataSources;
+  let user;
 
   beforeEach(() => {
     dataSources = {
       vzdApartmentSales: VZDApartmentSales,
       vzdHouseSales: VZDHouseSales,
     };
+    user = {
+      hasRole: jest.fn().mockReturnValue(true),
+    };
 
     VZDApartmentSales.loadByBuildingId.mockResolvedValueOnce(
       mockApartmentSales,
     );
     VZDHouseSales.loadByBuildingId.mockResolvedValueOnce(mockHouseSales);
+    VZDHouseSales.get.mockResolvedValueOnce(mockHouseSales);
   });
 
   describe('apartments', () => {
@@ -29,7 +34,7 @@ describe('VZDSalesWrapper', () => {
       const output = await resolvers.apartments(
         { id: 1 },
         { filter: { sale_date: { gte: '2020-01-01' } } },
-        { dataSources },
+        { dataSources, user },
         { fieldNodes: [] },
       );
 
@@ -47,7 +52,7 @@ describe('VZDSalesWrapper', () => {
         resolvers.apartments(
           { id: 1 },
           { filter: { some_weird_filter: { eq: 'yep' } } },
-          { dataSources },
+          { dataSources, user },
           { fieldNodes: [] },
         ),
       ).toThrowError(UserInputError);
@@ -59,7 +64,7 @@ describe('VZDSalesWrapper', () => {
       const output = await resolvers.premises(
         { id: 1 },
         { filter: { sale_date: { gte: '2020-01-01' } } },
-        { dataSources },
+        { dataSources, user },
         { fieldNodes: [] },
       );
 
@@ -77,7 +82,7 @@ describe('VZDSalesWrapper', () => {
         resolvers.premises(
           { id: 1 },
           { filter: { some_weird_filter: { eq: 'yep' } } },
-          { dataSources },
+          { dataSources, user },
           { fieldNodes: [] },
         ),
       ).toThrowError(UserInputError);
@@ -89,7 +94,18 @@ describe('VZDSalesWrapper', () => {
       const output = await resolvers.houses(
         { id: 2 },
         { filter: { sale_date: { gte: '2020-01-01' } } },
-        { dataSources },
+        { dataSources, user },
+        { fieldNodes: [] },
+      );
+
+      expect(output).toEqual(mockHouseSales);
+    });
+
+    test('return unlimited house data', async () => {
+      const output = await resolvers.houses(
+        {},
+        { limit: null, filter: { sale_date: { gte: '2020-01-01' } } },
+        { dataSources, user },
         { fieldNodes: [] },
       );
 
@@ -101,7 +117,7 @@ describe('VZDSalesWrapper', () => {
         resolvers.houses(
           { id: 2 },
           { filter: { some_weird_filter: { eq: 'yep' } } },
-          { dataSources },
+          { dataSources, user },
           { fieldNodes: [] },
         ),
       ).toThrowError(UserInputError);
