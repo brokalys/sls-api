@@ -1,0 +1,182 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Resolver: land successfully retrieves all the available fields 1`] = `
+Object {
+  "data": Object {
+    "land": Object {
+      "area": 100,
+      "bounds": "56.992294 24.136619, 56.976394 23.99579, 56.992294 24.136619",
+      "cadastral_designation": "42010053310001",
+      "group_code": "9894006",
+      "id": 1,
+      "location_classificator": "latvia-riga-centrs",
+      "object_code": "5201011310",
+      "properties": Object {
+        "results": Array [
+          Object {
+            "area": 90,
+            "calc_price_per_sqm": 1.11,
+            "category": "apartment",
+            "content": "",
+            "floor": 2,
+            "foreign_id": null,
+            "id": 1,
+            "images": Array [],
+            "lat": 56.1,
+            "lng": 24.9,
+            "price": 100,
+            "published_at": "2021-04-12T19:47:30.000Z",
+            "rent_type": "monthly",
+            "rooms": null,
+            "type": "rent",
+            "url": "https://www.ss.com/msg/lv/real-estate/flats/aizkraukle-and-reg/aiviekstes-pag/aghfx.html",
+          },
+          Object {
+            "area": null,
+            "calc_price_per_sqm": null,
+            "category": "apartment",
+            "content": "",
+            "floor": null,
+            "foreign_id": null,
+            "id": 2,
+            "images": Array [],
+            "lat": 56.1,
+            "lng": 24.9,
+            "price": 200,
+            "published_at": "2021-04-12T19:47:30.000Z",
+            "rent_type": "monthly",
+            "rooms": null,
+            "type": "rent",
+            "url": "https://www.ss.lv/msg/lv/real-estate/flats/riga/bolderaya/cceeb.html",
+          },
+        ],
+        "summary": Object {
+          "count": 2,
+          "price": Object {
+            "count": 2,
+            "max": 200,
+            "mean": 150,
+            "median": 150,
+            "min": 100,
+            "mode": 100,
+            "standardDev": 50,
+          },
+        },
+      },
+      "vzd": Object {
+        "land": Array [
+          Object {
+            "cadastre_number": "76860060032",
+            "id": 1,
+            "land_cadastral_designations": Array [
+              "76860060032",
+            ],
+            "land_total_area_m2": 479000,
+            "price": 39000,
+            "property_address": "\\"Bezdelīgactiņas\\", Turku pag., Līvānu nov., LV-5316",
+            "sale_date": "2015-12-16T00:00:00.000Z",
+            "sale_id": 1,
+          },
+        ],
+      },
+    },
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
+exports[`Resolver: land successfully retrieves land VZD sales information 1`] = `
+Object {
+  "data": Object {
+    "land": Object {
+      "id": 1,
+      "vzd": Object {
+        "land": Array [
+          Object {
+            "cadastre_number": "76860060032",
+            "id": 1,
+            "price": 39000,
+          },
+        ],
+      },
+    },
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
+exports[`Resolver: land successfully retrieves land an property information 1`] = `
+Object {
+  "data": Object {
+    "land": Object {
+      "id": 1,
+      "properties": Object {
+        "results": Array [
+          Object {
+            "price": 100,
+          },
+          Object {
+            "price": 200,
+          },
+        ],
+      },
+    },
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
+exports[`Resolver: land successfully retrieves single land 1`] = `
+Object {
+  "data": Object {
+    "land": Object {
+      "id": 1,
+    },
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
+exports[`Resolver: land throws a validation exception if no id filter provided 1`] = `
+Object {
+  "data": undefined,
+  "errors": Array [
+    Object {
+      "extensions": Object {
+        "code": "GRAPHQL_VALIDATION_FAILED",
+      },
+      "message": "Field \\"land\\" argument \\"id\\" of type \\"Int!\\" is required, but it was not provided.",
+    },
+  ],
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;

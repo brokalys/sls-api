@@ -6,10 +6,12 @@ import {
   ApolloServerPluginUsageReportingDisabled,
 } from 'apollo-server-core';
 import Buildings from './data-sources/buildings';
+import Land from './data-sources/land';
 import Properties from './data-sources/properties';
 import UserClassifieds from './data-sources/user-classifieds';
 import VZDApartmentSales from './data-sources/vzd-apartment-sales';
 import VZDHouseSales from './data-sources/vzd-house-sales';
+import VZDLandSales from './data-sources/vzd-land-sales';
 import loadUser from './lib/auth';
 import authDirectiveTransformer from './lib/auth-directive';
 import Bugsnag from './lib/bugsnag';
@@ -34,10 +36,12 @@ export const server = new ApolloServer({
   debug: isDevMode,
   dataSources: () => ({
     buildings: new Buildings(dbConfig),
+    land: new Land(dbConfig),
     properties: new Properties(dbConfig),
     userClassifieds: new UserClassifieds(dbConfig),
     vzdApartmentSales: new VZDApartmentSales(dbConfig),
     vzdHouseSales: new VZDHouseSales(dbConfig),
+    vzdLandSales: new VZDLandSales(dbConfig),
   }),
   context: async ({ event, req, request, context }) => {
     const { requestContext } = event ||

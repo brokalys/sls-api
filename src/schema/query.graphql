@@ -3,6 +3,7 @@ directive @auth(requires: String) on FIELD_DEFINITION | OBJECT
 type Query {
   properties(filter: PropertyFilter, limit: Int): PropertyWrapper!
   building(id: Int!): Building @auth
+  land(id: Int!): Land @auth
   vzd: VZDSalesWrapper! @auth
   bounds(bounds: String!): Bounds! @auth
 }
@@ -133,10 +134,25 @@ type VZDHouseSale {
   building_depreciation_percentage: Float
 }
 
+type VZDLandSale {
+  id: Int!
+  sale_id: Int!
+  cadastre_number: String!
+  property_address: String!
+  sale_date: String!
+  price: Float!
+  land_cadastral_designations: [String!]!
+  land_total_area_m2: Float
+}
+
 type VZDSalesWrapper @auth {
   apartments(filter: VZDFilter, limit: Int): [VZDApartmentSale!]!
   premises(filter: VZDFilter, limit: Int): [VZDPremiseSale!]!
   houses(filter: VZDFilter, limit: Int): [VZDHouseSale!]!
+}
+
+type VZDLandWrapper @auth {
+  land(filter: VZDFilter, limit: Int): [VZDLandSale!]!
 }
 
 type Building @auth {
@@ -152,9 +168,23 @@ type Building @auth {
   vzd: VZDSalesWrapper!
 }
 
+type Land @auth {
+  id: Int!
+  bounds: String!
+  cadastral_designation: String!
+  actualization_date: String!
+  object_code: String!
+  area: Float!
+  group_code: String!
+  location_classificator: String
+  properties(filter: PropertyFilter): PropertyWrapper!
+  vzd: VZDLandWrapper!
+}
+
 type Bounds {
   bounds: String!
   buildings: [Building!]! @auth
+  land: [Land!]! @auth
 }
 
 input VZDFilter {

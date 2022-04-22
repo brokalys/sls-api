@@ -9,5 +9,12 @@ export default {
       },
     ],
   })),
+  loadByLandId: jest.fn(() => ({
+    1: [
+      {
+        price: 123,
+      },
+    ],
+  })),
   loadMany: jest.fn().mockResolvedValue([]),
 };

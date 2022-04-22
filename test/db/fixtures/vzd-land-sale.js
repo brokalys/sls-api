@@ -1,0 +1,36 @@
+let sequentialSaleId = 0;
+
+export default function makeVZDLandSale(customData = {}) {
+  return {
+    sale_id: ++sequentialSaleId,
+    cadastre_number: '76860060032',
+    property_name: null,
+    property_address: '"Bezdelīgactiņas", Turku pag., Līvānu nov., LV-5316',
+    property_county: 'Līvānu nov.',
+    property_city: null,
+    property_parish: 'Turku pag.',
+    sale_date: '2015-12-16T00:00:00.000Z',
+    price: 39000,
+    land_count: 1,
+    land_cadastral_designations: '76860060032',
+    land_built_up: 1,
+    land_part_counter: 1,
+    land_part_denominator: 1,
+    land_total_area_m2: 479000.0,
+    agricultural_land_area_m2: 180000.0,
+    arable_land_area_m2: null,
+    orchard_land_area_m2: null,
+    meadow_land_area_m2: 180000.0,
+    pasture_land_area_m2: null,
+    ameliorated_land_area_m2: null,
+    forest_land_area_m2: 233000.0,
+    shrubbery_land_area_m2: 51000.0,
+    swamp_land_area_m2: null,
+    under_water_land_area_m2: 8000.0,
+    under_pond_land_area_m2: null,
+    under_buildings_land_area_m2: null,
+    under_roads_land_area_m2: 7000.0,
+    other_land_area_m2: 1512,
+    ...customData,
+  };
+}

@@ -52,6 +52,24 @@ class Properties extends BaseDataSource {
     ).load(id);
   }
 
+  loadByLandId(id, filters) {
+    const query = this.knex('properties')
+      .withSchema(process.env.DB_DATABASE)
+      .leftJoin(
+        'property_land_links',
+        'properties.id',
+        'property_land_links.property_id',
+      )
+      .withFilters(filters)
+      .select('properties.id', 'property_land_links.vzd_land_id');
+
+    return this.getDataLoader(
+      query,
+      'property_land_links.vzd_land_id',
+      'vzd_land_id',
+    ).load(id);
+  }
+
   create(values) {
     const lat_lng_point = this.knex.raw(
       `point(${[values.lat || 0, values.lng || 0].join(', ')})`,
