@@ -77,6 +77,42 @@ describe('Resolver: bounds', () => {
                 }
               }
             }
+            land {
+              id
+              bounds
+              properties {
+                results {
+                  id
+                  url
+                  category
+                  type
+                  rent_type
+                  content
+                  images
+                  price
+                  calc_price_per_sqm
+                  rooms
+                  area
+                  floor
+                  lat
+                  lng
+                  published_at
+                  foreign_id
+                }
+                summary {
+                  count
+                  price {
+                    count
+                    min
+                    max
+                    mean
+                    median
+                    mode
+                    standardDev
+                  }
+                }
+              }
+            }
           }
         }
       `,
@@ -180,6 +216,33 @@ describe('Resolver: bounds', () => {
         query GetBuildingsAndProperties($bounds: String!) {
           bounds(bounds: $bounds) {
             buildings {
+              id
+              properties {
+                results {
+                  price
+                }
+              }
+            }
+          }
+        }
+      `,
+      variables: {
+        bounds:
+          '56.992294 24.136619, 56.976394 23.99579, 56.992294 24.136619, 56.992294 24.136619',
+      },
+    });
+
+    expect(response).toMatchSnapshot();
+  });
+
+  test('successfully retrieves land and property information', async () => {
+    authenticateAs('mapApp', server);
+
+    const response = await query({
+      query: `
+        query($bounds: String!) {
+          bounds(bounds: $bounds) {
+            land {
               id
               properties {
                 results {

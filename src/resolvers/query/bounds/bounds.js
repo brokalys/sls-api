@@ -30,5 +30,7 @@ export default function (root, input, context, info) {
     bounds: validator.value.bounds,
     buildings: (parent, context) =>
       context.dataSources.buildings.getInBounds(validator.value.bounds),
+    land: (parent, context) =>
+      context.dataSources.land.getInBounds(validator.value.bounds),
   };
 }

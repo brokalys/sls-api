@@ -12,4 +12,17 @@ export default class Land extends BaseDataSource {
       .load(id)
       .then(([result]) => result);
   }
+
+  getInBounds(bounds) {
+    return this.knex(TABLE_NAME)
+      .withSchema(process.env.DB_DATABASE)
+      .select(`${TABLE_NAME}.*`)
+      .innerJoin(
+        'property_land_links',
+        `${TABLE_NAME}.id`,
+        'property_land_links.vzd_land_id',
+      )
+      .groupBy(`${TABLE_NAME}.id`)
+      .whereInPolygon('bounds', bounds);
+  }
 }

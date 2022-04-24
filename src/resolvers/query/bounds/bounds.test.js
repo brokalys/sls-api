@@ -33,6 +33,7 @@ describe('bounds', () => {
       bounds:
         '56.944756215513316 24.09404948877113, 56.9404253703127 24.09404948877113, 56.9404253703127 24.086952363717725, 56.944756215513316 24.086952363717725, 56.944756215513316 24.09404948877113',
       buildings: expect.any(Function),
+      land: expect.any(Function),
     });
     expect(await data.buildings({}, { dataSources })).toEqual(buildings);
   });
