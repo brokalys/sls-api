@@ -9,7 +9,7 @@ export default function makeVZDLandSale(customData = {}) {
     property_county: 'Līvānu nov.',
     property_city: null,
     property_parish: 'Turku pag.',
-    sale_date: '2015-12-16T00:00:00.000Z',
+    sale_date: '2020-09-16T00:00:00.000Z',
     price: 39000,
     land_count: 1,
     land_cadastral_designations: '76860060032',

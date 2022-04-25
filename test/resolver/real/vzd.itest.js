@@ -33,6 +33,10 @@ describe('Resolver: vzd - real queries from customer apps', () => {
                 price
                 area: building_total_area_m2
               }
+              land(filter: $filters) {
+                price
+                area: land_total_area_m2
+              }
             }
           }
         `,

@@ -19,6 +19,16 @@ Object {
         },
       ],
       "houses": Array [],
+      "land": Array [
+        Object {
+          "area": 479000,
+          "price": 39000,
+        },
+        Object {
+          "area": 479000,
+          "price": 100,
+        },
+      ],
       "premises": Array [],
     },
   },

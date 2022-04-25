@@ -97,4 +97,32 @@ export default {
       validator.value.filter,
     );
   },
+
+  land: (building, input, { dataSources, user }) => {
+    const validator = validationSchema.validate(input);
+
+    // Validate input
+    if (validator.error) {
+      throw new UserInputError('Input validation failed', {
+        details: validator.error.details,
+      });
+    }
+
+    if (!building.id) {
+      const { limit } = validator.value;
+
+      // Only specific customers can access unlimited properties
+      if (!limit && !user.hasRole(PERMISSION_READ_UNLIMITED_SALE_DATA)) {
+        throw new AuthenticationError(
+          'You do not have sufficient permissions to query for unlimited results. Please provide a limit.',
+        );
+      }
+
+      return dataSources.vzdLandSales.get(validator.value.filter, limit);
+    }
+
+    throw new UserInputError(
+      'Land type sales are not correlated to buildings.',
+    );
+  },
 };

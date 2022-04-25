@@ -149,6 +149,7 @@ type VZDSalesWrapper @auth {
   apartments(filter: VZDFilter, limit: Int): [VZDApartmentSale!]!
   premises(filter: VZDFilter, limit: Int): [VZDPremiseSale!]!
   houses(filter: VZDFilter, limit: Int): [VZDHouseSale!]!
+  land(filter: VZDFilter, limit: Int): [VZDLandSale!]!
 }
 
 type VZDLandWrapper @auth {

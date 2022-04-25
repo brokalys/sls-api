@@ -5,9 +5,13 @@ exports.seed = function (knex) {
     .del()
     .then(function () {
       return knex('vzd_land_sales').insert([
-        makeVZDLandSale({}),
+        makeVZDLandSale(),
         makeVZDLandSale({
           sale_id: 100,
+          price: 100,
+        }),
+        makeVZDLandSale({
+          price: 200,
         }),
       ]);
     });
