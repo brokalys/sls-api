@@ -143,6 +143,7 @@ custom:
     certificateName: '*.brokalys.com'
     createRoute53Record: true
     endpointType: edge
+    enabled: ${env:ENABLE_CUSTOM_DOMAIN, true}
 
   alerts:
     stages:
