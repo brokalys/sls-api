@@ -27,16 +27,33 @@ export default class Buildings extends BaseDataSource {
   }
 
   getInBounds(bounds) {
+    const knex = this.knex;
     return this.knex(TABLE_NAME)
       .withSchema(process.env.DB_DATABASE)
-      .select(`${TABLE_NAME}.*`)
-      .innerJoin(
-        'property_building_links',
-        `${TABLE_NAME}.id`,
-        'property_building_links.vzd_building_id',
-      )
-      .groupBy(`${TABLE_NAME}.id`)
-      .whereInPolygon('bounds', bounds);
+      .whereInPolygon('bounds', bounds)
+      .where(function () {
+        this.whereIn(`${TABLE_NAME}.id`, function () {
+          this.distinct('vzd_building_id')
+            .from('property_building_links')
+            .where('vzd_building_id', knex.ref(`${TABLE_NAME}.id`));
+        })
+          .orWhereIn(`${TABLE_NAME}.cadastral_designation`, function () {
+            this.distinct('building_cadastral_designation')
+              .from('vzd_apartment_sales')
+              .where(
+                'building_cadastral_designation',
+                knex.ref(`${TABLE_NAME}.cadastral_designation`),
+              );
+          })
+          .orWhereIn(`${TABLE_NAME}.cadastral_designation`, function () {
+            this.distinct('building_cadastral_designation')
+              .from('vzd_house_sales')
+              .where(
+                'building_cadastral_designation',
+                knex.ref(`${TABLE_NAME}.cadastral_designation`),
+              );
+          });
+      });
   }
 
   getInPoint(lat, lng) {
