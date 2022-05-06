@@ -12,7 +12,8 @@
     "test:unit": "jest",
     "test:integration": "jest -c jest.config.integration.js --forceExit",
     "deploy": "serverless deploy --stage staging",
-    "deploy:ci": "serverless deploy --conceal --stage prod"
+    "deploy:ci": "serverless deploy --conceal --stage prod",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@brokalys/address-normalization": "^1.0.0",
