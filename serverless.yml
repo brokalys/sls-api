@@ -9,6 +9,7 @@ provider:
   stage: ${opt:stage, 'dev'}
   logRetentionInDays: 7
   versionFunctions: true
+  lambdaHashingVersion: 20201221
   timeout: 10
   iam:
     role:
