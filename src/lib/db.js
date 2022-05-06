@@ -1,4 +1,5 @@
 import serverlessMysql from 'serverless-mysql';
+import Bugsnag from './bugsnag';
 
 const mysql = serverlessMysql({
   config: {
@@ -8,6 +9,11 @@ const mysql = serverlessMysql({
     password: process.env.DB_PASSWORD,
   },
   maxRetries: 5,
+  onError: () => Bugsnag.setContext('serverless-mysql problem: onError'),
+  onConnectError: () =>
+    Bugsnag.setContext('serverless-mysql problem: onConnectError'),
+  onKillError: () =>
+    Bugsnag.setContext('serverless-mysql problem: onKillError'),
 });
 
 if (process.env.NODE_ENV !== 'test') {

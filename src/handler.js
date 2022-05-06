@@ -21,6 +21,8 @@ import resolvers from './resolvers';
 import ApolloServerPluginCloudwatchReporting from './lib/apollo-serverless-plugin-cloudwatch-reporting';
 import './knex-extensions';
 
+const bugsnagHandler = Bugsnag.getPlugin('awsLambda').createHandler();
+
 const isDevMode = process.env.STAGE === 'dev';
 const isStagingMode = process.env.STAGE === 'staging';
 const isTestMode = process.env.NODE_ENV === 'test';
@@ -54,8 +56,9 @@ export const server = new ApolloServer({
   },
   formatError: (error) => {
     if (!isTestMode) {
-      console.log(error);
-      Bugsnag.notify(error);
+      Bugsnag.notify(error, (event) => {
+        event.addMetadata('error', error);
+      });
     }
 
     if (
@@ -88,8 +91,10 @@ export const server = new ApolloServer({
   ],
 });
 
-exports.graphqlHandler = server.createHandler({
-  cors: {
-    origin: '*',
-  },
-});
+exports.graphqlHandler = bugsnagHandler(
+  server.createHandler({
+    cors: {
+      origin: '*',
+    },
+  }),
+);

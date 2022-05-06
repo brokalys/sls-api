@@ -18,6 +18,7 @@
     "@brokalys/address-normalization": "^1.0.0",
     "@brokalys/location-json-schemas": "^1.2.0",
     "@bugsnag/js": "^7.0.1",
+    "@bugsnag/plugin-aws-lambda": "^7.16.2",
     "@graphql-tools/schema": "^8.3.1",
     "@graphql-tools/utils": "^8.6.1",
     "apollo-server-lambda": "^3.6.1",
