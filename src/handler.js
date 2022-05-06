@@ -53,6 +53,11 @@ export const server = new ApolloServer({
     };
   },
   formatError: (error) => {
+    if (!isTestMode) {
+      console.log(error);
+      Bugsnag.notify(error);
+    }
+
     if (
       (isDevMode && !isTestMode) ||
       error instanceof ApolloError ||
@@ -66,11 +71,6 @@ export const server = new ApolloServer({
         };
       }
       return error;
-    }
-
-    if (!isTestMode) {
-      console.log(error);
-      Bugsnag.notify(error);
     }
 
     return new Error('An unexpected error occurred. Please try again later.');
