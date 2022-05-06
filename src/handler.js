@@ -21,11 +21,13 @@ import resolvers from './resolvers';
 import ApolloServerPluginCloudwatchReporting from './lib/apollo-serverless-plugin-cloudwatch-reporting';
 import './knex-extensions';
 
-const bugsnagHandler = Bugsnag.getPlugin('awsLambda').createHandler();
-
 const isDevMode = process.env.STAGE === 'dev';
 const isStagingMode = process.env.STAGE === 'staging';
 const isTestMode = process.env.NODE_ENV === 'test';
+
+const bugsnagHandler = isTestMode
+  ? (input) => input
+  : Bugsnag.getPlugin('awsLambda').createHandler();
 
 let schema = makeExecutableSchema({
   typeDefs,
