@@ -15,6 +15,7 @@ import VZDLandSales from './data-sources/vzd-land-sales';
 import loadUser from './lib/auth';
 import authDirectiveTransformer from './lib/auth-directive';
 import Bugsnag from './lib/bugsnag';
+import mysql from './lib/db';
 import typeDefs from './schema/schema.graphql';
 import dbConfig from './db-config';
 import resolvers from './resolvers';
@@ -90,6 +91,13 @@ export const server = new ApolloServer({
     // @todo: re-enable after rate limiting & metric request size issue is fixed
     // ...(!isDevMode ? [ApolloServerPluginCloudwatchReporting()] : []),
     ApolloServerPluginUsageReportingDisabled(),
+
+    // Cleanup database connections at the end
+    {
+      async willSendResponse() {
+        await mysql.end();
+      },
+    },
   ],
 });
 

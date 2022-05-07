@@ -16,8 +16,4 @@ const mysql = serverlessMysql({
     Bugsnag.setContext('serverless-mysql problem: onKillError'),
 });
 
-if (process.env.NODE_ENV !== 'test') {
-  mysql.connect();
-}
-
 export default mysql;
