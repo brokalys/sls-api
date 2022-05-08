@@ -1,5 +1,9 @@
 module.exports = {
-  setupFiles: ['./__setups__/date.js', './__setups__/cloudwatch.js'],
+  setupFiles: [
+    './__setups__/bugsnag.js',
+    './__setups__/date.js',
+    './__setups__/cloudwatch.js',
+  ],
   transform: {
     '\\.(gql|graphql)$': 'jest-transform-graphql',
     '^.+\\.[t|j]sx?$': 'babel-jest',

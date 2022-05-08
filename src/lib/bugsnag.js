@@ -10,13 +10,12 @@ const busgnagLogger = {
   error: console.error,
 };
 
-if (apiKey) {
-  Bugsnag.start({
-    apiKey,
-    logger: busgnagLogger,
-    releaseStage: process.env.STAGE,
-    plugins: [BugsnagPluginAwsLambda],
-  });
-}
+Bugsnag.start({
+  apiKey,
+  logger: busgnagLogger,
+  releaseStage: process.env.STAGE,
+  enabledReleaseStages: ['staging', 'prod'],
+  plugins: [BugsnagPluginAwsLambda],
+});
 
 export default Bugsnag;
