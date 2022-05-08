@@ -23,6 +23,8 @@ provider:
             - APIGateway:Get
             - cloudwatch:PutMetricData
           Resource: '*'
+  logs:
+    restApi: false
   apiGateway:
     shouldStartNameWithService: true
     apiKeys:
