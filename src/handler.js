@@ -98,6 +98,14 @@ export const server = new ApolloServer({
         await mysql.end();
       },
     },
+
+    // Add request payload to the bugsnag error metadata so
+    // it's easier to debug if there are errors
+    {
+      async requestDidStart({ request }) {
+        Bugsnag.addMetadata('request', request);
+      },
+    },
   ],
 });
 
