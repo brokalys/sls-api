@@ -109,10 +109,4 @@ export const server = new ApolloServer({
   ],
 });
 
-exports.graphqlHandler = bugsnagHandler(
-  server.createHandler({
-    cors: {
-      origin: '*',
-    },
-  }),
-);
+exports.graphqlHandler = bugsnagHandler(server.createHandler());
