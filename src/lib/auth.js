@@ -31,7 +31,7 @@ export default async function loadUser(apiKeyId) {
     return new Customer();
   }
 
-  await logMetric('ApiKeyUsage', 1, [
+  logMetric('ApiKeyUsage', 1, [
     { Name: 'KeyId', Value: apiKeyId },
     { Name: 'CustomerId', Value: apiKey.customerId },
   ]);

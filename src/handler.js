@@ -92,18 +92,18 @@ export const server = new ApolloServer({
     // ...(!isDevMode ? [ApolloServerPluginCloudwatchReporting()] : []),
     ApolloServerPluginUsageReportingDisabled(),
 
-    // Cleanup database connections at the end
-    {
-      async willSendResponse() {
-        await mysql.end();
-      },
-    },
-
     // Add request payload to the bugsnag error metadata so
     // it's easier to debug if there are errors
     {
       async requestDidStart({ request }) {
         Bugsnag.addMetadata('request', request);
+
+        // Cleanup database connections at the end
+        return {
+          async willSendResponse() {
+            await mysql.end();
+          },
+        };
       },
     },
   ],
