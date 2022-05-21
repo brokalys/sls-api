@@ -269,6 +269,25 @@ Object {
             },
           },
         },
+        Object {
+          "bounds": "56.992294 24.136619, 56.976394 23.99579, 56.992294 24.136619",
+          "id": 2,
+          "properties": Object {
+            "results": Array [],
+            "summary": Object {
+              "count": 0,
+              "price": Object {
+                "count": 0,
+                "max": null,
+                "mean": null,
+                "median": null,
+                "min": null,
+                "mode": null,
+                "standardDev": null,
+              },
+            },
+          },
+        },
       ],
     },
   },
@@ -360,6 +379,29 @@ Object {
               },
               Object {
                 "price": 200,
+              },
+            ],
+          },
+          "vzd": Object {
+            "land": Array [
+              Object {
+                "sale_id": 1,
+              },
+            ],
+          },
+        },
+        Object {
+          "id": 2,
+          "properties": Object {
+            "results": Array [],
+          },
+          "vzd": Object {
+            "land": Array [
+              Object {
+                "sale_id": 1,
+              },
+              Object {
+                "sale_id": 100,
               },
             ],
           },

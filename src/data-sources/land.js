@@ -14,15 +14,23 @@ export default class Land extends BaseDataSource {
   }
 
   getInBounds(bounds) {
+    const knex = this.knex;
     return this.knex(TABLE_NAME)
       .withSchema(process.env.DB_DATABASE)
-      .select(`${TABLE_NAME}.*`)
-      .innerJoin(
-        'property_land_links',
-        `${TABLE_NAME}.id`,
-        'property_land_links.vzd_land_id',
-      )
-      .groupBy(`${TABLE_NAME}.id`)
-      .whereInPolygon('bounds', bounds);
+      .whereInPolygon('bounds', bounds)
+      .where(function () {
+        this.whereIn(`${TABLE_NAME}.id`, function () {
+          this.distinct('vzd_land_id')
+            .from('property_land_links')
+            .where('vzd_land_id', knex.ref(`${TABLE_NAME}.id`));
+        }).orWhereIn(`${TABLE_NAME}.cadastral_designation`, function () {
+          this.distinct('cadastral_designation')
+            .from('vzd_land_links')
+            .where(
+              'cadastral_designation',
+              knex.ref(`${TABLE_NAME}.cadastral_designation`),
+            );
+        });
+      });
   }
 }

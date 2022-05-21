@@ -249,6 +249,11 @@ describe('Resolver: bounds', () => {
                   price
                 }
               }
+              vzd {
+                land {
+                  sale_id
+                }
+              }
             }
           }
         }
