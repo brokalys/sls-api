@@ -13,24 +13,35 @@ export default class Land extends BaseDataSource {
       .then(([result]) => result);
   }
 
-  getInBounds(bounds) {
-    const knex = this.knex;
-    return this.knex(TABLE_NAME)
+  async getInBounds(bounds) {
+    const data = await this.knex(TABLE_NAME)
       .withSchema(process.env.DB_DATABASE)
-      .whereInPolygon('bounds', bounds)
-      .where(function () {
-        this.whereIn(`${TABLE_NAME}.id`, function () {
-          this.distinct('vzd_land_id')
-            .from('property_land_links')
-            .where('vzd_land_id', knex.ref(`${TABLE_NAME}.id`));
-        }).orWhereIn(`${TABLE_NAME}.cadastral_designation`, function () {
-          this.distinct('cadastral_designation')
-            .from('vzd_land_links')
-            .where(
-              'cadastral_designation',
-              knex.ref(`${TABLE_NAME}.cadastral_designation`),
-            );
-        });
-      });
+      .whereInPolygon('bounds', bounds);
+
+    const propertyLandLinks = (
+      await this.knex('property_land_links')
+        .distinct('vzd_land_id')
+        .whereIn(
+          'vzd_land_id',
+          data.map((row) => row.id),
+        )
+    ).map((row) => row.vzd_land_id);
+
+    const vzdLandLinks = (
+      await this.knex('vzd_land_links')
+        .distinct('cadastral_designation')
+        .whereIn(
+          'cadastral_designation',
+          data.map((row) => row.cadastral_designation),
+        )
+    ).map((row) => row.cadastral_designation);
+
+    // Filter rows that have either a `property` or `vzd` link
+    return data.filter((row) => {
+      return (
+        propertyLandLinks.includes(row.id) ||
+        vzdLandLinks.includes(row.cadastral_designation)
+      );
+    });
   }
 }
