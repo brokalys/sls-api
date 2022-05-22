@@ -7,6 +7,7 @@ exports.up = function (knex) {
     table.integer('area');
     table.string('group_code');
     table.string('location_classificator');
+    table.boolean('is_usable');
   });
 };
 

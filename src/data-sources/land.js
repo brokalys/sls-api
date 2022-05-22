@@ -16,7 +16,8 @@ export default class Land extends BaseDataSource {
   async getInBounds(bounds) {
     const data = await this.knex(TABLE_NAME)
       .withSchema(process.env.DB_DATABASE)
-      .whereInPolygon('bounds', bounds);
+      .whereInPolygon('bounds', bounds)
+      .where('is_usable', true);
 
     const propertyLandLinks = (
       await this.knex('property_land_links')

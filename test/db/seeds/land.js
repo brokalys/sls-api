@@ -17,6 +17,7 @@ exports.seed = function (knex) {
           area: 100,
           group_code: '9894006',
           location_classificator: 'latvia-riga-centrs',
+          is_usable: true,
         },
         {
           id: 2,
@@ -32,6 +33,7 @@ exports.seed = function (knex) {
           area: 100,
           group_code: '9894006',
           location_classificator: 'latvia-riga-centrs',
+          is_usable: true,
         },
         {
           id: 3,
@@ -47,6 +49,7 @@ exports.seed = function (knex) {
           area: 100,
           group_code: '9894006',
           location_classificator: 'latvia-riga-agenskalns',
+          is_usable: true,
         },
         {
           id: 4,
@@ -62,6 +65,7 @@ exports.seed = function (knex) {
           area: 100,
           group_code: '9894006',
           location_classificator: 'latvia-riga',
+          is_usable: true,
         },
       ]);
     });
