@@ -45,4 +45,28 @@ export default class Land extends BaseDataSource {
       );
     });
   }
+
+  getInPoint(lat, lng) {
+    return this.knex(TABLE_NAME)
+      .withSchema(process.env.DB_DATABASE)
+      .whereInPoint('bounds', lat, lng);
+  }
+
+  async findIdByAddress({ category, type, lat, lng }) {
+    // Whitelist: only these options will have a "land"
+    if (
+      (!!category && !['land'].includes(category)) ||
+      (!!type && !['sell', 'auction'].includes(type))
+    ) {
+      return;
+    }
+
+    if (lat && lng) {
+      const plotInLatLng = await this.getInPoint(lat, lng).first();
+
+      if (plotInLatLng) {
+        return plotInLatLng.id;
+      }
+    }
+  }
 }

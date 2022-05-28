@@ -1,5 +1,6 @@
 /* istanbul ignore file */
 import calculateBuildingId from './mutations/calculate-building-id';
+import calculateEstateId from './mutations/calculate-estate-id';
 import createPinger from './mutations/create-pinger';
 import createProperty from './mutations/create-property';
 import submitFeedback from './mutations/submit-feedback';
@@ -31,6 +32,7 @@ export default {
   },
   Mutation: {
     calculateBuildingId,
+    calculateEstateId,
     createPinger,
     createProperty,
     submitFeedback,
