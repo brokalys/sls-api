@@ -115,7 +115,9 @@ export default class Buildings extends BaseDataSource {
     }
 
     if (lat && lng) {
-      const buildingByLatLng = await this.getInPoint(lat, lng).first();
+      const buildingByLatLng = await this.knex(TABLE_NAME)
+        .whereNearestToPoint('bounds', lat, lng)
+        .first();
 
       if (buildingByLatLng) {
         return buildingByLatLng.id;

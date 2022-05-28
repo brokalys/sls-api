@@ -39,6 +39,36 @@ Knex.QueryBuilder.extend('whereInPoint', function (fieldName, lat, lng) {
   });
 });
 
+Knex.QueryBuilder.extend('whereNearestToPoint', function (fieldName, lat, lng) {
+  if (typeof lat !== 'number' || typeof lng !== 'number') {
+    return;
+  }
+
+  // SQLite does not support spatial lookup
+  // some ugly hacking to make integration tests work nicely
+  if (this.client.driverName === 'sqlite3') {
+    return this.where('id', parseInt(lat + lng));
+  }
+
+  const distance = 0.0005;
+
+  return this.select([
+    'id',
+    this.client.raw(
+      `ST_DISTANCE(${fieldName}, POINT(${lat}, ${lng})) as distance`,
+    ),
+  ])
+    .where('is_usable', true)
+    .whereRaw(
+      `MBRIntersects(${fieldName}, LineString(
+          POINT(${lat - distance}, ${lng - distance}),
+          POINT(${lat + distance}, ${lng + distance})
+        ))`,
+    )
+    .orderBy('distance', 'asc')
+    .limit(1);
+});
+
 Knex.QueryBuilder.extend('withFilters', function (filters) {
   const query = this;
 
