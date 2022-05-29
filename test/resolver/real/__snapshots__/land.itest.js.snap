@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Resolver: land - real queries from customer apps map app retrieve all the historical data 1`] = `
+Object {
+  "data": Object {
+    "land": Object {
+      "bounds": "56.992294 24.136619, 56.976394 23.99579, 56.992294 24.136619",
+      "id": 1,
+      "properties": Object {
+        "results": Array [
+          Object {
+            "area": 90,
+            "calc_price_per_sqm": 1.11,
+            "category": "apartment",
+            "date": "2021-04-12T19:47:30.000Z",
+            "floor_min": 2,
+            "price": 100,
+            "rent_type": "monthly",
+            "rooms": null,
+            "type": "rent",
+          },
+          Object {
+            "area": null,
+            "calc_price_per_sqm": null,
+            "category": "apartment",
+            "date": "2021-04-12T19:47:30.000Z",
+            "floor_min": null,
+            "price": 200,
+            "rent_type": "monthly",
+            "rooms": null,
+            "type": "rent",
+          },
+        ],
+      },
+      "vzd": Object {
+        "land": Array [
+          Object {
+            "area": 479000,
+            "date": "2020-09-16T00:00:00.000Z",
+            "price": 39000,
+          },
+        ],
+      },
+    },
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;

@@ -13,5 +13,48 @@ describe('Resolver: land - real queries from customer apps', () => {
 
   afterEach(jest.clearAllMocks);
 
-  it.todo('should implement a real query once one is being used');
+  describe('map app', () => {
+    test('retrieve all the historical data', async () => {
+      authenticateAs('mapApp', server);
+
+      const response = await query({
+        query: `
+          query($id: Int!, $filter: PropertyFilter) {
+            land(id: $id) {
+              id
+              bounds
+              properties(filter: $filter) {
+                results {
+                  category
+                  type
+                  rent_type
+                  price
+                  calc_price_per_sqm
+                  rooms
+                  area
+                  floor_min: floor
+                  date: published_at
+                }
+              }
+              vzd {
+                land {
+                  date: sale_date
+                  price
+                  area: land_total_area_m2
+                }
+              }
+            }
+          }
+        `,
+        variables: {
+          id: 1,
+          filter: {
+            price: { gte: 1 },
+          },
+        },
+      });
+
+      expect(response).toMatchSnapshot();
+    });
+  });
 });
