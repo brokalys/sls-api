@@ -46,7 +46,6 @@ const schema = Joi.object({
   location_parish: Joi.string().trim().max(255),
   location_address: Joi.string().trim().max(255),
   location_village: Joi.string().trim().max(255),
-  location_country: Joi.string().trim().max(255),
 
   rooms: Joi.number().integer(),
   area: Joi.number(),
