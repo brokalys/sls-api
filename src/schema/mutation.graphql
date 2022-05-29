@@ -108,6 +108,6 @@ type Mutation {
 }
 
 type CalculatedEstate {
-  id: Int!
+  id: Int
   type: String!
 }

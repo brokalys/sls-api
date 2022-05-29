@@ -110,4 +110,16 @@ describe('Mutation: calculateEstateId', () => {
 
     expect(response).toMatchSnapshot();
   });
+
+  test('returns null if could not calculate for the property', async () => {
+    const response = await mutate({
+      mutation: MUTATION,
+      variables: {
+        ...mockInput,
+        foreign_id: null,
+      },
+    });
+
+    expect(response).toMatchSnapshot();
+  });
 });

@@ -47,7 +47,7 @@ Knex.QueryBuilder.extend('whereNearestToPoint', function (fieldName, lat, lng) {
   // SQLite does not support spatial lookup
   // some ugly hacking to make integration tests work nicely
   if (this.client.driverName === 'sqlite3') {
-    return this.where('id', parseInt(lat + lng));
+    return this.where('id', lat + lng);
   }
 
   const distance = 0.0005;

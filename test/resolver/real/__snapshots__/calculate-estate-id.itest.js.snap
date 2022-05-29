@@ -1,5 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Mutation: calculateEstateId returns null if could not calculate for the property 1`] = `
+Object {
+  "data": Object {
+    "calculateEstateId": Object {
+      "id": null,
+      "type": "building",
+    },
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
 exports[`Mutation: calculateEstateId successfully calculates the estate-id from foreign_id 1`] = `
 Object {
   "data": Object {
