@@ -43,7 +43,17 @@ class Properties extends BaseDataSource {
         'property_building_links.property_id',
       )
       .withFilters(filters)
-      .select('properties.id', 'property_building_links.vzd_building_id');
+      .select('properties.id', 'property_building_links.vzd_building_id')
+      .orderByRaw(
+        `
+        CASE property_building_links.link_type
+          WHEN "cadnum" THEN 0
+          WHEN "address" THEN 1
+          WHEN "latlng" THEN 2
+        END
+       `,
+      )
+      .groupBy('properties.id');
 
     return this.getDataLoader(
       query,

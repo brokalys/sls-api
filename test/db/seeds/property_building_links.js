@@ -4,9 +4,14 @@ exports.seed = function (knex) {
     .then(function () {
       return knex('property_building_links').insert([
         {
-          property_id: 1,
+          property_id: 2,
           vzd_building_id: 1,
           link_type: 'latlng',
+        },
+        {
+          property_id: 1,
+          vzd_building_id: 1,
+          link_type: 'address',
         },
         {
           property_id: 2,
