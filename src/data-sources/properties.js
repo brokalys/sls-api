@@ -71,7 +71,16 @@ class Properties extends BaseDataSource {
         'property_land_links.property_id',
       )
       .withFilters(filters)
-      .select('properties.id', 'property_land_links.vzd_land_id');
+      .select('properties.id', 'property_land_links.vzd_land_id')
+      .orderByRaw(
+        `
+        CASE property_land_links.link_type
+          WHEN "cadnum" THEN 0
+          WHEN "latlng" THEN 1
+        END
+       `,
+      )
+      .groupBy('properties.id');
 
     return this.getDataLoader(
       query,
