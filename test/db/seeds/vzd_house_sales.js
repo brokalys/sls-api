@@ -18,6 +18,7 @@ exports.seed = function (knex) {
         }),
         makeVZDHouseSale({
           building_cadastral_designation: '42010053310002',
+          sale_date: null,
         }),
         makeVZDHouseSale({
           building_cadastral_designation: '42010053310003',

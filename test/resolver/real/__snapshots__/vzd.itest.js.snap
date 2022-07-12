@@ -13,20 +13,12 @@ Object {
           "area": 51.9,
           "price": 12000,
         },
-        Object {
-          "area": 51.9,
-          "price": 12000,
-        },
       ],
       "houses": Array [],
       "land": Array [
         Object {
           "area": 479000,
           "price": 39000,
-        },
-        Object {
-          "area": 479000,
-          "price": 100,
         },
       ],
       "premises": Array [],

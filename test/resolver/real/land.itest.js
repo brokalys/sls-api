@@ -56,5 +56,32 @@ describe('Resolver: land - real queries from customer apps', () => {
 
       expect(response).toMatchSnapshot();
     });
+
+    test('retrieve the historical data from land that has no sale_date', async () => {
+      authenticateAs('mapApp', server);
+
+      const response = await query({
+        query: `
+          query($id: Int!) {
+            land(id: $id) {
+              id
+              bounds
+              vzd {
+                land {
+                  date: sale_date
+                  price
+                  area: land_total_area_m2
+                }
+              }
+            }
+          }
+        `,
+        variables: {
+          id: 2,
+        },
+      });
+
+      expect(response).toMatchSnapshot();
+    });
   });
 });

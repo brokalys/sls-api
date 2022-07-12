@@ -52,3 +52,35 @@ Object {
   },
 }
 `;
+
+exports[`Resolver: land - real queries from customer apps map app retrieve the historical data from land that has no sale_date 1`] = `
+Object {
+  "data": Object {
+    "land": Object {
+      "bounds": "56.992294 24.136619, 56.976394 23.99579, 56.992294 24.136619",
+      "id": 2,
+      "vzd": Object {
+        "land": Array [
+          Object {
+            "area": 479000,
+            "date": "2020-09-16T00:00:00.000Z",
+            "price": 39000,
+          },
+          Object {
+            "area": 479000,
+            "date": null,
+            "price": 100,
+          },
+        ],
+      },
+    },
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;

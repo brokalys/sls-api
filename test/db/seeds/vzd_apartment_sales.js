@@ -24,9 +24,15 @@ exports.seed = function (knex) {
         }),
         makeVZDApartmentSale({
           building_cadastral_designation: '42010053310002',
+          sale_date: null,
         }),
         makeVZDApartmentSale({
           building_cadastral_designation: '42010053310003',
+          object_type: 'T',
+        }),
+        makeVZDApartmentSale({
+          building_cadastral_designation: '42010053310002',
+          sale_date: null,
           object_type: 'T',
         }),
       ]);

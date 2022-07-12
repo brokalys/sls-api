@@ -144,3 +144,40 @@ Object {
   },
 }
 `;
+
+exports[`Resolver: building - real queries from customer apps chrome extension retrieve the historical data with sales that don't have a sale_date 1`] = `
+Object {
+  "data": Object {
+    "building": Object {
+      "id": 2,
+      "vzd": Object {
+        "apartments": Array [
+          Object {
+            "id": 5,
+            "sale_date": null,
+          },
+        ],
+        "houses": Array [
+          Object {
+            "id": 4,
+            "sale_date": null,
+          },
+        ],
+        "premises": Array [
+          Object {
+            "id": 7,
+            "sale_date": null,
+          },
+        ],
+      },
+    },
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;

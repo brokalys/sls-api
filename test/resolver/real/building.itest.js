@@ -92,5 +92,38 @@ describe('Resolver: building - real queries from customer apps', () => {
 
       expect(response).toMatchSnapshot();
     });
+
+    test("retrieve the historical data with sales that don't have a sale_date", async () => {
+      authenticateAs('chromeExtension', server);
+
+      const response = await query({
+        query: `
+          query($id: Int!) {
+            building(id: $id) {
+              id
+              vzd {
+                apartments {
+                  id
+                  sale_date
+                }
+                premises {
+                  id
+                  sale_date
+                }
+                houses {
+                  id
+                  sale_date
+                }
+              }
+            }
+          }
+        `,
+        variables: {
+          id: 2,
+        },
+      });
+
+      expect(response).toMatchSnapshot();
+    });
   });
 });

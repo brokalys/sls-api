@@ -9,6 +9,7 @@ exports.seed = function (knex) {
         makeVZDLandSale({
           sale_id: 100,
           price: 100,
+          sale_date: null,
         }),
         makeVZDLandSale({
           price: 200,
