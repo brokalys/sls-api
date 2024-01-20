@@ -1,9 +1,13 @@
-import AWS from 'aws-sdk';
+import {
+  CloudWatchClient,
+  PutMetricDataCommand,
+} from '@aws-sdk/client-cloudwatch';
 
-const cloudwatch = new AWS.CloudWatch({ apiVersion: '2010-08-01' });
+const client = new CloudWatchClient();
 
 export function putMetricData(data) {
-  return cloudwatch.putMetricData(data).promise();
+  const command = new PutMetricDataCommand(data);
+  return client.send(command);
 }
 
 export function logMetric(name, value, dimensions = []) {

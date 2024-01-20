@@ -1,8 +1,9 @@
-import AWS from 'aws-sdk';
+import {
+  APIGatewayClient,
+  GetApiKeyCommand,
+} from '@aws-sdk/client-api-gateway';
 
-const apiGateway = new AWS.APIGateway({
-  apiVersion: '2015-07-09',
-});
+const client = new APIGatewayClient();
 
 const keyCache = new Map();
 
@@ -11,12 +12,11 @@ export async function getApiKey(id) {
     return keyCache.get(id);
   }
 
-  const data = await apiGateway
-    .getApiKey({
-      apiKey: id,
-      includeValue: false,
-    })
-    .promise();
+  const command = new GetApiKeyCommand({
+    apiKey: id,
+    includeValue: false,
+  });
+  const data = await client.send(command);
 
   keyCache.set(id, data);
   return data;

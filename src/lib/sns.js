@@ -1,11 +1,7 @@
-import AWS from 'aws-sdk';
+import { SNSClient, PublishCommand } from '@aws-sdk/client-sns';
 
-AWS.config.update({ region: process.env.AWS_REGION });
-
-const sns = new AWS.SNS({
-  apiVersion: '2012-11-05',
-});
+const client = new SNSClient({ region: process.env.AWS_REGION });
 
 export function publish(message) {
-  return sns.publish(message).promise();
+  return client.send(new PublishCommand(message));
 }
