@@ -8,10 +8,13 @@ import unsubscribePinger from './mutations/unsubscribe-pinger';
 import bounds from './resolvers/query/bounds';
 import building from './resolvers/query/building';
 import land from './resolvers/query/land';
+import pingers from './resolvers/query/pingers';
 import properties from './resolvers/query/properties';
 import vzd from './resolvers/query/vzd';
 import Building from './resolvers/Building';
 import Land from './resolvers/Land';
+import Pinger from './resolvers/Pinger';
+import PingerWrapper from './resolvers/PingerWrapper';
 import Property from './resolvers/Property';
 import PropertyPriceSummary from './resolvers/PropertyPriceSummary';
 import PropertyWrapper from './resolvers/PropertyWrapper';
@@ -28,6 +31,7 @@ export default {
     building,
     land,
     properties,
+    pingers,
     vzd,
   },
   Mutation: {
@@ -51,4 +55,7 @@ export default {
   VZDLandWrapper,
   VZDPremiseSale,
   VZDSalesWrapper,
+
+  Pinger,
+  PingerWrapper,
 };

@@ -7,6 +7,7 @@ import {
 } from 'apollo-server-core';
 import Buildings from './data-sources/buildings';
 import Land from './data-sources/land';
+import Pingers from './data-sources/pingers';
 import Properties from './data-sources/properties';
 import UserClassifieds from './data-sources/user-classifieds';
 import VZDApartmentSales from './data-sources/vzd-apartment-sales';
@@ -40,6 +41,7 @@ export const server = new ApolloServer({
   schema,
   debug: isDevMode,
   dataSources: () => ({
+    pingers: new Pingers(dbConfig),
     buildings: new Buildings(dbConfig),
     land: new Land(dbConfig),
     properties: new Properties(dbConfig),
@@ -58,7 +60,9 @@ export const server = new ApolloServer({
     };
   },
   formatError: (error) => {
-    if (!isTestMode) {
+    if (isTestMode || isDevMode || isStagingMode) {
+      console.log('Error:', error);
+    } else {
       Bugsnag.notify(error, (event) => {
         event.addMetadata('error', error);
       });

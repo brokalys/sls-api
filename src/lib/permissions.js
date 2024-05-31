@@ -2,6 +2,7 @@ const CUSTOMER_SLS_CRAWLER = 'slsCrawler';
 const CUSTOMER_SLS_DATA_EXTRACTION = 'slsDataExtraction';
 const CUSTOMER_SLS_STATIC_API = 'slsStaticApi';
 const CUSTOMER_MAP_APP = 'mapApp';
+const CUSTOMER_PINGER_APP = 'pingerApp';
 const CUSTOMER_CHROME_EXTENSION = 'chromeExtension';
 
 export const PERMISSION_CREATE_PROPERTY = 'CreateProperty';
@@ -10,6 +11,7 @@ export const PERMISSION_READ_PROPERTY_DATA_DETAILED =
   'ReadPropertyData:Detailed';
 export const PERMISSION_READ_UNLIMITED_PROPERTY_DATA = 'ReadUnlimitedData';
 export const PERMISSION_READ_UNLIMITED_SALE_DATA = 'ReadUnlimitedSaleData';
+export const PERMISSION_READ_PINGER_DATA = 'ReadPingerData';
 
 export function getRoles(customerId) {
   switch (customerId) {
@@ -42,6 +44,9 @@ export function getRoles(customerId) {
 
     case CUSTOMER_CHROME_EXTENSION:
       return [PERMISSION_READ_PROPERTY_DATA];
+
+    case CUSTOMER_PINGER_APP:
+      return [PERMISSION_READ_PINGER_DATA];
   }
 
   return [];

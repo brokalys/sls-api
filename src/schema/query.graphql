@@ -6,6 +6,7 @@ type Query {
   land(id: Int!): Land @auth
   vzd: VZDSalesWrapper! @auth
   bounds(bounds: String!): Bounds! @auth
+  pingers(id: String!, unsubscribe_key: String!): PingerWrapper! @auth
 }
 
 input PropertyFilter {
@@ -191,6 +192,31 @@ type Bounds {
 input VZDFilter {
   sale_date: FilterString
   location_classificator: FilterString
+}
+
+type PingerWrapper {
+  results: [Pinger!]! @auth(requires: "ReadPingerData")
+}
+
+type Pinger {
+  id: String!
+  email: String!
+  category: Category!
+  type: Type!
+  price_min: Int!
+  price_max: Int!
+  price_type: PriceType
+  region: String
+  rooms_min: Int
+  rooms_max: Int
+  area_m2_min: Int
+  area_m2_max: Int
+  frequency: EmailFrequency
+  comments: String
+  marketing: Boolean
+  created_at: String!
+  unsubscribed_at: String!
+  unsubscribe_key: String!
 }
 
 input FilterString {
