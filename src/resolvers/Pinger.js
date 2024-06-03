@@ -6,7 +6,7 @@ export default {
   price_min: (item) => item.price_min,
   price_max: (item) => item.price_max,
   price_type: (item) => item.price_type.toUpperCase(),
-  region: (item) => item.region,
+  region: (item) => item.location,
   rooms_min: (item) => item.rooms_min,
   rooms_max: (item) => item.rooms_max,
   area_m2_min: (item) => item.area_m2_min,

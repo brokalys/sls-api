@@ -7,7 +7,7 @@ const pinger = {
   price_min: 10000,
   price_max: 100000,
   price_type: 'total',
-  region: '',
+  location: '',
   rooms_min: null,
   rooms_max: null,
   area_m2_min: null,
@@ -73,7 +73,7 @@ describe('Pinger', () => {
   describe('region', () => {
     it('returns region value', () => {
       const output = resolvers.region(pinger);
-      expect(output).toEqual(pinger.region);
+      expect(output).toEqual(pinger.location);
     });
   });
 

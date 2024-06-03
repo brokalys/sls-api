@@ -9,7 +9,7 @@ function normalizeFields(info) {
     price_min: 'price_min',
     price_max: 'price_max',
     price_type: 'price_type',
-    region: 'region',
+    region: 'location',
     rooms_min: 'rooms_min',
     rooms_max: 'rooms_max',
     area_m2_min: 'area_m2_min',
