@@ -215,7 +215,7 @@ type Pinger {
   comments: String
   marketing: Boolean
   created_at: String!
-  unsubscribed_at: String!
+  unsubscribed_at: String
   unsubscribe_key: String!
 }
 
