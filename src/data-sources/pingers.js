@@ -12,7 +12,7 @@ export default class Pingers extends BaseDataSource {
       .timeout(5000);
 
     if (fields) {
-      query.select(fields.map((field) => `p1.${field}`));
+      query.select(fields.map((field) => `p2.${field}`));
     }
 
     return query;
