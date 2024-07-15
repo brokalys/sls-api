@@ -203,8 +203,8 @@ type Pinger {
   email: String!
   category: Category!
   type: Type!
-  price_min: Int!
-  price_max: Int!
+  price_min: Int
+  price_max: Int
   price_type: PriceType
   region: String
   rooms_min: Int
