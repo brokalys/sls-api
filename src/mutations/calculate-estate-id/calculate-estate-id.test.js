@@ -99,4 +99,20 @@ describe('calculateEstateId', () => {
 
     expect(output).toEqual({ id: 333, type: 'land' });
   });
+
+  test('trims the cadastre_number field before inserting', async () => {
+    await calculateEstateId(
+      {},
+      { ...mockInput, cadastre_number: '\n\t\t\t\t\t\t123\n\t\t\t\t\t\t' },
+      {
+        dataSources,
+      },
+    );
+
+    expect(dataSources.userClassifieds.create).toHaveBeenCalledWith(
+      expect.objectContaining({
+        cadastre_number: '123',
+      }),
+    );
+  });
 });
