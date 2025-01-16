@@ -78,12 +78,12 @@ provider:
             rateLimit: 200
       - mapApp:
           quota:
-            limit: 100000
+            limit: 10000
             offset: 1
             period: MONTH
           throttle:
-            burstLimit: 50
-            rateLimit: 200
+            burstLimit: 20
+            rateLimit: 100
       - pingerApp:
           quota:
             limit: 1000
@@ -94,12 +94,12 @@ provider:
             rateLimit: 10
       - chromeExtension:
           quota:
-            limit: 100000
+            limit: 10000
             offset: 1
             period: MONTH
           throttle:
-            burstLimit: 50
-            rateLimit: 200
+            burstLimit: 20
+            rateLimit: 100
   environment:
     STAGE: ${opt:stage, 'dev'}
     PROPERTY_CREATION_SNS_TOPIC_NAME: ${self:custom.propertyCreationSnsTopicName}
