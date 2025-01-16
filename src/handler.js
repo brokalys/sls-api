@@ -54,6 +54,8 @@ export const server = new ApolloServer({
     const { requestContext } = event ||
       req || { requestContext: { identity: {} } };
 
+    Bugsnag.addMetadata('apiKeyId', requestContext.identity.apiKeyId);
+
     return {
       user: await loadUser(requestContext.identity.apiKeyId),
       invokedFunctionArn: context ? context.invokedFunctionArn : '',
