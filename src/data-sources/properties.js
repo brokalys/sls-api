@@ -104,7 +104,7 @@ class Properties extends BaseDataSource {
               lat_lng_point,
             },
       )
-      .timeout(1000);
+      .timeout(2000);
   }
 }
 
